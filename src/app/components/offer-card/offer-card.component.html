@@ -1,0 +1,75 @@
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  @for (listOffer of listOffer(); track listOffer.title) {
+  <a class="block  p-6 bg-white border border-gray-200 rounded-lg shadow-sm  dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white"> {{listOffer.title}} </h5>
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+          <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400">{{listOffer.estado}}</p>
+          <p class="text-sm text-gray-500 truncate dark:text-gray-400"> {{listOffer.day}} </p>
+          <p class="text-sm text-gray-500 truncate dark:text-gray-400"> {{listOffer.time}} </p>
+        </div>
+      </div>
+      <div class="flex -space-x-4 rtl:space-x-reverse">
+        <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+          src="./assets/img/u5.png" alt="">
+        <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-purple-400 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+          href="#">+9</a>
+      </div>
+    </div>
+
+    <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+      <!-- Carousel wrapper -->
+      <div class="relative h-56 overflow-hidden rounded-lg">
+        <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out " data-carousel-item="active">
+          <img src="./assets/img/u9.png"
+            class="p-6  absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        </div>
+        <!-- Item 2 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="./assets/img/u11.png"
+            class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        </div>
+        <!-- Item 3 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="./assets/img/u14.png"
+            class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        </div>
+      </div>
+      <!-- Slider indicators -->
+      <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+        <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="true"
+          aria-label="Slide 1" data-carousel-slide-to="0"></button>
+        <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
+          aria-label="Slide 2" data-carousel-slide-to="1"></button>
+        <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
+          aria-label="Slide 3" data-carousel-slide-to="2"></button>
+      </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+        <div class="shrink-0">
+          <img class="w-8 h-8 rounded-sm" [src]="listOffer.logoTienda" alt="Default avatar">
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900 truncate dark:text-white">
+            {{listOffer.nameTienda}}
+            <span
+              class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+              Oferta
+            </span>
+          </p>
+          <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+            {{listOffer.sitioTienda}}
+          </p>
+        </div>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+          {{listOffer.numVistas}} vistas
+        </p>
+      </div>
+    </div>
+  </a>}
+</div>
