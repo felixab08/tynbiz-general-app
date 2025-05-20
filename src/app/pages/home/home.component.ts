@@ -20,5 +20,17 @@ export default class HomeComponent {
       image: './assets/img/u55.png',
       describeFooter: 'Tiendas virtuales asociados',
     },
+    {
+      id: 2,
+      title: 'Interactua con otros usuarios en tus compras',
+      titleTow: 'Elige tus productos favoritos',
+      descriptionOne:
+        'Interactua con otros usuarios en tus compras o puedes contactar directamente a dueña de la tienda desde sala de tynbiz',
+      descriptionTwo:
+        'Invita a otros usuarios para que te puedan ayudar a decidir en tus compras',
+      image: './assets/img/u25.png',
+      describeFooter:
+        'Elige tus productos favoritos en las tiendas integradas a tynbiz luego busca esos productos desde sala de tynbiz.',
+    },
   ];
 }
