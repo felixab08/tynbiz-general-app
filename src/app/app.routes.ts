@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/account/account.component'),
   },
   {
+    path: 'stores',
+    loadComponent: () => import('./pages/stores/stores.component'),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

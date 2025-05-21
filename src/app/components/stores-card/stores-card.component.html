@@ -1,0 +1,29 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+  @for (stores of listStores(); track stores.id) {
+  <div
+    class="relative mt-10 max-w-sm px-8 pb-4 pt-8 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <!-- Imagen sobresaliente -->
+    <div class="w-18 h-18 items-center flex justify-center absolute -top-10 left-8 transform rounded-lg border bg-white  border-gray-200 dark:border-gray-700 ">
+      <img class="w-12 h-12 rounded-lg" [src]="stores.logoStore" alt="">
+    </div>
+    <!-- Contenido -->
+    <div class="pt-2 flex flex-col space-y-2 rtl:space-x-reverse">
+      <p class="text-m font-bold mb-0 text-gray-900 truncate dark:text-white">{{stores.nameStore}}</p>
+      <a href="#" class="inline-flex font-medium items-center text-blue-600 hover:underline">
+        {{stores.sitioStore}}
+      </a>
+    </div>
+    <div class="pt-2 flex items-center space-x-3 rtl:space-x-reverse">
+      <a href="#"
+        class="w-10 h-10 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-900 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-heart-circle-plus"></i>
+      </a>
+      <a href="#"
+        class="w-10 h-10 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-900 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-thumbtack"></i>
+      </a>
+    </div>
+  </div>
+  }
+</div>

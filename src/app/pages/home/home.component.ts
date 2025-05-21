@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { StoreCardComponent } from '../../components/store-card/store-card.component';
-import { CardStore } from '@app/interfaces/card.interface';
+import { InfoCardComponent } from '../../components/info-card/info-card.component';
+import { CardInfo } from '@app/interfaces/card.interface';
 
 @Component({
   selector: 'tyn-home',
-  imports: [StoreCardComponent],
+  imports: [InfoCardComponent],
   templateUrl: './home.component.html',
 })
 export default class HomeComponent {
-  cardStore: CardStore[] = [
+  cardInfo: CardInfo[] = [
     {
       id: 1,
       title: 'Tiendas asociadas a tynbiz',
