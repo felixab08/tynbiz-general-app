@@ -55,4 +55,7 @@ export default class StoresComponent {
       linkStore: '#',
     },
   ];
+  valueSearch(event: string[]) {
+    console.log(event);
+  }
 }

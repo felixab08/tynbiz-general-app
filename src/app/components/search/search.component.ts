@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class SearchComponent {
   inputValue = '';
+  valueSearch = output<string[]>();
 
   private _fb = inject(FormBuilder);
 
@@ -24,17 +25,17 @@ export class SearchComponent {
     console.log('Form submitted', this.myForm.value);
   }
   arrSearchChips: string[] = [];
-  addChips(event: string) {
+  addChips() {
+    if (this.myForm.value.name === null) return;
     this.arrSearchChips.push(this.myForm.value.name);
-    console.log('felix===>>>', this.myForm.value.name);
+    this.valueSearch.emit(this.arrSearchChips);
     this.myForm.reset();
-    // this.inputValue = '';
   }
   removeChips(event: string) {
     const index = this.arrSearchChips.indexOf(event);
     if (index > -1) {
       this.arrSearchChips.splice(index, 1);
+      this.valueSearch.emit(this.arrSearchChips);
     }
-    console.log(this.arrSearchChips);
   }
 }
