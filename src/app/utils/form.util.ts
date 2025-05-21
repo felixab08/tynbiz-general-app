@@ -51,6 +51,26 @@ export class FormUtils {
           return `La fecha de inicio debe ser menor que la fecha de fin`;
         case 'edadMinima':
           return `La edad mínima es de ${errors['edadMinima'].requerido} años. La edad actual es de ${errors['edadMinima'].actual} años`;
+        case 'contraseñaInsegura':
+          if (!errors['contraseñaInsegura'].tieneMayuscula) {
+            return `La contraseña debe contener al menos una letra mayúscula`;
+          }
+          if (!errors['contraseñaInsegura'].tieneMinuscula) {
+            return `La contraseña debe contener al menos una letra minúscula`;
+          }
+          if (!errors['contraseñaInsegura'].tieneNumero) {
+            return `La contraseña debe contener al menos un número`;
+          }
+          if (!errors['contraseñaInsegura'].tieneEspecial) {
+            return `La contraseña debe contener al menos un carácter especial`;
+          }
+          if (!errors['contraseñaInsegura'].longitudSuficiente) {
+            return `La contraseña debe tener al menos 8 caracteres`;
+          }
+          return `La contraseña no cumple con los requisitos de seguridad`;
+        case 'contraseñasNoCoinciden':
+          return `Las contraseñas no coinciden`;
+
         default:
           return 'Error de validación no controlado';
       }
@@ -223,6 +243,11 @@ export class FormUtils {
       return valid ? null : { errorCompareNumber: true };
     };
   }
+  /**
+   * Valida que la fecha de nacimiento sea mayor o igual a la edad mínima
+   * @param edadMinima edad mínima
+   * @returns objeto errorEdadMinima
+   */
   static edadMinimaValidator(edadMinima: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const fechaNacimiento = new Date(control.value);
@@ -242,6 +267,61 @@ export class FormUtils {
       return edadReal >= edadMinima
         ? null
         : { edadMinima: { requerido: edadMinima, actual: edadReal } };
+    };
+  }
+
+  static passwordSeguraValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valor = control.value || '';
+
+      const tieneMayuscula = /[A-Z]/.test(valor);
+      const tieneMinuscula = /[a-z]/.test(valor);
+      const tieneNumero = /[0-9]/.test(valor);
+      const tieneEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(valor);
+      const longitudSuficiente = valor.length >= 8;
+
+      const esValida =
+        tieneMayuscula &&
+        tieneMinuscula &&
+        tieneNumero &&
+        tieneEspecial &&
+        longitudSuficiente;
+
+      return esValida
+        ? null
+        : {
+            contraseñaInsegura: {
+              tieneMayuscula,
+              tieneMinuscula,
+              tieneNumero,
+              tieneEspecial,
+              longitudSuficiente,
+            },
+          };
+    };
+  }
+
+  static passIgualesValidator(passOne: string, passTwo: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const grupo = formGroup as FormGroup;
+      const pass = grupo.get(passOne)?.value;
+      const confirm = grupo.get(passTwo)?.value;
+
+      if (pass !== confirm) {
+        grupo.get(passTwo)?.setErrors({ contraseñasNoCoinciden: true });
+        return { contraseñasNoCoinciden: true };
+      } else {
+        const errores = grupo.get(passTwo)?.errors;
+        if (errores) {
+          delete errores['contraseñasNoCoinciden'];
+          if (Object.keys(errores).length === 0) {
+            grupo.get(passTwo)?.setErrors(null);
+          } else {
+            grupo.get(passTwo)?.setErrors(errores);
+          }
+        }
+        return null;
+      }
     };
   }
 
