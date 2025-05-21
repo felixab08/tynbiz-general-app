@@ -1,0 +1,10 @@
+<div class="p-6 lg:pt-20 lg:px-20 bg-purple-200 dark:bg-gray-800">
+  <div class="dark:text-white">
+    <h2 class="font-bold text-2xl">Creaciones</h2>
+    <p>Todas las creaciones de tiendas virtuales para ti</p>
+  </div>
+  <tyn-search (valueSearch)="valueSearch($event)" />
+  <div class="mt-6">
+    <tyn-offer-card [listOffer]="cardCrea" />
+  </div>
+</div>

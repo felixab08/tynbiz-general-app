@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-  @for (listOffer of listOffer(); track listOffer.title) {
+  @for (listOffer of listOffer(); track listOffer.id) {
   <a class="block  p-6 bg-white border border-gray-200 rounded-lg shadow-sm  dark:bg-gray-800 dark:border-gray-700">
     <div class="flex items-center justify-between mb-4">
       <div>
@@ -11,8 +11,7 @@
         </div>
       </div>
       <div class="flex -space-x-4 rtl:space-x-reverse">
-        <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-          src="./assets/img/u5.png" alt="">
+        <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" src="./assets/img/u5.png" alt="">
         <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-purple-400 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
           href="#">+9</a>
       </div>
@@ -55,10 +54,12 @@
         <div class="flex-1 min-w-0">
           <p class="text-sm font-semibold text-gray-900 truncate dark:text-white">
             {{listOffer.nameTienda}}
-            <span
-              class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-              Oferta
-            </span>
+            @if (listOffer.offer == true) {
+              <span
+                class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                Oferta
+              </span>
+            }
           </p>
           <p class="text-sm text-gray-500 truncate dark:text-gray-400">
             {{listOffer.sitioTienda}}

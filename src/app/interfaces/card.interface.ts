@@ -1,4 +1,4 @@
-export interface CardStore {
+export interface CardInfo {
   id: number;
   title: string;
   titleTow: string;
@@ -18,4 +18,12 @@ export interface CardOffer {
   logoTienda: string;
   sitioTienda: string;
   numVistas: string;
+  offer: boolean
+}
+export interface CardStores {
+  id: number;
+  logoStore: string;
+  nameStore: string;
+  sitioStore: string;
+  linkStore: string;
 }
