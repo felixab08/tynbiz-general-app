@@ -43,6 +43,14 @@ export class FormUtils {
             return `El campo debe ser un URL válido`;
           }
           return `El campo no cumple con el formato requerido`;
+        case 'dataMaxToday':
+          return `La fecha debe ser menor o igual a la fecha actual`;
+        case 'dateMinToday':
+          return `La fecha debe ser mayor o igual a la fecha actual`;
+        case 'dateRangeCurrentDate':
+          return `La fecha de inicio debe ser menor que la fecha de fin`;
+        case 'edadMinima':
+          return `La edad mínima es de ${errors['edadMinima'].requerido} años. La edad actual es de ${errors['edadMinima'].actual} años`;
         default:
           return 'Error de validación no controlado';
       }
@@ -213,6 +221,27 @@ export class FormUtils {
         }
       }
       return valid ? null : { errorCompareNumber: true };
+    };
+  }
+  static edadMinimaValidator(edadMinima: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const fechaNacimiento = new Date(control.value);
+      if (isNaN(fechaNacimiento.getTime())) {
+        return { fechaInvalida: true };
+      }
+
+      const hoy = new Date();
+      const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+      const cumpleEsteAnio =
+        hoy.getMonth() > fechaNacimiento.getMonth() ||
+        (hoy.getMonth() === fechaNacimiento.getMonth() &&
+          hoy.getDate() >= fechaNacimiento.getDate());
+
+      const edadReal = cumpleEsteAnio ? edad : edad - 1;
+
+      return edadReal >= edadMinima
+        ? null
+        : { edadMinima: { requerido: edadMinima, actual: edadReal } };
     };
   }
 

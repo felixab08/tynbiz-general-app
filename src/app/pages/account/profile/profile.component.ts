@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -10,7 +10,7 @@ import { FormUtils } from '@app/utils/form.util';
 
 @Component({
   selector: 'tyn-profile',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, JsonPipe],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent {
@@ -31,7 +31,14 @@ export class ProfileComponent {
       ,
       [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
     ],
-    birthdate: ['', [Validators.required]],
+    birthdate: [
+      '',
+      [
+        Validators.required,
+        FormUtils.dataMaxToday(),
+        FormUtils.edadMinimaValidator(18),
+      ],
+    ],
   });
 
   onSave() {
