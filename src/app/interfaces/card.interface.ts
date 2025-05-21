@@ -18,6 +18,7 @@ export interface CardOffer {
   logoTienda: string;
   sitioTienda: string;
   numVistas: string;
+  offer: boolean
 }
 export interface CardStores {
   id: number;

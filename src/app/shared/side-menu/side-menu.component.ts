@@ -11,12 +11,12 @@ export class SideMenuComponent {
   menuItems = [
     { name: 'Inicio', icon: 'fa-solid fa-house', route: '/home' },
     { name: 'Ofertas', icon: 'fa-solid fa-tags', route: '/offer' },
-    { name: 'Creaciones', icon: 'fa-solid fa-square-plus', route: '/contact' }, //
+    { name: 'Creaciones', icon: 'fa-solid fa-square-plus', route: '/creations' }, //
     { name: 'Tiendas', icon: 'fa-solid fa-store', route: '/stores' },
     {
       name: 'Favoritos',
       icon: 'fa-solid fa-heart-circle-plus',
-      route: '/contact',
+      route: '/favorites',
     },
     {
       name: 'Tu creación',
