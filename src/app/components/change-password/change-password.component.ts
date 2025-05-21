@@ -9,7 +9,7 @@ import {
 import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-change-password',
-  imports: [ReactiveFormsModule, CommonModule, JsonPipe],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './change-password.component.html',
 })
 export class ChangePasswordComponent {

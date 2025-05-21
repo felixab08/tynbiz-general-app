@@ -1,0 +1,73 @@
+<div class="p-6 lg:pt-20 lg:px-20 bg-purple-200 dark:bg-gray-800 w-1/2 m-auto">
+  <h4 class="text-xl font-bold text-center">
+    Verificar que esta cuenta te pertenece
+  </h4>
+  <p>Elige como recibir el código de verificación</p>
+  <div
+    class="bg-white dark:bg-gray-900 p-4 mt-4 rounded-lg mb-4 grid grid-cols-12 gap-4"
+  >
+    <div class="col-span-10">
+      <h3 class="text-2xl">Gmail</h3>
+      <p>
+        El correo empieza con
+        <span class="font-bold text-blue-400">felix...&#64;gmail.com</span>
+      </p>
+    </div>
+    <i class="fa-solid fa-chevron-right col-span-2 m-auto cursor-pointer"></i>
+  </div>
+</div>
+<br />
+<div class="p-6 lg:pt-20 lg:px-20 bg-purple-200 dark:bg-gray-800 w-1/2 m-auto">
+  <h4 class="text-xl font-bold text-center">
+    Ingrese en codigo de verificación
+  </h4>
+  <p>Escriba en código de 6 dígitos</p>
+  <div class="bg-white dark:bg-gray-900 p-4 mt-4 rounded-lg mb-4">
+    <form
+      class="mt-5 p-10"
+      autocomplete="off"
+      [formGroup]="myForm"
+      (ngSubmit)="onSave()"
+    >
+      <div class="mb-6">
+        <label
+          for="code"
+          class="block mb-2 text-sm font-medium"
+          [ngClass]="{
+            ' text-red-700 dark:text-red-500': formUtils.isValiedField(
+              myForm,
+              'code'
+            )
+          }"
+          >Código</label
+        >
+        <input
+          type="text"
+          id="code"
+          formControlName="code"
+          class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800"
+          [ngClass]="{
+            ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+              formUtils.isValiedField(myForm, 'code')
+          }"
+        />
+        @if(formUtils.isValiedField(myForm,'code')){
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "code")
+          }}</span>
+        </p>
+        }
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!myForm.valid"
+        class="text-white btn-primary bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Continuar
+      </button>
+    </form>
+  </div>
+</div>
+<br />
