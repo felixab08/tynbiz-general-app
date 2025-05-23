@@ -1,8 +1,7 @@
-<!-- Modal toggle -->
 <button
-  data-modal-target="static-modal"
-  data-modal-toggle="static-modal"
-  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  data-modal-target="authentication-modal"
+  data-modal-toggle="authentication-modal"
+  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
   type="button"
   (click)="openModal()"
 >
@@ -11,14 +10,12 @@
 
 <!-- Main modal -->
 <div
-  id="static-modal"
-  data-modal-backdrop="static"
+  id="authentication-modal"
   tabindex="-1"
-  aria-hidden="true"
-  class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+  class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex"
   [ngClass]="isModalOpen() ? 'block' : 'hidden'"
 >
-  <div class="relative p-4 w-full max-w-2xl max-h-full">
+  <div class="relative p-4 w-full max-w-md max-h-full">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
       <!-- Modal header -->
@@ -38,9 +35,9 @@
         </a>
         <button
           type="button"
+          class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          data-modal-hide="authentication-modal"
           (click)="closeModal()"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-hide="static-modal"
         >
           <svg
             class="w-3 h-3"
@@ -61,33 +58,102 @@
         </button>
       </div>
       <!-- Modal body -->
-      <div class="p-4 md:p-5 space-y-4">
+      <div class="p-4 md:p-5">
         <h4 class="font-bold text-2xl text-center">Iniciar sesión</h4>
         <p>
           Ingresa a Tynbiz y interactua con amigos, familiares o con el vendedor
           directamente en tus compras
         </p>
-      </div>
-      <!-- Modal footer -->
-      <div
-        class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
-      >
-        <button
-          data-modal-hide="static-modal"
-          type="button"
-          (click)="closeModal()"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <form
+          class="mt-5 p-10"
+          autocomplete="off"
+          [formGroup]="myForm"
+          (ngSubmit)="onSave()"
         >
-          I accept
-        </button>
-        <button
-          data-modal-hide="static-modal"
-          type="button"
-          (click)="closeModal()"
-          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-        >
-          Decline
-        </button>
+          <div>
+            <label
+              for="user"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Usuario</label
+            >
+            <input
+              type="text"
+              id="user"
+              formControlName="user"
+              class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800"
+              [ngClass]="{
+                ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+                  formUtils.isValiedField(myForm, 'user')
+              }"
+            />
+            @if(formUtils.isValiedField(myForm,'user')){
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span class="font-medium">{{
+                formUtils.getFieldError(myForm, "user")
+              }}</span>
+            </p>
+            }
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800"
+              [ngClass]="{
+                ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+                  formUtils.isValiedField(myForm, 'password')
+              }"
+            />
+            @if(formUtils.isValiedField(myForm,'password')){
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span class="font-medium">{{
+                formUtils.getFieldError(myForm, "password")
+              }}</span>
+            </p>
+            }
+          </div>
+          <div class="flex justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input
+                  id="remember"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                  required
+                />
+              </div>
+              <label
+                for="remember"
+                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Remember me</label
+              >
+            </div>
+            <a
+              href="#"
+              class="text-sm text-blue-700 hover:underline dark:text-blue-500"
+              >Lost Password?</a
+            >
+          </div>
+          <button
+            type="submit"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Login to your account
+          </button>
+          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+            Not registered?
+            <a href="#" class="text-blue-700 hover:underline dark:text-blue-500"
+              >Create account</a
+            >
+          </div>
+        </form>
       </div>
     </div>
   </div>
