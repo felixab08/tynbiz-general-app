@@ -2,37 +2,22 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./pages/home/home.component'),
-  },
-  {
-    path: 'offer',
-    loadComponent: () => import('./pages/offer/offer.component'),
-  },
-  {
     path: 'account',
     loadComponent: () => import('./pages/account/account.component'),
   },
   {
-    path: 'stores',
-    loadComponent: () => import('./pages/stores/stores.component'),
-  },
-  {
-    path: 'creations',
-    loadComponent: () => import('./pages/creations/creations.component'),
-  },
-  {
-    path: 'favorites',
-    loadComponent: () => import('./pages/favorites/favorites.component'),
+    path: 'shopper',
+    loadChildren: () =>
+      import('./pages/shopper/shopper.routes').then((m) => m.shopperRoutes),
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'shopper',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'shopper',
     pathMatch: 'full',
   },
 ];

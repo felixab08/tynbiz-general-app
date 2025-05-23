@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InfoCardComponent } from '../../components/info-card/info-card.component';
+import { InfoCardComponent } from '@app/components/info-card/info-card.component';
 import { CardInfo } from '@app/interfaces/card.interface';
 
 @Component({
