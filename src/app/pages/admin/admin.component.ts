@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'tyz-shopper',
+  selector: 'tyz-admin',
   imports: [RouterOutlet],
   template: '<router-outlet />',
 })
-export default class ShopperComponent {}
+export default class AdminComponent {}

@@ -11,6 +11,11 @@ export const routes: Routes = [
       import('./pages/shopper/shopper.routes').then((m) => m.shopperRoutes),
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./pages/admin/admin.routes').then((m) => m.userRoutes),
+  },
+  {
     path: '',
     redirectTo: 'shopper',
     pathMatch: 'full',
