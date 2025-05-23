@@ -16,34 +16,51 @@
           href="#">+9</a>
       </div>
     </div>
+    <div class="grid grid-cols-12 items-center justify-center">
+      <div class="col-span-10 ">
+        <div id="indicators-carousel bg-white" class="relative w-full" data-carousel="slide">
+          <!-- Carousel wrapper -->
+          <div class="relative h-56 overflow-hidden rounded-lg">
+            <!-- Item 1 -->
+            <div class="hidden duration-700 ease-in-out " data-carousel-item="active">
+              <img src="./assets/img/u9.png"
+                class="p-6  absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            </div>
+            <!-- Item 2 -->
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+              <img src="./assets/img/u11.png"
+                class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            </div>
+            <!-- Item 3 -->
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+              <img src="./assets/img/u14.png"
+                class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+            </div>
+          </div>
+          <!-- Slider indicators -->
+          <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+            <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="true"
+              aria-label="Slide 1" data-carousel-slide-to="0"></button>
+            <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
+              aria-label="Slide 2" data-carousel-slide-to="1"></button>
+            <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
+              aria-label="Slide 3" data-carousel-slide-to="2"></button>
+          </div>
+        </div>
 
-    <div id="indicators-carousel" class="relative w-full" data-carousel="static">
-      <!-- Carousel wrapper -->
-      <div class="relative h-56 overflow-hidden rounded-lg">
-        <!-- Item 1 -->
-        <div class="hidden duration-700 ease-in-out " data-carousel-item="active">
-          <img src="./assets/img/u9.png"
-            class="p-6  absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-        <!-- Item 2 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="./assets/img/u11.png"
-            class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
-        <!-- Item 3 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-          <img src="./assets/img/u14.png"
-            class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-        </div>
+
       </div>
-      <!-- Slider indicators -->
-      <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-        <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="true"
-          aria-label="Slide 1" data-carousel-slide-to="0"></button>
-        <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
-          aria-label="Slide 2" data-carousel-slide-to="1"></button>
-        <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
-          aria-label="Slide 3" data-carousel-slide-to="2"></button>
+      <div class="col-span-2 ">
+        <!-- imagenes de productos extras right -->
+        <div class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
+          <span class="font-medium text-gray-600 dark:text-gray-300">+3</span>
+        </div>
+        <div class="bg-gray-100 float-right my-2  w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
+          <img class="w-10 h-10 rounded-sm" src="./assets/img/u11.png" alt="Medium avatar">
+        </div>
+        <div class="bg-gray-100 float-right my-2  w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
+          <img class="w-10 h-10 rounded-sm" src="./assets/img/u14.png" alt="Medium avatar">
+        </div>
       </div>
     </div>
     <div class="flex items-center justify-between">
@@ -55,15 +72,16 @@
           <p class="text-sm font-semibold text-gray-900 truncate dark:text-white">
             {{listOffer.nameTienda}}
             @if (listOffer.offer == true) {
-              <span
-                class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                Oferta
-              </span>
+            <span
+              class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+              Oferta
+            </span>
             }
           </p>
-          <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-            {{listOffer.sitioTienda}}
-          </p>
+
+          <a href="#" class="inline-flex text-sm items-center text-purple-600 hover:underline">
+        {{listOffer.sitioTienda}}
+      </a>
         </div>
       </div>
       <div>
