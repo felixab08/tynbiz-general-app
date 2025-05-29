@@ -1,15 +1,23 @@
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
   @for (listOffer of listOffer(); track listOffer.id) {
-  <a class="block bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-    data-modal-target="top-right-modal" data-modal-toggle="top-right-modal" (click)="openModal()">
+  <a
+    class="block bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+    data-modal-target="top-right-modal"
+    data-modal-toggle="top-right-modal"
+    (click)="openModal()"
+  >
     <div class="p-6">
       <div class="flex items-center justify-between mb-4">
         <div>
-          <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white">
+          <h5
+            class="text-m font-semibold text-gray-900 truncate dark:text-white"
+          >
             {{ listOffer.title }}
           </h5>
           <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400">
+            <p
+              class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400"
+            >
               {{ listOffer.estado }}
             </p>
             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
@@ -21,77 +29,136 @@
           </div>
         </div>
         <div class="flex -space-x-4 rtl:space-x-reverse">
-          <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" src="./assets/img/u5.png"
-            alt="" />
-          <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-purple-400 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
-            href="#">+9</a>
+          <img
+            class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+            src="./assets/img/u5.png"
+            alt=""
+          />
+          <a
+            class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-purple-400 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+            href="#"
+            >+9</a
+          >
         </div>
       </div>
       <div class="grid grid-cols-12 items-center justify-center">
         <div class="col-span-10">
-          <div id="indicators-carousel bg-white" class="relative w-full" data-carousel="slide">
+          <div
+            id="indicators-carousel bg-white"
+            class="relative w-full"
+            data-carousel="slide"
+          >
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg">
               <!-- Item 1 -->
-              <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                <img src="./assets/img/u9.png"
-                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+              <div
+                class="hidden duration-700 ease-in-out"
+                data-carousel-item="active"
+              >
+                <img
+                  src="./assets/img/u9.png"
+                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  alt="..."
+                />
               </div>
               <!-- Item 2 -->
               <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="./assets/img/u11.png"
-                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                <img
+                  src="./assets/img/u11.png"
+                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  alt="..."
+                />
               </div>
               <!-- Item 3 -->
               <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="./assets/img/u14.png"
-                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                <img
+                  src="./assets/img/u14.png"
+                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  alt="..."
+                />
               </div>
             </div>
             <!-- Slider indicators -->
-            <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-              <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="true"
-                aria-label="Slide 1" data-carousel-slide-to="0"></button>
-              <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
-                aria-label="Slide 2" data-carousel-slide-to="1"></button>
-              <button type="button" class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800" aria-current="false"
-                aria-label="Slide 3" data-carousel-slide-to="2"></button>
+            <div
+              class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2"
+            >
+              <button
+                type="button"
+                class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800"
+                aria-current="true"
+                aria-label="Slide 1"
+                data-carousel-slide-to="0"
+              ></button>
+              <button
+                type="button"
+                class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800"
+                aria-current="false"
+                aria-label="Slide 2"
+                data-carousel-slide-to="1"
+              ></button>
+              <button
+                type="button"
+                class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800"
+                aria-current="false"
+                aria-label="Slide 3"
+                data-carousel-slide-to="2"
+              ></button>
             </div>
           </div>
         </div>
         <div class="col-span-2">
           <!-- imagenes de productos extras right -->
           <div
-            class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
+            class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600"
+          >
             <span class="font-medium text-gray-600 dark:text-gray-300">+3</span>
           </div>
           <div
-            class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
-            <img class="w-10 h-10 rounded-sm" src="./assets/img/u11.png" alt="Medium avatar" />
+            class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600"
+          >
+            <img
+              class="w-10 h-10 rounded-sm"
+              src="./assets/img/u11.png"
+              alt="Medium avatar"
+            />
           </div>
           <div
-            class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
-            <img class="w-10 h-10 rounded-sm" src="./assets/img/u14.png" alt="Medium avatar" />
+            class="bg-gray-100 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600"
+          >
+            <img
+              class="w-10 h-10 rounded-sm"
+              src="./assets/img/u14.png"
+              alt="Medium avatar"
+            />
           </div>
         </div>
       </div>
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
           <div class="shrink-0">
-            <img class="w-8 h-8 rounded-sm" [src]="listOffer.logoTienda" alt="Default avatar" />
+            <img
+              class="w-8 h-8 rounded-sm"
+              [src]="listOffer.logoTienda"
+              alt="Default avatar"
+            />
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-gray-900 truncate dark:text-white">
+            <p
+              class="text-sm font-semibold text-gray-900 truncate dark:text-white"
+            >
               {{ listOffer.nameTienda }}
               @if (listOffer.offer == true) {
               <span
-                class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+              >
                 Oferta
               </span>
               }
             </p>
             <!-- [TODO] : link de la tienda -->
-            <a class="inline-flex text-sm items-center text-purple-600 hover:underline">
+            <a
+              class="inline-flex text-sm items-center text-purple-600 hover:underline"
+            >
               {{ listOffer.sitioTienda }}
             </a>
           </div>
@@ -102,45 +169,117 @@
           </p>
         </div>
       </div>
-    </div>
-  </a>}
-   <!-- Modal Right -->
-  <div id="top-right-modal" data-modal-placement="top-right" tabindex="-1"
-    class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
-    [ngClass]="isModalOpen() ? 'block' : 'hidden'">
-    <div class="relative w-full max-w-2xl max-h-full">
+    </div> </a
+  >}
+
+  <!-- Modal Right -->
+  <div
+    id="top-right-modal"
+    data-modal-placement="top-right"
+    tabindex="-1"
+    class="fixed top-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    [ngClass]="isModalOpen() ? 'block' : 'hidden'"
+  >
+    <div class="relative w-full max-w-lg max-h-full">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
         <!-- Modal header -->
         <div
-          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-          <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-            Top right modall
+          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
+        >
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Información de la oferta
           </h3>
-          <button type="button"
+          <button
+            type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-hide="top-right-modal" (click)="closeModal()">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            data-modal-hide="top-right-modal"
+            (click)="closeModal()"
+          >
+            <svg
+              class="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
             </svg>
             <span class="sr-only">Close modal</span>
           </button>
         </div>
         <!-- Modal body -->
         <div class="p-4 md:p-5 space-y-4">
+          <div class="grid grid-cols-12">
+            <div class="flex-1 min-w-0 col-span-10 grid grid-cols-12 gap-4">
+              <div
+                class="w-18 h-18 items-center flex justify-center rounded-lg border bg-white border-gray-200 dark:border-gray-700 col-span-2"
+              >
+                <img
+                  class="w-12 h-12 rounded-lg"
+                  src="./assets/img/u37.png"
+                  alt=""
+                />
+              </div>
+              <div class="col-span-10">
+                <p
+                  class="text-sm font-semibold text-gray-900 truncate dark:text-white"
+                >
+                  Falabella
+                </p>
+                <!-- [TODO] : link de la tienda -->
+                <a
+                  class="inline-flex text-sm items-center text-purple-600 hover:underline"
+                >
+                  https://www.falabella.com.pe
+                </a>
+              </div>
+            </div>
+            <div class="col-span-2 font-bold">
+              <p class="text-red-700">VIVO</p>
+              <span class="font-bold">456 vistas</span>
+            </div>
+          </div>
+          <div
+            class="w-full bg-neutral-500 h-30 rounded-xs flex justify-center items-center"
+          >
+            <button
+              type="button"
+              class="text-red-700 bg-white px-12 py-2.5 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            >
+              Unirse a la sala
+            </button>
+          </div>
           <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
             Usuarios
           </p>
           <div class="flex -space-x-4 rtl:space-x-reverse">
-            <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" src="./assets/img/u5.png"
-              alt="">
-            <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" src="./assets/img/u5.png"
-              alt="">
-            <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800" src="./assets/img/u5.png"
-              alt="">
-            <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
-              href="#">+5</a>
+            <img
+              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+              src="./assets/img/u5.png"
+              alt=""
+            />
+            <img
+              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+              src="./assets/img/u5.png"
+              alt=""
+            />
+            <img
+              class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+              src="./assets/img/u5.png"
+              alt=""
+            />
+            <a
+              class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+              href="#"
+              >+5</a
+            >
           </div>
         </div>
         <div class="p-4 md:p-5 space-y-4">
@@ -148,27 +287,47 @@
             Productos
           </p>
           <div class="flex -space-x-4 rtl:space-x-reverse">
-            <a href="#"
-              class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-              <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-                src="./assets/img/u9.png" alt="">
+            <a
+              href="#"
+              class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              <img
+                class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                src="./assets/img/u9.png"
+                alt=""
+              />
               <div class="flex flex-col justify-between p-4 leading-normal">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Camisa manga corta</h5>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"> color:Azul Talla:M</p>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"> S/.57</p>
+                <h5
+                  class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                >
+                  Camisa manga corta
+                </h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  color:Azul Talla:M
+                </p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  S/.57
+                </p>
               </div>
             </a>
           </div>
         </div>
         <!-- Modal footer -->
         <div
-          class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-          <button data-modal-hide="top-right-modal" type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600"
+        >
+          <button
+            data-modal-hide="top-right-modal"
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
             Comprar
           </button>
-          <button data-modal-hide="top-right-modal" type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          <button
+            data-modal-hide="top-right-modal"
+            type="button"
+            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
             Agregar al carrito
           </button>
         </div>
