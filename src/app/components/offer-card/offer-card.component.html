@@ -21,7 +21,7 @@
               {{ listOffer.estado }}
             </p>
             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-              {{ listOffer.day }}
+              {{ listOffer.dayInActive }}
             </p>
             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
               {{ listOffer.time }}
@@ -50,33 +50,18 @@
           >
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg">
-              <!-- Item 1 -->
+              @for (item of listOffer.image; track item) {
               <div
                 class="hidden duration-700 ease-in-out"
                 data-carousel-item="active"
               >
                 <img
-                  src="./assets/img/u9.png"
+                  [src]="item"
                   class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   alt="..."
                 />
               </div>
-              <!-- Item 2 -->
-              <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img
-                  src="./assets/img/u11.png"
-                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                  alt="..."
-                />
-              </div>
-              <!-- Item 3 -->
-              <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img
-                  src="./assets/img/u14.png"
-                  class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                  alt="..."
-                />
-              </div>
+              }
             </div>
             <!-- Slider indicators -->
             <div
@@ -84,21 +69,21 @@
             >
               <button
                 type="button"
-                class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800"
+                class="w-2 h-2 rounded-full !bg-gray-500 hover:bg-gray-800"
                 aria-current="true"
                 aria-label="Slide 1"
                 data-carousel-slide-to="0"
               ></button>
               <button
                 type="button"
-                class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800"
+                class="w-2 h-2 rounded-full !bg-gray-500 hover:bg-gray-800"
                 aria-current="false"
                 aria-label="Slide 2"
                 data-carousel-slide-to="1"
               ></button>
               <button
                 type="button"
-                class="w-2 h-2 rounded-full bg-gray-500 hover:bg-gray-800"
+                class="w-2 h-2 rounded-full !bg-gray-500 hover:bg-gray-800"
                 aria-current="false"
                 aria-label="Slide 3"
                 data-carousel-slide-to="2"
@@ -118,7 +103,7 @@
           >
             <img
               class="w-10 h-10 rounded-sm"
-              src="./assets/img/u11.png"
+              src="./assets/img/prod-4.png"
               alt="Medium avatar"
             />
           </div>
@@ -127,7 +112,7 @@
           >
             <img
               class="w-10 h-10 rounded-sm"
-              src="./assets/img/u14.png"
+              src="./assets/img/prod-9.png"
               alt="Medium avatar"
             />
           </div>
@@ -138,7 +123,7 @@
           <div class="shrink-0">
             <img
               class="w-8 h-8 rounded-sm"
-              [src]="listOffer.logoTienda"
+              [src]="listOffer.store.logoTienda"
               alt="Default avatar"
             />
           </div>
@@ -146,8 +131,8 @@
             <p
               class="text-sm font-semibold text-gray-900 truncate dark:text-white"
             >
-              {{ listOffer.nameTienda }}
-              @if (listOffer.offer == true) {
+              {{ listOffer.store.nameTienda }}
+              @if (listOffer.store.offer == true) {
               <span
                 class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
               >
@@ -159,13 +144,13 @@
             <a
               class="inline-flex text-sm items-center text-purple-600 hover:underline"
             >
-              {{ listOffer.sitioTienda }}
+              {{ listOffer.store.sitioTienda }}
             </a>
           </div>
         </div>
         <div>
           <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-            {{ listOffer.numVistas }} vistas
+            {{ listOffer.store.numVistas }} vistas
           </p>
         </div>
       </div>
@@ -293,7 +278,7 @@
             >
               <img
                 class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-                src="./assets/img/u9.png"
+                src="./assets/img/prod-5.png"
                 alt=""
               />
               <div class="flex flex-col justify-between p-4 leading-normal">

@@ -11,14 +11,17 @@ export interface CardOffer {
   id: number;
   title: string;
   estado: string;
-  day: string;
+  dayInActive: string;
   time: string;
-  image: string;
-  nameTienda: string;
-  logoTienda: string;
-  sitioTienda: string;
-  numVistas: string;
-  offer: boolean
+  image: string[];
+  store: {
+    nameTienda: string;
+    logoTienda: string;
+    sitioTienda: string;
+    numVistas: string;
+    offer: boolean;
+  };
+  totalProd: number;
 }
 export interface CardStores {
   id: number;
