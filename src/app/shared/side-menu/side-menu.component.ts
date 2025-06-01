@@ -9,23 +9,49 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class SideMenuComponent {
   menuItems = [
-    { name: 'Inicio', icon: 'fa-solid fa-house', route: '/shopper/home' },
-    { name: 'Ofertas', icon: 'fa-solid fa-tags', route: '/shopper/offer' },
+    { name: 'Inicio', icon: 'fa-solid fa-house', route: '/shop/home' },
+    { name: 'Ofertas', icon: 'fa-solid fa-tags', route: '/shop/offer' },
     {
       name: 'Creaciones',
       icon: 'fa-solid fa-square-plus',
-      route: '/shopper/creations',
+      route: '/shop/creations',
     },
-    { name: 'Tiendas', icon: 'fa-solid fa-store', route: '/shopper/stores' },
+    { name: 'Tiendas', icon: 'fa-solid fa-store', route: '/shop/stores' },
     {
       name: 'Favoritos',
       icon: 'fa-solid fa-heart-circle-plus',
-      route: '/shopper/favorites',
+      route: '/shop/favorites',
     },
     {
       name: 'Tu creación',
       icon: 'fa-solid fa-boxes-packing', //
-      route: '/shopper/contact',
+      route: '/shop/contact',
+    },
+  ];
+
+  menuItemsCliente = [
+    { name: 'Inicio', icon: 'fa-solid fa-house', route: '/shop/home' },
+    { name: 'Productos', icon: 'fa-solid fa-tags', route: '/shop/offer' },
+    {
+      name: 'Contactos',
+      icon: 'fa-solid fa-square-plus',
+      route: '/shop/creations',
+    },
+    { name: 'Creaciones', icon: 'fa-solid fa-store', route: '/shop/stores' },
+    {
+      name: 'Clientes en sala',
+      icon: 'fa-solid fa-heart-circle-plus',
+      route: '/shop/favorites',
+    },
+    {
+      name: 'Inf. de tienda',
+      icon: 'fa-solid fa-boxes-packing',
+      route: '/shop/contact',
+    },
+    {
+      name: 'Suscripciones',
+      icon: 'fa-solid fa-boxes-packing',
+      route: '/shop/contact',
     },
   ];
 }

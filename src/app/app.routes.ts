@@ -2,13 +2,13 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'account',
-    loadComponent: () => import('./pages/account/account.component'),
-  },
-  {
-    path: 'shopper',
+    path: 'shop',
     loadChildren: () =>
       import('./pages/shopper/shopper.routes').then((m) => m.shopperRoutes),
+  },
+  {
+    path: 'account',
+    loadComponent: () => import('./pages/account/account.component'),
   },
   {
     path: 'admin',
@@ -17,12 +17,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'shopper',
+    redirectTo: 'shop',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'shopper',
+    redirectTo: 'shop',
     pathMatch: 'full',
   },
 ];
