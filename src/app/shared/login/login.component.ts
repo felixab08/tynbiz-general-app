@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { StoreService } from '@app/services/store.service';
 import { FormUtils } from '@app/utils/form.util';
 
 @Component({
-  selector: 'tyn-login',
+  selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  storeService = inject(StoreService);
+
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
 
@@ -23,6 +26,14 @@ export class LoginComponent {
     user: ['', [Validators.required, Validators.minLength(6)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
+
+  ngOnInit(): void {
+    this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
+      console.log('Login status changed:', isLoggedIn);
+      this.isModalOpen.set(!isLoggedIn);
+    });
+  }
+
   onSave() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
@@ -32,6 +43,7 @@ export class LoginComponent {
     this.myForm.reset();
   }
   openModal() {
+    this.storeService.isLoginSubject.subscribe(console.log);
     this.isModalOpen.set(true);
   }
   closeModal() {
