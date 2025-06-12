@@ -12,7 +12,7 @@ export const rolsCreateMock = [
   {
     id: 31412,
     name: 'Empleado',
-    cant: 4,
+    cant: 8,
   },
 ];
 
