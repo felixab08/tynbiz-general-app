@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,15 +11,24 @@ import { CommonModule } from '@angular/common';
 export default class RequestDemoPageComponent {
   resquestListOrigin = resquestDemoListMock;
   resquestList = this.resquestListOrigin;
-  lang = 'All';
+  isState = 'All';
+  isModalOpen = signal(false);
+  selectedSolicDemo: any = true;
   filterResquestList(status: string) {
     return this.resquestListOrigin.filter((item) => item.storeStatus === status);
   }
-  ChangeState(data: any) {
+  changeState(data: any) {
     if (data === 'All') {
       this.resquestList = this.resquestListOrigin;
     } else {
-      this.resquestList = this.filterResquestList(data);
+      this.resquestList = [...this.filterResquestList(data)];
     }
+  }
+  openModal(SolicDemo: any) {
+    this.selectedSolicDemo= SolicDemo;
+    this.isModalOpen.set(true);
+  }
+  closeModal() {
+    this.isModalOpen.set(false);
   }
 }

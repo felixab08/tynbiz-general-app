@@ -10,14 +10,7 @@ import { CommonModule } from '@angular/common';
 export default class RequestServicePageComponent {
   resquestListOrigin = resquestDemoListMock;
     resquestList = this.resquestListOrigin;
-    lang = 'All'; // Default language set to Spanish
-    constructor() {
-      let data = this.filterResquestList('');
-      console.log('Felix:::::>');
-      console.log(this.lang);
-
-      // Initialization logic can go here if needed
-    }
+    isState = 'All'; // Default language set to Spanish
     filterResquestList(status: string) {
       return this.resquestListOrigin.filter((item) => item.storeStatusService === status);
     }
@@ -25,7 +18,7 @@ export default class RequestServicePageComponent {
       if (data === 'All') {
         this.resquestList = this.resquestListOrigin;
       } else {
-        this.resquestList = this.filterResquestList(data);
+        this.resquestList = [...this.filterResquestList(data)];
       }
     }
 }
