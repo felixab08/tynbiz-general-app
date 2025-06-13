@@ -95,20 +95,20 @@ export class SideMenuComponent {
     {
       id: '35asbaasvas',
       name: 'Panel',
-      icon: 'fa-solid fa-store',
+      icon: 'fa-solid fa-table-columns',
       route: '/admin/panel',
     },
     {
       id: '31asbvas',
       name: 'Cargas',
-      icon: 'fa-solid fa-house',
+      icon: 'fa-solid fa-file-arrow-up',
       route: '',
       children: [{ name: 'Politicas', route: '/admin/politic' }],
     },
     {
       id: '32bsbv1s',
       name: 'Solicitudes',
-      icon: 'fa-solid fa-house',
+      icon: 'fa-solid fa-file-pen',
       route: '',
       children: [
         { name: 'Demo', route: '/admin/request-demo' },
@@ -118,7 +118,7 @@ export class SideMenuComponent {
     {
       id: '34sybvas',
       name: 'Planes',
-      icon: 'fa-solid fa-tags',
+      icon: 'fa-solid fa-coins',
       route: '',
       children: [
         { name: 'Planes de suscripción', route: '/admin/planes-suscription' },

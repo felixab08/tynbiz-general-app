@@ -1,27 +1,25 @@
 import { Component } from '@angular/core';
 import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tyn-request-demo-page',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './request-demo-page.component.html',
 })
 export default class RequestDemoPageComponent {
-  resquestList = resquestDemoListMock;
-  lang = 'All'; // Default language set to Spanish
-  constructor() {
-    let data = this.filterResquestList('Pendiente');
-    console.log('Felix:::::>');
-    console.log(data);
-
-    // Initialization logic can go here if needed
-  }
+  resquestListOrigin = resquestDemoListMock;
+  resquestList = this.resquestListOrigin;
+  lang = 'All';
   filterResquestList(status: string) {
-    return this.resquestList.filter((item) => item.storeStatus === status);
+    return this.resquestListOrigin.filter((item) => item.storeStatus === status);
   }
-  myFuncEnglish2(data: any) {
-    console.log('Felix:::::>', data);
-    // console.log(this.lang);
+  ChangeState(data: any) {
+    if (data === 'All') {
+      this.resquestList = this.resquestListOrigin;
+    } else {
+      this.resquestList = this.filterResquestList(data);
+    }
   }
 }
