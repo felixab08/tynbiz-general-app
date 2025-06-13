@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services/store.service';
 import { FormUtils } from '@app/utils/form.util';
 
@@ -16,6 +17,7 @@ import { FormUtils } from '@app/utils/form.util';
 })
 export class LoginComponent implements OnInit {
   storeService = inject(StoreService);
+  authService = inject(AuthService);
 
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
