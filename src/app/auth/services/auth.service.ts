@@ -17,9 +17,9 @@ export class AuthService {
 
   private http = inject(HttpClient);
 
-  checkStatusResource = rxResource({
-    loader: () => this.checkStatus(),
-  });
+  // checkStatusResource = rxResource({
+  //   loader: () => this.checkStatus(),
+  // });
 
   authStatus = computed<AuthStatus>(() => {
     if (this._authStatus() === 'checking') return 'checking';
@@ -34,36 +34,50 @@ export class AuthService {
   user = computed(() => this._user());
   token = computed(this._token);
 
-  login(email: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<any> {
     return this.http
       .post<AuthResponse>(`${baseUrl}/auth/login`, {
-        email: email,
+        username: username,
         password: password,
       })
       .pipe(
-        map((resp) => this.handleAuthSuccess(resp)),
+        map((resp) =>
+          this.searhUserById(resp.id).subscribe((data: any) => {
+            if (data) {
+              return this.handleAuthSuccess(data, resp.accessToken);
+            } else {
+              throw new Error('User not found');
+            }
+          })
+        ),
         catchError((error: any) => this.handleAuthError(error))
       );
   }
 
-  checkStatus(): Observable<boolean> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.logout();
-      return of(false);
-    }
-
+  searhUserById(id: number): Observable<boolean> {
     return this.http
-      .get<AuthResponse>(`${baseUrl}/auth/check-status`, {
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
-      })
-      .pipe(
-        map((resp) => this.handleAuthSuccess(resp)),
-        catchError((error: any) => this.handleAuthError(error))
-      );
+      .get<any>(`${baseUrl}/users/${id}`)
+      .pipe(catchError((error: any) => this.handleAuthError(error)));
   }
+
+  // checkStatus(): Observable<boolean> {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //     this.logout();
+  //     return of(false);
+  //   }
+
+  //   return this.http
+  //     .get<AuthResponse>(`${baseUrl}/auth/check-status`, {
+  //       // headers: {
+  //       //   Authorization: `Bearer ${token}`,
+  //       // },
+  //     })
+  //     .pipe(
+  //       map((resp) => this.handleAuthSuccess(resp)),
+  //       catchError((error: any) => this.handleAuthError(error))
+  //     );
+  // }
 
   logout() {
     this._user.set(null);
@@ -73,11 +87,22 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  private handleAuthSuccess({ token, user }: AuthResponse) {
-    this._user.set(user);
+  private handleAuthSuccess(user: any, token: string) {
+    console.log('user', user);
+
+    this._user.set({
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      image: user.image,
+      birthDate: user.birthDate,
+    } as User);
     this._authStatus.set('authenticated');
     this._token.set(token);
 
+    localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
 
     return true;

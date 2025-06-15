@@ -2,12 +2,12 @@
 <div
   [ngClass]="
     isOpen
-      ? 'fixed inset-0 z-[999] grid h-screen w-screen place-items-center opacity-50'
+      ? 'fixed inset-0 z-[999] grid h-screen w-screen place-items-center'
       : 'hidden'
   "
 >
   <!-- Fondo oscuro semitransparente -->
-  <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+  <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm"></div>
 
   <!-- Contenido del modal -->
   <div class="relative z-10 p-4 w-full max-w-2xl max-h-full">

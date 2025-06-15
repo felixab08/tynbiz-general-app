@@ -13,19 +13,28 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule],
+  providers: [AuthService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
   storeService = inject(StoreService);
-  authService = inject(AuthService);
+  _authService = inject(AuthService);
 
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
 
   formUtils = FormUtils;
 
+  // "username": "emilys",
+  // "password": "emilyspass",
+  // "role": "admin"
+  // ==================
+  // "username": "noahh",
+  // "password": "noahhpass",
+  // "role": "moderator"
+
   myForm: FormGroup = this._fb.group({
-    user: ['', [Validators.required, Validators.minLength(6)]],
+    user: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
@@ -42,6 +51,16 @@ export class LoginComponent implements OnInit {
       return;
     }
     console.log('Form submitted', this.myForm.value);
+    this._authService
+      .login(
+        this.myForm.controls['user'].value,
+        this.myForm.controls['password'].value
+      )
+      .subscribe({
+        next: (response) => {
+          this.closeModal();
+        },
+      });
     this.myForm.reset();
   }
   openModal() {

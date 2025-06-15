@@ -1,6 +1,11 @@
-import { User } from './user.interface';
-
 export interface AuthResponse {
-  user: User;
-  token: string;
+  accessToken: string;
+  email: string;
+  firstName: string;
+  gender: string;
+  id: 11;
+  image: string;
+  lastName: string;
+  refreshToken: string;
+  username: string;
 }
