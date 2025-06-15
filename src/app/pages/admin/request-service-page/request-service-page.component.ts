@@ -8,17 +8,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './request-service-page.component.html',
 })
 export default class RequestServicePageComponent {
-  resquestListOrigin = resquestDemoListMock;
-    resquestList = this.resquestListOrigin;
-    isState = 'All'; // Default language set to Spanish
-    filterResquestList(status: string) {
-      return this.resquestListOrigin.filter((item) => item.storeStatusService === status);
-    }
-    ChangeState(data: any) {
-      if (data === 'All') {
-        this.resquestList = this.resquestListOrigin;
-      } else {
-        this.resquestList = [...this.filterResquestList(data)];
-      }
-    }
+  resquestList = resquestDemoListMock;
+  isState = 'All';
+
+  filterByStatus(status: string): void {
+    const isAll = status === 'All';
+    const filteList = isAll
+      ? resquestDemoListMock
+      : resquestDemoListMock.filter(
+          (store) => store.storeStatusService === status
+        );
+    this.resquestList = [...filteList];
+  }
 }

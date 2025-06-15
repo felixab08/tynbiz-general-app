@@ -9,25 +9,24 @@ import { CommonModule } from '@angular/common';
   templateUrl: './request-demo-page.component.html',
 })
 export default class RequestDemoPageComponent {
-  resquestListOrigin = resquestDemoListMock;
-  resquestList = this.resquestListOrigin;
+  resquestList = resquestDemoListMock;
   isState = 'All';
   isModalOpen = signal(false);
   selectedSolicDemo: any = true;
-  filterResquestList(status: string) {
-    return this.resquestListOrigin.filter((item) => item.storeStatus === status);
+
+  filterByStatus(status: string): void {
+    const isAll = status === 'All';
+    const filteList = isAll
+      ? resquestDemoListMock
+      : resquestDemoListMock.filter((store) => store.storeStatus === status);
+    this.resquestList = [...filteList];
   }
-  changeState(data: any) {
-    if (data === 'All') {
-      this.resquestList = this.resquestListOrigin;
-    } else {
-      this.resquestList = [...this.filterResquestList(data)];
-    }
-  }
+
   openModal(SolicDemo: any) {
-    this.selectedSolicDemo= SolicDemo;
+    this.selectedSolicDemo = SolicDemo;
     this.isModalOpen.set(true);
   }
+
   closeModal() {
     this.isModalOpen.set(false);
   }
