@@ -6,6 +6,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { AuthResponse } from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
 import { StoreService } from '@app/services/store.service';
+import { Router } from '@angular/router';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
@@ -18,6 +19,7 @@ export class AuthService {
   private _token = signal<string | null>(localStorage.getItem('token'));
 
   private http = inject(HttpClient);
+  _router = inject(Router);
 
   // checkStatusResource = rxResource({
   //   loader: () => this.checkStatus(),
@@ -85,8 +87,8 @@ export class AuthService {
     this._user.set(null);
     this._token.set(null);
     this._authStatus.set('not-authenticated');
-
-    localStorage.removeItem('token');
+    localStorage.clear();
+    this._router.navigate(['/']);
   }
 
   private handleAuthSuccess(user: any, token: string) {
