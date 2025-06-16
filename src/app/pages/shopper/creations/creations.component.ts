@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { CardOffer } from '@app/interfaces/card.interface';
-import { offerMock } from '@app/mock/offer.mock';
+import { Cardcreations } from '@app/interfaces/card.interface';
+import { creationMock } from '@app/mock/creations.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { OfferCardComponent } from '@app/components/offer-card/offer-card.component';
+import { CreationCardComponent } from '@app/components/creation-card/creation-card.component';
 import { SearchComponent } from '@app/components/search/search.component';
 @Component({
   selector: 'tyn-creations',
-  imports: [OfferCardComponent, FormsModule, CommonModule, SearchComponent],
+  imports: [CreationCardComponent, FormsModule, CommonModule, SearchComponent],
   templateUrl: './creations.component.html',
 })
 export default class CreationsComponent {
-  cardCrea: CardOffer[] = offerMock;
+  cardCrea: Cardcreations[] = creationMock;
   valueSearch(event: string[]) {
     console.log(event);
   }

@@ -14,6 +14,26 @@ export const userRoutes: Routes = [
         loadComponent: () => import('./politic-page/politic-page.component'),
       },
       {
+        path: 'request-demo',
+        loadComponent: () =>
+          import('./request-demo-page/request-demo-page.component'),
+      },
+      {
+        path: 'request-service',
+        loadComponent: () =>
+          import('./request-service-page/request-service-page.component'),
+      },
+      {
+        path: 'planes-suscription',
+        loadComponent: () =>
+          import('./planes-suscription-page/planes-suscription-page.component'),
+      },
+      {
+        path: 'plan-suscript',
+        loadComponent: () =>
+          import('./plan-suscrip-page/plan-suscrip-page.component'),
+      },
+      {
         path: '',
         redirectTo: 'panel',
         pathMatch: 'full',

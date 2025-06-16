@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { OfferCardComponent } from '@app/components/offer-card/offer-card.component';
-import { CardOffer } from '@app/interfaces/card.interface';
-import { offerMock } from '@app/mock/offer.mock';
+import { CreationCardComponent } from '@app/components/creation-card/creation-card.component';
+import { Cardcreations } from '@app/interfaces/card.interface';
+import { creationMock } from '@app/mock/creations.mock';
 @Component({
   selector: 'tyn-offer',
-  imports: [OfferCardComponent],
+  imports: [CreationCardComponent],
   templateUrl: './offer.component.html',
 })
 export default class OfferComponent {
-  cardOffer: CardOffer[] = offerMock;
+  cardOffer: Cardcreations[] = creationMock;
+  constructor() {
+    this.cardOffer = creationMock.filter(item => item.offer === true);
+  }
 }
