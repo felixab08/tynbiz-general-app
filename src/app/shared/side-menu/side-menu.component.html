@@ -35,7 +35,8 @@
       />
     </a>
     <ul class="space-y-2 font-medium">
-      @for (menu of menuAdmin; track menu.name) { @if (menu.route.length >= 2) {
+      @for (menu of menuItemsAll; track menu.name) { @if (menu.route.length >=
+      2) {
       <li>
         <a
           [routerLink]="menu.route"

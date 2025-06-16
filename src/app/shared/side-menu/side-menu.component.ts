@@ -7,6 +7,8 @@ import {
   menuItemsClienteMock,
   menuItemsMock,
 } from '@app/mock/menu.mock';
+import { StoreService } from '@app/services/store.service';
+import { User } from '@app/auth/interfaces/user.interface';
 
 @Component({
   selector: 'app-side-menu',
@@ -14,22 +16,22 @@ import {
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent {
+  
   _authService = inject(AuthService);
-  menuItemsAll: any[] = [];
-  menuItemsCliente = [...menuItemsClienteMock];
-  menuItems = [...menuItemsMock];
-  menuAdmin = [...menuAdminMock];
-  debounceEffect = effect(() => {
-    let user: any = this._authService.user;
-    console.log('========================>', user);
-    if (user) {
-      this.menuItemsAll =
-        user.role === 'moderator'
-          ? [...this.menuItemsCliente]
-          : [...this.menuItems];
-      if (user.role === 'admin') {
-        this.menuItemsAll = [...this.menuAdmin];
-      }
-    }
-  });
+  menuItemsAll: any[] = [...menuItemsMock];
+
+  public storeService = inject(StoreService);
+  public user: User | undefined;
+
+  constructor() {
+    console.log('SideMenuComponent initialized', this.menuItemsAll);
+    this.storeService.user.subscribe((user) => {
+      this.user = user;
+      console.log('User from store service:', this.user);
+      if (this.user) 
+        this.menuItemsAll = this.user?.role === 'moderator' ? [...menuItemsClienteMock] : [...menuAdminMock];
+      
+    });
+  }
+
 }

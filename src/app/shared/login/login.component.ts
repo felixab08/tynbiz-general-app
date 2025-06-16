@@ -60,6 +60,10 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           this.closeModal();
         },
+        error: (error) => {
+          console.error('Login failed', error);
+          this.myForm.setErrors({ loginFailed: true });
+        },
       });
     this.myForm.reset();
   }

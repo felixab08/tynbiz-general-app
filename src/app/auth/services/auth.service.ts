@@ -5,12 +5,14 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { AuthResponse } from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
+import { StoreService } from '@app/services/store.service';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  public storeService = inject(StoreService);
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(localStorage.getItem('token'));
@@ -88,7 +90,7 @@ export class AuthService {
   }
 
   private handleAuthSuccess(user: any, token: string) {
-    console.log('user', user);
+    console.log('user OK', user);
 
     this._user.set({
       id: user.id,
@@ -99,10 +101,12 @@ export class AuthService {
       image: user.image,
       birthDate: user.birthDate,
     } as User);
+
+    this.storeService.user.next(this._user() as User);
     this._authStatus.set('authenticated');
     this._token.set(token);
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(this._user() as User));
     localStorage.setItem('token', token);
 
     return true;

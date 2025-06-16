@@ -18,6 +18,7 @@
       </button>
     </div>
 
+    @if (user) {
     <div class="flex items-center md:col-span-2 justify-end">
       <button
         type="button"
@@ -65,6 +66,8 @@
         </ul>
       </div>
     </div>
+    }
+
     <div
       class="items-center hidden w-full md:flex md:w-auto md:order-1 justify-end"
       id="navbar-user"
