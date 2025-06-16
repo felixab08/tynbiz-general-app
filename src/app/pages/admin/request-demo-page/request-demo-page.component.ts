@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tyn-request-demo-page',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './request-demo-page.component.html',
 })
 export default class RequestDemoPageComponent {
