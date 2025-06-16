@@ -10,7 +10,9 @@ import { CommonModule } from '@angular/common';
 })
 export default class RequestDemoPageComponent {
   resquestList = resquestDemoListMock;
-  lang = 'All';
+  isState = 'All';
+  isModalOpen = signal(false);
+  selectedSolicDemo: any = true;
 
   filterByStatus(status: string): void {
     const isAll = status === 'All';
@@ -18,5 +20,14 @@ export default class RequestDemoPageComponent {
       ? resquestDemoListMock
       : resquestDemoListMock.filter((store) => store.storeStatus === status);
     this.resquestList = [...filteredList];
+  }
+
+  openModal(SolicDemo: any) {
+    this.selectedSolicDemo = SolicDemo;
+    this.isModalOpen.set(true);
+  }
+
+  closeModal() {
+    this.isModalOpen.set(false);
   }
 }
