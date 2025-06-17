@@ -1,1 +1,0 @@
-import{f as a}from"./chunk-DCMMRWZS.js";import"./chunk-2RPN3OXZ.js";import{Ba as n,Wa as s}from"./chunk-HEU666SH.js";import"./chunk-2VMXMS7J.js";var t=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=n({type:o,selectors:[["tyn-stores"]],decls:1,vars:0,template:function(e,p){e&1&&s(0,"router-outlet")},dependencies:[a],encapsulation:2})};export{t as default};
