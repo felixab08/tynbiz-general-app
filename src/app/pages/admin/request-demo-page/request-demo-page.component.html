@@ -132,6 +132,10 @@
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
         >
           {{ item.storeName }}
+          <br />
+          <span class="text-gray-500 dark:text-gray-400">{{
+            item.storeSite
+          }}</span>
         </th>
         <td class="px-6 py-4">{{ item.requestDate }}</td>
         <td class="px-6 py-4">{{ item.storeEmail }}</td>
@@ -337,7 +341,7 @@
                   scope="row"
                   class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  Fecha
+                  Fecha de solicitud
                 </th>
                 <td class="px-6 py-4">{{ selectedSolicDemo?.requestDate }}</td>
               </tr>
