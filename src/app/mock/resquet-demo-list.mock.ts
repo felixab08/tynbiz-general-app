@@ -14,6 +14,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-08-01',
     representativeName: 'Arturo Alvarez Alcantara',
+    representativeDNI: '12345678'
   },
   {
     id: 123413,
@@ -29,6 +30,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En incorporación',
     requestDate: '2024-07-12',
     representativeName: 'Juan Juarez Justino',
+    representativeDNI: '12345666'
   },
   {
     id: 123414,
@@ -44,6 +46,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-06-30',
     representativeName: 'Carlos Canales Cardenas',
+    representativeDNI: '12345558'
   },
   {
     id: 123415,
@@ -59,6 +62,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-08-05',
     representativeName: 'Martin Martinez',
+    representativeDNI: '12334678'
   },
   {
     id: 123416,
@@ -74,6 +78,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-05-20',
     representativeName: 'Tania Torres',
+    representativeDNI: '12333678'
   },
   {
     id: 123417,
@@ -89,6 +94,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-08-10',
     representativeName: 'Karol Kiros Kim',
+    representativeDNI: '12225678'
   },
   {
     id: 123418,
@@ -104,6 +110,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En incorporación',
     requestDate: '2024-07-25',
     representativeName: 'Carmen Cardenas Calle',
+    representativeDNI: '11145678'
   },
   {
     id: 123419,
@@ -119,6 +126,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-06-15',
     representativeName: 'Yanet Yañez',
+    representativeDNI: '12345688'
   },
   {
     id: 123420,
@@ -134,6 +142,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-06-28',
     representativeName: 'Helena Herrera',
+    representativeDNI: '12345677'
   },
   {
     id: 123421,
@@ -149,6 +158,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-07-18',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12345778'
   },
   {
     id: 123422,
@@ -164,6 +174,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-08-01',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12345668'
   },
   {
     id: 123423,
@@ -179,6 +190,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-07-05',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12346678'
   },
   {
     id: 123424,
@@ -194,6 +206,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-06-01',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12345578'
   },
   {
     id: 123425,
@@ -209,6 +222,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-05-30',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12355678'
   },
   {
     id: 123426,
@@ -224,6 +238,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-06-12',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12344678'
   },
   {
     id: 123427,
@@ -239,6 +254,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-05-15',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12445678'
   },
   {
     id: 123428,
@@ -254,6 +270,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-08-02',
     representativeName: 'Juan Pérez',
+    representativeDNI: '12335678'
   },
   {
     id: 123429,
@@ -269,6 +286,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-07-10',
     representativeName: 'Juan Pérez',
+    representativeDNI: '11345678'
   },
   {
     id: 123430,
@@ -284,6 +302,7 @@ export const resquestDemoListMock = [
     storeStatusService: 'En incorporación',
     requestDate: '2024-06-22',
     representativeName: 'Juan Pérez',
+    representativeDNI: '13345678'
   },
   {
     id: 123431,
@@ -299,5 +318,6 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-08-08',
     representativeName: 'Juan Pérez',
+    representativeDNI: '22345678'
   },
 ];
