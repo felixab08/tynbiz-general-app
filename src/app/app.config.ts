@@ -7,11 +7,16 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
     provideHttpClient(
       withFetch(),
       withInterceptors([
