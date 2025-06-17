@@ -88,7 +88,7 @@ export const menuAdminMock: any = [
     id: '35asbaasvas',
     name: 'Panel',
     icon: 'fa-solid fa-store',
-    route: '/admin/panel',
+    route: '/admin',
   },
   {
     id: '31asbvas',

@@ -6,12 +6,12 @@ export const shopperRoutes: Routes = [
     loadComponent: () => import('./shopper.component'),
     children: [
       {
-        path: 'stores',
-        loadComponent: () => import('./stores/stores.component'),
+        path: '',
+        loadComponent: () => import('./home/home.component'),
       },
       {
-        path: 'home',
-        loadComponent: () => import('./home/home.component'),
+        path: 'stores',
+        loadComponent: () => import('./stores/stores.component'),
       },
       {
         path: 'creations',
@@ -26,13 +26,8 @@ export const shopperRoutes: Routes = [
         loadComponent: () => import('./offer/offer.component'),
       },
       {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
         path: '**',
-        redirectTo: 'home',
+        redirectTo: '',
         pathMatch: 'full',
       },
     ],

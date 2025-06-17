@@ -6,7 +6,7 @@ export const userRoutes: Routes = [
     loadComponent: () => import('./admin.component'),
     children: [
       {
-        path: 'panel',
+        path: '',
         loadComponent: () => import('./panel-page/panel-page.component'),
       },
       {
@@ -34,13 +34,8 @@ export const userRoutes: Routes = [
           import('./plan-suscrip-page/plan-suscrip-page.component'),
       },
       {
-        path: '',
-        redirectTo: 'panel',
-        pathMatch: 'full',
-      },
-      {
         path: '**',
-        redirectTo: 'panel',
+        redirectTo: '',
         pathMatch: 'full',
       },
     ],
