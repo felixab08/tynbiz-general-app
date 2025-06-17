@@ -4,10 +4,11 @@ import { SecurityPrivacityComponent } from './security-privacity/security-privac
 import { ChangePasswordComponent } from '../../components/change-password/change-password.component';
 import { VerificAccountComponent } from '../../components/verific-account/verific-account.component';
 import { LoginComponent } from '../../shared/login/login.component';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   selector: 'tyn-account',
-  imports: [ProfileComponent, SecurityPrivacityComponent],
+  imports: [ProfileComponent, SecurityPrivacityComponent, TableComponent],
   templateUrl: './account.component.html',
 })
 export default class AccountComponent {}

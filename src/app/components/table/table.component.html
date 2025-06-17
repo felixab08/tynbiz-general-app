@@ -1,0 +1,52 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5">
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <!------------ CABECERA DE LA TABLA ------------>
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr class="pco-table-main-container-header">
+        @for (displayedColumn of displayedColumns; track displayedColumn) {
+        <th scope="col" class="px-6 py-3">
+          <div>
+            <p>{{ displayedColumn }}</p>
+          </div>
+        </th>
+        }
+      </tr>
+    </thead>
+    <!------------ CUERPO DE LA TABLA ------------>
+    <tbody>
+      @for (row of dataSource; track row) {
+      <tr
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+      >
+        @for (column of headerTable; track column) {
+        <td class="px-6 py-4" scope="row">
+          <span
+            class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
+            [ngClass]="{
+              'bg-red-100 text-red-800': row[column] == 'En revisión',
+              'bg-yellow-100 text-yellow-800':
+                row[column] === 'En incorporación',
+              'bg-blue-100 text-blue-800': row[column] === 'Enlace enviado',
+              'bg-green-100 text-green-800': row[column] === 'Incorporado'
+            }"
+          >
+            {{ row[column] }}
+          </span>
+        </td>
+        }
+        <td class="px-6 py-4">
+          <a
+            href="#"
+            class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
