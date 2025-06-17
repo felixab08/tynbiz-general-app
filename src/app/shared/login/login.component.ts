@@ -19,7 +19,7 @@ import { FormUtils } from '@app/utils/form.util';
 export class LoginComponent implements OnInit {
   storeService = inject(StoreService);
   _authService = inject(AuthService);
-
+  hasError = signal(false);
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
 
@@ -40,17 +40,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
-      console.log('Login status changed:', isLoggedIn);
       this.isModalOpen.set(!isLoggedIn);
     });
   }
 
-  onSave() {
+  logginForm() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
-    console.log('Form submitted', this.myForm.value);
     this._authService
       .login(
         this.myForm.controls['user'].value,
@@ -58,20 +56,32 @@ export class LoginComponent implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          this.closeModal();
+          if (response) {
+            this.closeModal();
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          } else {
+            this.hasError.set(true);
+            setTimeout(() => {
+              this.hasError.set(false);
+            }, 2000);
+          }
         },
         error: (error) => {
+          debugger;
           console.error('Login failed', error);
           this.myForm.setErrors({ loginFailed: true });
+          this.hasError.set(true);
+          // setTimeout(() => {
+          //   this.hasError.set(false);
+          // }, 2000);
         },
       });
-    this.myForm.reset();
+    // this.myForm.reset();
   }
-  openModal() {
-    this.storeService.isLoginSubject.subscribe(console.log);
-    this.isModalOpen.set(true);
-  }
+
   closeModal() {
-    this.isModalOpen.set(false);
+    this.storeService.isLoginSubject.next(false);
   }
 }

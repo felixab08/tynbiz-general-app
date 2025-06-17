@@ -7,13 +7,7 @@ import { LoginComponent } from '../../shared/login/login.component';
 
 @Component({
   selector: 'tyn-account',
-  imports: [
-    ProfileComponent,
-    SecurityPrivacityComponent,
-    ChangePasswordComponent,
-    VerificAccountComponent,
-    LoginComponent,
-  ],
+  imports: [ProfileComponent, SecurityPrivacityComponent],
   templateUrl: './account.component.html',
 })
 export default class AccountComponent {}

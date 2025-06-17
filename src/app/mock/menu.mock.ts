@@ -28,12 +28,14 @@ export const menuItemsMock = [
     name: 'Favoritos',
     icon: 'fa-solid fa-heart-circle-plus',
     route: '/shop/favorites',
+    role: 'moderator',
   },
   {
     id: '15esybvas',
     name: 'Tu creación',
     icon: 'fa-solid fa-boxes-packing', //
     route: '/shop/contact',
+    role: 'moderator',
   },
 ];
 

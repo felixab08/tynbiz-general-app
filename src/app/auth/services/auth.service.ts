@@ -48,6 +48,7 @@ export class AuthService {
         map((resp) =>
           this.searhUserById(resp.id).subscribe((data: any) => {
             if (data) {
+              console.log('User found:', data);
               return this.handleAuthSuccess(data, resp.accessToken);
             } else {
               throw new Error('User not found');
@@ -89,6 +90,7 @@ export class AuthService {
     this._authStatus.set('not-authenticated');
     localStorage.clear();
     this._router.navigate(['/']);
+    location.reload();
   }
 
   private handleAuthSuccess(user: any, token: string) {
