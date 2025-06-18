@@ -104,14 +104,14 @@
               </tr>
             </thead>
             <tbody>
-              @for (rolList of rolList; track rolList.id) {
+              @for (rolList of rolLists; track rolList.id) {
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
               >
                 <td class="py-4">
                   {{ rolList.name }}
                 </td>
-                <td class="py-4">{{ rolList.cant }} usuarios</td>
+                <td class="py-4">{{ rolList.cantHabitity }} usuarios</td>
               </tr>
               }
             </tbody>
@@ -148,7 +148,7 @@
               </tr>
             </thead>
             <tbody>
-              @for (userAction of userAction; track userAction.id) {
+              @for (userAction of userActions; track userAction.id) {
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
               >
@@ -202,7 +202,7 @@
               </tr>
             </thead>
             <tbody>
-              @for (userConect of userConect; track userConect.id) {
+              @for (userConect of userConects; track userConect.id) {
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
               >
@@ -266,7 +266,7 @@
           </a>
         </div>
         <div class="grid grid-cols-2 gap-4 m-6">
-          @for (item of ganancias; track $index) {
+          @for (item of ganancias; track item.id) {
           <div
             class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-4 md:p-6"
           >

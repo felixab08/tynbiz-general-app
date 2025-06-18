@@ -15,11 +15,21 @@ import {
 export default class PanelPageComponent {
   _router = inject(Router);
 
-  rolList = rolsCreateMock.splice(0, 3);
-  userAction = userActionsMock.splice(0, 3);
-  userConect = userConectadosMock.splice(0, 3);
-  ganancias = gananciasMock;
+  rolLists: any = [];
+  userActions: any = [];
+  userConects: any = [];
+  ganancias: any = [];
 
+  constructor() {
+    const rolsCreate: any = [...rolsCreateMock];
+    const userActions: any = [...userActionsMock];
+    const userConectados: any = [...userConectadosMock];
+
+    this.rolLists = [...rolsCreate.splice(0, 3)];
+    this.userActions = [...userActions.splice(0, 3)];
+    this.userConects = [...userConectados.splice(0, 3)];
+    this.ganancias = [...gananciasMock];
+  }
   routeLink(link: string) {
     this._router.navigate([`/admin/${link}`]);
   }
