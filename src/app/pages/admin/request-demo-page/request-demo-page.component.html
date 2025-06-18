@@ -5,7 +5,7 @@
   </div>
   <div class="xl:flex items-center justify-between grid grid-cols-1 lg:grid-cols-2 pb-4">
     <!-- Search -->
-     <div class="relative w-52">
+    <div class="relative w-52">
       <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
           fill="none" viewBox="0 0 20 20">
@@ -31,7 +31,6 @@
         <option ngValue="All" selected>Todos</option>
         <option ngValue="Atendido">Atendido</option>
         <option ngValue="Pendiente">Pendiente</option>
-        <option ngValue="Rechazado">Rechazado</option>
       </select>
     </div>
   </div>
@@ -43,7 +42,7 @@
           <th scope="col" class="px-6 py-3">Fecha de solicitud</th>
           <th scope="col" class="px-6 py-3">Correo</th>
           <th scope="col" class="px-6 py-3">Estado</th>
-          <th scope="col" class="px-6 py-3">Acciones</th>
+          <th scope="col" class="px-6 py-3 text-center">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -63,18 +62,24 @@
             <span
               class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
               [ngClass]="{
-              'bg-red-100 text-red-800': item.storeStatus == 'Rechazado',
               'bg-yellow-100 text-yellow-800': item.storeStatus === 'Pendiente'
             }">
               {{ item.storeStatus }}
             </span>
           </td>
-          <td class="px-6 py-4">
+          @if (item.storeStatus === 'Pendiente') {
+          <td class="px-6 py-4 text-center">
             <button type="button" (click)="openModal(item)"
               class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
               Gestionar
             </button>
           </td>
+          } @else {
+          <td class="px-6 py-4 text-center">
+            ---
+          </td>
+          }
+
         </tr>
         }
       </tbody>
@@ -84,7 +89,8 @@
   <div class="flex justify-between">
     <div class="flex my-6 items-center">
       <p class="text-sm text-gray-700">Filas por página: </p>
-      <select [(ngModel)]="itemsPerPage" class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <select [(ngModel)]="itemsPerPage" (ngModelChange)="onItemsPerPageChange($event)"
+        class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         <option *ngFor="let option of [5, 10, 15, 20, 50]" [value]="option"> {{ option }}</option>
       </select>
     </div>
@@ -158,7 +164,6 @@
         </button>
       </div>
       <!-- Modal body -->
-
       <div class="p-4 md:p-5 space-y-4">
         <div class="relative overflow-x-auto">
           <div class="mx-5 flex items-center justify-between">
@@ -168,24 +173,13 @@
             <p>
               <span class="text-sm text-gray-900 dark:text-white mb-4">Estado
               </span>
-              <span class="font-semibold" [ngClass]="{
-                  'text-green-600':
-                    selectedSolicDemo?.storeStatus === 'Atendido',
-                  'text-yellow-600':
-                    selectedSolicDemo?.storeStatus === 'Pendiente',
-                  'text-red-600': selectedSolicDemo?.storeStatus === 'Rechazado'
-                }">
+              <span class="font-semibold text-yellow-600">
                 {{
-                selectedSolicDemo?.storeStatus === "Pendiente"
-                ? "Pendiente de atención"
-                : selectedSolicDemo?.storeStatus === "Atendido"
-                ? "Atendido"
-                : "Rechazado"
+                selectedSolicDemo?.storeStatus
                 }}
               </span>
             </p>
           </div>
-
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <tbody>
               <tr class="bg-white dark:bg-gray-800">
@@ -229,28 +223,20 @@
             </tbody>
           </table>
         </div>
-        @if (selectedSolicDemo?.storeStatus === 'Pendiente') {
         <div class="flex items-center mb-4">
           <input id="checkbox-2" type="checkbox" value=""
             class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
           <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar como
             atendido</label>
         </div>
-        }
       </div>
       <!-- Modal footer -->
       <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-        @if (selectedSolicDemo?.storeStatus === 'Pendiente') {
-        <button data-modal-hide="default-modal" type="button"
+
+        <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
           class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
           Aplicar
         </button>
-        } @else {
-        <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
-          class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-          Cerrar
-        </button>
-        }
       </div>
     </div>
   </div>

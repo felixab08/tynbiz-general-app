@@ -28,6 +28,7 @@ export default class RequestDemoPageComponent {
       ? resquestDemoListMock
       : resquestDemoListMock.filter((store) => store.storeStatus === status);
     this.resquestList = [...filteredList];
+    this.currentPage = 1;
   }
 
   openModal(SolicDemo: any) {
@@ -50,11 +51,13 @@ export default class RequestDemoPageComponent {
       const matchesDate =
         (!start || itemDate >= start) && (!end || itemDate <= end);
       return matchesSearch && matchesDate;
+
     });
+
   }
   get paginatedData() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredData.slice(start, start + this.itemsPerPage);
+    return this.filteredData.slice(start, this.currentPage * this.itemsPerPage);
   }
 
   totalPages() {
@@ -73,5 +76,9 @@ export default class RequestDemoPageComponent {
   }
   nextPage() {
     if (this.currentPage < this.totalPages()) this.currentPage++;
+  }
+  onItemsPerPageChange(value: number) {
+    this.itemsPerPage = value;
+    this.currentPage = 1;
   }
 }
