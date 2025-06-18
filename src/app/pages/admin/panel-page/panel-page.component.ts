@@ -4,7 +4,6 @@ import {
   gananciasMock,
   rolsCreateMock,
   userActionsMock,
-  userConectadosMock,
 } from '@app/mock/rol.mock';
 
 @Component({
@@ -23,7 +22,7 @@ export default class PanelPageComponent {
   constructor() {
     const rolsCreate: any = [...rolsCreateMock];
     const userActions: any = [...userActionsMock];
-    const userConectados: any = [...userConectadosMock];
+    const userConectados: any = [...userActionsMock];
 
     this.rolLists = [...rolsCreate.splice(0, 3)];
     this.userActions = [...userActions.splice(0, 3)];
