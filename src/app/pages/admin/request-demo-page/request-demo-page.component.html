@@ -3,103 +3,31 @@
     <h1 class="text-2xl font-semibold">Solicitudes demo</h1>
     <p>Tiendas solicitando una demo de Tynbiz...</p>
   </div>
-  <div class="flex items-center justify-between pb-4">
+  <div class="xl:flex items-center justify-between grid grid-cols-1 lg:grid-cols-2 pb-4">
     <!-- Search -->
-    <label
-      for="default-search"
-      class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-      >Search</label
-    >
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-      >
-        <svg
-          class="w-4 h-4 text-gray-500 dark:text-gray-400"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-          />
+     <div class="relative w-52">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
       </div>
-      <input
-        type="search"
-        id="default-search"
-        class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-        placeholder="Buscar solicitud demo"
-        required
-      />
+      <input type="text" [(ngModel)]="search" placeholder="Buscar solicitud demo"
+        class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
     </div>
-    <!--  -->
-
-    <div id="date-range-picker" date-rangepicker class="flex items-center">
-      <span class="mx-4 text-gray-500">Fechas</span>
-      <div class="relative">
-        <div
-          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-        >
-          <svg
-            class="w-4 h-4 text-gray-500 dark:text-gray-400"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-            />
-          </svg>
-        </div>
-        <input
-          id="datepicker-range-start"
-          name="start"
-          type="date"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-          placeholder="Select date start"
-        />
-      </div>
+    <div class="flex items-center">
+      <span class="mx-4 text-gray-500 hidden md:block">Fechas</span>
+      <input type="date" [(ngModel)]="startDate" placeholder="Fecha desde"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
       <span class="mx-4 text-gray-500">al</span>
-      <div class="relative">
-        <div
-          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-        >
-          <svg
-            class="w-4 h-4 text-gray-500 dark:text-gray-400"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-            />
-          </svg>
-        </div>
-        <input
-          id="datepicker-range-end"
-          name="end"
-          type="text"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-          placeholder="Select date end"
-        />
-      </div>
+      <input type="date" [(ngModel)]="endDate" placeholder="Fecha hasta"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
     </div>
     <!-- Filter -->
     <div class="relative w-48">
-      <select
-        id="status"
-        (ngModelChange)="filterByStatus($event)"
-        [(ngModel)]="isState"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-      >
+      <select id="status" (ngModelChange)="filterByStatus($event)" [(ngModel)]="isState"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
         <option ngValue="All" selected>Todos</option>
         <option ngValue="Atendido">Atendido</option>
         <option ngValue="Pendiente">Pendiente</option>
@@ -107,174 +35,124 @@
       </select>
     </div>
   </div>
-
-  <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-    >
-      <tr>
-        <th scope="col" class="px-6 py-3">Tienda</th>
-        <th scope="col" class="px-6 py-3">Fecha de solicitud</th>
-        <th scope="col" class="px-6 py-3">Correo</th>
-        <th scope="col" class="px-6 py-3">Estado</th>
-        <th scope="col" class="px-6 py-3">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (item of resquestList; track item.id) {
-      <tr
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
-      >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-          {{ item.storeName }}
-          <br />
-          <span class="text-gray-500 dark:text-gray-400">{{
-            item.storeSite
-          }}</span>
-        </th>
-        <td class="px-6 py-4">{{ item.requestDate }}</td>
-        <td class="px-6 py-4">{{ item.storeEmail }}</td>
-        <td class="px-6 py-4">
-          <span
-            class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
-            [ngClass]="{
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Tienda</th>
+          <th scope="col" class="px-6 py-3">Fecha de solicitud</th>
+          <th scope="col" class="px-6 py-3">Correo</th>
+          <th scope="col" class="px-6 py-3">Estado</th>
+          <th scope="col" class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of paginatedData; track item.id) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ item.storeName }}
+            <br />
+            <span class="text-gray-500 dark:text-gray-400">{{
+              item.storeSite
+              }}</span>
+          </th>
+          <td class="px-6 py-4">{{ item.requestDate }}</td>
+          <td class="px-6 py-4">{{ item.storeEmail }}</td>
+          <td class="px-6 py-4">
+            <span
+              class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
+              [ngClass]="{
               'bg-red-100 text-red-800': item.storeStatus == 'Rechazado',
               'bg-yellow-100 text-yellow-800': item.storeStatus === 'Pendiente'
-            }"
-          >
-            {{ item.storeStatus }}
-          </span>
-        </td>
-        <td class="px-6 py-4">
-          <button
-            type="button"
-            (click)="openModal(item)"
-            class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-          >
-            Gestionar
-          </button>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-  <nav
-    class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-    aria-label="Table navigation"
-  >
-    <span
-      class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
-      >Showing
-      <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of
-      <span class="font-semibold text-gray-900 dark:text-white"
-        >1000</span
-      ></span
-    >
-    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-      <li>
-        <a
-          href="#"
-          class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >Previous</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >1</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >2</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          aria-current="page"
-          class="flex items-center justify-center px-3 h-8 text-purple-600 border border-gray-300 bg-purple-50 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-          >3</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >4</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >5</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >Next</a
-        >
-      </li>
-    </ul>
-  </nav>
+            }">
+              {{ item.storeStatus }}
+            </span>
+          </td>
+          <td class="px-6 py-4">
+            <button type="button" (click)="openModal(item)"
+              class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+              Gestionar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <!-- Paginación -->
+  <div class="flex justify-between">
+    <div class="flex my-6 items-center">
+      <p class="text-sm text-gray-700">Filas por página: </p>
+      <select [(ngModel)]="itemsPerPage" class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option *ngFor="let option of [5, 10, 15, 20, 50]" [value]="option"> {{ option }}</option>
+      </select>
+    </div>
+    <div class="justify-end">
+      <nav aria-label="Page navigation example " class="my-6 flex justify-center">
+        <ul class="flex items-center -space-x-px h-8 text-sm">
+          <li>
+            <button (click)="prevPage()" [disabled]="currentPage === 1"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+              <span class="sr-only">Previous</span>
+              <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M5 1 1 5l4 4" />
+              </svg>
+            </button>
+          </li>
+          <!-- Números de página generados dinámicamente -->
+          <li *ngFor="let page of [].constructor(totalPages()); let i = index">
+            <button (click)="setPage(i + 1)" [ngClass]="{
+            'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
+              currentPage === i + 1,
+            'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
+              currentPage !== i + 1
+          }" class="flex items-center justify-center px-3 h-8 leading-tight border">
+              {{ i + 1 }}
+            </button>
+          </li>
+
+          <li>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages()"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+              <span class="sr-only">Next</span>
+              <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 9 4-4-4-4" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
 </div>
 
 <!-- modal -->
 @if (isModalOpen()) {
-<div
-  class="fixed inset-0 bg-black opacity-50 z-40"
-  (click)="closeModal()"
-></div>
+<div class="fixed inset-0 bg-black opacity-50 z-40" (click)="closeModal()"></div>
 }
 <!-- Main modal -->
-<div
-  id="default-modal"
-  tabindex="-1"
-  aria-hidden="true"
-  [ngClass]="isModalOpen() ? 'block' : 'hidden'"
-  class="overflow-y-auto overflow-x-hidden fixed flex top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
->
+<div id="default-modal" tabindex="-1" aria-hidden="true" [ngClass]="isModalOpen() ? 'block' : 'hidden'"
+  class="overflow-y-auto overflow-x-hidden fixed flex top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
   <div class="relative p-4 w-full max-w-2xl max-h-full">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
       <!-- Modal header -->
-      <div
-        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
-      >
+      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
           Gestion solicitud demo
         </h3>
-        <button
-          type="button"
-          (click)="closeModal()"
+        <button type="button" (click)="closeModal()"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-hide="default-modal"
-        >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
+          data-modal-hide="default-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
@@ -284,72 +162,52 @@
       <div class="p-4 md:p-5 space-y-4">
         <div class="relative overflow-x-auto">
           <div class="mx-5 flex items-center justify-between">
-            <h4
-              class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
-            >
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Datos de la tienda virtual
             </h4>
             <p>
-              <span class="text-sm text-gray-900 dark:text-white mb-4"
-                >Estado
+              <span class="text-sm text-gray-900 dark:text-white mb-4">Estado
               </span>
-              <span
-                class="font-semibold"
-                [ngClass]="{
+              <span class="font-semibold" [ngClass]="{
                   'text-green-600':
                     selectedSolicDemo?.storeStatus === 'Atendido',
                   'text-yellow-600':
                     selectedSolicDemo?.storeStatus === 'Pendiente',
                   'text-red-600': selectedSolicDemo?.storeStatus === 'Rechazado'
-                }"
-              >
+                }">
                 {{
-                  selectedSolicDemo?.storeStatus === "Pendiente"
-                    ? "Pendiente de atención"
-                    : selectedSolicDemo?.storeStatus === "Atendido"
-                    ? "Atendido"
-                    : "Rechazado"
+                selectedSolicDemo?.storeStatus === "Pendiente"
+                ? "Pendiente de atención"
+                : selectedSolicDemo?.storeStatus === "Atendido"
+                ? "Atendido"
+                : "Rechazado"
                 }}
               </span>
             </p>
           </div>
 
-          <table
-            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-          >
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <tbody>
               <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <th scope="row" class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Tienda
                 </th>
                 <td class="px-6 py-4">{{ selectedSolicDemo?.storeName }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <th scope="row" class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Enlace
                 </th>
                 <td class="px-6 py-4">{{ selectedSolicDemo.storeLink }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <th scope="row" class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Fecha de solicitud
                 </th>
                 <td class="px-6 py-4">{{ selectedSolicDemo?.requestDate }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <th scope="row" class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Nombre
                 </th>
                 <td class="px-6 py-4">
@@ -357,19 +215,13 @@
                 </td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <th scope="row" class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Correo
                 </th>
                 <td class="px-6 py-4">{{ selectedSolicDemo?.storeEmail }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <th scope="row" class="px-6 w-10 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   Telefono
                 </th>
                 <td class="px-6 py-4">{{ selectedSolicDemo?.storePhone }}</td>
@@ -379,39 +231,23 @@
         </div>
         @if (selectedSolicDemo?.storeStatus === 'Pendiente') {
         <div class="flex items-center mb-4">
-          <input
-            id="checkbox-2"
-            type="checkbox"
-            value=""
-            class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            for="checkbox-2"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >Marcar como atendido</label
-          >
+          <input id="checkbox-2" type="checkbox" value=""
+            class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Marcar como
+            atendido</label>
         </div>
         }
       </div>
       <!-- Modal footer -->
-      <div
-        class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
-      >
+      <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
         @if (selectedSolicDemo?.storeStatus === 'Pendiente') {
-        <button
-          data-modal-hide="default-modal"
-          type="button"
-          class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
-        >
+        <button data-modal-hide="default-modal" type="button"
+          class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
           Aplicar
         </button>
         } @else {
-        <button
-          data-modal-hide="default-modal"
-          type="button"
-          (click)="closeModal()"
-          class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
-        >
+        <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
+          class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
           Cerrar
         </button>
         }

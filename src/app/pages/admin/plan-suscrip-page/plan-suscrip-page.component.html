@@ -1,1 +1,54 @@
-<p>plan-suscrip-page works!</p>,
+<div class="relative overflow-x-auto shadow-md px-5 md:px-10">
+  <div class="mb-6 text-gray-900 dark:text-white">
+    <h1 class="text-2xl font-semibold">
+      Tiendas con el plan de suscripcion
+    </h1>
+  </div>
+  <!-- busqueda -->
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Nombre</th>
+          <th scope="col" class="px-6 py-3">Costo plan</th>
+          <th scope="col" class="px-6 py-3">Plan suscripcion</th>
+          <th scope="col" class="px-6 py-3">Metodo de pago</th>
+          <th scope="col" class="px-6 py-3">Periodo de facturacion</th>
+          <th scope="col" class="px-6 py-3">Opción</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of planStoreList; track item.id) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th scope="row" class="px-6 py-4  whitespace-nowrap dark:text-white">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+              <div class="shrink-0">
+                <img class="w-8 h-8 rounded-sm" [src]="item.storeLogo" alt="Default avatar" />
+              </div>
+              <div class="flex-1 min-w-0 text-gray-900 dark:text-white">
+                <p class="text-sm font-semibold">
+                  {{ item.storeName }}
+                </p>
+                <a class="inline-flex text-sm font-normal items-center">
+                  {{ item.storeSite }}
+                </a>
+              </div>
+            </div>
+          </th>
+          <td class="px-6 py-4"> S/. {{ item.costePlan }}</td>
+          <td class="px-6 py-4">{{ item.planSubscription }}</td>
+          <td class="px-6 py-4">{{ item.metodPay }}</td>
+          <td class="px-6 py-4">{{ item.starPlan }} a {{ item.endPlan }}</td>
+          <td class="px-6 py-4">
+            <button type="button"
+              class="focus:outline-none w-40 text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+              Ver periodo de facturacion
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

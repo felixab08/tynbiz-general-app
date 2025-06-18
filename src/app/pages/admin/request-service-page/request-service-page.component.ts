@@ -14,7 +14,7 @@ export default class RequestServicePageComponent {
   selectedSolicDemo: any = true;
   search = '';
   currentPage = 1;
-  itemsPerPage = 5;
+  itemsPerPage = 10;
   // Filtros por fecha
   startDate: string = '';
   endDate: string = '';
