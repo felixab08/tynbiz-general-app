@@ -6,7 +6,7 @@ export const userRoutes: Routes = [
     loadComponent: () => import('./admin.component'),
     children: [
       {
-        path: '',
+        path: 'panel',
         loadComponent: () => import('./panel-page/panel-page.component'),
       },
       {
@@ -34,8 +34,28 @@ export const userRoutes: Routes = [
           import('./plan-suscrip-page/plan-suscrip-page.component'),
       },
       {
+        path: 'list-user',
+        loadComponent: () =>
+          import('./list-user-page/list-user-page.component'),
+      },
+      {
+        path: 'list-role',
+        loadComponent: () =>
+          import('./list-role-page/list-role-page.component'),
+      },
+      {
+        path: 'list-actions-user',
+        loadComponent: () =>
+          import('./list-actions-user-page/list-actions-user-page.component'),
+      },
+      {
+        path: '',
+        redirectTo: 'panel',
+        pathMatch: 'full',
+      },
+      {
         path: '**',
-        redirectTo: '',
+        redirectTo: 'panel',
         pathMatch: 'full',
       },
     ],

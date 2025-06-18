@@ -4,10 +4,13 @@ import { SecurityPrivacityComponent } from './security-privacity/security-privac
 import { ChangePasswordComponent } from '../../components/change-password/change-password.component';
 import { VerificAccountComponent } from '../../components/verific-account/verific-account.component';
 import { LoginComponent } from '../../shared/login/login.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tyn-account',
-  imports: [ProfileComponent, SecurityPrivacityComponent],
+  imports: [ProfileComponent, SecurityPrivacityComponent, CommonModule],
   templateUrl: './account.component.html',
 })
-export default class AccountComponent {}
+export default class AccountComponent {
+  selectedTab: string = 'select-profile';
+}

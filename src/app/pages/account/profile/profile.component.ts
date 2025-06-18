@@ -10,7 +10,7 @@ import { FormUtils } from '@app/utils/form.util';
 
 @Component({
   selector: 'tyn-profile',
-  imports: [ReactiveFormsModule, CommonModule, JsonPipe],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent {

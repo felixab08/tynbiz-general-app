@@ -117,4 +117,15 @@ export const menuAdminMock: any = [
       { name: 'Tiendas con planes', route: '/admin/plan-suscript' },
     ],
   },
+  {
+    id: '35syasqs',
+    name: 'User Admin',
+    icon: 'fa-solid fa-tags',
+    route: '',
+    children: [
+      { name: 'Lista de usuarios', route: '/admin/list-user' },
+      { name: 'Registro de acciones', route: '/admin/list-actions-user' },
+      { name: 'Lista de roles', route: '/admin/list-role' },
+    ],
+  },
 ];
