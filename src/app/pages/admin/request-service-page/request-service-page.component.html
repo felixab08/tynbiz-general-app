@@ -1,4 +1,4 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-10">
+<div class="relative overflow-x-auto shadow-md px-5 md:px-10">
   <div class="mb-6 text-gray-900 dark:text-white">
     <h1 class="text-2xl font-semibold">
       Solicitudes para empezar servicio Tynbiz
@@ -6,28 +6,9 @@
     <p>Tiendas solicitando empezar servicio tynbiz</p>
   </div>
   <!-- Búsqueda general -->
-  <div class="flex items-center justify-between pb-4">
-    <div class="relative">
-      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-        </svg>
-      </div>
-      <input type="text" [(ngModel)]="search" placeholder="Buscar solicitud demo"
-        class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
-    </div>
-    <div class="flex items-center">
-      <span class="mx-4 text-gray-500">Fechas</span>
-      <input type="date" [(ngModel)]="startDate" placeholder="Fecha desde"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
-      <span class="mx-4 text-gray-500">al</span>
-      <input type="date" [(ngModel)]="endDate" placeholder="Fecha hasta"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
-    </div>
+  <div class="xl:flex items-center justify-between grid grid-cols-1 lg:grid-cols-2 pb-4">
     <!-- busqueda por estado -->
-    <div class="relative w-48">
+    <div class="relative w-52">
       <select id="status" (ngModelChange)="filterByStatus($event)" [(ngModel)]="isState"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
         <option ngValue="All" selected>Todos</option>
@@ -38,31 +19,31 @@
       </select>
     </div>
   </div>
-
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th scope="col" class="px-6 py-3">Tienda</th>
-        <th scope="col" class="px-6 py-3">Fecha de solicitud</th>
-        <th scope="col" class="px-6 py-3">Correo</th>
-        <th scope="col" class="px-6 py-3">Estado</th>
-        <th scope="col" class="px-6 py-3">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (item of paginatedData; track item.id) {
-      <tr
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          {{ item.storeName }} <br />
-          <span class="text-gray-500 dark:text-gray-400">{{
-            item.storeSite
-            }}</span>
-        </th>
-        <td class="px-6 py-4">{{ item.requestDate }}</td>
-        <td class="px-6 py-4">{{ item.storeEmail }}</td>
-        <td class="px-6 py-4">
-          <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full" [ngClass]="{
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Tienda</th>
+          <th scope="col" class="px-6 py-3">Fecha de solicitud</th>
+          <th scope="col" class="px-6 py-3">Correo</th>
+          <th scope="col" class="px-6 py-3">Estado</th>
+          <th scope="col" class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of paginatedData; track item.id) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ item.storeName }} <br />
+            <span class="text-gray-500 dark:text-gray-400">{{
+              item.storeSite
+              }}</span>
+          </th>
+          <td class="px-6 py-4">{{ item.requestDate }}</td>
+          <td class="px-6 py-4">{{ item.storeEmail }}</td>
+          <td class="px-6 py-4">
+            <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full" [ngClass]="{
               'bg-red-100 text-red-800':
                 item.storeStatusService == 'En revisión',
               'bg-yellow-100 text-yellow-800':
@@ -72,58 +53,71 @@
               'bg-green-100 text-green-800':
                 item.storeStatusService === 'Incorporado'
             }">
-            {{ item.storeStatusService }}
-          </span>
-        </td>
-        <td class="px-6 py-4">
-          <button type="button" (click)="openModal(item)"
-            class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-            Gestionar
-          </button>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+              {{ item.storeStatusService }}
+            </span>
+          </td>
+          <td class="px-6 py-4">
+            <button type="button" (click)="openModal(item)"
+              class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+              Gestionar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
   <!-- Paginación -->
-  <nav aria-label="Page navigation example " class="my-6 flex justify-center">
-    <ul class="flex items-center -space-x-px h-8 text-sm">
-      <li>
-        <button (click)="prevPage()" [disabled]="currentPage === 1"
-          class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Previous</span>
-          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5 1 1 5l4 4" />
-          </svg>
-        </button>
-      </li>
-      <!-- Números de página generados dinámicamente -->
-      <li *ngFor="let page of [].constructor(totalPages()); let i = index">
-        <button (click)="setPage(i + 1)" [ngClass]="{
+  <div class="flex justify-between">
+    <div class="flex my-6 items-center">
+      <p class="text-sm text-gray-700">Filas por página: </p>
+      <select [(ngModel)]="itemsPerPage" (ngModelChange)="onItemsPerPageChange($event)"
+        class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option *ngFor="let option of [4, 5, 10, 15, 20, 50]" [value]="option"> {{ option }}</option>
+      </select>
+    </div>
+    <div class="justify-end">
+      <nav aria-label="Page navigation example " class="my-6 flex justify-center">
+        <ul class="flex items-center -space-x-px h-8 text-sm">
+          <li>
+            <button (click)="prevPage()" [disabled]="currentPage === 1"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+              <span class="sr-only">Previous</span>
+              <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M5 1 1 5l4 4" />
+              </svg>
+            </button>
+          </li>
+          <!-- Números de página generados dinámicamente -->
+          <li *ngFor="let page of [].constructor(totalPages()); let i = index">
+            <button (click)="setPage(i + 1)" [ngClass]="{
             'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
               currentPage === i + 1,
             'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
               currentPage !== i + 1
           }" class="flex items-center justify-center px-3 h-8 leading-tight border">
-          {{ i + 1 }}
-        </button>
-      </li>
+              {{ i + 1 }}
+            </button>
+          </li>
 
-      <li>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages()"
-          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Next</span>
-          <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m1 9 4-4-4-4" />
-          </svg>
-        </button>
-      </li>
-    </ul>
-  </nav>
+          <li>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages()"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+              <span class="sr-only">Next</span>
+              <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 9 4-4-4-4" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
 </div>
 <!-- Modal -->
 @if (isModalOpen()) {
@@ -131,8 +125,9 @@
 }
 <!-- Main modal -->
 <div id="default-modal" tabindex="-1" aria-hidden="true" [ngClass]="isModalOpen() ? 'block' : 'hidden'"
-  class="overflow-y-auto overflow-x-hidden fixed flex top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-  <div class="relative p-4 w-full max-w-4xl max-h-full">
+  class="fixed inset-0 z-50 flex items-center justify-center ">
+  <div
+    class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow dark:bg-gray-700 overflow-hidden">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
       <!-- Modal header -->
@@ -187,7 +182,8 @@
         </div>
 
         <!-- Contenido de pestañas -->
-        <div *ngIf="selectedTab === 'verifyInformation'" class="p-4 bg-white rounded-lg dark:bg-gray-800">
+        <div *ngIf="selectedTab === 'verifyInformation'"
+          class="p-4 bg-white rounded-lg dark:bg-gray-800 overflow-y-auto max-h-[70vh]">
           <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
             Informacion de la tienda
           </h4>
@@ -195,28 +191,30 @@
 
           <form class="mx-auto">
             <h4 class="text-lg font-semibold my-4">Datos tienda online</h4>
-            <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la
-                tienda online</label>
-              <input type="text" id="disabled-input" aria-label="disabled input"
-                class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.storeName" disabled />
+            <div class="grid grid-cols-1  md:mb-0 md:grid-cols-2 gap-4">
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la
+                  tienda online</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.storeName" disabled />
+              </div>
+              <div>
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enlace
+                  tienda</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.storeSite" disabled />
+              </div>
             </div>
             <div class="mb-5">
-              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enlace
-                tienda</label>
-              <input type="text" id="disabled-input" aria-label="disabled input"
-                class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.storeSite" disabled />
-            </div>
-            <div class="mb-5">
-              <div class="grid grid-cols-3 gap-4">
+              <div class="grid md:grid-cols-3 gap-4">
                 <div>
                   <label for="countries"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Departamento</label>
                   <select disabled id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Ayacucho</option>
+                    <option selected>{{selectedSolicDemo.storeDepartment}}</option>
                   </select>
                 </div>
                 <div>
@@ -224,7 +222,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
                   <select disabled id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Huamanga</option>
+                    <option selected>{{selectedSolicDemo.storeProvince}}</option>
                   </select>
                 </div>
                 <div>
@@ -232,31 +230,45 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
                   <select disabled id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Ayacucho</option>
+                    <option selected>{{selectedSolicDemo.storeDistrict}}</option>
                   </select>
                 </div>
               </div>
             </div>
-            <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Direccion</label>
-              <input type="text" id="disabled-input" aria-label="disabled input"
-                class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.storeAddress" disabled />
+            <div class="grid grid-cols-1 mb-6 md:mb-0 md:grid-cols-2 gap-4">
+              <div>
+                <label for="email"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Direccion</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.storeAddress" disabled />
+              </div>
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.storeEmail" disabled />
+              </div>
             </div>
-            <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria de la
-                tienda online</label>
-              <select disabled id="countries"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Computacion</option>
-              </select>
+
+            <div class="grid grid-cols-1 mb-6 md:mb-0 md:grid-cols-2 gap-4">
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria de la
+                  tienda online</label>
+                <select disabled id="countries"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option selected>{{selectedSolicDemo.storeCategory}}</option>
+                </select>
+              </div>
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Otra
+                  categoria</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.storeCategory2" disabled />
+              </div>
             </div>
-            <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo</label>
-              <input type="text" id="disabled-input" aria-label="disabled input"
-                class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.storeEmail" disabled />
-            </div>
+
             <div class="mb-5">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de
                 telefono</label>
@@ -267,17 +279,19 @@
             <h4 class="text-lg font-semibold my-4">
               Datos del representante de tienda online
             </h4>
-            <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-              <input type="text" id="disabled-input" aria-label="disabled input"
-                class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.representativeName" disabled />
-            </div>
-            <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
-              <input type="text" id="disabled-input" aria-label="disabled input"
-                class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.representativeDNI" disabled />
+            <div class="grid grid-cols-1 mb-6 md:mb-0 md:grid-cols-2 gap-4">
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.representativeName" disabled />
+              </div>
+              <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
+                <input type="text" id="disabled-input" aria-label="disabled input"
+                  class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [value]="selectedSolicDemo.representativeDNI" disabled />
+              </div>
             </div>
           </form>
           <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -288,7 +302,8 @@
           </div>
         </div>
 
-        <div *ngIf="selectedTab === 'checkPlan'" class="p-4 bg-white rounded-lg dark:bg-gray-800">
+        <div *ngIf="selectedTab === 'checkPlan'"
+          class="p-4 bg-white rounded-lg dark:bg-gray-800 overflow-y-auto max-h-[70vh]">
           <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
             Informacion de la tienda
           </h4>
@@ -351,7 +366,8 @@
             </button>
           </div>
         </div>
-        <div *ngIf="selectedTab === 'incorporation'" class="p-4 bg-white rounded-lg dark:bg-gray-800">
+        <div *ngIf="selectedTab === 'incorporation'"
+          class="p-4 bg-white rounded-lg dark:bg-gray-800 overflow-y-auto max-h-[70vh]">
           <h4 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
             Finalizando incorporacion
           </h4>
@@ -360,25 +376,26 @@
             <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
               Proceso de incorporación
             </h4>
-            <div class="flex items-center mb-4 justify-between">
+            <div
+              class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
               <div class="flex flex-col">
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-600 dark:text-gray-400 mb-1.5">
                   Tynbiz se encuentra en proceso de incorporación a la tienda
                   virtual
                 </p>
-                <div class="flex items-center my-4 ">
+                <div class="flex items-center mt-1.5">
                   <div class="flex items-center h-5">
                     <input id="remember" type="checkbox" value=""
-                      class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                      class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       required />
                   </div>
                   <label for="remember" class="ms-2 text-gray-600 dark:text-gray-400">Marcar como
                     incorporado</label>
                 </div>
               </div>
-              <div>
+              <div class="flex items-center justify-center">
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                   Guardar
                 </button>
               </div>
@@ -389,18 +406,22 @@
             <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
               Enviar enlace de crear cuenta inicio sesión
             </h4>
-            <div class="flex items-center mb-4 justify-between">
+            <div
+              class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
               <div class="flex flex-col">
-                <p class="text-gray-600 my-2  dark:text-gray-400">
-                  Correo: {{ selectedSolicDemo.storeEmail }}
+                <p class="text-gray-600 mb-1.5 dark:text-gray-400">
+                  <span class="font-semibold text-gray-800">
+                    Correo:
+                  </span>
+                  {{ selectedSolicDemo.storeEmail }}
                 </p>
-                <p class="text-gray-600 my-2  dark:text-gray-400">
+                <p class="text-gray-600 mt-1.5 dark:text-gray-400">
                   Se enviará un enlace de crear cuenta inicio de sesión
                 </p>
               </div>
-              <div>
+              <div class="flex items-center justify-center">
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                   Enviar enlace
                 </button>
               </div>
@@ -410,30 +431,38 @@
             <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
               Estado de crear cuenta inicio sesión
             </h4>
-            <div class="flex items-center mb-4 justify-between">
+            <div
+              class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
               <div class="flex flex-col">
-                <p class="text-gray-600 my-2 dark:text-gray-400">
-                  Enviado: 03-04-2024 a las 10:30
+                <p class="text-gray-600 mb-1.5 dark:text-gray-400">
+                  <span class="font-semibold text-gray-800">
+                    Enviado:
+                  </span>
+                  03-04-2024 a las 10:30
                 </p>
-                <p class="text-gray-600 my-2 dark:text-gray-400">
-                  Estado: pendiente en aceptar y crear cuenta inicio sesión
+                <p class="text-gray-600 mt-1.5 dark:text-gray-400">
+                  <span class="font-semibold text-gray-800">
+                    Estado:
+                  </span>
+                  pendiente en aceptar y crear cuenta inicio sesión
                 </p>
               </div>
-              <div>
+              <div class="flex items-center justify-center">
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                   Reenviar enlace
                 </button>
               </div>
             </div>
           </div>
-          <div class="items-center flex justify-center pt-3 pb-1 md:pb-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <div
+            class="items-center flex justify-center pt-3 pb-1 md:pb-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
               class="text-white bg-purple-700 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
               Finalizar proceso de incorporación de Tynbiz
             </button>
           </div>
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center text-center">
             <p class="text-gray-600 my-2 dark:text-gray-400">
               Al finalizar la incorporación, la tienda virtual se visualizará en el módulo de tiendas
             </p>
