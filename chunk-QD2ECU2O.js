@@ -1,1 +1,0 @@
-import"./chunk-2VMXMS7J.js";var t=[{path:"",loadComponent:()=>import("./chunk-W7HID57J.js"),children:[{path:"init-store",loadComponent:()=>import("./chunk-X5W6KQVE.js")},{path:"",redirectTo:"init-store",pathMatch:"full"}]}];export{t as storesRoutes};
