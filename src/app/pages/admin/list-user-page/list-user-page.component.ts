@@ -20,6 +20,8 @@ export default class ListUserPageComponent {
   startDate: string = '';
   endDate: string = '';
 
+  openDropdownIndex: number | null = null;
+
   router = inject(Router);
 
   editUser(id: number): void {
@@ -67,5 +69,9 @@ export default class ListUserPageComponent {
   }
   nextPage() {
     if (this.currentPage < this.totalPages()) this.currentPage++;
+  }
+  toggleDropdown(plan: any) {
+    this.openDropdownIndex =
+      this.openDropdownIndex === plan.id ? null : plan.id;
   }
 }
