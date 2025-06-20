@@ -13,9 +13,8 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
         <option ngValue="All" selected>Todos</option>
         <option ngValue="En revisión">En revisión</option>
-        <option ngValue="En incorporación">En incorporación</option>
-        <option ngValue="Incorporado">Incorporado</option>
         <option ngValue="Enlace enviado">Enlace enviado</option>
+        <option ngValue="Incorporado">Incorporado</option>
       </select>
     </div>
   </div>
@@ -46,8 +45,6 @@
             <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full" [ngClass]="{
               'bg-red-100 text-red-800':
                 item.storeStatusService == 'En revisión',
-              'bg-yellow-100 text-yellow-800':
-                item.storeStatusService === 'En incorporación',
               'bg-blue-100 text-blue-800':
                 item.storeStatusService === 'Enlace enviado',
               'bg-green-100 text-green-800':
@@ -295,7 +292,7 @@
             </div>
           </form>
           <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
+            <button data-modal-hide="default-modal" type="button" (click)="selectedTab = 'checkPlan'"
               class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
               siguiente
             </button>
@@ -312,16 +309,16 @@
             Plan elegido por la tienda
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required />
+            <input checked  type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required />
             <label for="hosting-small"
-              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-purple-600 peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
               <div class="block">
-                <div class="w-full text-lg font-semibold text-gray-800">
+                <div class="w-full text-lg font-semibold">
                   Uso de tynbiz
                 </div>
-                <p class="w-full text-lg font-semibold text-gray-800">
+                <p class="w-full text-lg font-semibold">
                   USD 0.11
-                  <span class="font-normal text-gray-500">/ Uso sala por usuario</span>
+                  <span class="font-normal">/ Uso sala por usuario</span>
                 </p>
               </div>
             </label>
@@ -331,14 +328,14 @@
             <div>
               <input type="radio" id="hosting-medium" name="hosting" value="hosting-medium" class="hidden peer" />
               <label for="hosting-medium"
-                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-purple-600 peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <div class="block">
-                  <div class="w-full text-lg font-semibold text-gray-800">
+                  <div class="w-full text-lg font-semibold">
                     Mensual
                   </div>
-                  <p class="w-full text-lg font-semibold text-gray-800">
+                  <p class="w-full text-lg font-semibold">
                     USD 0.11
-                    <span class="font-normal text-gray-500">/ Mensual</span>
+                    <span class="font-normal">/ Mensual</span>
                   </p>
                 </div>
               </label>
@@ -346,21 +343,21 @@
             <div>
               <input type="radio" id="hosting-large" name="hosting" value="hosting-large" class="hidden peer" />
               <label for="hosting-large"
-                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-purple-600 peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <div class="block">
-                  <div class="w-full text-lg font-semibold text-gray-800">
+                  <div class="w-full text-lg font-semibold">
                     Anual
                   </div>
-                  <p class="w-full text-lg font-semibold text-gray-800">
+                  <p class="w-full text-lg font-semibold">
                     USD 0.11
-                    <span class="font-normal text-gray-500">/ Anual</span>
+                    <span class="font-normal">/ Anual</span>
                   </p>
                 </div>
               </label>
             </div>
           </div>
           <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
+            <button data-modal-hide="default-modal" type="button" (click)="selectedTab = 'incorporation'"
               class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
               Aceptar y continuar
             </button>
@@ -372,36 +369,6 @@
             Finalizando incorporacion
           </h4>
           <hr class="mb-4 border-gray-400 dark:border-gray-600" />
-          <div>
-            <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
-              Proceso de incorporación
-            </h4>
-            <div
-              class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
-              <div class="flex flex-col">
-                <p class="text-gray-600 dark:text-gray-400 mb-1.5">
-                  Tynbiz se encuentra en proceso de incorporación a la tienda
-                  virtual
-                </p>
-                <div class="flex items-center mt-1.5">
-                  <div class="flex items-center h-5">
-                    <input id="remember" type="checkbox" value=""
-                      class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      required />
-                  </div>
-                  <label for="remember" class="ms-2 text-gray-600 dark:text-gray-400">Marcar como
-                    incorporado</label>
-                </div>
-              </div>
-              <div class="flex items-center justify-center">
-                <button data-modal-hide="default-modal" type="button"
-                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                  Guardar
-                </button>
-              </div>
-            </div>
-          </div>
-
           <div>
             <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
               Enviar enlace de crear cuenta inicio sesión
@@ -421,7 +388,7 @@
               </div>
               <div class="flex items-center justify-center">
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-gray-600 ml-4 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                   Enviar enlace
                 </button>
               </div>
@@ -449,24 +416,20 @@
               </div>
               <div class="flex items-center justify-center">
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-gray-600 ml-4 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                   Reenviar enlace
                 </button>
               </div>
             </div>
           </div>
           <div
-            class="items-center flex justify-center pt-3 pb-1 md:pb-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            class="flex justify-end pt-3 pb-1 md:pb-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
               class="text-white bg-purple-700 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-              Finalizar proceso de incorporación de Tynbiz
+              Cerrar
             </button>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <p class="text-gray-600 my-2 dark:text-gray-400">
-              Al finalizar la incorporación, la tienda virtual se visualizará en el módulo de tiendas
-            </p>
-          </div>
+
         </div>
       </div>
     </div>
