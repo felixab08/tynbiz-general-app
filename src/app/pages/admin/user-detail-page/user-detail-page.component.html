@@ -1,0 +1,89 @@
+<div class="p-5">
+  <div class="flex justify-between items-center mb-4">
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      (click)="goBack()"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <h1 class="text-2xl font-bold">Detalle de usuario</h1>
+  </div>
+
+  <div class="grid grid-cols-12 gap-2">
+    <div class="p-2 space-y-4 col-span-8">
+      <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <ul
+          class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
+          role="tablist"
+        >
+          <li class="me-2" role="presentation">
+            <button
+              (click)="selectedTab = 'selectSecurityUser'"
+              [ngClass]="
+                selectedTab === 'selectSecurityUser'
+                  ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
+                  : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+              "
+              type="button"
+              role="tab"
+            >
+              Seguridad
+            </button>
+          </li>
+          <li class="me-2" role="presentation">
+            <button
+              (click)="selectedTab = 'selectDetailUser'"
+              [ngClass]="
+                selectedTab === 'selectDetailUser'
+                  ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
+                  : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+              "
+              type="button"
+              role="tab"
+            >
+              Sesiones y acciones
+            </button>
+          </li>
+          <li class="me-2" role="presentation">
+            <button
+              (click)="selectedTab = 'selectPrivacityUser'"
+              [ngClass]="
+                selectedTab === 'selectPrivacityUser'
+                  ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
+                  : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+              "
+              type="button"
+              role="tab"
+            >
+              Privilegios
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        *ngIf="selectedTab === 'selectSecurityUser'"
+        class="p-10 bg-white rounded-lg dark:bg-gray-800"
+      >
+        <tyn-user-detail-security-page />
+      </div>
+      <div
+        *ngIf="selectedTab === 'selectDetailUser'"
+        class="p-4 bg-white rounded-lg dark:bg-gray-800"
+      >
+        <tyn-user-detail-actions-page />
+      </div>
+      <div
+        *ngIf="selectedTab === 'selectPrivacityUser'"
+        class="p-4 bg-white rounded-lg dark:bg-gray-800"
+      >
+        <tyn-user-detail-privilege-page />
+      </div>
+    </div>
+    <div class="col-span-4 p-10 bg-white rounded-lg dark:bg-gray-800 mt-20">
+      @if (userInfo) {
+      <tyn-user-info-page [userInfo]="userInfo" />
+      }
+    </div>
+  </div>
+</div>

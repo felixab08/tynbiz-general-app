@@ -39,6 +39,11 @@ export const userRoutes: Routes = [
           import('./list-user-page/list-user-page.component'),
       },
       {
+        path: 'user/:id',
+        loadComponent: () =>
+          import('./user-detail-page/user-detail-page.component'),
+      },
+      {
         path: 'list-role',
         loadComponent: () =>
           import('./list-role-page/list-role-page.component'),

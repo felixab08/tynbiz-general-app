@@ -1,11 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
 
 @Component({
   selector: 'tyn-list-user-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './list-user-page.component.html',
 })
 export default class ListUserPageComponent {
@@ -18,6 +19,12 @@ export default class ListUserPageComponent {
   search = '';
   startDate: string = '';
   endDate: string = '';
+
+  router = inject(Router);
+
+  editUser(id: number): void {
+    this.router.navigate(['/admin/user', id]);
+  }
 
   filterByStatus(status: string): void {
     const isAll = status === 'All';

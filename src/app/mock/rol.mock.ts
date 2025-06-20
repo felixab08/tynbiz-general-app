@@ -59,7 +59,7 @@ export const userActionsMock = [
   {
     id: 721221,
     rol: 'SuperUsuario',
-    dateAction: '2025-05-11T05:52:05-05:00',
+    dateAction: '2025-06-19T18:56:06-05:00',
     nameUser: 'Juan Juárez',
     action: 'Inicio sesión',
     status: 'Inactivo',

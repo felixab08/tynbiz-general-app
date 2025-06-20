@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -8,7 +9,7 @@ import {
 
 @Component({
   selector: 'tyn-panel-page',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './panel-page.component.html',
 })
 export default class PanelPageComponent {

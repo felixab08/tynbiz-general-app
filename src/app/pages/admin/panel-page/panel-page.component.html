@@ -159,7 +159,7 @@
                   {{ userAction.rol }}
                 </th>
                 <td class="py-4">
-                  {{ userAction.dateAction }}
+                  {{ userAction.dateAction | date : "medium" }}
                 </td>
                 <td class="py-4">
                   Usuario {{ userAction.nameUser }} {{ userAction.action }}
@@ -214,7 +214,7 @@
                 </th>
                 <td class="py-4">{{ userConect.rol }}</td>
                 <td class="py-4">
-                  {{ userConect.dateAction }}
+                  {{ userConect.dateAction | date : "medium" }}
                 </td>
               </tr>
               }

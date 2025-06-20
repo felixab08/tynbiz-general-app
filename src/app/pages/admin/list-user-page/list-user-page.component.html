@@ -63,17 +63,17 @@
   </div>
 
   <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-auto"
   >
     <thead
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
     >
       <tr>
         <th scope="col" class="px-6 py-3 text-center">Usuario</th>
-        <th scope="col" class="px-6 py-3 text-center">Rol</th>
-        <th scope="col" class="px-6 py-3 text-center">Estado</th>
-        <th scope="col" class="px-6 py-3 text-center">Dos pasos</th>
-        <th scope="col" class="px-6 py-3 text-center">Fecha de Registro</th>
+        <th scope="col" class="px-6 py-3">Rol</th>
+        <th scope="col" class="px-6 py-3">Estado</th>
+        <th scope="col" class="px-6 py-3">Dos pasos</th>
+        <th scope="col" class="px-6 py-3">Fecha de Registro</th>
         <th scope="col" class="px-6 py-3 text-center">Acciones</th>
       </tr>
     </thead>
@@ -84,7 +84,7 @@
       >
         <th
           scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white min-w-[300px]"
         >
           <div class="grid grid-cols-6 gap-1">
             <img
@@ -125,8 +125,14 @@
             {{ item.twoConfirmation ? "Activado" : "" }}
           </span>
         </td>
-        <td class="px-6 py-4">{{ item.dateCreate }}</td>
-        <td class="px-6 py-4 text-center">....</td>
+        <td class="px-6 py-4">{{ item.dateCreate | date : "medium" }}</td>
+        <td class="px-6 py-4 text-center">
+          <i
+            class="fa-regular fa-pen-to-square p-2 cursor-pointer"
+            (click)="editUser(item.id)"
+          ></i>
+          <i class="fa-solid fa-trash p-2 cursor-pointer"></i>
+        </td>
       </tr>
       }
     </tbody>

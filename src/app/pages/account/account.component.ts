@@ -12,5 +12,5 @@ import { CommonModule } from '@angular/common';
   templateUrl: './account.component.html',
 })
 export default class AccountComponent {
-  selectedTab: string = 'select-profile';
+  selectedTab: string = 'selectProfile';
 }

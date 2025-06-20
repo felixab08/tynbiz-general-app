@@ -6,9 +6,9 @@
     >
       <li class="me-2" role="presentation">
         <button
-          (click)="selectedTab = 'select-profile'"
+          (click)="selectedTab = 'selectProfile'"
           [ngClass]="
-            selectedTab === 'select-profile'
+            selectedTab === 'selectProfile'
               ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
               : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
           "
@@ -20,9 +20,9 @@
       </li>
       <li class="me-2" role="presentation">
         <button
-          (click)="selectedTab = 'select-privacity'"
+          (click)="selectedTab = 'selectPrivacity'"
           [ngClass]="
-            selectedTab === 'select-privacity'
+            selectedTab === 'selectPrivacity'
               ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
               : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
           "
@@ -36,13 +36,13 @@
   </div>
 
   <div
-    *ngIf="selectedTab === 'select-profile'"
+    *ngIf="selectedTab === 'selectProfile'"
     class="p-10 bg-white rounded-lg dark:bg-gray-800"
   >
     <tyn-profile></tyn-profile>
   </div>
   <div
-    *ngIf="selectedTab === 'select-privacity'"
+    *ngIf="selectedTab === 'selectPrivacity'"
     class="p-4 bg-white rounded-lg dark:bg-gray-800"
   >
     <tyn-security-privacity />

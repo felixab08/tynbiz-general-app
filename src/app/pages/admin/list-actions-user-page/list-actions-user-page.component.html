@@ -50,7 +50,7 @@
   </div>
 
   <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-auto"
   >
     <thead
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -75,7 +75,7 @@
         >
           {{ item.nameUser }}<br />
         </td>
-        <td class="px-6 py-4">{{ item.dateAction }}</td>
+        <td class="px-6 py-4">{{ item.dateAction | date : "medium" }}</td>
         <td class="px-6 py-4">{{ item.module }}</td>
         <td class="px-6 py-4">{{ item.action }}</td>
       </tr>
