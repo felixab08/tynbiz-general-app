@@ -1,12 +1,13 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
+import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
 
 @Component({
   selector: 'tyn-list-user-page',
-  imports: [CommonModule, FormsModule, DatePipe],
+  imports: [CommonModule, FormsModule, DatePipe, CreateUserFormComponent],
   templateUrl: './list-user-page.component.html',
 })
 export default class ListUserPageComponent {
@@ -21,6 +22,7 @@ export default class ListUserPageComponent {
   endDate: string = '';
 
   openDropdownIndex: number | null = null;
+  isModalOpen = signal(false);
 
   router = inject(Router);
 
@@ -73,5 +75,11 @@ export default class ListUserPageComponent {
   toggleDropdown(plan: any) {
     this.openDropdownIndex =
       this.openDropdownIndex === plan.id ? null : plan.id;
+  }
+  openModal(data?: any) {
+    this.isModalOpen.set(true);
+  }
+  closeModal() {
+    this.isModalOpen.set(false);
   }
 }
