@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'tyn-user-detail-security-page',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user-detail-security-page.component.html',
 })
-export class UserDetailSecurityPageComponent { }
+export class UserDetailSecurityPageComponent {
+  userInfo = input.required<any>();
+}
