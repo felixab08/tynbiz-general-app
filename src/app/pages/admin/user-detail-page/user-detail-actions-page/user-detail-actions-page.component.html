@@ -1,1 +1,97 @@
-<p>user-detail-actions-page works!</p>,
+<!-- Sesiones -->
+@if (getUserSessionsById().length > 0) {
+<div
+  class="p-5 border rounded-lg shadow-sm border-gray-300 dark:border-gray-700"
+>
+  <h4 class="text-lg font-bold">Sesiones de inicio de sesión</h4>
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Ubicación</th>
+          <th scope="col" class="px-6 py-3">IP</th>
+          <th scope="col" class="px-6 py-3">Hora</th>
+          <th scope="col" class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of getUserSessionsById(); track item.id) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ item.ubication }} <br />
+            <span class="text-gray-400 dark:text-gray-400">Mozilla</span>
+          </th>
+          <td class="px-6 py-4">{{ item.ip }}</td>
+          <td class="px-6 py-4">{{ item.dateAction | date : "medium" }}</td>
+          <td class="px-6 py-4">{{ item.action }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+} @else {
+<div
+  class="p-5 border rounded-lg shadow-sm border-gray-300 dark:border-gray-700"
+>
+  <h4 class="text-lg font-bold">Lista de acciones vacía</h4>
+  <p class="text-gray-500">No hay acciones para este usuario</p>
+</div>
+}
+<!-- Acciones -->
+@if (getUserActionsById().length > 0) {
+<div
+  class="p-5 border rounded-lg shadow-sm border-gray-300 dark:border-gray-700 mt-5"
+>
+  <h4 class="text-lg font-bold">Sesiones de inicio de sesión</h4>
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Fecha</th>
+          <th scope="col" class="px-6 py-3">Modulo</th>
+          <th scope="col" class="px-6 py-3">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of getUserActionsById(); track item.id) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ item.dateAction | date : "medium" }} <br />
+          </th>
+          <td class="px-6 py-4">{{ item.modulo }}</td>
+          <td class="px-6 py-4">{{ item.action }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+} @else {
+<div
+  class="p-5 border rounded-lg shadow-sm border-gray-300 dark:border-gray-700"
+>
+  <h4 class="text-lg font-bold">Lista de acciones vacía</h4>
+  <p class="text-gray-500">No hay acciones para este usuario</p>
+</div>
+}
