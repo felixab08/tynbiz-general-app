@@ -68,6 +68,7 @@ export const userActionsMock = [
     email: 'juan_juarez@exchange.com',
     img: './assets/img/user-4.png',
     module: 'Solicitudes',
+    infoUser: 11,
   },
   {
     id: 221221,
@@ -81,6 +82,7 @@ export const userActionsMock = [
     email: 'pedro_portillo@exchange.com',
     img: './assets/img/user-1.png',
     module: 'Solicitudes',
+    infoUser: 12,
   },
   {
     id: 521221,
@@ -94,6 +96,7 @@ export const userActionsMock = [
     email: 'brian@exchange.com',
     img: './assets/img/user-4.png',
     module: 'Carga',
+    infoUser: 13,
   },
   {
     id: 111221,
@@ -107,6 +110,7 @@ export const userActionsMock = [
     email: 'brian@exchange.com',
     img: './assets/img/user-2.png',
     module: 'Solicitudes',
+    infoUser: 14,
   },
   {
     id: 5421221,
@@ -120,6 +124,7 @@ export const userActionsMock = [
     email: 'juanjulio@exchange.com',
     img: './assets/img/user-1.png',
     module: 'Solicitudes',
+    infoUser: 15,
   },
   {
     id: 225621,
@@ -133,6 +138,7 @@ export const userActionsMock = [
     email: 'luislopez@exchange.com',
     img: './assets/img/user-1.png',
     module: 'Solicitudes',
+    infoUser: 16,
   },
   {
     id: 54431221,
@@ -146,6 +152,7 @@ export const userActionsMock = [
     email: 'mariamag@exchange.com',
     img: './assets/img/user-2.png',
     module: 'Tiendas',
+    infoUser: 11,
   },
   {
     id: 142311221,
@@ -159,6 +166,7 @@ export const userActionsMock = [
     email: 'tomasTorres@exchange.com',
     img: './assets/img/user-1.png',
     module: 'Tiendas',
+    infoUser: 12,
   },
 ];
 
