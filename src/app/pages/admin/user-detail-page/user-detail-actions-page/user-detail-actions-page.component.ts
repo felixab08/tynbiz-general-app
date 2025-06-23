@@ -8,15 +8,10 @@ import { sessionsMockUser } from '@app/mock/sessions.mock';
   imports: [CommonModule],
   templateUrl: './user-detail-actions-page.component.html',
 })
-export class UserDetailActionsPageComponent implements OnInit {
+export class UserDetailActionsPageComponent {
   private sessions = sessionsMockUser;
   private actions = actionsMockUser;
   userInfo = input.required<any>();
-
-  ngOnInit(): void {
-    console.log(this.getUserSessionsById());
-    console.log(this.userInfo());
-  }
 
   getUserSessionsById() {
     return this.sessions.filter((action) =>
