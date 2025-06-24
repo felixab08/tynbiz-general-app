@@ -118,6 +118,12 @@ export const menuAdminMock: any = [
     ],
   },
   {
+    id: '1234as1',
+    name: 'Tiendas',
+    icon: 'fa-solid fa-store',
+    route: '/admin/list-store',
+  },
+  {
     id: '35syasqs',
     name: 'User Admin',
     icon: 'fa-solid fa-tags',
@@ -127,11 +133,5 @@ export const menuAdminMock: any = [
       { name: 'Registro de acciones', route: '/admin/list-actions-user' },
       { name: 'Lista de roles', route: '/admin/list-role' },
     ],
-  },
-  {
-    id: '1234as1',
-    name: 'Tiendas',
-    icon: 'fa-solid fa-store',
-    route: '/admin/list-store',
   },
 ];
