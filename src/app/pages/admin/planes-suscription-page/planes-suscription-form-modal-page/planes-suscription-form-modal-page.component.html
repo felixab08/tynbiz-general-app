@@ -1,0 +1,237 @@
+@if (visible) {
+<div>
+  <div class="fixed inset-0 bg-black opacity-50 z-40"></div>
+  <div class="fixed inset-0 z-50 flex items-center justify-center">
+    <div class="relative p-4 w-full max-w-4xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 mb-4 border-b rounded-t dark:border-gray-600 border-gray-200">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            {{ selectedPlan ? 'Editar plan de suscripción' : 'Crear nuevo plan de suscripción' }}
+          </h3>
+          <button type="button" (click)="onClose()"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="default-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <div class="p-4 md:p-5 space-y-4">
+          <div class="relative overflow-x-auto">
+            <div class="grid grid-cols-1 m-2 md:grid-cols-2 gap-4">
+              <div>
+                <form class="">
+                  <div class="mb-5">
+                    <label for="base-input" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">
+                      Nombre del plan suscripción
+                    </label>
+                    <input type="text" id="base-input" [ngModel]="namePlan()" (ngModelChange)="namePlan.set($event)"
+                      name="name"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+                  </div>
+                  <div class="mb-5">
+                    <label for="message"
+                      class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Descripción</label>
+                    <textarea id="message" rows="4" [ngModel]="descriptionPlan()"
+                      (ngModelChange)="descriptionPlan.set($event)" name="desc"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+                      placeholder="Descripción del Plan"></textarea>
+                  </div>
+                  <div class="mb-5">
+                    <label for="message" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Tipo de
+                      plan</label>
+                    <div class="flex ml-2">
+                      <div class="flex items-center me-4">
+                        <input id="inline-radio" type="radio"
+                          (change)="selectedTypePlan.set('uso de tynbiz')" name="type"
+                          class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Uso
+                          de
+                          Tynbiz</label>
+                      </div>
+                      <div class="flex items-center me-4">
+                        <input id="inline-2-radio" type="radio"
+                          (change)="selectedTypePlan.set('mensual')" name="type"
+                          class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="inline-2-radio"
+                          class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mensual</label>
+                      </div>
+                      <div class="flex items-center me-4">
+                        <input id="inline-checked-radio" type="radio"
+                          (change)="selectedTypePlan.set('anual')" name="type"
+                          class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="inline-checked-radio"
+                          class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Anual</label>
+                      </div>
+                    </div>
+                  </div>
+                  @if (selectedTypePlan() === 'uso de tynbiz') {
+                  <div class="mb-5">
+                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comisión
+                      por
+                      usuario (cuando usa sala de tynbiz)</label>
+                    <p class="text-sm font-normal text-gray-900 dark:text-white">
+                      cuando el usuario usa sala de tynbiz con los productos de
+                      tienda,por el tiempo que pasa en sala, a la dueña de tienda
+                      se va cobrar
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="">
+                          <label for="message"
+                            class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Moneda</label>
+                          <select id="coin" [ngModel]="coin()" (ngModelChange)="coin.set($event)" name="coin"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
+                            <option selected> S/. </option>
+                            <option > USD </option>
+                          </select>
+                        </div>
+                        <div>
+                          <label for="base-input" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">
+                            Monto
+                          </label>
+                          <input type="number" id="base-input" [ngModel]="price()" (ngModelChange)="price.set($event)" name="price"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+                        </div>
+                      </div>
+                      <div>
+                        <label for="base-input" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">
+                          Tiempo en sala
+                        </label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <input type="number" id="base-input"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+                          </div>
+                          <div class="">
+                            <select id="status"
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
+                              <option>Seg.</option>
+                              <option selected>Min.</option>
+                              <option>Hora</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  } @else {
+                  <div class="mb-5">
+                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio
+                      plan</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div class="">
+                          <label for="message"
+                            class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Moneda</label>
+                          <select id="coin" [ngModel]="coin()" (ngModelChange)="coin.set($event)" name="coin"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
+                            <option selected> S/. </option>
+                            <option> USD </option>
+                          </select>
+                        </div>
+                        <div>
+                          <label for="base-input" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">
+                            Monto
+                          </label>
+                          <input type="number" id="base-input" [ngModel]="price()" (ngModelChange)="price.set($event)" name="price"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+                        </div>
+                    </div>
+                  </div>
+                  }
+                  <div class="mb-5">
+                    <label for="message"
+                      class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Estado</label>
+                    <select [ngModel]="estado()" (ngModelChange)="estado.set($event)" name="estado"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
+                      <option value="activo" selected>Activo</option>
+                      <option value="inactivo">Inactivo</option>
+                    </select>
+                  </div>
+                  <div class="mb-5">
+                    <label class="inline-flex items-center cursor-pointer">
+                      <input type="checkbox" [ngModel]="isOffer()" (ngModelChange)="isOffer.set($event)" name="Offer"
+                        value="isOffer" class="sr-only peer" />
+                      <span class="text-sm mr-3 font-bold text-gray-900 dark:text-gray-300">Promoción</span>
+                      <div
+                        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600 dark:peer-checked:bg-purple-600">
+                      </div>
+                    </label>
+                  </div>
+                  @if (isOffer() === true) {
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Descuento
+                      </label>
+                      <div class="relative mb-6">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                          %
+                        </div>
+                        <input type="number" id="base-input" [ngModel]="discount()"
+                          (ngModelChange)="discount.set($event)" name="discount"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+                      </div>
+                    </div>
+                    <div>
+                      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Dias
+                      </label>
+                      <input type="number" id="base-input" [ngModel]="promoDays()"
+                        (ngModelChange)="promoDays.set($event)" name="days"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+                    </div>
+                  </div>
+                  }
+                </form>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold">Vista previa</h4>
+                <p class="text-sm font-normal">
+                  Esta es la vista de como se verá el plan creado para las
+                  tiendas.
+                </p>
+                <div
+                  class="max-w-sm m-5 p-6 bg-white border text-center border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                  <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{ namePlan() }}
+                  </h5>
+                  <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">
+                    {{ descriptionPlan() }}
+                  </p>
+                  <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">
+                    @if (selectedTypePlan()==='uso de tynbiz') { Comision normal }
+                    @else { El pago {{ selectedTypePlan() }} normal }
+                  </p>
+                  <p class="w-full text-lg font-semibold text-gray-900 dark:text-white">
+                    {{coin()}} {{price()}}
+                    <span class="font-normal">
+                      @switch (selectedTypePlan()) { @case ('mensual') { / Mes }
+                      @case ('anual') { / Año } @case ('uso de tynbiz') { por
+                      venta } }
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <!-- Footer -->
+            </div>
+            <div class="flex justify-end mt-6">
+              <button type="button" (click)="onClose()"
+                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Cancelar
+              </button>
+              <button type="submit" (click)="onSave()"
+                class="bg-purple-600 ml-6 hover:bg-purple-800 text-white focus:ring-purple-300 dark:focus:ring-purple-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                Aplicar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

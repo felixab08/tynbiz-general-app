@@ -52,9 +52,8 @@
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ item.storeName }}
             <br />
-            <span class="text-gray-500 dark:text-gray-400">{{
-              item.storeSite
-              }}</span>
+            <span class="text-gray-500 dark:text-gray-400">
+              {{ item.storeSite }}</span>
           </th>
           <td class="px-6 py-4">{{ item.requestDate }}</td>
           <td class="px-6 py-4">{{ item.storeEmail }}</td>
@@ -62,8 +61,8 @@
             <span
               class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
               [ngClass]="{
-              'bg-red-100 text-red-800': item.storeStatus === 'Pendiente'
-            }">
+                'bg-red-100 text-red-800': item.storeStatus === 'Pendiente'
+              }">
               {{ item.storeStatus }}
             </span>
           </td>
@@ -75,10 +74,8 @@
             </button>
           </td>
           } @else {
-          <td class="px-6 py-4 text-center">
-          </td>
+          <td class="px-6 py-4 text-center"></td>
           }
-
         </tr>
         }
       </tbody>
@@ -87,10 +84,12 @@
   <!-- Paginación -->
   <div class="flex justify-between">
     <div class="flex my-6 items-center">
-      <p class="text-sm text-gray-700">Filas por página: </p>
+      <p class="text-sm text-gray-700">Filas por página:</p>
       <select [(ngModel)]="itemsPerPage" (ngModelChange)="onItemsPerPageChange($event)"
         class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option *ngFor="let option of [5, 10, 15, 20, 50]" [value]="option"> {{ option }}</option>
+        @for (option of [5, 10, 15, 20, 50]; track $index) {
+        <option [value]="option">{{ option }}</option>
+        }
       </select>
     </div>
     <div class="justify-end">
@@ -108,17 +107,18 @@
             </button>
           </li>
           <!-- Números de página generados dinámicamente -->
-          <li *ngFor="let page of [].constructor(totalPages()); let i = index">
-            <button (click)="setPage(i + 1)" [ngClass]="{
-            'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
-              currentPage === i + 1,
-            'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
-              currentPage !== i + 1
-          }" class="flex items-center justify-center px-3 h-8 leading-tight border">
-              {{ i + 1 }}
+          @for (page of pagesArray; track page) {
+          <li>
+            <button (click)="setPage(page)" [ngClass]="{
+                'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
+                  currentPage === page,
+                'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
+                  currentPage !== page
+              }" class="flex items-center justify-center px-3 h-8 leading-tight border">
+              {{ page }}
             </button>
           </li>
-
+          }
           <li>
             <button (click)="nextPage()" [disabled]="currentPage === totalPages()"
               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -133,7 +133,6 @@
         </ul>
       </nav>
     </div>
-
   </div>
 </div>
 
@@ -173,9 +172,7 @@
               <span class="text-sm text-gray-900 dark:text-white mb-4">Estado
               </span>
               <span class="font-semibold text-yellow-600">
-                {{
-                selectedSolicDemo?.storeStatus
-                }}
+                {{ selectedSolicDemo?.storeStatus }}
               </span>
             </p>
           </div>
@@ -231,7 +228,6 @@
       </div>
       <!-- Modal footer -->
       <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-
         <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
           class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
           Aplicar
