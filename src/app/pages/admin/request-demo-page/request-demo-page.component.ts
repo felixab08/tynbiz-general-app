@@ -2,9 +2,6 @@ import { Component, signal } from '@angular/core';
 import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-
-
 @Component({
   selector: 'tyn-request-demo-page',
   imports: [FormsModule, CommonModule],
@@ -39,6 +36,7 @@ export default class RequestDemoPageComponent {
   closeModal() {
     this.isModalOpen.set(false);
   }
+
   get filteredData() {
     return this.resquestList.filter((item) => {
       const matchesSearch = item.storeName
@@ -51,32 +49,40 @@ export default class RequestDemoPageComponent {
       const matchesDate =
         (!start || itemDate >= start) && (!end || itemDate <= end);
       return matchesSearch && matchesDate;
-
     });
-
   }
+
   get paginatedData() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return this.filteredData.slice(start, this.currentPage * this.itemsPerPage);
   }
 
+  get pagesArray(): number[] {
+    return Array.from({ length: this.totalPages() }, (_, i) => i + 1);
+  }
+
   totalPages() {
     return Math.ceil(this.filteredData.length / this.itemsPerPage);
   }
+
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage = page;
     }
   }
+
   setPage(page: number) {
     this.currentPage = page;
   }
+
   prevPage() {
     if (this.currentPage > 1) this.currentPage--;
   }
+
   nextPage() {
     if (this.currentPage < this.totalPages()) this.currentPage++;
   }
+
   onItemsPerPageChange(value: number) {
     this.itemsPerPage = value;
     this.currentPage = 1;

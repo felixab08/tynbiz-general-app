@@ -13,9 +13,8 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
         <option ngValue="All" selected>Todos</option>
         <option ngValue="En revisión">En revisión</option>
-        <option ngValue="En incorporación">En incorporación</option>
-        <option ngValue="Incorporado">Incorporado</option>
         <option ngValue="Enlace enviado">Enlace enviado</option>
+        <option ngValue="Incorporado">Incorporado</option>
       </select>
     </div>
   </div>
@@ -44,23 +43,28 @@
           <td class="px-6 py-4">{{ item.storeEmail }}</td>
           <td class="px-6 py-4">
             <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full" [ngClass]="{
-              'bg-red-100 text-red-800':
-                item.storeStatusService == 'En revisión',
-              'bg-yellow-100 text-yellow-800':
-                item.storeStatusService === 'En incorporación',
-              'bg-blue-100 text-blue-800':
-                item.storeStatusService === 'Enlace enviado',
-              'bg-green-100 text-green-800':
-                item.storeStatusService === 'Incorporado'
-            }">
+                'bg-red-100 text-red-800':
+                  item.storeStatusService == 'En revisión',
+                'bg-blue-100 text-blue-800':
+                  item.storeStatusService === 'Enlace enviado',
+                'bg-green-100 text-green-800':
+                  item.storeStatusService === 'Incorporado'
+              }">
               {{ item.storeStatusService }}
             </span>
           </td>
           <td class="px-6 py-4">
+            @if (item.storeStatusService==='Incorporado') {
+            <button type="button" (click)="openModal(item)"
+              class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+              Ver datos
+            </button>
+            }@else {
             <button type="button" (click)="openModal(item)"
               class="focus:outline-none text-white bg-gray-500 hover:bg-purple-400 hover:cursor-pointer focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
               Gestionar
             </button>
+            }
           </td>
         </tr>
         }
@@ -70,10 +74,12 @@
   <!-- Paginación -->
   <div class="flex justify-between">
     <div class="flex my-6 items-center">
-      <p class="text-sm text-gray-700">Filas por página: </p>
+      <p class="text-sm text-gray-700">Filas por página:</p>
       <select [(ngModel)]="itemsPerPage" (ngModelChange)="onItemsPerPageChange($event)"
         class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option *ngFor="let option of [4, 5, 10, 15, 20, 50]" [value]="option"> {{ option }}</option>
+         @for (option of [5, 10, 15, 20, 50]; track $index) {
+          <option [value]="option"> {{ option }}</option>
+        }
       </select>
     </div>
     <div class="justify-end">
@@ -93,11 +99,11 @@
           <!-- Números de página generados dinámicamente -->
           <li *ngFor="let page of [].constructor(totalPages()); let i = index">
             <button (click)="setPage(i + 1)" [ngClass]="{
-            'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
-              currentPage === i + 1,
-            'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
-              currentPage !== i + 1
-          }" class="flex items-center justify-center px-3 h-8 leading-tight border">
+                'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
+                  currentPage === i + 1,
+                'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
+                  currentPage !== i + 1
+              }" class="flex items-center justify-center px-3 h-8 leading-tight border">
               {{ i + 1 }}
             </button>
           </li>
@@ -116,7 +122,6 @@
         </ul>
       </nav>
     </div>
-
   </div>
 </div>
 <!-- Modal -->
@@ -125,7 +130,7 @@
 }
 <!-- Main modal -->
 <div id="default-modal" tabindex="-1" aria-hidden="true" [ngClass]="isModalOpen() ? 'block' : 'hidden'"
-  class="fixed inset-0 z-50 flex items-center justify-center ">
+  class="fixed inset-0 z-50 flex items-center justify-center">
   <div
     class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow dark:bg-gray-700 overflow-hidden">
     <!-- Modal content -->
@@ -191,7 +196,7 @@
 
           <form class="mx-auto">
             <h4 class="text-lg font-semibold my-4">Datos tienda online</h4>
-            <div class="grid grid-cols-1  md:mb-0 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:mb-0 md:grid-cols-2 gap-4">
               <div>
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la
                   tienda online</label>
@@ -214,7 +219,9 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Departamento</label>
                   <select disabled id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>{{selectedSolicDemo.storeDepartment}}</option>
+                    <option selected>
+                      {{ selectedSolicDemo.storeDepartment }}
+                    </option>
                   </select>
                 </div>
                 <div>
@@ -222,7 +229,9 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
                   <select disabled id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>{{selectedSolicDemo.storeProvince}}</option>
+                    <option selected>
+                      {{ selectedSolicDemo.storeProvince }}
+                    </option>
                   </select>
                 </div>
                 <div>
@@ -230,7 +239,9 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
                   <select disabled id="countries"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>{{selectedSolicDemo.storeDistrict}}</option>
+                    <option selected>
+                      {{ selectedSolicDemo.storeDistrict }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -257,7 +268,9 @@
                   tienda online</label>
                 <select disabled id="countries"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option selected>{{selectedSolicDemo.storeCategory}}</option>
+                  <option selected>
+                    {{ selectedSolicDemo.storeCategory }}
+                  </option>
                 </select>
               </div>
               <div>
@@ -295,7 +308,7 @@
             </div>
           </form>
           <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
+            <button data-modal-hide="default-modal" type="button" (click)="selectedTab = 'checkPlan'"
               class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
               siguiente
             </button>
@@ -312,55 +325,75 @@
             Plan elegido por la tienda
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required />
+            @if (selectedSolicDemo.storeStatusService === 'En revisión') {
+            <input checked type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer"
+              required />
             <label for="hosting-small"
-              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-purple-600 peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
               <div class="block">
-                <div class="w-full text-lg font-semibold text-gray-800">
-                  Uso de tynbiz
-                </div>
-                <p class="w-full text-lg font-semibold text-gray-800">
+                <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
+                <p class="w-full text-lg font-semibold">
                   USD 0.11
-                  <span class="font-normal text-gray-500">/ Uso sala por usuario</span>
+                  <span class="font-normal">/ Uso sala por usuario</span>
+                </p>
+              </div>
+            </label>}@else {
+            <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" />
+            <label for="hosting-small"
+              class="inline-flex max-w-sm items-center mb-4 cursor-not-allowed justify-between w-full p-5 text-purple-500 bg-white border border-purple-600 rounded-lg">
+              <div class="block">
+                <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
+                <p class="w-full text-lg font-semibold">
+                  USD 0.11
+                  <span class="font-normal">/ Uso sala por usuario</span>
                 </p>
               </div>
             </label>
+            }
           </div>
           <p class="text-gray-600 dark:text-gray-400">Planes disponibles</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div>
               <input type="radio" id="hosting-medium" name="hosting" value="hosting-medium" class="hidden peer" />
-              <label for="hosting-medium"
-                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <label for="hosting-medium" [ngClass]="{
+                  'cursor-pointer peer-checked:border-purple-600  peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200':
+                    selectedSolicDemo.storeStatusService === 'En revisión',
+                  'cursor-not-allowed':
+                    selectedSolicDemo.storeStatusService === 'Enlace enviado' ||
+                    'Incorporado'
+                }"
+                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg">
                 <div class="block">
-                  <div class="w-full text-lg font-semibold text-gray-800">
-                    Mensual
-                  </div>
-                  <p class="w-full text-lg font-semibold text-gray-800">
+                  <div class="w-full text-lg font-semibold">Mensual</div>
+                  <p class="w-full text-lg font-semibold">
                     USD 0.11
-                    <span class="font-normal text-gray-500">/ Mensual</span>
+                    <span class="font-normal">/ Mensual</span>
                   </p>
                 </div>
               </label>
             </div>
             <div>
               <input type="radio" id="hosting-large" name="hosting" value="hosting-large" class="hidden peer" />
-              <label for="hosting-large"
-                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-purple-500 peer-checked:border-purple-600 dark:peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-purple-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <label for="hosting-large" [ngClass]="{
+                  'cursor-pointer peer-checked:border-purple-600  peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200':
+                    selectedSolicDemo.storeStatusService === 'En revisión',
+                  'cursor-not-allowed':
+                    selectedSolicDemo.storeStatusService === 'Enlace enviado' ||
+                    'Incorporado'
+                }"
+                class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg">
                 <div class="block">
-                  <div class="w-full text-lg font-semibold text-gray-800">
-                    Anual
-                  </div>
-                  <p class="w-full text-lg font-semibold text-gray-800">
+                  <div class="w-full text-lg font-semibold">Anual</div>
+                  <p class="w-full text-lg font-semibold">
                     USD 0.11
-                    <span class="font-normal text-gray-500">/ Anual</span>
+                    <span class="font-normal">/ Anual</span>
                   </p>
                 </div>
               </label>
             </div>
           </div>
           <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
+            <button data-modal-hide="default-modal" type="button" (click)="selectedTab = 'incorporation'"
               class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
               Aceptar y continuar
             </button>
@@ -374,45 +407,13 @@
           <hr class="mb-4 border-gray-400 dark:border-gray-600" />
           <div>
             <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
-              Proceso de incorporación
-            </h4>
-            <div
-              class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
-              <div class="flex flex-col">
-                <p class="text-gray-600 dark:text-gray-400 mb-1.5">
-                  Tynbiz se encuentra en proceso de incorporación a la tienda
-                  virtual
-                </p>
-                <div class="flex items-center mt-1.5">
-                  <div class="flex items-center h-5">
-                    <input id="remember" type="checkbox" value=""
-                      class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      required />
-                  </div>
-                  <label for="remember" class="ms-2 text-gray-600 dark:text-gray-400">Marcar como
-                    incorporado</label>
-                </div>
-              </div>
-              <div class="flex items-center justify-center">
-                <button data-modal-hide="default-modal" type="button"
-                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-                  Guardar
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="my-2 text-lg font-semibold text-gray-900 dark:text-white">
               Enviar enlace de crear cuenta inicio sesión
             </h4>
             <div
               class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
               <div class="flex flex-col">
                 <p class="text-gray-600 mb-1.5 dark:text-gray-400">
-                  <span class="font-semibold text-gray-800">
-                    Correo:
-                  </span>
+                  <span class="font-semibold text-gray-800"> Correo: </span>
                   {{ selectedSolicDemo.storeEmail }}
                 </p>
                 <p class="text-gray-600 mt-1.5 dark:text-gray-400">
@@ -420,10 +421,15 @@
                 </p>
               </div>
               <div class="flex items-center justify-center">
+                @if (selectedSolicDemo.storeStatusService === 'En revisión' ) {
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-gray-600 ml-4 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  Enviar enlace</button>} @else {
+                <button data-modal-hide="default-modal" type="button" disabled
+                  class="text-white cursor-not-allowed w-36 bg-gray-600 ml-4 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600">
                   Enviar enlace
                 </button>
+                }
               </div>
             </div>
           </div>
@@ -435,37 +441,38 @@
               class="md:flex items-center mb-4 justify-between border rounded-lg p-4 border-gray-300 dark:border-gray-600 pb-4">
               <div class="flex flex-col">
                 <p class="text-gray-600 mb-1.5 dark:text-gray-400">
-                  <span class="font-semibold text-gray-800">
-                    Enviado:
-                  </span>
+                  <span class="font-semibold text-gray-800"> Enviado: </span>
                   03-04-2024 a las 10:30
                 </p>
                 <p class="text-gray-600 mt-1.5 dark:text-gray-400">
-                  <span class="font-semibold text-gray-800">
-                    Estado:
-                  </span>
-                  pendiente en aceptar y crear cuenta inicio sesión
+                  <span class="font-semibold text-gray-800"> Estado: </span>
+                  @if (selectedSolicDemo.storeStatusService === 'Enlace enviado') { pendiente en aceptar y crear cuenta inicio sesión }
+                  @else {
+                  {{ selectedSolicDemo.storeStatusService }}
+                  }
                 </p>
               </div>
               <div class="flex items-center justify-center">
+                @if (selectedSolicDemo.storeStatusService === 'Enlace enviado')
+                {
                 <button data-modal-hide="default-modal" type="button"
-                  class="text-white w-36 bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  class="text-white w-36 bg-gray-600 ml-4 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                   Reenviar enlace
                 </button>
+                } @else {
+                <button data-modal-hide="default-modal" type="button" disabled
+                  class="text-white cursor-not-allowed w-36 bg-gray-600 ml-4 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600">
+                  Reenviar enlace
+                </button>
+                }
               </div>
             </div>
           </div>
-          <div
-            class="items-center flex justify-center pt-3 pb-1 md:pb-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <div class="flex justify-end pt-3 pb-1 md:pb-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <button data-modal-hide="default-modal" type="button" (click)="closeModal()"
               class="text-white bg-purple-700 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-              Finalizar proceso de incorporación de Tynbiz
+              Cerrar
             </button>
-          </div>
-          <div class="flex flex-col items-center text-center">
-            <p class="text-gray-600 my-2 dark:text-gray-400">
-              Al finalizar la incorporación, la tienda virtual se visualizará en el módulo de tiendas
-            </p>
           </div>
         </div>
       </div>

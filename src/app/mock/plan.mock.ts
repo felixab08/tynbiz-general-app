@@ -1,15 +1,15 @@
 export const plan = [
   {
     id: 1,
-    planName: 'Uso de Tynbis',
+    planName: 'Uso de Tynbz',
     planState: 'inactivo',
     planCoin: 'USD',
     planPrice: '0.30',
-    planType: 'uso de tynbis',
+    planType: 'uso de tynbiz',
     promotional: 'false',
     promDuration: null,
     percentage: null,
-    planDescription: 'Plan de uso de Tynbis para tiendas',
+    planDescription: 'Plan de uso de Tynbz para tiendas',
     planDate: '2023-10-01',
     planFeatures: [
       'Acceso a la plataforma',
