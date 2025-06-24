@@ -45,7 +45,7 @@ export const resquestDemoListMock = [
     requestDate: '2024-07-12',
     representativeName: 'Juan Juarez Justino',
     representativeDNI: '12345666',
-    status: 'Individual',
+    status: 'activo',
     plan: 'Mensual',
     planPrice: 200,
     planDate: '2025-01-10T11:52:03-05:00',

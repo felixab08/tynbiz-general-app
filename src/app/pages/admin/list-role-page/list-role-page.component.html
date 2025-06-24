@@ -151,7 +151,8 @@
         </button>
       </li>
       <!-- Números de página generados dinámicamente -->
-      <li *ngFor="let page of [].constructor(totalPages()); let i = index">
+      @for (page of [].constructor(totalPages()); track page; let i = $index) {
+      <li>
         <button
           (click)="setPage(i + 1)"
           [ngClass]="{
@@ -165,6 +166,7 @@
           {{ i + 1 }}
         </button>
       </li>
+      }
 
       <li>
         <button
