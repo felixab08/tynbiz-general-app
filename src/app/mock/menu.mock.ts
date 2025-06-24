@@ -124,6 +124,24 @@ export const menuAdminMock: any = [
     route: '/admin/list-store',
   },
   {
+    id: '31234dd1',
+    name: 'Ingresos',
+    icon: 'fa-solid fa-money-bill',
+    route: '/admin/revenue',
+  },
+  {
+    id: '31234dd2',
+    name: 'Estadisticas',
+    icon: 'fa-solid fa-chart-line',
+    route: '/admin/statistic',
+  },
+  {
+    id: '31234dd3',
+    name: 'Pagos',
+    icon: 'fa-solid fa-money-bill',
+    route: '/admin/payment',
+  },
+  {
     id: '35syasqs',
     name: 'User Admin',
     icon: 'fa-solid fa-tags',

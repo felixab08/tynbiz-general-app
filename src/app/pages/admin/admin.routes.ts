@@ -59,6 +59,19 @@ export const userRoutes: Routes = [
           import('./list-store-page/list-store-page.component'),
       },
       {
+        path: 'revenue',
+        loadComponent: () => import('./revenue-page/revenue-page.component'),
+      },
+      {
+        path: 'statistic',
+        loadComponent: () =>
+          import('./statistic-page/statistic-page.component'),
+      },
+      {
+        path: 'payment',
+        loadComponent: () => import('./payment-page/payment-page.component'),
+      },
+      {
         path: '',
         redirectTo: 'panel',
         pathMatch: 'full',
