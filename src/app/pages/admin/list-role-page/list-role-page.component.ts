@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { rolsCreateMock } from '@app/mock/rol.mock';
+import { FormNewRolePageComponent } from './form-new-role-page/form-new-role-page.component';
 
 @Component({
   selector: 'tyn-list-role-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FormNewRolePageComponent],
   templateUrl: './list-role-page.component.html',
 })
 export default class ListRolePageComponent {
@@ -19,6 +20,7 @@ export default class ListRolePageComponent {
   search = '';
   startDate: string = '';
   endDate: string = '';
+  isModalOpen = signal(false);
 
   filterByStatus(status: string): void {
     const isAll = status === 'All';

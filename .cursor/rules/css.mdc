@@ -1,0 +1,121 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: Reglas de CSS para el proyecto Tynbiz Angular con Tailwind y Flowbite
+globs: ["**/*.css", "**/*.html", "**/*.ts"]
+alwaysApply: false
+---
+
+# Reglas de CSS para Tynbiz General App
+
+## Framework y Herramientas
+- **Tailwind CSS v4.1.7**: Framework principal de utilidades CSS
+- **Flowbite v3.1.2**: Componentes UI basados en Tailwind
+- **PostCSS**: Para procesamiento de CSS
+- **Angular**: Framework de desarrollo
+
+## Convenciones de Estilos
+
+### 1. Uso de Tailwind CSS
+- Siempre usar clases de utilidad de Tailwind en lugar de CSS personalizado
+- Preferir clases responsive (sm:, md:, lg:, xl:)
+- Utilizar el sistema de colores de Tailwind con variables personalizadas
+
+### 2. Variables CSS Personalizadas
+- Usar las variables definidas en `src/styles.css`:
+  - `--color-primary: #7c3aed` (púrpura principal)
+  - `--font-sans: "Inter"` (fuente principal)
+  - `--spacing-8xl: 90rem`
+  - `--text-2xs: 0.625rem`
+
+### 3. Esquema de Colores
+- **Primario**: Púrpura (`purple-*`, `#7c3aed`)
+- **Secundario**: Azul (`blue-*`)
+- **Neutral**: Gris (`gray-*`)
+- **Estados**: Verde (éxito), Rojo (error), Amarillo (advertencia)
+
+### 4. Componentes y Patrones
+
+#### Formularios
+```html
+<!-- Input estándar -->
+<input class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800" />
+
+<!-- Input con error -->
+<input class="border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500" />
+
+<!-- Label -->
+<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label</label>
+```
+
+#### Cards y Contenedores
+```html
+<!-- Card estándar -->
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+
+<!-- Card con imagen sobresaliente -->
+<div class="relative mt-10 max-w-sm px-8 pb-4 pt-8 bg-white border border-gray-200 rounded-lg shadow-sm">
+  <div class="absolute -top-10 left-8 transform rounded-lg border bg-white border-gray-200">
+    <!-- Contenido sobresaliente -->
+  </div>
+</div>
+```
+
+#### Botones
+```html
+<!-- Botón primario -->
+<button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">
+
+<!-- Botón con icono -->
+<a class="w-10 h-10 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-900 rounded-full flex items-center justify-center">
+```
+
+### 5. Modo Oscuro
+- Siempre incluir clases `dark:` para soporte de modo oscuro
+- Usar `dark:bg-gray-800` para fondos
+- Usar `dark:text-white` para texto
+- Usar `dark:border-gray-700` para bordes
+
+### 6. Responsive Design
+- Mobile-first approach
+- Breakpoints: `sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280px)
+- Usar `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` para layouts adaptativos
+
+### 7. Estados y Animaciones
+- Usar `hover:`, `focus:`, `active:` para estados interactivos
+- Preferir transiciones suaves con `transition-*`
+- Usar `transform` para efectos de hover
+
+### 8. Espaciado y Layout
+- Usar el sistema de espaciado de Tailwind: `p-4`, `m-6`, `space-y-4`
+- Preferir Flexbox y Grid para layouts
+- Usar `gap-6` para espaciado entre elementos
+
+### 9. Tipografía
+- Fuente principal: Inter (definida en variables CSS)
+- Tamaños: `text-sm`, `text-base`, `text-lg`, `text-2xl`
+- Pesos: `font-normal`, `font-medium`, `font-semibold`, `font-bold`
+
+### 10. Validación y Errores
+- Usar clases condicionales con `[ngClass]` para estados de error
+- Patrón de validación:
+```typescript
+[ngClass]="{
+  'border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': formUtils.isValiedField(myForm, 'fieldName')
+}"
+```
+
+## Archivos de Referencia
+- `src/styles.css`: Configuración global de Tailwind y variables CSS
+- `src/app/components/*/component.html`: Ejemplos de implementación
+- `src/app/pages/*/component.html`: Patrones de layout
+
+## Comandos Útiles
+- `npm run start`: Servidor de desarrollo
+- `npm run build`: Build de producción
+- `npm run build:prod`: Build con configuración de producción
+
+<｜tool▁call▁end｜><｜tool▁calls▁end｜>

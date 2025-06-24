@@ -123,9 +123,15 @@ export const menuAdminMock: any = [
     icon: 'fa-solid fa-tags',
     route: '',
     children: [
-      { name: 'Lista de usuarios', route: '/admin/list-user' },
+      { name: 'Lista de usuarios', route: '/admin/list-user-admin' },
       { name: 'Registro de acciones', route: '/admin/list-actions-user' },
       { name: 'Lista de roles', route: '/admin/list-role' },
     ],
+  },
+  {
+    id: '1234as1',
+    name: 'Tiendas',
+    icon: 'fa-solid fa-store',
+    route: '/admin/list-store',
   },
 ];

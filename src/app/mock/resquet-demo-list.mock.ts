@@ -19,7 +19,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-08-01',
     representativeName: 'Arturo Alvarez Alcantara',
-    representativeDNI: '12345678'
+    representativeDNI: '12345678',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-02-10T11:52:05-05:00',
   },
   {
     id: 123413,
@@ -40,7 +44,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En incorporación',
     requestDate: '2024-07-12',
     representativeName: 'Juan Juarez Justino',
-    representativeDNI: '12345666'
+    representativeDNI: '12345666',
+    status: 'Individual',
+    plan: 'Mensual',
+    planPrice: 200,
+    planDate: '2025-01-10T11:52:03-05:00',
   },
   {
     id: 123414,
@@ -61,7 +69,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-06-30',
     representativeName: 'Carlos Canales Cardenas',
-    representativeDNI: '12345558'
+    representativeDNI: '12345558',
+    status: 'activo',
+    plan: 'Uso de tynbiz',
+    planPrice: 200,
+    planDate: '2025-01-13T11:52:13-11:00',
   },
   {
     id: 123415,
@@ -82,7 +94,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-08-05',
     representativeName: 'Martin Martinez',
-    representativeDNI: '12334678'
+    representativeDNI: '12334678',
+    status: 'suspendido',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-02-10T11:52:05-05:00',
   },
   {
     id: 123416,
@@ -103,7 +119,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-05-20',
     representativeName: 'Tania Torres',
-    representativeDNI: '12333678'
+    representativeDNI: '12333678',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-02-10T11:52:05-05:00',
   },
   {
     id: 123417,
@@ -124,7 +144,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-08-10',
     representativeName: 'Karol Kiros Kim',
-    representativeDNI: '12225678'
+    representativeDNI: '12225678',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-02-10T11:52:05-05:00',
   },
   {
     id: 123418,
@@ -145,7 +169,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En incorporación',
     requestDate: '2024-07-25',
     representativeName: 'Carmen Cardenas Calle',
-    representativeDNI: '11145678'
+    representativeDNI: '11145678',
+    status: 'suspendido',
+    plan: 'Uso de tynbiz',
+    planPrice: 200,
+    planDate: '2025-01-13T11:52:13-11:00',
   },
   {
     id: 123419,
@@ -166,7 +194,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-06-15',
     representativeName: 'Yanet Yañez',
-    representativeDNI: '12345688'
+    representativeDNI: '12345688',
+    status: 'activo',
+    plan: 'Uso de tynbiz',
+    planPrice: 200,
+    planDate: '2025-01-13T11:52:13-11:00',
   },
   {
     id: 123420,
@@ -187,7 +219,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-06-28',
     representativeName: 'Helena Herrera',
-    representativeDNI: '12345677'
+    representativeDNI: '12345677',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-02-10T11:52:05-05:00',
   },
   {
     id: 123421,
@@ -208,7 +244,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-07-18',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12345778'
+    representativeDNI: '12345778',
+    status: 'activo',
+    plan: 'Anual',
+    planPrice: 100,
+    planDate: '2024-10-10T11:52:15-05:00',
   },
   {
     id: 123422,
@@ -229,7 +269,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-08-01',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12345668'
+    representativeDNI: '12345668',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2024-12-10T11:52:15-05:00',
   },
   {
     id: 123423,
@@ -250,7 +294,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-07-05',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12346678'
+    representativeDNI: '12346678',
+    status: 'activo',
+    plan: 'Anual',
+    planPrice: 100,
+    planDate: '2024-10-10T11:52:15-05:00',
   },
   {
     id: 123424,
@@ -271,7 +319,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-06-01',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12345578'
+    representativeDNI: '12345578',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 200,
+    planDate: '2025-05-10T11:52:05-05:00',
   },
   {
     id: 123425,
@@ -292,7 +344,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-05-30',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12355678'
+    representativeDNI: '12355678',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-02-10T11:52:05-05:00',
   },
   {
     id: 123426,
@@ -313,7 +369,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-06-12',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12344678'
+    representativeDNI: '12344678',
+    status: 'activo',
+    plan: 'Uso de tynbiz',
+    planPrice: 200,
+    planDate: '2025-01-13T11:52:13-11:00',
   },
   {
     id: 123427,
@@ -334,7 +394,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-05-15',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12445678'
+    representativeDNI: '12445678',
+    status: 'suspendido',
+    plan: 'Uso de tynbiz',
+    planPrice: 300,
+    planDate: '2025-03-04T11:52:13-11:00',
   },
   {
     id: 123428,
@@ -355,7 +419,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En revisión',
     requestDate: '2024-08-02',
     representativeName: 'Juan Pérez',
-    representativeDNI: '12335678'
+    representativeDNI: '12335678',
+    status: 'activo',
+    plan: 'Uso de tynbiz',
+    planPrice: 100,
+    planDate: '2025-06-23T11:52:14-05:00',
   },
   {
     id: 123429,
@@ -376,7 +444,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'Enlace enviado',
     requestDate: '2024-07-10',
     representativeName: 'Juan Pérez',
-    representativeDNI: '11345678'
+    representativeDNI: '11345678',
+    status: 'suspendido',
+    plan: 'Anual',
+    planPrice: 300,
+    planDate: '2025-02-10T11:52:15-05:00',
   },
   {
     id: 123430,
@@ -397,7 +469,11 @@ export const resquestDemoListMock = [
     storeStatusService: 'En incorporación',
     requestDate: '2024-06-22',
     representativeName: 'Juan Pérez',
-    representativeDNI: '13345678'
+    representativeDNI: '13345678',
+    status: 'activo',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-04-17T11:52:01-05:00',
   },
   {
     id: 123431,
@@ -418,6 +494,10 @@ export const resquestDemoListMock = [
     storeStatusService: 'Incorporado',
     requestDate: '2024-08-08',
     representativeName: 'Juan Pérez',
-    representativeDNI: '22345678'
+    representativeDNI: '22345678',
+    status: 'suspendido',
+    plan: 'Mensual',
+    planPrice: 100,
+    planDate: '2025-06-13T11:52:12-05:00',
   },
 ];

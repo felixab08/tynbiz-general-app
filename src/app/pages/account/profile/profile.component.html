@@ -9,7 +9,7 @@
   <div class="grid gap-6 mb-6 md:grid-cols-2">
     <div>
       <label
-        for="error"
+        for="name"
         class="block mb-2 text-sm font-medium"
         [ngClass]="{
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
@@ -21,7 +21,7 @@
       >
       <input
         type="text"
-        id="error"
+        id="name"
         formControlName="name"
         class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800"
         [ngClass]="{

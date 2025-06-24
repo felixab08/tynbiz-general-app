@@ -1,0 +1,315 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+---
+description: Reglas de desarrollo Angular para el proyecto Tynbiz
+globs: ["**/*.ts", "**/*.component.ts", "**/*.service.ts", "**/*.module.ts"]
+alwaysApply: false
+---
+
+# Reglas de Desarrollo Angular para Tynbiz
+
+## Versión y Configuración
+- **Angular**: v19.2.0
+- **TypeScript**: v5.7.2
+- **Standalone Components**: Usar componentes standalone por defecto
+- **Signals**: Preferir signals sobre observables cuando sea apropiado
+
+## Estructura de Componentes
+
+### 1. Componente Standalone Básico
+```typescript
+import { Component, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'tyn-component-name',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './component-name.component.html',
+  styleUrl: './component-name.component.css'
+})
+export class ComponentNameComponent {
+  // Inputs usando la nueva sintaxis
+  data = input.required<string[]>();
+  optionalData = input<string>('');
+
+  // Signals para estado reactivo
+  isLoading = signal(false);
+
+  // Métodos
+  handleAction() {
+    // Lógica del componente
+  }
+}
+```
+
+### 2. Inputs y Outputs
+```typescript
+// Inputs (nueva sintaxis Angular 17+)
+listData = input.required<CardData[]>();
+optionalValue = input<string>('default');
+
+// Outputs
+valueChange = output<string>();
+actionTriggered = output<void>();
+
+// Emitir eventos
+onValueChange(newValue: string) {
+  this.valueChange.emit(newValue);
+}
+```
+
+### 3. Control Flow (Angular 17+)
+```html
+<!-- @if/@else -->
+@if (condition) {
+  <div>Contenido</div>
+} @else {
+  <div>Alternativo</div>
+}
+
+<!-- @for -->
+@for (item of items(); track item.id) {
+  <div>{{ item.name }}</div>
+}
+
+<!-- @switch -->
+@switch (value) {
+  @case ('option1') {
+    <div>Opción 1</div>
+  }
+  @case ('option2') {
+    <div>Opción 2</div>
+  }
+  @default {
+    <div>Por defecto</div>
+  }
+}
+```
+
+## Servicios
+
+### 1. Estructura de Servicio
+```typescript
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+  private http = inject(HttpClient);
+  private apiUrl = 'https://api.tynbiz.com';
+
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/data`);
+  }
+
+  createData(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/data`, data);
+  }
+}
+```
+
+### 2. Servicios con Signals
+```typescript
+import { Injectable, signal, computed } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StateService {
+  private _data = signal<any[]>([]);
+  public data = this._data.asReadonly();
+
+  public filteredData = computed(() =>
+    this._data().filter(item => item.active)
+  );
+
+  updateData(newData: any[]) {
+    this._data.set(newData);
+  }
+}
+```
+
+## Routing
+
+### 1. Rutas Standalone
+```typescript
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: 'shopper',
+    loadComponent: () => import('./pages/shopper/shopper.component').then(m => m.default),
+    children: [
+      {
+        path: 'home',
+        loadComponent: () => import('./pages/shopper/home/home.component').then(m => m.default)
+      }
+    ]
+  }
+];
+```
+
+### 2. Guards y Resolvers
+```typescript
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+
+export const authGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router);
+  const authService = inject(AuthService);
+
+  if (authService.isAuthenticated()) {
+    return true;
+  }
+
+  router.navigate(['/login']);
+  return false;
+};
+```
+
+## Formularios Reactivos
+
+### 1. Formulario Básico
+```typescript
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+export class FormComponent {
+  myForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
+    });
+  }
+
+  onSubmit() {
+    if (this.myForm.valid) {
+      console.log(this.myForm.value);
+    }
+  }
+}
+```
+
+### 2. Validación Personalizada
+```typescript
+// En utils/form.util.ts
+export class FormUtils {
+  static isValiedField(form: FormGroup, fieldName: string): boolean {
+    const field = form.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  static getFieldError(form: FormGroup, fieldName: string): string {
+    const field = form.get(fieldName);
+    if (field?.errors) {
+      if (field.errors['required']) return 'Este campo es requerido';
+      if (field.errors['email']) return 'Email inválido';
+      if (field.errors['minlength']) return `Mínimo ${field.errors['minlength'].requiredLength} caracteres`;
+    }
+    return '';
+  }
+}
+```
+
+## Interceptores y HTTP
+
+### 1. Interceptor de Autenticación
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+
+    return next.handle(req);
+  }
+}
+```
+
+## Testing
+
+### 1. Componente Test
+```typescript
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentNameComponent } from './component-name.component';
+
+describe('ComponentNameComponent', () => {
+  let component: ComponentNameComponent;
+  let fixture: ComponentFixture<ComponentNameComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ComponentNameComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ComponentNameComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+```
+
+## Mejores Prácticas
+
+### 1. Nomenclatura
+- **Componentes**: `ComponentNameComponent`
+- **Servicios**: `ServiceNameService`
+- **Interfaces**: `IInterfaceName` o `InterfaceName`
+- **Enums**: `EnumName`
+- **Selectors**: `tyn-component-name` (prefijo tyn)
+
+### 2. Imports
+- Usar imports específicos en lugar de barrel exports
+- Agrupar imports: Angular, terceros, locales
+- Usar `inject()` en lugar de constructor injection cuando sea posible
+
+### 3. Performance
+- Usar `OnPush` change detection strategy
+- Implementar `trackBy` en `*ngFor`
+- Usar `async` pipe en templates
+- Lazy loading de módulos y componentes
+
+### 4. Error Handling
+```typescript
+// En servicios
+getData(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/data`).pipe(
+    catchError(error => {
+      console.error('Error fetching data:', error);
+      return throwError(() => error);
+    })
+  );
+}
+```
+
+## Archivos de Referencia
+- `src/app/app.config.ts`: Configuración de la aplicación
+- `src/app/app.routes.ts`: Rutas principales
+- `src/app/utils/form.util.ts`: Utilidades de formularios
+- `src/app/auth/services/auth.service.ts`: Servicio de autenticación
+
+<｜tool▁call▁end｜><｜tool▁calls▁end｜>

@@ -6,11 +6,11 @@ import { userActionsMock } from '@app/mock/rol.mock';
 import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
 
 @Component({
-  selector: 'tyn-list-user-page',
+  selector: 'tyn-list-user-admin-page',
   imports: [CommonModule, FormsModule, DatePipe, CreateUserFormComponent],
-  templateUrl: './list-user-page.component.html',
+  templateUrl: './list-user-admin-page.component.html',
 })
-export default class ListUserPageComponent {
+export default class ListUserAdminPageComponent {
   userActions = [...userActionsMock];
   isState = 'All';
   // paginacion

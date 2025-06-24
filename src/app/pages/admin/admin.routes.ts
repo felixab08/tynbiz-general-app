@@ -34,9 +34,9 @@ export const userRoutes: Routes = [
           import('./plan-suscrip-page/plan-suscrip-page.component'),
       },
       {
-        path: 'list-user',
+        path: 'list-user-admin',
         loadComponent: () =>
-          import('./list-user-page/list-user-page.component'),
+          import('./list-user-admin-page/list-user-admin-page.component'),
       },
       {
         path: 'user/:id',
@@ -52,6 +52,11 @@ export const userRoutes: Routes = [
         path: 'list-actions-user',
         loadComponent: () =>
           import('./list-actions-user-page/list-actions-user-page.component'),
+      },
+      {
+        path: 'list-store',
+        loadComponent: () =>
+          import('./list-store-page/list-store-page.component'),
       },
       {
         path: '',
