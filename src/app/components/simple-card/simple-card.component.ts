@@ -4,7 +4,7 @@ import { SolesPipe } from '@app/pipes/soles.pipe';
 
 @Component({
   selector: 'tyn-simple-card',
-  imports: [CurrencyPipe, SolesPipe],
+  imports: [SolesPipe],
   templateUrl: './simple-card.component.html',
 })
 export class SimpleCardComponent {
