@@ -1,1 +1,0 @@
-import{f as m}from"./chunk-KL6QIIC7.js";import"./chunk-4PPR3IWD.js";import{Ba as o,Va as i}from"./chunk-77BNF2LM.js";import"./chunk-2VMXMS7J.js";var t=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=o({type:n,selectors:[["tyz-admin"]],decls:1,vars:0,template:function(e,p){e&1&&i(0,"router-outlet")},dependencies:[m],encapsulation:2})};export{t as default};

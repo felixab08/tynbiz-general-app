@@ -1,1 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.03 76.8"><defs><style>.cls-1{fill:#412984;}</style></defs><g id="Capa_2" data-name="Capa 2"><g id="Capa_1-2" data-name="Capa 1"><ellipse class="cls-1" cx="37.58" cy="31.31" rx="21.02" ry="15.97" transform="translate(-7.8 13.05) rotate(-17.89)"/><ellipse class="cls-1" cx="60.3" cy="48.43" rx="13.41" ry="9.05" transform="translate(-16.91 52.97) rotate(-42.13)"/><ellipse class="cls-1" cx="69.28" cy="24.71" rx="8.13" ry="10.51" transform="translate(-3.07 37.95) rotate(-30)"/><ellipse class="cls-1" cx="53.66" cy="9.87" rx="4.83" ry="10.09" transform="matrix(0.07, -1, 1, 0.07, 40, 62.69)"/><ellipse class="cls-1" cx="30.17" cy="11.63" rx="8.53" ry="3.73" transform="translate(-2.09 13.8) rotate(-24.93)"/><ellipse class="cls-1" cx="14.03" cy="25.02" rx="7.49" ry="3.91" transform="translate(-14.6 23.2) rotate(-57.09)"/><ellipse class="cls-1" cx="2.76" cy="33.2" rx="4.95" ry="2.44" transform="translate(-29.76 25.95) rotate(-72.68)"/><ellipse class="cls-1" cx="17.39" cy="12.69" rx="4.38" ry="1.81" transform="translate(-4.12 13.62) rotate(-38.59)"/><ellipse class="cls-1" cx="43.4" cy="1.93" rx="4.84" ry="1.81" transform="translate(0.19 6.41) rotate(-8.46)"/><ellipse class="cls-1" cx="12.36" cy="44.23" rx="5.78" ry="7.96" transform="translate(-15.07 7.4) rotate(-21.06)"/><ellipse class="cls-1" cx="74.22" cy="8.19" rx="3.85" ry="5.92" transform="translate(38.13 73.56) rotate(-67.39)"/><ellipse class="cls-1" cx="82.6" cy="46.62" rx="8.89" ry="5.99" transform="translate(9.74 107.34) rotate(-69.24)"/><ellipse class="cls-1" cx="42.93" cy="71.17" rx="8.89" ry="5.62" transform="translate(-2.57 1.61) rotate(-2.09)"/><ellipse class="cls-1" cx="31.46" cy="56.51" rx="7.16" ry="12.13" transform="translate(-27.55 82.99) rotate(-85.06)"/><ellipse class="cls-1" cx="8.35" cy="58.81" rx="3.01" ry="5.13" transform="translate(-36.83 20.25) rotate(-41.44)"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.03 76.8">
+  <defs>
+    <style>.cls-1{fill:#412984;}</style>
+  </defs>
+  <g id="Capa_2" data-name="Capa 2">
+    <g id="Capa_1-2" data-name="Capa 1">
+      <ellipse class="cls-1" cx="37.58" cy="31.31" rx="21.02" ry="15.97"
+        transform="translate(-7.8 13.05) rotate(-17.89)" />
+      <ellipse class="cls-1" cx="60.3" cy="48.43" rx="13.41" ry="9.05"
+        transform="translate(-16.91 52.97) rotate(-42.13)" />
+      <ellipse class="cls-1" cx="69.28" cy="24.71" rx="8.13" ry="10.51"
+        transform="translate(-3.07 37.95) rotate(-30)" />
+      <ellipse class="cls-1" cx="53.66" cy="9.87" rx="4.83" ry="10.09"
+        transform="matrix(0.07, -1, 1, 0.07, 40, 62.69)" />
+      <ellipse class="cls-1" cx="30.17" cy="11.63" rx="8.53" ry="3.73"
+        transform="translate(-2.09 13.8) rotate(-24.93)" />
+      <ellipse class="cls-1" cx="14.03" cy="25.02" rx="7.49" ry="3.91"
+        transform="translate(-14.6 23.2) rotate(-57.09)" />
+      <ellipse class="cls-1" cx="2.76" cy="33.2" rx="4.95" ry="2.44"
+        transform="translate(-29.76 25.95) rotate(-72.68)" />
+      <ellipse class="cls-1" cx="17.39" cy="12.69" rx="4.38" ry="1.81"
+        transform="translate(-4.12 13.62) rotate(-38.59)" />
+      <ellipse class="cls-1" cx="43.4" cy="1.93" rx="4.84" ry="1.81"
+        transform="translate(0.19 6.41) rotate(-8.46)" />
+      <ellipse class="cls-1" cx="12.36" cy="44.23" rx="5.78" ry="7.96"
+        transform="translate(-15.07 7.4) rotate(-21.06)" />
+      <ellipse class="cls-1" cx="74.22" cy="8.19" rx="3.85" ry="5.92"
+        transform="translate(38.13 73.56) rotate(-67.39)" />
+      <ellipse class="cls-1" cx="82.6" cy="46.62" rx="8.89" ry="5.99"
+        transform="translate(9.74 107.34) rotate(-69.24)" />
+      <ellipse class="cls-1" cx="42.93" cy="71.17" rx="8.89" ry="5.62"
+        transform="translate(-2.57 1.61) rotate(-2.09)" />
+      <ellipse class="cls-1" cx="31.46" cy="56.51" rx="7.16" ry="12.13"
+        transform="translate(-27.55 82.99) rotate(-85.06)" />
+      <ellipse class="cls-1" cx="8.35" cy="58.81" rx="3.01" ry="5.13"
+        transform="translate(-36.83 20.25) rotate(-41.44)" />
+    </g>
+  </g>
+</svg>
