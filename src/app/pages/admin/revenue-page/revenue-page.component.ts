@@ -13,13 +13,13 @@ export default class RevenuePageComponent {
       id: 1111,
       title: 'Uso de tynbiz',
       describe: 'Tiendas pagando x  uso de tynbiz',
-      cant: 1200,
+      cant: 120089796.99,
     },
     {
       id: 1112,
       title: 'Plan Mensual',
       describe: 'Tiendas pagando S/ 45',
-      cant: 5000,
+      cant: 1215000.99,
     },
     {
       id: 1113,
