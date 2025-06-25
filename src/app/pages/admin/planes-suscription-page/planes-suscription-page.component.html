@@ -99,7 +99,7 @@
     <!-- Paginación -->
     <div class="flex justify-between">
       <div class="flex my-6 items-center">
-        <p class="text-sm text-gray-700">Filas por página:</p>
+        <p class="text-sm text-gray-700 dark:text-gray-400">Filas por página:</p>
         <select [(ngModel)]="itemsPerPage" (ngModelChange)="onItemsPerPageChange($event)"
           class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
           @for (option of [5, 10, 15, 20, 50]; track $index) {
@@ -159,12 +159,12 @@
 </tyn-planes-suscription-form-modal-page>
 
 <!-- Modal de advertencia -->
-<tyn-planes-suscription-warning-modal-page
+<tyn-warning-modal
   [visible]="modalVisible"
   [itemName]="selectedPlan?.planName"
   [actionLabel]="currentAction === 'eliminar' ? 'Eliminar' : 'Activar'"
   [actionType]="currentAction"
   (confirm)="confirmAction()"
   (cancel)="closeModalWar()">
-</tyn-planes-suscription-warning-modal-page>
+</tyn-warning-modal>
 

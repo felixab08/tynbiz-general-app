@@ -9,4 +9,5 @@ import { SolesPipe } from '@app/pipes/soles.pipe';
 })
 export class SimpleCardComponent {
   isCardValue = input.required<any>();
+  tipeCant = input<'monto' | 'cantidad'>('cantidad');
 }

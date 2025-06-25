@@ -5,9 +5,14 @@
   <h5 class="text-base font-bold leading-none text-gray-900 dark:text-white">
     {{ isCardValue().title }}
   </h5>
+  @if (tipeCant() === 'monto') {
   <p class="text-gray-600 font-bold text-3xl dark:text-gray-400 my-2">
     {{ isCardValue().cant | soles }}
-  </p>
+  </p>} @else {
+    <p class="text-gray-600 font-bold text-3xl dark:text-gray-400 my-2">
+{{ isCardValue().cant }}
+    </p>
+  }
   <p class="text-gray-600 dark:text-gray-400 my-2">
     {{ isCardValue().describe }}
   </p>

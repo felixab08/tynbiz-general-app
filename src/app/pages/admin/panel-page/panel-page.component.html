@@ -46,7 +46,7 @@
       <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
         Ganancias netas
       </h5>
-      <p class="text-gray-600 dark:text-gray-400 my-2">S/. 7.500</p>
+      <p class="text-gray-600 dark:text-gray-400 my-2">S/. 7.500 </p>
       <div class="md:flex items-center justify-between">
         <span class="flex items-center">
           <svg
@@ -257,8 +257,8 @@
             </h5>
           </span>
           <a
-            href="#"
-            class="text-sm font-medium text-purple-600 hover:underline dark:text-purple-500"
+            (click)="routeLink('revenue')"
+            class="text-sm font-medium text-purple-600 hover:underline dark:text-purple-500 cursor-pointer"
           >
             Ver ganancias
           </a>
@@ -271,10 +271,10 @@
             <h5
               class="text-base font-bold leading-none text-gray-900 dark:text-white"
             >
-              Plan {{ item.plan }}
+              {{ item.title}}
             </h5>
             <p class="text-gray-600 dark:text-gray-400 my-2">
-              S/. {{ item.cant }}
+              {{ item.cant | soles }}
             </p>
           </div>
           }

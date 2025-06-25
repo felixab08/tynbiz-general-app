@@ -2,12 +2,12 @@ import { Component, signal } from '@angular/core';
 import { plan } from '@app/mock/plan.mock';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PlanesSuscriptionWarningModalPageComponent } from "./planes-suscription-warning-modal-page/planes-suscription-warning-modal-page.component";
 import { PlanesSuscriptionFormModalPageComponent } from './planes-suscription-form-modal-page/planes-suscription-form-modal-page.component';
+import { WarningModalComponent } from '@app/components/warning-modal/warning-modal.component';
 
 @Component({
   selector: 'tyn-planes-suscription-page',
-  imports: [CommonModule, FormsModule, PlanesSuscriptionWarningModalPageComponent, PlanesSuscriptionFormModalPageComponent],
+  imports: [CommonModule, FormsModule, WarningModalComponent , PlanesSuscriptionFormModalPageComponent],
   templateUrl: './planes-suscription-page.component.html',
 })
 export default class PlanesSuscriptionPageComponent {
@@ -25,10 +25,7 @@ export default class PlanesSuscriptionPageComponent {
   toggleDropdown(plan: any) {
     this.selectedPlan = plan;
     this.openDropdownIndex = this.openDropdownIndex === plan.id ? null : plan.id;
-
   }
-
-
 
   openModalWar(action: 'eliminar' | 'activar') {
     this.modalVisible = true;

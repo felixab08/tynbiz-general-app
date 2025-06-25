@@ -1,19 +1,22 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { isReportStore } from '@app/mock/revenue.mock';
 import {
   gananciasMock,
   rolsCreateMock,
   userActionsMock,
 } from '@app/mock/rol.mock';
+import { SolesPipe } from '@app/pipes/soles.pipe';
 
 @Component({
   selector: 'tyn-panel-page',
-  imports: [DatePipe],
+  imports: [DatePipe, SolesPipe],
   templateUrl: './panel-page.component.html',
 })
 export default class PanelPageComponent {
   _router = inject(Router);
+
 
   rolLists: any = [];
   userActions: any = [];
@@ -28,7 +31,7 @@ export default class PanelPageComponent {
     this.rolLists = [...rolsCreate.splice(0, 3)];
     this.userActions = [...userActions.splice(0, 3)];
     this.userConects = [...userConectados.splice(0, 3)];
-    this.ganancias = [...gananciasMock];
+    this.ganancias = [...isReportStore];
   }
   routeLink(link: string) {
     this._router.navigate([`/admin/${link}`]);
