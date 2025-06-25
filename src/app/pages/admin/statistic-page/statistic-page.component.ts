@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './statistic-page.component.html',
 })
-export default class StatisticPageComponent {}
+export default class StatisticPageComponent {
+
+}

@@ -72,6 +72,11 @@ export const userRoutes: Routes = [
         loadComponent: () => import('./payment-page/payment-page.component'),
       },
       {
+        path: 'billingHistory/:id',
+        loadComponent: () =>
+          import('./billingHistory-page/billingHistory-page.component'),
+      },
+      {
         path: '',
         redirectTo: 'panel',
         pathMatch: 'full',
