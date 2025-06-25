@@ -68,20 +68,95 @@ export const storePlan =[
     metodPay: 'Paypal',
     planSubscription: 'Mensual',
     starPlan: '2023-10-01',
-    endPlan: '2024-10-01',
-    statePlan: 'Pagado',
+    endPlan: '2024-04-01',
+    billingHistory: [
+      {
+        id:1,
+        planSubscription: 'Mensual',
+        startDate: '2023-10-01',
+        endDate: '2023-11-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pagado'
+      },
+      {
+        id:2,
+        planSubscription: 'Mensual',
+        startDate: '2023-11-01',
+        endDate: '2023-12-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      {
+        id:3,
+        planSubscription: 'Mensual',
+        startDate: '2023-12-01',
+        endDate: '2024-01-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      {
+        id:4,
+        planSubscription: 'Mensual',
+        startDate: '2024-01-01',
+        endDate: '2024-02-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      {
+        id:5,
+        planSubscription: 'Mensual',
+        startDate: '2024-02-01',
+        endDate: '2024-03-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      {id:6,
+        planSubscription: 'Mensual',
+        startDate: '2024-03-01',
+        endDate: '2024-04-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      // más periodos
+    ]
+
   },
   {
     id: 2,
     storeName: 'MercadoLibre',
     storeLogo: './assets/img/log-1.png',
     storeSite: 'www.mercadolibre.com',
-    costePlan:'50',
+    costePlan:'240',
     metodPay: 'Paypal',
     planSubscription: 'Mensual',
     starPlan: '2023-10-01',
     endPlan: '2024-10-01',
-    statePlan: 'Pagado',
+     billingHistory: [
+      {
+        id:1,
+        planSubscription: 'Anual',
+        startDate: '2023-10-01',
+        endDate: '2024-10-01',
+        methodPayment: 'Tarjeta',
+        cost: 240,
+        state: 'Pagado'
+      },
+      {
+        id:2,
+        planSubscription: 'Anual',
+        startDate: '2023-10-01',
+        endDate: '2024-10-01',
+        methodPayment: 'Tarjeta',
+        cost: 240,
+        state: 'Pagado'
+      },
+    ]
   },
   {
     id: 3,
@@ -93,7 +168,27 @@ export const storePlan =[
     planSubscription: 'Anual',
     starPlan: '2023-10-01',
     endPlan: '2024-10-01',
-    statePlan: 'Pagado',
+    billingHistory: [
+      {
+        id:1,
+        planSubscription: 'Mensual',
+        startDate: '2023-10-01',
+        endDate: '2023-11-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pagado'
+      },
+      {
+        id:2,
+        planSubscription: 'Mensual',
+        startDate: '2023-11-01',
+        endDate: '2023-12-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      // más periodos
+    ]
   },
   {
     id: 4,
@@ -105,7 +200,27 @@ export const storePlan =[
     planSubscription: 'Mensual',
     starPlan: '2023-10-01',
     endPlan: '2024-10-01',
-    statePlan: 'Pagado',
+    billingHistory: [
+     {
+        id:1,
+        planSubscription: 'Mensual',
+        startDate: '2023-10-01',
+        endDate: '2023-11-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pagado'
+      },
+      {
+        id:2,
+        planSubscription: 'Mensual',
+        startDate: '2023-11-01',
+        endDate: '2023-12-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      // más periodos
+    ]
   },
   {
     id: 5,
@@ -117,6 +232,27 @@ export const storePlan =[
     planSubscription: 'Uso x Tynbiz',
     starPlan: '2023-10-01',
     endPlan: '2024-10-01',
-    statePlan: 'Pagado',
+    billingHistory: [
+      {
+        id:1,
+        planSubscription: 'Mensual',
+        startDate: '2023-10-01',
+        endDate: '2023-11-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pagado'
+      },
+      {
+        id:2,
+        planSubscription: 'Mensual',
+        startDate: '2023-11-01',
+        endDate: '2023-12-01',
+        methodPayment: 'Paypal',
+        cost: 50,
+        state: 'Pendiente'
+      },
+      // más periodos
+    ]
   }
 ];
+
