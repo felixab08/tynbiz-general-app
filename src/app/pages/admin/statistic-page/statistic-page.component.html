@@ -1,1 +1,118 @@
-<p>statistic-page works!</p>,
+<div class="px-6 text-gray-900 dark:text-white">
+  <div class="mb-6 text-gray-900 dark:text-white">
+    <h4 class="text-lg font-bold">Estadistica generales</h4>
+    <p>
+      Los margenes aplicados a los precios de los productos seran un beneficio
+    </p>
+  </div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 mb-6">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-auto"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Departamento</th>
+          <th scope="col" class="px-6 py-3">Tiendas</th>
+          <th scope="col" class="px-6 py-3">Usuarios</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of paginatedData; track item.id) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ item.department }}
+          </th>
+          <td class="px-6 py-4">{{ item.stores }}</td>
+          <td class="px-6 py-4">{{ item.users }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <!-- Paginación -->
+    <nav aria-label="Page navigation example " class="my-6 flex justify-center">
+      <ul class="flex items-center -space-x-px h-8 text-sm">
+        <li>
+          <button
+            (click)="prevPage()"
+            [disabled]="currentPage === 1"
+            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <span class="sr-only">Previous</span>
+            <svg
+              class="w-2.5 h-2.5 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 1 1 5l4 4"
+              />
+            </svg>
+          </button>
+        </li>
+        <!-- Números de página generados dinámicamente -->
+        @for (page of [].constructor(totalPages()); track page; let i = $index)
+        {
+        <li>
+          <button
+            (click)="setPage(i + 1)"
+            [ngClass]="{
+              'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
+                currentPage === i + 1,
+              'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
+                currentPage !== i + 1
+            }"
+            class="flex items-center justify-center px-3 h-8 leading-tight border"
+          >
+            {{ i + 1 }}
+          </button>
+        </li>
+        }
+
+        <li>
+          <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages()"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <span class="sr-only">Next</span>
+            <svg
+              class="w-2.5 h-2.5 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+    <tyn-chart-grafic [isDataStatistic]="suscription" />
+    <tyn-chart-grafic [isDataStatistic]="register" />
+    <tyn-chart-grafic [isDataStatistic]="views" />
+    <tyn-chart-grafic [isDataStatistic]="stores" />
+  </div>
+</div>
