@@ -1,4 +1,4 @@
-<div class="px-6 text-gray-900 dark:text-white">
+<div class="px-6 text-gray-900 dark:text-white shadow-md m-4 rounded-lg">
   <div class="mb-6 text-gray-900 dark:text-white">
     <h4 class="text-lg font-bold">Estadistica generales</h4>
     <p>
@@ -110,9 +110,21 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
-    <tyn-chart-grafic [isDataStatistic]="suscription" />
-    <tyn-chart-grafic [isDataStatistic]="register" />
-    <tyn-chart-grafic [isDataStatistic]="views" />
-    <tyn-chart-grafic [isDataStatistic]="stores" />
+    <tyn-chart-grafic
+      class="shadow-md rounded-lg p-4 bg-white"
+      [isDataStatistic]="suscription"
+    />
+    <tyn-chart-grafic
+      class="shadow-md rounded-lg p-4 bg-white"
+      [isDataStatistic]="register"
+    />
+    <tyn-chart-grafic
+      class="shadow-md rounded-lg p-4 bg-white"
+      [isDataStatistic]="views"
+    />
+    <tyn-chart-grafic
+      class="shadow-md rounded-lg p-4 bg-white"
+      [isDataStatistic]="stores"
+    />
   </div>
 </div>
