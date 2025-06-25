@@ -1,1 +1,32 @@
-<p>revenue-page works!</p>,
+<div class="px-6 text-gray-900 dark:text-white">
+  <div class="mb-6 text-gray-900 dark:text-white flex justify-between">
+    <div>
+      <h4 class="text-lg font-bold">Ganancias</h4>
+      <p>
+        Se mostraran toda las ganancias que se generan del uso de la plataforma
+        tynbiz, como mencionaremos de ganancias de plan de suscripcion. Cada
+        ganancia que se menciono se podra verse en detalle.
+      </p>
+    </div>
+    <div class="flex justify-end">
+      <button
+        class="bg-primary text-white px-4 py-2 rounded-md"
+        routerLink="/admin/statistic"
+      >
+        Ver estadisticas
+      </button>
+    </div>
+  </div>
+  <h4 class="text-lg font-bold mb-2">Plan de suscripcion</h4>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-2 m-6">
+    @for (item of isReportStore; track item.id) {
+    <tyn-simple-card [isCardValue]="item" />
+    }
+  </div>
+  <h4 class="text-lg font-bold mb-2">Ganancias</h4>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-2 m-6">
+    @for (item of isReportSubscription; track item.id) {
+    <tyn-simple-card [isCardValue]="item" />
+    }
+  </div>
+</div>

@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { resquestDemoListMock } from '@app/mock/resquet-demo-list.mock';
+import { SimpleCardComponent } from '../../../components/simple-card/simple-card.component';
 
 @Component({
   selector: 'tyn-list-store-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SimpleCardComponent],
   templateUrl: './list-store-page.component.html',
 })
 export default class ListStorePageComponent {
