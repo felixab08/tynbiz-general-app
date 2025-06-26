@@ -8,7 +8,7 @@
       </p>
     </div>
     <div>
-      <button data-modal-hide="default-modal" type="button"
+      <button data-modal-hide="default-modal" type="button"  (click)="routeLink('statistic')"
         class="text-white bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
         Ver estadisticas
       </button>
@@ -45,10 +45,10 @@
           <div *ngIf="openDropdownIndex === item.id"
             class="absolute top-6 right-2 mt-2 w-40 bg-white border border-purple-400 rounded-md shadow-lg z-50 dark:bg-purple-700">
             <ul class="text-sm text-gray-700 dark:text-gray-200">
-              @if (item.estate == 'inactivo') {<li (click)="openModalWar('activar')"
-                class="px-4 py-2 hover:bg-purple-300 dark:hover:bg-purple-600 cursor-pointer">Activar</li>}@else {<li
-                (click)="openModalWar('desactivar')"
-                class="px-4 py-2 hover:bg-purple-300 dark:hover:bg-purple-600 cursor-pointer">Desactivar</li>}
+              <li (click)="openModalWar('activar')"
+                class="px-4 py-2 hover:bg-purple-300 dark:hover:bg-purple-600 cursor-pointer">Activar</li>
+              <li (click)="openModalWar('desactivar')"
+                class="px-4 py-2 hover:bg-purple-300 dark:hover:bg-purple-600 cursor-pointer">Desactivar</li>
             </ul>
           </div>
         </div>
@@ -68,14 +68,20 @@
       @for (item of listMethods; track item.id) {
       <tyn-simple-card [isCardValue]="item" [tipeCant]="'cantidad'" />
       }
-
-
     </div>
-
   </div>
 </div>
 
-<tyn-warning-modal [visible]="modalVisible" [itemName]="selectedMethod?.method"
+<tyn-warning-modal [visible]="modalVisible" [itemName]="selectedMethod?.title"
   [actionLabel]="currentAction === 'activar' ? 'Activar' : 'Desactivar'" [actionType]="currentAction"
   (confirm)="confirmAction()" (cancel)="closeModalWar()">
 </tyn-warning-modal>
+
+<tyn-success-modal
+  [visible]="successModalVisible"
+  [itemName]="itemName"
+  [actionType]="currentAction"
+  [succesType]="successType"
+  (close)="closeSuccessModal()"
+  >
+</tyn-success-modal>

@@ -168,3 +168,13 @@
   (cancel)="closeModalWar()">
 </tyn-warning-modal>
 
+<!-- Modal de confirmacion -->
+<tyn-success-modal
+  [visible]="successModalVisible"
+  [itemName]="itemName"
+  [actionType]="currentAction"
+  [succesType]="successType"
+  (close)="closeSuccessModal()"
+  >
+</tyn-success-modal>
+

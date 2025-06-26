@@ -1,1 +1,41 @@
-<p>creation-store-page works!</p>,
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8">
+  <div class="mb-6 text-gray-900 dark:text-white">
+    <h1 class="text-2xl font-semibold">Creaciones</h1>
+  </div>
+  <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400" role="tablist">
+      <li class="me-2" role="presentation">
+        <button (click)="selectedTab = 'published'" [ngClass]="
+                  selectedTab === 'published'
+                    ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
+                    : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+                " type="button" role="tab">
+          Publicados
+        </button>
+      </li>
+      <li class="me-2" role="presentation">
+        <button (click)="selectedTab = 'offers'" [ngClass]="
+                  selectedTab === 'offers'
+                    ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
+                    : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+                " type="button" role="tab">
+          Ofertas
+        </button>
+      </li>
+      <li class="me-2" role="presentation">
+        <button (click)="selectedTab = 'live'" [ngClass]="
+                  selectedTab === 'live'
+                    ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
+                    : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+                " type="button" role="tab">
+          En vivo
+        </button>
+      </li>
+    </ul>
+  </div>
+  @for (item of cardCrea; track $index) {
+
+  <tyn-creationes-store-card-creation-page [creation]="item"></tyn-creationes-store-card-creation-page>}
+
+
+</div>

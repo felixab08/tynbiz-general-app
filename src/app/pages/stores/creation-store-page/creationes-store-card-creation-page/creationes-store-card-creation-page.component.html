@@ -1,0 +1,32 @@
+@if (creation()) {
+<div class="bg-white grid grid-cols-2 w-auto max-w-lg">
+  <div class="rounded-lg border border-gray-300 grid-cols-2">
+
+    <div class="grid grid-cols-2 p-1.5 ">
+      <!-- imagenes de productos extras right -->
+      <ng-container *ngFor="let producto of creation().products.slice(0, 3)">
+        <div
+          class="relative bg-white w-24 h-24 shrink-0 justify-center flex items-center rounded-lg  border border-gray-300 m-1">
+          <img class="h-10 rounded-sm" [src]="producto.image" alt="Producto" />
+        </div>
+      </ng-container>
+      @if (creation().products.length > 3) {
+      <div
+        class="relative bg-white w-24 h-24 shrink-0 justify-center flex items-center  rounded-lg border border-gray-300 m-1">
+        <span class="font-medium text-gray-600 dark:text-gray-300">+{{ creation().products.length - 3 }}
+        </span>
+      </div>
+      }
+    </div>
+  </div>
+  <div>
+    <p>nombre</p>
+    <p class="text-sm font-bold text-red-500 truncate dark:text-gray-400">
+      VIVO
+    </p>
+    <p
+      class="text-sm font-semibold truncate inline-flex items-center bg-green-100 text-green-800 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+      Oferta
+    </p>
+  </div>
+</div>}

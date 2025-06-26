@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { isReportStore } from '@app/mock/revenue.mock';
 import {
-  gananciasMock,
   rolsCreateMock,
   userActionsMock,
 } from '@app/mock/rol.mock';

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output, signal } from '@angular/core';
 
 @Component({
   selector: 'tyn-warning-modal',
@@ -12,6 +12,7 @@ export class WarningModalComponent {
   itemName = input.required<string>();
   actionLabel = input('Confirmar');
   actionType = input<'eliminar' | 'activar' | 'desactivar'>('desactivar');
+  isModalOpen = signal(false);
 
   confirm = output<void>();
   cancel = output<void>();
@@ -22,4 +23,5 @@ export class WarningModalComponent {
   onCancel() {
     this.cancel.emit();
   }
+
 }

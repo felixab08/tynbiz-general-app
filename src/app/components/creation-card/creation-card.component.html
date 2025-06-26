@@ -296,31 +296,7 @@
           class="w-full p-4 bg-purple-200 rounded-lg shadow-sm dark:bg-gray-900 dark:text-gray-300"
         >
           <div class="w-full flex justify-between pb-4">
-            <div class="flex items-center">
-              <div
-                class="relative bg-white w-24 h-24 shrink-0 justify-center flex items-center rounded-lg"
-              >
-                <img
-                  class="h-20"
-                  [src]="listProduct.image"
-                  alt="Jese Leos image"
-                />
-              </div>
-              <div class="ms-3 text-sm font-normal">
-                <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-                  {{ listProduct.marca }}
-                </p>
-                <p class="text-sm font-bold text-gray-900 dark:text-white">
-                  {{ listProduct.nameProduct }}
-                </p>
-                <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-                  Color: {{ listProduct.color }} Talla: {{ listProduct.talla }}
-                </p>
-                <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-                  {{ listProduct.price }}
-                </p>
-              </div>
-            </div>
+            <tyn-product-detail-card [listProduct]="listProduct"></tyn-product-detail-card>
             <div class="ms-3 text-sm font-normal">
               <a
                 class="inline-flex text-sm items-center text-purple-600 hover:underline"
@@ -332,6 +308,7 @@
           <div
             class="flex items-center space-x-3 rtl:space-x-reverse justify-center"
           >
+
             <button
               data-modal-hide="top-right-modal"
               type="button"

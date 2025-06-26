@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlanesSuscriptionFormModalPageComponent } from './planes-suscription-form-modal-page/planes-suscription-form-modal-page.component';
 import { WarningModalComponent } from '@app/components/warning-modal/warning-modal.component';
+import { SuccessModalComponent } from '@app/components/success-modal/success-modal.component';
 
 @Component({
   selector: 'tyn-planes-suscription-page',
-  imports: [CommonModule, FormsModule, WarningModalComponent , PlanesSuscriptionFormModalPageComponent],
+  imports: [CommonModule, FormsModule, WarningModalComponent , PlanesSuscriptionFormModalPageComponent, SuccessModalComponent],
   templateUrl: './planes-suscription-page.component.html',
 })
 export default class PlanesSuscriptionPageComponent {
@@ -18,9 +19,11 @@ export default class PlanesSuscriptionPageComponent {
 
   currentPage = 1;
   itemsPerPage = 10;
-
+ itemName: string = ''
   modalVisible=false;
+   successModalVisible = false;
   currentAction:'eliminar' | 'activar' = 'eliminar';
+  successType: 'success' | 'error' | 'warning' = 'success'
 
   toggleDropdown(plan: any) {
     this.selectedPlan = plan;
@@ -32,22 +35,40 @@ export default class PlanesSuscriptionPageComponent {
     this.currentAction = action
     this.openDropdownIndex = null;
   }
-
-  confirmAction(){
-     if (this.currentAction === 'eliminar') {
-      this.planList = this.planList.filter(d => d.id !== this.selectedPlan.id);
-    } else if (this.currentAction === 'activar') {
-      this.planList = this.planList.map(d =>
-        d.id === this.selectedPlan.id ? { ...d, planState: 'activo' } : d
-      );
-    }
-    this.closeModalWar();
-  }
-
-  closeModalWar() {
+   closeModalWar() {
     this.modalVisible=false;
     this.selectedPlan = null;
   }
+   closeSuccessModal() {
+    this.successModalVisible = false;
+  }
+
+  confirmAction(){
+    this.modalVisible = false;
+    this.itemName = this.selectedPlan.title
+
+     if (this.currentAction === 'activar') {
+      const item = this.selectedPlan;
+      if (item.estate === 'activo') {
+        this.successType = 'warning';
+      } else {
+        this.planList = this.planList.map(d =>
+        d.id === this.selectedPlan.id ? { ...d, planState: 'activo' } : d
+      );
+        this.successType = 'success';
+      }
+    } else if (this.currentAction === 'eliminar') {
+      // Supongamos que hay restricción para eliminar
+      if (this.selectedPlan.noSePuedeEliminar) {
+        this.successType = 'error'
+      } else {
+        this.planList = this.planList.filter(d => d.id !== this.selectedPlan.id);
+        this.successType = 'success';
+      }
+    }
+    this.successModalVisible = true;
+  }
+
 
    totalPages() {
     return Math.ceil(this.planList.length / this.itemsPerPage);

@@ -1,4 +1,5 @@
-export const productMock = [
+import { Product } from "@app/interfaces/card.interface";
+export const productMock:  Product[]  = [
    {
         id: 1,
         nameProduct: 'casaca deportiva',

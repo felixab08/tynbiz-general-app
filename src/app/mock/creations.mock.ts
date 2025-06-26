@@ -1,6 +1,6 @@
 import { Cardcreations } from "@app/interfaces/card.interface";
 
-export let creationMock: Cardcreations[] =[
+export const creationMock: Cardcreations[] =[
   {
     id: 1,
     title: 'Full polos',
