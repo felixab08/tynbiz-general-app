@@ -33,9 +33,5 @@
       </li>
     </ul>
   </div>
-  @for (item of cardCrea; track $index) {
-
-  <tyn-creationes-store-card-creation-page [creation]="item"></tyn-creationes-store-card-creation-page>}
-
-
+  <tyn-creation-store-table-creation-page [listCreation]="cardCrea" [tipeTable]="selectedTab" ></tyn-creation-store-table-creation-page>
 </div>

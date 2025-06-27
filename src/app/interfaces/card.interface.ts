@@ -51,3 +51,16 @@ export interface Cardcreations {
   store: CardStores;
   products: Product[];
 }
+export interface creationStore {
+    id: number;
+    title: string;
+    vivo: boolean;
+    state: string;
+    date: string;
+    timeActive: string;
+    timeForActive: string;
+    timeAvailable: string;
+    numVistas: string;
+    offer: boolean;
+    products: Product[];
+}
