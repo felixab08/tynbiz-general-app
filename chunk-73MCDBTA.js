@@ -1,0 +1,1 @@
+import{Ea as p}from"./chunk-Y5JR5PA6.js";var s=class t{transform(e,r=2){if(e==null)return"";let[o,i]=e.toFixed(r).split("."),n=o.replace(/\B(?=(\d{3})+(?!\d))/g," ");return i?`S/. ${n}.${i}`:`S/. ${n}`}static \u0275fac=function(r){return new(r||t)};static \u0275pipe=p({name:"soles",type:t,pure:!0})};export{s as a};
