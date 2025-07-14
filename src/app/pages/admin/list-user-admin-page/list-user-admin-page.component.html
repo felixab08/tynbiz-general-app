@@ -89,6 +89,8 @@
       </tr>
     </thead>
     <tbody>
+      @if(usersResorce.hasValue()) {
+      <!--  -->
       @for (item of paginatedData; track item.id) {
       <tr
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -177,6 +179,8 @@
           </div>
         </td>
       </tr>
+      }
+      <!--  -->
       }
     </tbody>
   </table>

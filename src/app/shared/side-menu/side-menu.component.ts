@@ -32,11 +32,10 @@ export class SideMenuComponent {
     this.storeService.user.subscribe((user) => {
       this.user = user;
       if (this.user) {
-        this.menuItemsAll =
-          this.user?.role === 'moderator'
-            ? [...menuItemsClienteMock]
-            : [...menuAdminMock];
-        this.user?.role === 'moderator'
+        this.menuItemsAll = this.user?.roles.includes('moderator')
+          ? [...menuItemsClienteMock]
+          : [...menuAdminMock];
+        this.user?.roles.includes('moderator')
           ? this._router.navigate(['/stores'])
           : this._router.navigate(['/admin']);
       } else {

@@ -90,7 +90,7 @@
       </li>
       } }
     </ul>
-    @if (this.user?.role !== 'admin') {
+    @if (this.user?.roles?.includes('admin')) {
     <div
       id="dropdown-cta"
       class="p-4 mt-6 rounded-lg bg-gray-400 dark:bg-white"

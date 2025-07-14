@@ -1,11 +1,12 @@
 export interface User {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: string;
+  usuarioId?: any;
   image: string;
-  birthDate: string;
-  gender: string;
-  age: number;
+  fechaNacimiento?: string;
+  apellido: string;
+  correo: string;
+  genero?: string;
+  estadoUsuario?: number;
+  roles: string[];
+  nombre: string;
+  pais?: number;
 }

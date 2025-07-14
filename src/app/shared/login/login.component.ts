@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   myForm: FormGroup = this._fb.group({
     user: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
   });
 
   ngOnInit(): void {
@@ -59,7 +59,8 @@ export class LoginComponent implements OnInit {
           if (response) {
             this.closeModal();
             setTimeout(() => {
-              location.reload();
+              console.log('Felix===>', response);
+              // location.reload();
             }, 1000);
           } else {
             this.hasError.set(true);

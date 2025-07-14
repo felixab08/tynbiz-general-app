@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
 import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { UsersService } from '@app/services/admin/users.service';
 
 @Component({
   selector: 'tyn-list-user-admin-page',
@@ -11,6 +13,7 @@ import { CreateUserFormComponent } from '../../../components/create-user-form/cr
   templateUrl: './list-user-admin-page.component.html',
 })
 export default class ListUserAdminPageComponent {
+  private _usersService = inject(UsersService);
   userActions = [...userActionsMock];
   isState = 'All';
   // paginacion
@@ -25,6 +28,18 @@ export default class ListUserAdminPageComponent {
   isModalOpen = signal(false);
 
   router = inject(Router);
+
+  usersResorce = rxResource({
+    request: () => ({ page: 0, size: 10 }),
+    loader: ({ request }) => {
+      return (
+        this._usersService.getUsers({
+          page: request.page,
+          size: request.size,
+        }) || {}
+      );
+    },
+  });
 
   editUser(id: number): void {
     this.router.navigate(['/admin/user', id]);

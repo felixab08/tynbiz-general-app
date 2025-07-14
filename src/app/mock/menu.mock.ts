@@ -1,12 +1,12 @@
 export const menuItemsMock = [
   {
-    id: '11asybvas',
+    id: '11asybvccas',
     name: 'Inicio',
     icon: 'fa-solid fa-house',
     route: '/shop/home',
   },
   {
-    id: '12bsybvas',
+    id: '12bsybaas',
     name: 'Ofertas',
     icon: 'fa-solid fa-tags',
     route: '/shop/offer',
@@ -18,20 +18,20 @@ export const menuItemsMock = [
     route: '/shop/creations',
   },
   {
-    id: '14dsybvas',
+    id: '14dsybvas12312',
     name: 'Tiendas',
     icon: 'fa-solid fa-store',
     route: '/shop/stores',
   },
   {
-    id: '14dsybvas',
+    id: '14dsybvvvasas',
     name: 'Favoritos',
     icon: 'fa-solid fa-heart-circle-plus',
     route: '/shop/favorites',
     role: 'moderator',
   },
   {
-    id: '15esybvas',
+    id: '15esy1212bvas',
     name: 'Tu creación',
     icon: 'fa-solid fa-boxes-packing', //
     route: '/shop/contact',
@@ -47,7 +47,7 @@ export const menuItemsClienteMock = [
     route: '/stores/init-store',
   },
   {
-    id: '22bsybvas',
+    id: '22bsy121bvas',
     name: 'Productos',
     icon: 'fa-solid fa-tags',
     route: '/stores/products',
@@ -71,7 +71,7 @@ export const menuItemsClienteMock = [
     route: '/stores/client',
   },
   {
-    id: '26gsybvas',
+    id: '26gsybavas',
     name: 'Inf. de tienda',
     icon: 'fa-solid fa-boxes-packing',
     route: '/stores/info-store',
@@ -85,7 +85,7 @@ export const menuItemsClienteMock = [
 ];
 export const menuAdminMock: any = [
   {
-    id: '35asbaasvas',
+    id: '35asbacasvas',
     name: 'Panel',
     icon: 'fa-solid fa-store',
     route: '/admin',
@@ -98,7 +98,7 @@ export const menuAdminMock: any = [
     children: [{ name: 'Politicas', route: '/admin/politic' }],
   },
   {
-    id: '32bsbv1s',
+    id: '32b1sbv1s',
     name: 'Solicitudes',
     icon: 'fa-solid fa-house',
     route: '',
@@ -118,25 +118,25 @@ export const menuAdminMock: any = [
     ],
   },
   {
-    id: '1234as1',
+    id: '1234asaa1',
     name: 'Tiendas',
     icon: 'fa-solid fa-store',
     route: '/admin/list-store',
   },
   {
-    id: '31234dd1',
+    id: '31234ddas1',
     name: 'Ingresos',
     icon: 'fa-solid fa-money-bill',
     route: '/admin/revenue',
   },
   {
-    id: '31234dd2',
+    id: '312343dd2',
     name: 'Estadisticas',
     icon: 'fa-solid fa-chart-line',
     route: '/admin/statistic',
   },
   {
-    id: '31234dd3',
+    id: '312324dd3',
     name: 'Pagos',
     icon: 'fa-solid fa-money-bill',
     route: '/admin/payment',
