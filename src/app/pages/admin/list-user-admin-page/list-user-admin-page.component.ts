@@ -17,7 +17,7 @@ export default class ListUserAdminPageComponent {
   userActions = [...userActionsMock];
   isState = 'All';
   // paginacion
-  currentPage = 1;
+  currentPage = 0;
   itemsPerPage = 5;
   // Filtros por fecha
   search = '';
@@ -30,7 +30,7 @@ export default class ListUserAdminPageComponent {
   router = inject(Router);
 
   usersResorce = rxResource({
-    request: () => ({ page: 0, size: 10 }),
+    request: () => ({ page: this.currentPage, size: 2 }),
     loader: ({ request }) => {
       return (
         this._usersService.getUsers({
@@ -66,26 +66,20 @@ export default class ListUserAdminPageComponent {
       return matchesSearch && matchesDate;
     });
   }
-  get paginatedData() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredData.slice(start, start + this.itemsPerPage);
-  }
   totalPages() {
-    return Math.ceil(this.filteredData.length / this.itemsPerPage);
-  }
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages()) {
-      this.currentPage = page;
-    }
+    return this.usersResorce.value()?.totalPages || 0;
   }
   setPage(page: number) {
     this.currentPage = page;
+    console.log('setPage', this.currentPage);
   }
   prevPage() {
     if (this.currentPage > 1) this.currentPage--;
+    console.log('currentPage', this.currentPage);
   }
   nextPage() {
     if (this.currentPage < this.totalPages()) this.currentPage++;
+    console.log('currentPage', this.currentPage);
   }
   toggleDropdown(plan: any) {
     this.openDropdownIndex =

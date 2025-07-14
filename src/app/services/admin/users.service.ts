@@ -37,5 +37,6 @@ export class UsersService {
         tap((resp) => console.log(resp)),
         tap((resp) => this.userListCache.set(key, resp))
       );
-  }
+  };
+  postRegisterUser(user: UsuariosResponse) {};
 }

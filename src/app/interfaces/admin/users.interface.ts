@@ -30,4 +30,6 @@ export interface Content {
   usuarioModificacion: number;
   urlImg: null;
   observacion: null;
+  roles: string;
+  twoConfirmation: boolean;
 }
