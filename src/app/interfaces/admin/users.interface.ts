@@ -12,23 +12,23 @@ export interface UsuariosResponse {
 
 export interface Content {
   id: number;
-  nombre: null | string;
-  apellido: null | string;
+  nombre: string;
+  apellido: string;
   usuarioAcceso: string;
-  correoElectronico: null | string;
-  numeroIdentidad: null | string;
-  numeroTelefono: null | string;
+  correoElectronico: string;
+  numeroIdentidad: string;
+  numeroTelefono: string;
   estadoUsuarioIdc: number;
-  direccion: null | string;
-  generoIdc: number | null;
-  pais: number | null;
-  fechaNacimiento: Date | null;
+  direccion: string;
+  generoIdc: number;
+  pais: number;
+  fechaNacimiento: Date;
   calificacion: null;
   fechaCreacion: Date;
   fechaModificacion: Date;
   usuarioCreacion: number;
   usuarioModificacion: number;
-  urlImg: null;
+  urlImg: any;
   observacion: null;
   roles: string;
   twoConfirmation: boolean;

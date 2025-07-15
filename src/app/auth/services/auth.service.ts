@@ -89,7 +89,7 @@ export class AuthService {
     this._authStatus.set('not-authenticated');
     localStorage.clear();
     this._router.navigate(['/']);
-    // location.reload();
+    location.reload();
   }
 
   private handleAuthSuccess(user: User, token: string) {

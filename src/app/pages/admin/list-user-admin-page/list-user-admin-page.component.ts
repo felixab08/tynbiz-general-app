@@ -6,10 +6,17 @@ import { userActionsMock } from '@app/mock/rol.mock';
 import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { UsersService } from '@app/services/admin/users.service';
+import { NotImagePipe } from '@app/pipes/not-image.pipe';
 
 @Component({
   selector: 'tyn-list-user-admin-page',
-  imports: [CommonModule, FormsModule, DatePipe, CreateUserFormComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    DatePipe,
+    CreateUserFormComponent,
+    NotImagePipe,
+  ],
   templateUrl: './list-user-admin-page.component.html',
 })
 export default class ListUserAdminPageComponent {

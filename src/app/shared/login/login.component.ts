@@ -59,8 +59,7 @@ export class LoginComponent implements OnInit {
           if (response) {
             this.closeModal();
             setTimeout(() => {
-              console.log('Felix===>', response);
-              // location.reload();
+              location.reload();
             }, 1000);
           } else {
             this.hasError.set(true);
@@ -74,9 +73,9 @@ export class LoginComponent implements OnInit {
           console.error('Login failed', error);
           this.myForm.setErrors({ loginFailed: true });
           this.hasError.set(true);
-          // setTimeout(() => {
-          //   this.hasError.set(false);
-          // }, 2000);
+          setTimeout(() => {
+            this.hasError.set(false);
+          }, 2000);
         },
       });
     // this.myForm.reset();
