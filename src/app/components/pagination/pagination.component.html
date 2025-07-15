@@ -1,46 +1,55 @@
-<nav aria-label="Page navigation example">
-  <ul class="inline-flex -space-x-px text-sm">
-    <li>
-      <a
-        class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-        [routerLink]="[]"
-        [queryParams]="{ page: activePage() - 1 }"
-        [class.pointer-events-none]="activePage() === 1"
-        [class.opacity-50]="activePage() === 1"
-        (click)="previousPage()"
-        >Previous</a
-      >
-    </li>
-    @for (page of getPagesList(); track page) {
+<div class="flex justify-between my-4">
+  <div class="flex items-center">
+    <!-- select de cantidad de paginas -->
+  </div>
+  <div class="justify-end">
+    <nav aria-label="Page navigation example">
+      <ul class="inline-flex -space-x-px text-sm gap-1">
+        <li>
+          <a
+            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            [routerLink]="[]"
+            [queryParams]="{ page: activePage() - 1 }"
+            [class.pointer-events-none]="activePage() === 1"
+            [class.opacity-50]="activePage() === 1"
+            (click)="previousPage()"
+            >Previous</a
+          >
+        </li>
+        @for (page of getPagesList(); track page) {
 
-    <li>
-      <a
-        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-primary/70 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        [ngClass]="{ 'bg-primary text-white font-bold': page === activePage() }"
-        [routerLink]="[]"
-        [queryParams]="{ page: page }"
-        (click)="activePage.set(page)"
-      >
-        {{ page }}</a
-      >
-    </li>
-    } @empty {
-    <p>No hay paginas</p>
-    }
-    <li>
-      <a
-        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-        [routerLink]="[]"
-        [queryParams]="{ page: activePage() + 1 }"
-        [class.pointer-events-none]="
-          activePage() === getPagesList()[getPagesList().length - 1]
-        "
-        [class.opacity-50]="
-          activePage() === getPagesList()[getPagesList().length - 1]
-        "
-        (click)="nextPage()"
-        >Next</a
-      >
-    </li>
-  </ul>
-</nav>
+        <li>
+          <a
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-primary/95 hover:bg-primary/70 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            [ngClass]="{
+              'bg-primary text-white font-bold': page === activePage()
+            }"
+            [routerLink]="[]"
+            [queryParams]="{ page: page }"
+            (click)="activePage.set(page)"
+          >
+            {{ page }}</a
+          >
+        </li>
+        } @empty {
+        <p>No hay paginas</p>
+        }
+        <li>
+          <a
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            [routerLink]="[]"
+            [queryParams]="{ page: activePage() + 1 }"
+            [class.pointer-events-none]="
+              activePage() === getPagesList()[getPagesList().length - 1]
+            "
+            [class.opacity-50]="
+              activePage() === getPagesList()[getPagesList().length - 1]
+            "
+            (click)="nextPage()"
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

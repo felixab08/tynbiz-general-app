@@ -42,7 +42,7 @@ export default class ListUserAdminPageComponent {
   usersResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
-      size: 2,
+      size: 5,
     }),
     loader: ({ request }) => {
       return (
