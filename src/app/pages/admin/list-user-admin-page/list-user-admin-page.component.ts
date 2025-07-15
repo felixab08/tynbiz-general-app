@@ -7,6 +7,8 @@ import { CreateUserFormComponent } from '../../../components/create-user-form/cr
 import { rxResource } from '@angular/core/rxjs-interop';
 import { UsersService } from '@app/services/admin/users.service';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
+import { PaginationService } from '@app/components/pagination/pagination.service';
+import { PaginationComponent } from '@app/components/pagination/pagination.component';
 
 @Component({
   selector: 'tyn-list-user-admin-page',
@@ -16,16 +18,17 @@ import { NotImagePipe } from '@app/pipes/not-image.pipe';
     DatePipe,
     CreateUserFormComponent,
     NotImagePipe,
+    PaginationComponent,
   ],
   templateUrl: './list-user-admin-page.component.html',
 })
 export default class ListUserAdminPageComponent {
   private _usersService = inject(UsersService);
+  _paginationService = inject(PaginationService);
+
   userActions = [...userActionsMock];
   isState = 'All';
   // paginacion
-  currentPage = 0;
-  itemsPerPage = 5;
   // Filtros por fecha
   search = '';
   startDate: string = '';
@@ -37,7 +40,10 @@ export default class ListUserAdminPageComponent {
   router = inject(Router);
 
   usersResorce = rxResource({
-    request: () => ({ page: this.currentPage, size: 2 }),
+    request: () => ({
+      page: this._paginationService.currentPage() - 1,
+      size: 2,
+    }),
     loader: ({ request }) => {
       return (
         this._usersService.getUsers({
@@ -73,21 +79,7 @@ export default class ListUserAdminPageComponent {
       return matchesSearch && matchesDate;
     });
   }
-  totalPages() {
-    return this.usersResorce.value()?.totalPages || 0;
-  }
-  setPage(page: number) {
-    this.currentPage = page;
-    console.log('setPage', this.currentPage);
-  }
-  prevPage() {
-    if (this.currentPage > 1) this.currentPage--;
-    console.log('currentPage', this.currentPage);
-  }
-  nextPage() {
-    if (this.currentPage < this.totalPages()) this.currentPage++;
-    console.log('currentPage', this.currentPage);
-  }
+
   toggleDropdown(plan: any) {
     this.openDropdownIndex =
       this.openDropdownIndex === plan.id ? null : plan.id;
