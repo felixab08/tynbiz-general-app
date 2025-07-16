@@ -1,6 +1,15 @@
 <div class="flex justify-between my-4">
   <div class="flex items-center">
-    <!-- select de cantidad de paginas -->
+    <p class="text-sm text-gray-700 dark:text-gray-400">Filas por página:</p>
+    <select
+      [(ngModel)]="activeSizeValue"
+      (ngModelChange)="onSizeChange($event)"
+      class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    >
+      @for (option of getSizeList(); track $index) {
+      <option [value]="option">{{ option }}</option>
+      }
+    </select>
   </div>
   <div class="justify-end">
     <nav aria-label="Page navigation example">
@@ -9,7 +18,7 @@
           <a
             class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
             [routerLink]="[]"
-            [queryParams]="{ page: activePage() - 1 }"
+            [queryParams]="{ page: activePage() - 1, size: activeSize() }"
             [class.pointer-events-none]="activePage() === 1"
             [class.opacity-50]="activePage() === 1"
             (click)="previousPage()"
@@ -17,7 +26,6 @@
           >
         </li>
         @for (page of getPagesList(); track page) {
-
         <li>
           <a
             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-primary/95 hover:bg-primary/70 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -25,7 +33,7 @@
               'bg-primary text-white font-bold': page === activePage()
             }"
             [routerLink]="[]"
-            [queryParams]="{ page: page }"
+            [queryParams]="{ page: page, size: activeSize() }"
             (click)="activePage.set(page)"
           >
             {{ page }}</a

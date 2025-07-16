@@ -17,4 +17,14 @@ export class PaginationService {
       initialValue: 1,
     }
   );
+
+  currentSize = toSignal(
+    this._activatedRoute.queryParamMap.pipe(
+      map((params) => (params.get('size') ? +params.get('size')! : 5)),
+      map((size) => (isNaN(size) ? 5 : size))
+    ),
+    {
+      initialValue: 5,
+    }
+  );
 }

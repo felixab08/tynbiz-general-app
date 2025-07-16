@@ -18,7 +18,7 @@ export class UsersService {
   private userListCache = new Map<string, UsuariosResponse>();
 
   getUsers(options: Options): Observable<UsuariosResponse> {
-    const { page = 0, size = 10, sortBy = '' } = options;
+    const { page = 0, size = 5, sortBy = '' } = options;
     const key = `${page} - ${size} - ${sortBy}`;
 
     if (this.userListCache.has(key)) {
@@ -37,6 +37,6 @@ export class UsersService {
         tap((resp) => console.log(resp)),
         tap((resp) => this.userListCache.set(key, resp))
       );
-  };
-  postRegisterUser(user: UsuariosResponse) {};
+  }
+  postRegisterUser(user: UsuariosResponse) {}
 }

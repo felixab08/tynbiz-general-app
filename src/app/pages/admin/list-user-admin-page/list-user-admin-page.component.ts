@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
 import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { UsersService } from '@app/services/admin/users.service';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 import { PaginationService } from '@app/components/pagination/pagination.service';
@@ -33,7 +33,7 @@ export default class ListUserAdminPageComponent {
   search = '';
   startDate: string = '';
   endDate: string = '';
-
+  numberPageSize = signal(5);
   openDropdownIndex: number | null = null;
   isModalOpen = signal(false);
 
@@ -42,7 +42,7 @@ export default class ListUserAdminPageComponent {
   usersResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
-      size: 5,
+      size: this._paginationService.currentSize(),
     }),
     loader: ({ request }) => {
       return (
@@ -53,6 +53,12 @@ export default class ListUserAdminPageComponent {
       );
     },
   });
+
+  cantPageChange(data: number) {
+    console.log('data<<<<<<<<<<', data);
+
+    this.numberPageSize.set(Number(data));
+  }
 
   editUser(id: number): void {
     this.router.navigate(['/admin/user', id]);
