@@ -34,6 +34,7 @@ export class PaginationComponent {
     return Array.from({ length: this.pages() }, (_, i) => i + 1);
   });
 
+  // TODO: mirar cuando se tiene mas datos
   getSizeList = computed(() => {
     const sizes = [5, 10, 25, 50];
     return [
