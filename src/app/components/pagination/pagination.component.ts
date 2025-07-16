@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class PaginationComponent {
   pages = input(0);
+  totalElements = input(0);
   currentPage = input<number>(1); // N° de paginas
   currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
 
@@ -34,7 +35,11 @@ export class PaginationComponent {
   });
 
   getSizeList = computed(() => {
-    return Array.from([5, 10, 15, 20, 50]);
+    const sizes = [5, 10, 25, 50];
+    return [
+      5,
+      ...sizes.filter((size) => this.totalElements() * 2 >= size && size !== 5),
+    ];
   });
 
   previousPage() {

@@ -198,6 +198,7 @@
   @if(usersResorce.hasValue()){
   <app-pagination
     [pages]="usersResorce.value().totalPages"
+    [totalElements]="usersResorce.value().totalElements"
     [currentPage]="_paginationService.currentPage()"
     [currentSize]="_paginationService.currentSize()"
   />
