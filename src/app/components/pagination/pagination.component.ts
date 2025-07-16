@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import {
   Component,
   computed,
+  inject,
   input,
   linkedSignal,
   output,
@@ -18,22 +19,22 @@ import { Router } from '@angular/router';
 })
 export class PaginationComponent {
   pages = input(0);
-  changePageSelect = output<number>();
+  currentPage = input<number>(1); // N° de paginas
+  currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
 
   itemsPage = signal(5);
-  currentPage = input<number>(1);
-  currentSize = input<number>(5);
+
   activePage = linkedSignal(this.currentPage);
   activeSize = linkedSignal(this.currentSize);
 
-  constructor(private router: Router) {}
+  _router = inject(Router);
 
   getPagesList = computed(() => {
     return Array.from({ length: this.pages() }, (_, i) => i + 1);
   });
 
   getSizeList = computed(() => {
-    return Array.from([2, 3, 5, 10, 15, 20, 50]);
+    return Array.from([5, 10, 15, 20, 50]);
   });
 
   previousPage() {
@@ -49,15 +50,6 @@ export class PaginationComponent {
     }
   }
 
-  get itemsPageValue() {
-    return this.itemsPage();
-  }
-
-  set itemsPageValue(val: number) {
-    this.itemsPage.set(val);
-    this.changePageSelect.emit(val);
-  }
-
   get activeSizeValue() {
     return this.activeSize();
   }
@@ -68,7 +60,7 @@ export class PaginationComponent {
   onSizeChange(newSize: number) {
     this.activePage.set(1);
     this.activeSize.set(newSize);
-    this.router.navigate([], {
+    this._router.navigate([], {
       queryParams: { size: newSize, page: this.activePage() },
       queryParamsHandling: 'merge',
     });

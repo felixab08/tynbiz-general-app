@@ -54,12 +54,6 @@ export default class ListUserAdminPageComponent {
     },
   });
 
-  cantPageChange(data: number) {
-    console.log('data<<<<<<<<<<', data);
-
-    this.numberPageSize.set(Number(data));
-  }
-
   editUser(id: number): void {
     this.router.navigate(['/admin/user', id]);
   }
