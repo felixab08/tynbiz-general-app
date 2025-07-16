@@ -1,13 +1,7 @@
-export interface UsuariosResponse {
+import { DataPaginationResponse } from '../services/services.interface';
+
+export interface UsuariosResponse extends DataPaginationResponse {
   content: Content[];
-  page: number;
-  size: number;
-  totalElements: number;
-  totalPages: number;
-  first: boolean;
-  last: boolean;
-  hasNext: boolean;
-  hasPrevious: boolean;
 }
 
 export interface Content {

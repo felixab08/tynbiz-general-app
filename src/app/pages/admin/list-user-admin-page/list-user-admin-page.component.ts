@@ -4,9 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
 import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { rxResource } from '@angular/core/rxjs-interop';
+
 import { UsersService } from '@app/services/admin/users.service';
+
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
+
 import { PaginationService } from '@app/components/pagination/pagination.service';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 

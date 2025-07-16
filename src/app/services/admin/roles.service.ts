@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { UsuariosResponse } from '@app/interfaces/admin/users.interface';
+import { RolesResponse } from '@app/interfaces/admin/roles.interface';
 import { OptionsRequest } from '@app/interfaces/services/services.interface';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
@@ -9,19 +9,19 @@ const baseUrl = environment.baseUrl;
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class RolesService {
   private _http = inject(HttpClient);
-  private userListCache = new Map<string, UsuariosResponse>();
+  private roleListCache = new Map<string, RolesResponse>();
 
-  getUsers(options: OptionsRequest): Observable<UsuariosResponse> {
+  getRoles(options: OptionsRequest): Observable<RolesResponse> {
     const { page = 0, size = 5, sortBy = '' } = options;
     const key = `${page} - ${size} - ${sortBy}`;
 
-    if (this.userListCache.has(key)) {
-      return of(this.userListCache.get(key)!);
+    if (this.roleListCache.has(key)) {
+      return of(this.roleListCache.get(key)!);
     }
     return this._http
-      .get<UsuariosResponse>(`${baseUrl}/usuario/listar`, {
+      .get<RolesResponse>(`${baseUrl}/rol/listar`, {
         params: {
           page,
           size,
@@ -31,8 +31,7 @@ export class UsersService {
       })
       .pipe(
         tap((resp) => console.log(resp)),
-        tap((resp) => this.userListCache.set(key, resp))
+        tap((resp) => this.roleListCache.set(key, resp))
       );
   }
-  postRegisterUser(user: UsuariosResponse) {}
 }
