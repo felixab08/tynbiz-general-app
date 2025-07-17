@@ -1,10 +1,30 @@
 import { DataPaginationResponse } from '../services/services.interface';
+import { RolesContent } from './roles.interface';
 
 export interface UsuariosResponse extends DataPaginationResponse {
   content: Content[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  hasNext: boolean;
+  hasPrevious: boolean;
 }
 
 export interface Content {
+  id: number;
+  usuario: Usuario;
+  rol: RolesContent;
+  fechaCreacion: Date;
+  fechaModificacion: Date;
+  usuarioCreacion: number;
+  usuarioModificacion: number;
+  observacion: string;
+}
+
+export interface Usuario {
   id: number;
   nombre: string;
   apellido: string;
@@ -17,13 +37,14 @@ export interface Content {
   generoIdc: number;
   pais: number;
   fechaNacimiento: Date;
-  calificacion: null;
+  calificacion: string;
   fechaCreacion: Date;
   fechaModificacion: Date;
   usuarioCreacion: number;
   usuarioModificacion: number;
-  urlImg: any;
-  observacion: null;
-  roles: string;
+  urlImg: string;
+  observacion: string;
+  estadoUsuario: string;
+  confirmacionDosPasos: boolean;
   twoConfirmation: boolean;
 }

@@ -88,7 +88,7 @@ export class AuthService {
     this._token.set(null);
     this._authStatus.set('not-authenticated');
     localStorage.clear();
-    this._router.navigate(['/']);
+    this._router.navigate(['/shop/home']);
   }
 
   logoutAndReload() {

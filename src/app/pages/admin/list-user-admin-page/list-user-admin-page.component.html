@@ -102,40 +102,41 @@
           <div class="grid grid-cols-6 gap-1">
             <img
               class="w-10 h-10 rounded-full col-span-1"
-              [src]="item?.urlImg | notImage"
+              [src]="item.usuario.urlImg | notImage"
               alt="Rounded avatar"
             />
             <div class="col-span-5">
-              {{ item.nombre }}<br />
+              {{ item.usuario.nombre }} {{ item.usuario.apellido }}<br />
               <span class="text-gray-500 dark:text-gray-400">{{
-                item.correoElectronico
+                item.usuario.correoElectronico
               }}</span>
             </div>
           </div>
         </th>
-        <td class="px-6 py-4">{{ item.roles }}</td>
+        <td class="px-6 py-4">{{ item.rol.denominacion }}</td>
         <td class="px-6 py-4">
           <span
             class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
             [ngClass]="{
               'bg-green-100 text-green-800':
-                item.estadoUsuarioIdc == 1,
+                item.usuario.estadoUsuarioIdc == 1,
               'bg-yellow-100 text-yellow-800':
-                item.estadoUsuarioIdc === 0,
+                item.usuario.estadoUsuarioIdc === 0,
 
             }"
           >
-            {{ item.estadoUsuarioIdc ? "Activo" : "Inactivo" }}
+            {{ item.usuario.estadoUsuarioIdc ? "Activo" : "Inactivo" }}
           </span>
         </td>
         <td class="px-6 py-4">
           <span
             class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
             [ngClass]="{
-              'bg-green-100 text-green-800': item.twoConfirmation == true
+              'bg-green-100 text-green-800':
+                item.usuario.twoConfirmation == true
             }"
           >
-            {{ item?.twoConfirmation ? "Activado" : "" }}
+            {{ item.usuario.twoConfirmation ? "Activado" : "" }}
           </span>
         </td>
         <td class="px-6 py-4">{{ item?.fechaCreacion | date : "medium" }}</td>

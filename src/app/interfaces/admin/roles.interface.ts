@@ -1,10 +1,10 @@
 import { DataPaginationResponse } from '../services/services.interface';
 
 export interface RolesResponse extends DataPaginationResponse {
-  content: Content[];
+  content: RolesContent[];
 }
 
-export interface Content {
+export interface RolesContent {
   id: number;
   denominacion: string;
   descripcion: null | string;
