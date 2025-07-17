@@ -15,6 +15,7 @@ import {
 } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { authInterceptor } from './auth/interceptor/auth.interceptor';
+import { isLoginInterceptor } from './auth/interceptor/token.interceptor';
 registerLocaleData(localEs, 'es', 'es-ES');
 
 export const appConfig: ApplicationConfig = {
@@ -33,6 +34,7 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([
         // loggingInterceptor,
+        isLoginInterceptor,
         authInterceptor,
       ])
     ),

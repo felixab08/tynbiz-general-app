@@ -18,8 +18,8 @@ export class NavbarComponent {
   public user: User | undefined;
 
   constructor() {
-    let  user = localStorage.getItem("user");
-    if (user) this.storeService.user.next(JSON.parse(user))
+    let user = localStorage.getItem('user');
+    if (user) this.storeService.user.next(JSON.parse(user));
 
     this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
       this.isLogin = isLoggedIn;
@@ -28,10 +28,6 @@ export class NavbarComponent {
     this.storeService.user.subscribe((user) => {
       this.user = user;
     });
-  }
-
-  logout() {
-    this._authService.logout();
   }
 
   openModal() {

@@ -57,11 +57,11 @@ export class AuthService {
       );
   }
 
-  searhUserById(id: number): Observable<boolean> {
-    return this.http
-      .get<any>(`${baseUrl}/users/${id}`)
-      .pipe(catchError((error: any) => this.handleAuthError(error)));
-  }
+  //searhUserById(id: number): Observable<boolean> {
+  //  return this.http
+  //    .get<any>(`${baseUrl}/users/${id}`)
+  //    .pipe(catchError((error: any) => this.handleAuthError(error)));
+  // }
 
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
@@ -89,6 +89,10 @@ export class AuthService {
     this._authStatus.set('not-authenticated');
     localStorage.clear();
     this._router.navigate(['/']);
+  }
+
+  logoutAndReload() {
+    this.logout();
     location.reload();
   }
 
