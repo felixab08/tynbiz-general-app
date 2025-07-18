@@ -58,7 +58,7 @@ export default class ListUserAdminPageComponent {
   });
 
   editUser(id: number): void {
-    this.router.navigate(['/admin/user', id]);
+    this.router.navigate(['/admin/list-user-admin', id]);
   }
 
   filterByStatus(status: string): void {

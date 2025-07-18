@@ -29,9 +29,6 @@ export class RolesService {
           sortDirection: 'DESC', // Default sort direction
         },
       })
-      .pipe(
-        tap((resp) => console.log(resp)),
-        tap((resp) => this.roleListCache.set(key, resp))
-      );
+      .pipe(tap((resp) => this.roleListCache.set(key, resp)));
   }
 }

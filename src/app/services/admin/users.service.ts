@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { UsuariosResponse } from '@app/interfaces/admin/users.interface';
+import {
+  UsuarioContent,
+  UsuariosResponse,
+} from '@app/interfaces/admin/users.interface';
 import { OptionsRequest } from '@app/interfaces/services/services.interface';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
@@ -29,10 +32,14 @@ export class UsersService {
           sortDirection: 'DESC', // Default sort direction
         },
       })
-      .pipe(
-        tap((resp) => console.log(resp)),
-        tap((resp) => this.userListCache.set(key, resp))
-      );
+      .pipe(tap((resp) => this.userListCache.set(key, resp)));
   }
+
+  getUserById(idUsuario: string): Observable<UsuarioContent> {
+    return this._http
+      .get<UsuarioContent>(`${baseUrl}/usuario/obtener/${idUsuario}`)
+      .pipe(tap((resp) => console.log(resp)));
+  }
+
   postRegisterUser(user: UsuariosResponse) {}
 }

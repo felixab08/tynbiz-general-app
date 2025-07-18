@@ -39,7 +39,7 @@ export const userRoutes: Routes = [
           import('./list-user-admin-page/list-user-admin-page.component'),
       },
       {
-        path: 'user/:id',
+        path: 'list-user-admin/:id',
         loadComponent: () =>
           import('./user-detail-page/user-detail-page.component'),
       },

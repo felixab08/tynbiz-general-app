@@ -2,7 +2,7 @@ import { DataPaginationResponse } from '../services/services.interface';
 import { RolesContent } from './roles.interface';
 
 export interface UsuariosResponse extends DataPaginationResponse {
-  content: Content[];
+  content: UsuarioContent[];
   page: number;
   size: number;
   totalElements: number;
@@ -13,7 +13,7 @@ export interface UsuariosResponse extends DataPaginationResponse {
   hasPrevious: boolean;
 }
 
-export interface Content {
+export interface UsuarioContent {
   id: number;
   usuario: Usuario;
   rol: RolesContent;

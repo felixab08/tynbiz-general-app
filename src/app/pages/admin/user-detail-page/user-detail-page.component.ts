@@ -7,6 +7,10 @@ import { UserDetailPrivilegePageComponent } from './user-detail-privilege-page/u
 import { UserDetailSecurityPageComponent } from './user-detail-security-page/user-detail-security-page.component';
 import { UserInfoPageComponent } from './user-info-page/user-info-page.component';
 
+import { rxResource } from '@angular/core/rxjs-interop';
+
+import { UsersService } from '@app/services/admin/users.service';
+
 @Component({
   selector: 'tyn-user-detail-page',
   imports: [
@@ -19,6 +23,8 @@ import { UserInfoPageComponent } from './user-info-page/user-info-page.component
   templateUrl: './user-detail-page.component.html',
 })
 export default class UserDetailPageComponent {
+  private _usersService = inject(UsersService);
+
   userActions = [...userActionsMock];
   selectedTab: string = 'selectSecurityUser';
   userInfo: any;
@@ -31,6 +37,14 @@ export default class UserDetailPageComponent {
     console.log('query:::::>', this.queryParam);
     this.searchUser();
   }
+
+  userResorce = rxResource({
+    request: () => ({ code: this.queryParam }),
+    loader: ({ request }) => {
+      return this._usersService.getUserById(request.code) || {};
+    },
+  });
+
   searchUser(): void {
     this.userInfo = this.userActions.find(
       (user) => user.id === Number(this.queryParam)
