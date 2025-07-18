@@ -1,14 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { userActionsMock } from '@app/mock/rol.mock';
 
+import { rxResource } from '@angular/core/rxjs-interop';
+
+import { PaginationService } from '@app/components/pagination/pagination.service';
+import { ActionsUserService } from '@app/services/admin/actions-user.service';
+
+import { userActionsMock } from '@app/mock/rol.mock';
+import { PaginationComponent } from '@app/components/pagination/pagination.component';
 @Component({
   selector: 'tyn-list-actions-user-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PaginationComponent],
   templateUrl: './list-actions-user-page.component.html',
 })
 export default class ListActionsUserPageComponent {
+  private _userActionsService = inject(ActionsUserService);
+  _paginationService = inject(PaginationService);
+
   userActions = [...userActionsMock];
   isState = 'All';
   // paginacion
@@ -18,6 +27,21 @@ export default class ListActionsUserPageComponent {
   search = '';
   startDate: string = '';
   endDate: string = '';
+
+  userActionsResorce = rxResource({
+    request: () => ({
+      page: this._paginationService.currentPage() - 1,
+      size: this._paginationService.currentSize(),
+    }),
+    loader: ({ request }) => {
+      return (
+        this._userActionsService.getUsersActions({
+          page: request.page,
+          size: request.size,
+        }) || {}
+      );
+    },
+  });
 
   filterByStatus(status: string): void {
     const isAll = status === 'All';

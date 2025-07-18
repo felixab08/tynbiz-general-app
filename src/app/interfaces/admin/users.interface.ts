@@ -46,5 +46,4 @@ export interface Usuario {
   observacion: string;
   estadoUsuario: string;
   confirmacionDosPasos: boolean;
-  twoConfirmation: boolean;
 }

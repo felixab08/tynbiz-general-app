@@ -122,8 +122,10 @@
         <td class="px-6 py-4 text-center">-</td>
         <td class="px-6 py-4 text-center">....</td>
       </tr>
-      } @empty {
-      <td colspan="6" class="text-center py-4">No hay usuarios disponibles.</td>
+      }
+      <!--  -->
+      @empty {
+      <td colspan="7" class="text-center py-4">No hay usuarios disponibles.</td>
       }
       <!--  -->
       } @if(rolesResorce.isLoading()) {

@@ -133,10 +133,10 @@
             class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
             [ngClass]="{
               'bg-green-100 text-green-800':
-                item.usuario.twoConfirmation == true
+                item.usuario.confirmacionDosPasos == true
             }"
           >
-            {{ item.usuario.twoConfirmation ? "Activado" : "" }}
+            {{ item.usuario.confirmacionDosPasos ? "Activado" : "Inactivo" }}
           </span>
         </td>
         <td class="px-6 py-4">{{ item?.fechaCreacion | date : "medium" }}</td>
