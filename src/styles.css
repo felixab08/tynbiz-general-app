@@ -21,4 +21,15 @@
   --text-2xs: 0.625rem;
 
   --color-primary: #7c3aed;
+
+  --animate-fadeIn: fadeIn 0.5s ease-in-out;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }

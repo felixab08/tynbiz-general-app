@@ -41,5 +41,20 @@ export class UsersService {
       .pipe(tap((resp) => console.log(resp)));
   }
 
-  postRegisterUser(user: UsuariosResponse) {}
+  postRegisterUser(user: UsuarioContent) {
+    return this._http.post(`${baseUrl}/usuario/registrar`, user).pipe(
+      tap((resp) => {
+        this.updateUSerCache(user);
+      })
+    );
+  }
+
+  updateUSerCache(user: UsuarioContent) {
+    const userId = user.id;
+    this.userListCache.forEach((userResponse) => {
+      userResponse.content = userResponse.content.map((currentUser) => {
+        return currentUser.id === userId ? user : currentUser;
+      });
+    });
+  }
 }

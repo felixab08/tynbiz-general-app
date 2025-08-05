@@ -5,14 +5,16 @@ export interface RolesResponse extends DataPaginationResponse {
 }
 
 export interface RolesContent {
-  id: number;
-  denominacion: string;
-  descripcion: null | string;
-  estadoIdc: number;
-  fechaCreacion: Date;
-  fechaModificacion: Date;
-  usuarioCreacion: number | null;
-  usuarioModificacion: null;
-  observacion: null | string;
-  esVisible: boolean;
+  id:                            number;
+  denominacion:                  string;
+  descripcion:                   null;
+  estadoIdc:                     number;
+  fechaCreacion:                 Date;
+  fechaModificacion:             Date;
+  usuarioCreacion:               null;
+  usuarioModificacion:           null;
+  observacion:                   null;
+  esVisible:                     boolean;
+  cantidadUsuariosHabilitados:   null;
+  cantidadUsuariosInhabilitados: null;
 }

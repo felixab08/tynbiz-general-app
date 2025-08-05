@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormUtils } from '@app/utils/form.util';
+import { count } from 'rxjs';
 
 @Component({
   selector: 'tyn-create-user-form',
@@ -20,9 +21,10 @@ export class CreateUserFormComponent {
 
   myForm: FormGroup = this._fb.group(
     {
+      UserName: ['', [Validators.required]],
       fullNamePerson: [
         '',
-        [Validators.required, Validators.pattern(FormUtils.dobleLastName)],
+        [Validators.required, Validators.pattern(this.formUtils.dobleLastName)],
       ],
       dniPerson: [
         '',
@@ -30,9 +32,14 @@ export class CreateUserFormComponent {
       ],
       email: [
         '',
-        [Validators.required, Validators.pattern(FormUtils.emailPattern)],
+        [Validators.required, Validators.pattern(this.formUtils.emailPattern)],
       ],
-      ubigeo: ['', [Validators.required]],
+      birthdate: [
+        '',
+        [Validators.required, this.formUtils.edadMinimaValidator(18)],
+      ],
+      gender: ['', [Validators.required]],
+      ubigeo: ['1', [Validators.required]],
       direction: ['', [Validators.required]],
       phone: [
         ,
@@ -53,8 +60,8 @@ export class CreateUserFormComponent {
     },
     {
       validators: this.formUtils.passIgualesValidator(
-        'newPassword',
-        'newPasswordRepit'
+        'password',
+        'passwordRepit'
       ),
     }
   );

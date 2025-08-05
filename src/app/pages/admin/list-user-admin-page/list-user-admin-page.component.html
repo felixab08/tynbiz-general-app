@@ -216,7 +216,7 @@
   <div
     id="default-modal"
     tabindex="-1"
-    aria-hidden="true"
+    [attr.aria-hidden]="!isModalOpen() ? 'true' : null"
     [ngClass]="isModalOpen() ? 'block' : 'hidden'"
     class="fixed inset-0 z-50 flex items-center justify-center"
   >

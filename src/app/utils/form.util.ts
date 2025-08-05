@@ -248,7 +248,7 @@ export class FormUtils {
    * @param edadMinima edad mínima
    * @returns objeto errorEdadMinima
    */
-  static edadMinimaValidator(edadMinima: number): ValidatorFn {
+  static edadMinimaValidator(edadMinima: number = 18): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const fechaNacimiento = new Date(control.value);
       if (isNaN(fechaNacimiento.getTime())) {
