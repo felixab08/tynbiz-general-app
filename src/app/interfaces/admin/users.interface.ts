@@ -17,11 +17,12 @@ export interface UsuarioContent {
   id:                  number;
   usuario:             Usuario;
   rol:                 RolesContent;
-  fechaCreacion:       Date;
-  fechaModificacion:   Date;
+  fechaCreacion:       Date | string;
+  fechaModificacion:   Date | string;
   usuarioCreacion:     number;
   usuarioModificacion: number;
   observacion:         string;
+  estado: number;
 }
 
 export interface Usuario {
@@ -36,14 +37,15 @@ export interface Usuario {
   direccion:            string;
   generoIdc:            number;
   pais:                 number;
-  fechaNacimiento:      Date;
+  fechaNacimiento:      Date | string;
   calificacion:         number;
-  fechaCreacion:        Date;
-  fechaModificacion:    Date;
+  fechaCreacion:        Date | string;
+  fechaModificacion:    Date | string;
   usuarioCreacion:      number;
   usuarioModificacion:  number;
   urlImg:               string;
   observacion:          string;
   estadoUsuario:        string;
   confirmacionDosPasos: boolean;
+  contrasenia:        string;
 }

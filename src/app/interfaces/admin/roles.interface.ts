@@ -9,8 +9,8 @@ export interface RolesContent {
   denominacion:                  string;
   descripcion:                   null;
   estadoIdc:                     number;
-  fechaCreacion:                 Date;
-  fechaModificacion:             Date;
+  fechaCreacion:                 Date | string;
+  fechaModificacion:             Date | string;
   usuarioCreacion:               null;
   usuarioModificacion:           null;
   observacion:                   null;

@@ -9,6 +9,8 @@ import {
 import { FormUtils } from '@app/utils/form.util';
 import { RolesService } from '@app/services/admin/roles.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { UsersService } from '@app/services/admin/users.service';
+import { UserMapper } from '@app/mappers/admin/users.mapper';
 
 @Component({
   selector: 'tyn-create-user-form',
@@ -18,54 +20,14 @@ import { rxResource } from '@angular/core/rxjs-interop';
 export class CreateUserFormComponent {
   private _fb = inject(FormBuilder);
   public _rolesService = inject(RolesService);
+  private _usersService = inject(UsersService);
   formUtils = FormUtils;
 
-  myForm: FormGroup = this._fb.group(
-    {
-      UserName: ['', [Validators.required]],
-      fullNamePerson: [
-        '',
-        [Validators.required, Validators.pattern(this.formUtils.dobleLastName)],
-      ],
-      dniPerson: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
-      ],
-      email: [
-        '',
-        [Validators.required, Validators.pattern(this.formUtils.emailPattern)],
-      ],
-      birthdate: [
-        '',
-        [Validators.required, this.formUtils.edadMinimaValidator(18)],
-      ],
-      gender: ['', [Validators.required]],
-      ubigeo: ['1', [Validators.required]],
-      direction: ['', [Validators.required]],
-      phone: [
-        ,
-        [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
-      ],
-      status: ['', [Validators.required]],
-      role: ['', [Validators.required]],
-      accounUser: ['', [Validators.required]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          this.formUtils.passwordSeguraValidator(),
-        ],
-      ],
-      passwordRepit: ['', [Validators.required, Validators.minLength(8)]],
-    },
-    {
-      validators: this.formUtils.passIgualesValidator(
-        'password',
-        'passwordRepit'
-      ),
-    }
-  );
+  myForm: FormGroup = this._fb.group({});
+
+  ngOnInit(): void {
+    this.createForm();
+  }
 
   onSave() {
     if (this.myForm.invalid) {
@@ -73,7 +35,78 @@ export class CreateUserFormComponent {
       return;
     }
     console.log('Form submitted', this.myForm.value);
-    this.myForm.reset();
+    this._usersService
+      .postRegisterUser(UserMapper.mapResrtUserToUser(this.myForm.value))
+      .subscribe({
+        next: (resp) => {
+          this.myForm.reset();
+        },
+        error: (error: any) => {
+          console.error('Error al registrar el usuario', error);
+        },
+      });
+  }
+  createForm() {
+    this.myForm = this._fb.group(
+      {
+        UserName: ['', [Validators.required]],
+        fullNamePerson: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(this.formUtils.dobleLastName),
+          ],
+        ],
+        dniPerson: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(8),
+          ],
+        ],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(this.formUtils.emailPattern),
+          ],
+        ],
+        birthdate: [
+          '',
+          [Validators.required, this.formUtils.edadMinimaValidator(18)],
+        ],
+        gender: ['', [Validators.required]],
+        ubigeo: ['1', [Validators.required]],
+        direction: ['', [Validators.required]],
+        phone: [
+          ,
+          [
+            Validators.required,
+            Validators.minLength(9),
+            Validators.maxLength(9),
+          ],
+        ],
+        status: ['', [Validators.required]],
+        role: ['', [Validators.required]],
+        accounUser: ['', [Validators.required]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            this.formUtils.passwordSeguraValidator(),
+          ],
+        ],
+        passwordRepit: ['', [Validators.required, Validators.minLength(8)]],
+      },
+      {
+        validators: this.formUtils.passIgualesValidator(
+          'password',
+          'passwordRepit'
+        ),
+      }
+    );
   }
   rolesResorce = rxResource({
     request: () => ({
