@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormUtils } from '@app/utils/form.util';
-import { count } from 'rxjs';
+import { RolesService } from '@app/services/admin/roles.service';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'tyn-create-user-form',
@@ -16,7 +17,7 @@ import { count } from 'rxjs';
 })
 export class CreateUserFormComponent {
   private _fb = inject(FormBuilder);
-
+  public _rolesService = inject(RolesService);
   formUtils = FormUtils;
 
   myForm: FormGroup = this._fb.group(
@@ -74,4 +75,18 @@ export class CreateUserFormComponent {
     console.log('Form submitted', this.myForm.value);
     this.myForm.reset();
   }
+  rolesResorce = rxResource({
+    request: () => ({
+      page: 0,
+      size: 100,
+    }),
+    loader: ({ request }) => {
+      return (
+        this._rolesService.getRoles({
+          page: request.page,
+          size: request.size,
+        }) || {}
+      );
+    },
+  });
 }

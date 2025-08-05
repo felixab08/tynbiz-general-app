@@ -91,6 +91,13 @@ export default class ListUserAdminPageComponent {
     this.isModalOpen.set(true);
   }
   closeModal() {
+    // Quita el foco de cualquier elemento dentro del modal
+    (document.activeElement as HTMLElement)?.blur();
+    // O mueve el foco al body
+    document.body.focus();
+    // Esto asegura que ningún elemento dentro del modal tenga el foco cuando se oculta, evitando el error de accesibilidad.
+
+    // ...tu lógica para cerrar el modal...
     this.isModalOpen.set(false);
   }
 }

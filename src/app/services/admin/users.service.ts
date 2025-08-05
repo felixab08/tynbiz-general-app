@@ -17,12 +17,32 @@ export class UsersService {
   private userListCache = new Map<string, UsuariosResponse>();
 
   getUsers(options: OptionsRequest): Observable<UsuariosResponse> {
-    const { page = 0, size = 5, sortBy = '' } = options;
+    const {
+      page = 0,
+      size = 5,
+      sortBy = '',
+      fechaFin = '',
+      fechaInicio = '',
+      nombre = '',
+      estado = '',
+    } = options;
     const key = `${page} - ${size} - ${sortBy}`;
 
     if (this.userListCache.has(key)) {
       return of(this.userListCache.get(key)!);
     }
+    // Construir params dinámicamente
+    const params: any = {
+      page,
+      size,
+      sortBy: sortBy || 'fechaCreacion',
+      sortDirection: 'DESC',
+    };
+    if (fechaInicio) params.fechaInicio = fechaInicio;
+    if (fechaFin) params.fechaFin = fechaFin;
+    if (nombre) params.nombre = nombre;
+    if (estado) params.estado = estado;
+
     return this._http
       .get<UsuariosResponse>(`${baseUrl}/usuario/listar`, {
         params: {

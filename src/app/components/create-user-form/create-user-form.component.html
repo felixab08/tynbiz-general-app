@@ -208,9 +208,9 @@
             )
           }"
         >
-          <option selected disabled>Seleccione</option>
-          <option value="0">Femenino</option>
-          <option value="1">Masculino</option>
+          <option ngValue="" selected disabled>Seleccione</option>
+          <option ngValue="0">Femenino</option>
+          <option ngValue="1">Masculino</option>
         </select>
         @if(formUtils.isValiedField(myForm,'gender')){
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -307,9 +307,9 @@
           )
         }"
       >
-        <option selected>Seleccione</option>
-        <option value="Activo">Activo</option>
-        <option value="Inactivo">Inactivo</option>
+        <option ngValue="" selected disabled>Seleccione...</option>
+        <option ngValue="Activo">Activo</option>
+        <option ngValue="Inactivo">Inactivo</option>
       </select>
       @if(formUtils.isValiedField(myForm,'status')){
       <p class="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -343,9 +343,12 @@
           )
         }"
       >
-        <option selected>Seleccione</option>
-        <option value="Activo">Activo</option>
-        <option value="Inactivo">Inactivo</option>
+        <option ngValue="" selected disabled>Seleccione...</option>
+        @if(rolesResorce.hasValue()) {
+        <!--  -->
+        @for (item of rolesResorce.value().content; track item.id) {
+        <option [ngValue]="item.id">{{ item.descripcion }}</option>
+        } }
       </select>
       @if(formUtils.isValiedField(myForm,'role')){
       <p class="mt-2 text-sm text-red-600 dark:text-red-500">
