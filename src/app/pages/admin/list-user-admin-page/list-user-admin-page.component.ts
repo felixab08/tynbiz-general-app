@@ -100,4 +100,7 @@ export default class ListUserAdminPageComponent {
     // ...tu lógica para cerrar el modal...
     this.isModalOpen.set(false);
   }
+  formChange(event: boolean) {
+    if (event) this.closeModal();
+  }
 }

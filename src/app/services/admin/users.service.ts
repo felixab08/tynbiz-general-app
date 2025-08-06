@@ -63,8 +63,9 @@ export class UsersService {
 
   postRegisterUser(user: UsuarioContent) {
     return this._http.post(`${baseUrl}/usuario/registrar`, user).pipe(
-      tap((resp) => {
-        this.updateUSerCache(user);
+      tap((resp: any) => {
+        console.log(resp);
+        this.updateUSerCache(resp);
       })
     );
   }

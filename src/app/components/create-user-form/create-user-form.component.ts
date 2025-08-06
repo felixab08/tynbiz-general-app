@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, output, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,19 +11,29 @@ import { RolesService } from '@app/services/admin/roles.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { UsersService } from '@app/services/admin/users.service';
 import { UserMapper } from '@app/mappers/admin/users.mapper';
+import { AlertComponent } from '../alert/alert.component';
+import { AlertI } from '@app/interfaces/alert.interface';
 
 @Component({
   selector: 'tyn-create-user-form',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, AlertComponent],
   templateUrl: './create-user-form.component.html',
 })
 export class CreateUserFormComponent {
+  formChange = output<boolean>();
   private _fb = inject(FormBuilder);
   public _rolesService = inject(RolesService);
   private _usersService = inject(UsersService);
   formUtils = FormUtils;
-
+  alertCreate = signal(false);
   myForm: FormGroup = this._fb.group({});
+
+  alertMenu = signal<AlertI>({
+    title: 'Creado!!!!',
+    message: 'Usuario creado satisfactoriamente',
+    type: 'success',
+    isAction: false,
+  });
 
   ngOnInit(): void {
     this.createForm();
@@ -40,6 +50,12 @@ export class CreateUserFormComponent {
       .subscribe({
         next: (resp) => {
           this.myForm.reset();
+          this.createForm();
+          this.alertCreate.set(true);
+          setTimeout(() => {
+            this.alertCreate.set(false);
+          }, 2000);
+          this.formChange.emit(true);
         },
         error: (error: any) => {
           console.error('Error al registrar el usuario', error);
