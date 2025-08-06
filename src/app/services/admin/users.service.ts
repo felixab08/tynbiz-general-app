@@ -73,9 +73,13 @@ export class UsersService {
   updateUSerCache(user: UsuarioContent) {
     const userId = user.id;
     this.userListCache.forEach((userResponse) => {
-      userResponse.content = userResponse.content.map((currentUser) => {
-        return currentUser.id === userId ? user : currentUser;
-      });
+      userResponse.content = userResponse.content.some((u) => u.id === userId)
+        ? (userResponse.content = userResponse.content.map((currentUser) =>
+            currentUser.id === userId ? user : currentUser
+          ))
+        : [user, ...userResponse.content];
     });
+    console.log('Felix:::::>');
+    console.log(this.userListCache);
   }
 }
