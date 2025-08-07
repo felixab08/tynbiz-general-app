@@ -17,6 +17,8 @@ export class UsersService {
   private userListCache = new Map<string, UsuariosResponse>();
 
   getUsers(options: OptionsRequest): Observable<UsuariosResponse> {
+    console.log('Felix:::::>');
+    console.log(options);
     const {
       page = 0,
       size = 5,
@@ -26,7 +28,7 @@ export class UsersService {
       nombre = '',
       estado = '',
     } = options;
-    const key = `${page} - ${size} - ${sortBy}`;
+    const key = `${page} - ${size} - ${sortBy} - ${nombre} - ${estado} - ${fechaInicio} - ${fechaFin}`;
 
     if (this.userListCache.has(key)) {
       return of(this.userListCache.get(key)!);
@@ -42,15 +44,11 @@ export class UsersService {
     if (fechaFin) params.fechaFin = fechaFin;
     if (nombre) params.nombre = nombre;
     if (estado) params.estado = estado;
+    console.log(params);
 
     return this._http
       .get<UsuariosResponse>(`${baseUrl}/usuario/listar`, {
-        params: {
-          page,
-          size,
-          sortBy: sortBy || 'fechaCreacion', // Default sort by field
-          sortDirection: 'DESC', // Default sort direction
-        },
+        params,
       })
       .pipe(tap((resp) => this.userListCache.set(key, resp)));
   }

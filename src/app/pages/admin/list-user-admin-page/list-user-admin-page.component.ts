@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
 import { CreateUserFormComponent } from '../../../components/create-user-form/create-user-form.component';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -12,6 +12,7 @@ import { NotImagePipe } from '@app/pipes/not-image.pipe';
 
 import { PaginationService } from '@app/components/pagination/pagination.service';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
+import { FilterComponent } from '@app/components/filter/filter.component';
 
 @Component({
   selector: 'tyn-list-user-admin-page',
@@ -22,6 +23,7 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
     CreateUserFormComponent,
     NotImagePipe,
     PaginationComponent,
+    FilterComponent,
   ],
   templateUrl: './list-user-admin-page.component.html',
 })
@@ -32,26 +34,45 @@ export default class ListUserAdminPageComponent {
   userActions = [...userActionsMock];
   isState = 'All';
   // paginacion
-  // Filtros por fecha
-  search = '';
-  startDate: string = '';
-  endDate: string = '';
-  numberPageSize = signal(5);
+  // Filtros
+  filterMenu = signal({
+    searchShow: true,
+    datesShow: true,
+    selectShow: true,
+    filterSelectList: [
+      {
+        id: 'ACTIVO',
+        value: 'Activo',
+      },
+      {
+        id: 'INACTIVO',
+        value: 'Inactivo',
+      },
+    ],
+  });
+
   openDropdownIndex: number | null = null;
   isModalOpen = signal(false);
 
   router = inject(Router);
 
+  query = signal('');
+  selected = signal('');
+
   usersResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
+      nombre: this.query(),
+      estado: this.selected(),
     }),
     loader: ({ request }) => {
       return (
         this._usersService.getUsers({
           page: request.page,
           size: request.size,
+          nombre: request.nombre,
+          estado: request.estado,
         }) || {}
       );
     },
@@ -59,28 +80,6 @@ export default class ListUserAdminPageComponent {
 
   editUser(id: number): void {
     this.router.navigate(['/admin/list-user-admin', id]);
-  }
-
-  filterByStatus(status: string): void {
-    const isAll = status === 'All';
-    const filteList = isAll
-      ? userActionsMock
-      : userActionsMock.filter((store) => store.status === status);
-    this.userActions = [...filteList];
-  }
-  get filteredData() {
-    return this.userActions.filter((item) => {
-      const matchesSearch = item.nameUser
-        .toLowerCase()
-        .includes(this.search.toLowerCase());
-
-      const itemDate = new Date(item.dateCreate);
-      const start = this.startDate ? new Date(this.startDate) : null;
-      const end = this.endDate ? new Date(this.endDate) : null;
-      const matchesDate =
-        (!start || itemDate >= start) && (!end || itemDate <= end);
-      return matchesSearch && matchesDate;
-    });
   }
 
   toggleDropdown(plan: any) {
@@ -100,6 +99,7 @@ export default class ListUserAdminPageComponent {
     // ...tu lógica para cerrar el modal...
     this.isModalOpen.set(false);
   }
+
   formChange(event: boolean) {
     if (event) this.closeModal();
   }
