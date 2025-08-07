@@ -17,9 +17,13 @@ import { FormsModule } from '@angular/forms';
 export class FilterComponent {
   inputFilter = output<string>();
   selectFilter = output<string>();
+  dateInitialFilter = output<string>();
+  dateEndFilter = output<string>();
 
   placeholder = input<string>('Buscar');
   initialValue = input<string>('');
+  initialDateStartValue = input<string>('');
+  initialDateEndValue = input<string>('');
 
   startDate: string = '';
   endDate: string = '';
@@ -28,6 +32,10 @@ export class FilterComponent {
   filterMenu = input.required<any>();
 
   inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
+  selectInitValue = linkedSignal<string>(
+    () => this.initialDateStartValue() ?? ''
+  );
+  selectEndValue = linkedSignal<string>(() => this.initialDateEndValue() ?? '');
 
   filterByStatus(status: string): void {
     status = status === 'All' ? '' : status;
@@ -35,8 +43,14 @@ export class FilterComponent {
   }
   debounceEffect = effect((onCleanup) => {
     const value = this.inputValue();
+    const valueStart = this.selectInitValue();
+    const valueEnd = this.selectEndValue();
+    console.log('valueStart===>', valueStart);
+    console.log('valueEnd===>', valueEnd);
     const timeout = setTimeout(() => {
       this.inputFilter.emit(value);
+      this.dateInitialFilter.emit(valueStart);
+      this.dateEndFilter.emit(valueEnd);
     }, 500);
     onCleanup(() => {
       clearTimeout(timeout);

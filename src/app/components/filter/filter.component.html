@@ -37,15 +37,21 @@
     @if (filterMenu().datesShow) {
     <span class="mx-4 text-gray-500">Fechas</span>
     <input
+      #txtFilterStartDate
       type="date"
-      [(ngModel)]="startDate"
       placeholder="Fecha desde"
+      [value]="selectInitValue()"
+      (keyup.enter)="dateInitialFilter.emit(txtFilterStartDate.value)"
+      (change)="selectInitValue.set(txtFilterStartDate.value)"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
     />
     <span class="mx-4 text-gray-500">al</span>
     <input
+      #txtFilterEndDate
       type="date"
-      [(ngModel)]="endDate"
+      [value]="selectEndValue()"
+      (keyup.enter)="dateEndFilter.emit(txtFilterEndDate.value)"
+      (change)="selectEndValue.set(txtFilterEndDate.value)"
       placeholder="Fecha hasta"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
     />

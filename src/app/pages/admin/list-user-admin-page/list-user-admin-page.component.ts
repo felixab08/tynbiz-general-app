@@ -41,11 +41,11 @@ export default class ListUserAdminPageComponent {
     selectShow: true,
     filterSelectList: [
       {
-        id: 'ACTIVO',
+        id: '1',
         value: 'Activo',
       },
       {
-        id: 'INACTIVO',
+        id: '0',
         value: 'Inactivo',
       },
     ],
@@ -56,15 +56,19 @@ export default class ListUserAdminPageComponent {
 
   router = inject(Router);
 
-  query = signal('');
-  selected = signal('');
+  isNameFilter = signal('');
+  isSelectedFilter = signal('');
+  isDateStartFilter = signal('');
+  isDateEndFilter = signal('');
 
   usersResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
-      nombre: this.query(),
-      estado: this.selected(),
+      nombre: this.isNameFilter(),
+      estado: this.isSelectedFilter(),
+      fechaInicio: this.isDateStartFilter(),
+      fechaFin: this.isDateEndFilter(),
     }),
     loader: ({ request }) => {
       return (
@@ -73,6 +77,8 @@ export default class ListUserAdminPageComponent {
           size: request.size,
           nombre: request.nombre,
           estado: request.estado,
+          fechaInicio: request.fechaInicio,
+          fechaFin: request.fechaFin,
         }) || {}
       );
     },

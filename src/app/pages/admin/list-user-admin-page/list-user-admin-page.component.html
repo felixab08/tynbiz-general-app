@@ -16,10 +16,12 @@
   <!-- Búsqueda general -->
   <tyn-filter
     [filterMenu]="filterMenu()"
-    (inputFilter)="query.set($event)"
-    (selectFilter)="selected.set($event)"
-    placeholder="Buscar por capital"
-    [initialValue]="query()"
+    (inputFilter)="isNameFilter.set($event)"
+    (selectFilter)="isSelectedFilter.set($event)"
+    (dateInitialFilter)="isDateStartFilter.set($event)"
+    (dateEndFilter)="isDateEndFilter.set($event)"
+    placeholder="Buscar"
+    [initialValue]="isNameFilter()"
   ></tyn-filter>
 
   <table
