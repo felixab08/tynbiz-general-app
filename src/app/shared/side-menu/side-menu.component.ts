@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import {
   Router,
   RouterLink,
@@ -14,14 +14,18 @@ import {
 } from '@app/mock/menu.mock';
 import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
+import { AlertComponent } from '@app/components/alert/alert.component';
+import { AlertI } from '@app/interfaces/alert.interface';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
   selector: 'app-side-menu',
-  imports: [RouterOutlet, NavbarComponent, RouterLink],
+  imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent],
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent {
   _authService = inject(AuthService);
+  _alertService = inject(AlertService);
   _router = inject(Router);
   menuItemsAll: any[] = [...menuItemsMock];
 

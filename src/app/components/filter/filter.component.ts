@@ -45,8 +45,6 @@ export class FilterComponent {
     const value = this.inputValue();
     const valueStart = this.selectInitValue();
     const valueEnd = this.selectEndValue();
-    console.log('valueStart===>', valueStart);
-    console.log('valueEnd===>', valueEnd);
     const timeout = setTimeout(() => {
       this.inputFilter.emit(value);
       this.dateInitialFilter.emit(valueStart);

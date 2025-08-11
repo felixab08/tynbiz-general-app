@@ -5,5 +5,6 @@ export interface AlertI {
   message:   string;
   type:      'success' | 'error' | 'info' | 'warning';
   disabled?: boolean;
-  isAction : boolean;
+  isAction? : boolean;
+  timeout? : number
 }

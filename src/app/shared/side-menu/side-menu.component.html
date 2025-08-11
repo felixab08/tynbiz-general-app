@@ -120,3 +120,6 @@
   <app-navbar />
   <router-outlet />
 </div>
+@if (_alertService.isAlert()) {
+<tyn-alert [alertMenu]="_alertService.alertMenu()"> </tyn-alert>
+}

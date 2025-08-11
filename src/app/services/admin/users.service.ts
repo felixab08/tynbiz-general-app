@@ -17,8 +17,6 @@ export class UsersService {
   private userListCache = new Map<string, UsuariosResponse>();
 
   getUsers(options: OptionsRequest): Observable<UsuariosResponse> {
-    console.log('Felix:::::>');
-    console.log(options);
     const {
       page = 0,
       size = 5,
@@ -62,7 +60,6 @@ export class UsersService {
   postRegisterUser(user: UsuarioContent) {
     return this._http.post(`${baseUrl}/usuario/registrar`, user).pipe(
       tap((resp: any) => {
-        console.log(resp);
         this.updateUSerCache(resp);
       })
     );
@@ -77,7 +74,5 @@ export class UsersService {
           ))
         : [user, ...userResponse.content];
     });
-    console.log('Felix:::::>');
-    console.log(this.userListCache);
   }
 }
