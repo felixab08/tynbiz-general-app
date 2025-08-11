@@ -42,7 +42,6 @@ export class UsersService {
     if (fechaFin) params.fechaFin = fechaFin;
     if (nombre) params.nombre = nombre;
     if (estado) params.estado = estado;
-    console.log(params);
 
     return this._http
       .get<UsuariosResponse>(`${baseUrl}/usuario/listar`, {
