@@ -37,7 +37,7 @@ export class AlertService {
     if (snackbar.timeout !== 0) {
       setTimeout(() => {
         this.closeAlert();
-      }, snackbar.timeout || 7000);
+      }, snackbar.timeout || 5000);
     }
   }
 
