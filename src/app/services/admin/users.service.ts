@@ -44,7 +44,7 @@ export class UsersService {
     if (estado) params.estado = estado;
 
     return this._http
-      .get<UsuariosResponse>(`${baseUrl}/usuario/listar`, {
+      .get<UsuariosResponse>(`${baseUrl}/admin/users`, {
         params,
       })
       .pipe(tap((resp) => this.userListCache.set(key, resp)));

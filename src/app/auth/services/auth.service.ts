@@ -40,15 +40,15 @@ export class AuthService {
 
   login(username: string, password: string): Observable<boolean> {
     return this.http
-      .post<AuthResponse>(`${baseUrl}/login`, {
-        usuarioAcceso: username,
-        contrasenia: password,
+      .post<AuthResponse>(`${baseUrl}/auth/login`, {
+        email: username,
+        password: password,
       })
       .pipe(
         map((data) => {
           if (data) {
             console.log('User found:', data);
-            return this.handleAuthSuccess(data.user, data.token);
+            return this.handleAuthSuccess(data.user, data.accessToken);
           } else {
             throw new Error('User not found');
           }
@@ -99,15 +99,7 @@ export class AuthService {
   private handleAuthSuccess(user: User, token: string) {
     console.log('user OK', user);
 
-    this._user.set({
-      usuarioId: user?.usuarioId,
-      correo: user?.correo,
-      nombre: user?.nombre,
-      apellido: user?.apellido,
-      roles: user.roles,
-      image: user?.image,
-      fechaNacimiento: user?.fechaNacimiento,
-    });
+    this._user.set(user);
 
     this.storeService.user.next(this._user() as User);
     this._authStatus.set('authenticated');

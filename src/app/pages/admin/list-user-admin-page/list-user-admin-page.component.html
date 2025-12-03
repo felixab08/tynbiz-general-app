@@ -34,7 +34,7 @@
         <th scope="col" class="px-6 py-3 text-center">Usuario</th>
         <th scope="col" class="px-6 py-3">Rol</th>
         <th scope="col" class="px-6 py-3">Estado</th>
-        <th scope="col" class="px-6 py-3">Dos pasos</th>
+        <!-- <th scope="col" class="px-6 py-3">Dos pasos</th> -->
         <th scope="col" class="px-6 py-3">Fecha de Registro</th>
         <th scope="col" class="px-6 py-3 text-center">Acciones</th>
       </tr>
@@ -53,33 +53,33 @@
           <div class="grid grid-cols-6 gap-1">
             <img
               class="w-10 h-10 rounded-full col-span-1"
-              [src]="item.usuario.urlImg | notImage"
+              [src]="item.image| notImage"
               alt="Rounded avatar"
             />
             <div class="col-span-5">
-              {{ item.usuario.nombre }} {{ item.usuario.apellido }}<br />
+              {{ item.firstName }} {{ item.lastName }}<br />
               <span class="text-gray-500 dark:text-gray-400">{{
-                item.usuario.correoElectronico
+                item.email
               }}</span>
             </div>
           </div>
         </th>
-        <td class="px-6 py-4">{{ item.rol.denominacion }}</td>
+        <td class="px-6 py-4">{{ item.role }}</td>
         <td class="px-6 py-4">
           <span
             class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
             [ngClass]="{
               'bg-green-100 text-green-800':
-                item.usuario.estadoUsuarioIdc == 1,
+                item.status == 'ACTIVO',
               'bg-yellow-100 text-yellow-800':
-                item.usuario.estadoUsuarioIdc === 0,
+                item.status === 'INACTIVO',
 
             }"
           >
-            {{ item.usuario.estadoUsuarioIdc ? "Activo" : "Inactivo" }}
+            {{ item.status }}
           </span>
         </td>
-        <td class="px-6 py-4">
+        <!-- <td class="px-6 py-4">
           <span
             class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
             [ngClass]="{
@@ -89,8 +89,8 @@
           >
             {{ item.usuario.confirmacionDosPasos ? "Activado" : "Inactivo" }}
           </span>
-        </td>
-        <td class="px-6 py-4">{{ item?.fechaCreacion | date : "medium" }}</td>
+        </td> -->
+        <td class="px-6 py-4">{{ item?.createdAt | date : "medium" }}</td>
         <td class="px-6 py-4 text-center">
           <div class="relative inline-block">
             <!-- Icono de tres puntos (puedes usar un ícono o texto) -->

@@ -100,22 +100,22 @@
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
         >
-          {{ item.denominacion }}
+          {{ item.roleName }}
         </th>
-        <td class="px-6 py-4">{{ item.descripcion }}</td>
-        <td class="px-6 py-4">{{ item.fechaCreacion | date : "medium" }}</td>
+        <td class="px-6 py-4">{{ item.description }}</td>
+        <td class="px-6 py-4">{{ item.createdAt | date : "medium" }}</td>
         <td class="px-6 py-4">
           <span
             class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
             [ngClass]="{
               'bg-red-100 text-red-800':
-                item.estadoIdc === 2,
+                item.enabledUsersCount === 2,
               'bg-yellow-100 text-yellow-800':
-                item.estadoIdc !== 2,
+                item.enabledUsersCount !== 2,
 
             }"
           >
-            {{ item.estadoIdc === 2 ? "Activo" : "Inactivo" }}
+            {{ item.status }}
           </span>
         </td>
         <td class="px-6 py-4 text-center">-</td>

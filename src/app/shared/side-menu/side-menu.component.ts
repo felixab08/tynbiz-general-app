@@ -15,7 +15,6 @@ import {
 import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AlertComponent } from '@app/components/alert/alert.component';
-import { AlertI } from '@app/interfaces/alert.interface';
 import { AlertService } from '@app/services/alert.service';
 
 @Component({
@@ -36,10 +35,10 @@ export class SideMenuComponent {
     this.storeService.user.subscribe((user) => {
       this.user = user;
       if (this.user) {
-        this.menuItemsAll = this.user?.roles.includes('moderator')
+        this.menuItemsAll = this.user?.role.includes('STORE_USER')
           ? [...menuItemsClienteMock]
           : [...menuAdminMock];
-        this.user?.roles.includes('moderator')
+        this.user?.role.includes('STORE_OWNER')
           ? this._router.navigate(['/stores'])
           : this._router.navigate(['/admin']);
       } else {
@@ -49,3 +48,14 @@ export class SideMenuComponent {
     });
   }
 }
+// Email:    admin@tynby.com
+// Password: Admin123!
+// Role:     ADMIN
+
+// Email:    owner@tynby.com
+// Password: Admin123!
+// Role:     STORE_OWNER (dueño de las 3 tiendas)
+
+// Email:    user@tynby.com
+// Password: Admin123!
+// Role:     STORE_USER

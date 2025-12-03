@@ -1,12 +1,14 @@
+
 export interface User {
-  usuarioId?: any;
-  image: string;
-  fechaNacimiento?: string;
-  apellido: string;
-  correo: string;
-  genero?: string;
-  estadoUsuario?: number;
-  roles: string[];
-  nombre: string;
-  pais?: number;
+  id:            number;
+  email:         string;
+  firstName:     string;
+  lastName:      string;
+  fullName:      string;
+  phone:         string;
+  role:          string;
+  status:        string;
+  emailVerified: boolean;
+  lastLoginAt:   Date;
+  createdAt:     Date;
 }

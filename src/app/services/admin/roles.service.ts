@@ -41,7 +41,7 @@ export class RolesService {
     if (estado) params.estado = estado;
 
     return this._http
-      .get<RolesResponse>(`${baseUrl}/rol/listar/roles-paginado`, {
+      .get<RolesResponse>(`${baseUrl}/admin/roles/search`, {
         params,
       })
       .pipe(tap((resp) => this.roleListCache.set(key, resp)));

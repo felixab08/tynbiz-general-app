@@ -5,7 +5,7 @@ const baseUrl = environment.baseUrl;
 
 @Pipe({ name: 'notImage' })
 export class NotImagePipe implements PipeTransform {
-  transform(value: string | string[]): any {
+  transform(value: string | string[] | undefined): any {
     if (!value) {
       return './assets/img/no-image.jpg';
     }
