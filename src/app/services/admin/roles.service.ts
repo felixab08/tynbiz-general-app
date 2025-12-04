@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { RolesResponse } from '@app/interfaces/admin/roles.interface';
-import { OptionsRequest } from '@app/interfaces/services/services.interface';
+import { OptionsRequest, RolesResponse } from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -17,13 +16,13 @@ export class RolesService {
     const {
       page = 0,
       size = 5,
-      sortBy = '',
+      sort = '',
       fechaFin = '',
       fechaInicio = '',
       nombre = '',
-      estado = '',
+      status = '',
     } = options;
-    const key = `${page} - ${size} - ${sortBy}`;
+    const key = `${page} - ${size} - ${sort}`;
 
     if (this.roleListCache.has(key)) {
       return of(this.roleListCache.get(key)!);
@@ -32,13 +31,13 @@ export class RolesService {
     const params: any = {
       page,
       size,
-      sortBy: sortBy || 'fechaCreacion',
+      sort: sort || 'fechaCreacion',
       sortDirection: 'DESC',
     };
     if (fechaInicio) params.fechaInicio = fechaInicio;
     if (fechaFin) params.fechaFin = fechaFin;
     if (nombre) params.nombre = nombre;
-    if (estado) params.estado = estado;
+    if (status) params.status = status;
 
     return this._http
       .get<RolesResponse>(`${baseUrl}/admin/roles/search`, {

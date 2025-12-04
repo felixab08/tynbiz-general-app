@@ -347,7 +347,7 @@
         @if(rolesResorce.hasValue()) {
         <!--  -->
         @for (item of rolesResorce.value().content; track item.id) {
-        <option [ngValue]="item.id">{{ item.descripcion }}</option>
+        <option [ngValue]="item.id">{{ item.description }}</option>
         } }
       </select>
       @if(formUtils.isValiedField(myForm,'role')){

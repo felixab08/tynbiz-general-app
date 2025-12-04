@@ -1,4 +1,4 @@
-import { DataPaginationResponse } from '../services/services.interface';
+import { DataPaginationResponse } from '../general/services.interface';
 import { RolesContent } from './roles.interface';
 
 export interface UsuariosResponse extends DataPaginationResponse {

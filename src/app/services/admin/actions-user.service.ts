@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UsersActionsResponse } from '@app/interfaces/admin/actions-user';
-import { OptionsRequest } from '@app/interfaces/services/services.interface';
+import { OptionsRequest } from '@app/interfaces/general/services.interface';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -14,8 +14,8 @@ export class ActionsUserService {
   private actionsListCache = new Map<string, UsersActionsResponse>();
 
   getUsersActions(options: OptionsRequest): Observable<UsersActionsResponse> {
-    const { page = 0, size = 5, sortBy = '' } = options;
-    const key = `${page} - ${size} - ${sortBy}`;
+    const { page = 0, size = 5, sort = '' } = options;
+    const key = `${page} - ${size} - ${sort}`;
 
     if (this.actionsListCache.has(key)) {
       return of(this.actionsListCache.get(key)!);

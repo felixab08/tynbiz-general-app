@@ -1,4 +1,4 @@
-import { DataPaginationResponse } from '../services/services.interface';
+import { DataPaginationResponse } from '../general/services.interface';
 
 export interface RolesResponse extends DataPaginationResponse {
   content: RolesContent[];

@@ -41,11 +41,11 @@ export default class ListUserAdminPageComponent {
     selectShow: true,
     filterSelectList: [
       {
-        id: '1',
+        id: 'ACTIVE',
         value: 'Activo',
       },
       {
-        id: '0',
+        id: 'INACTIVE',
         value: 'Inactivo',
       },
     ],
@@ -66,7 +66,7 @@ export default class ListUserAdminPageComponent {
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       nombre: this.isNameFilter(),
-      estado: this.isSelectedFilter(),
+      status: this.isSelectedFilter(),
       fechaInicio: this.isDateStartFilter(),
       fechaFin: this.isDateEndFilter(),
     }),
@@ -76,7 +76,7 @@ export default class ListUserAdminPageComponent {
           page: request.page,
           size: request.size,
           nombre: request.nombre,
-          estado: request.estado,
+          status: request.status,
           fechaInicio: request.fechaInicio,
           fechaFin: request.fechaFin,
         }) || {}

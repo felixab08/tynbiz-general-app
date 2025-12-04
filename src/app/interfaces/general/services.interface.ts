@@ -1,12 +1,16 @@
 export interface OptionsRequest {
   page?:          number; //0
   size?:          number; //5 cantidad de registros por pagina
-  sortBy?:        string; //fechaCreacion
-  sortDirection?: string; //DESC
+  sort?:        string; //fechaCreacion
+  sortDirection?: 'desc' | 'asc'; //DESC
   nombre?:        string; //DESC
   fechaInicio?:   string; //2025-01-31 año-mes-dia
   fechaFin?:      string; //2025-12-31 año-mes-dia
-  estado?:        string; //1 Activo, 0 Inactivo
+  status?:        string; //1 ACTIVE, 0 INACTIVE
+  // Planes
+  isActive? :      boolean // true / false
+  isPublic? :      boolean // true / false
+
 }
 
 export interface DataPaginationResponse {

@@ -1,4 +1,4 @@
-import { DataPaginationResponse } from '../services/services.interface';
+import { DataPaginationResponse } from '../general/services.interface';
 
 export interface UsersActionsResponse extends DataPaginationResponse {
   content: UserActionContent[];

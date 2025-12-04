@@ -4,7 +4,7 @@ import {
   UsuarioContent,
   UsuariosResponse,
 } from '@app/interfaces/admin/users.interface';
-import { OptionsRequest } from '@app/interfaces/services/services.interface';
+import { OptionsRequest } from '@app/interfaces/general/services.interface';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -20,13 +20,13 @@ export class UsersService {
     const {
       page = 0,
       size = 5,
-      sortBy = '',
+      sort = '',
       fechaFin = '',
       fechaInicio = '',
       nombre = '',
-      estado = '',
+      status = '',
     } = options;
-    const key = `${page} - ${size} - ${sortBy} - ${nombre} - ${estado} - ${fechaInicio} - ${fechaFin}`;
+    const key = `${page} - ${size} - ${sort} - ${nombre} - ${status} - ${fechaInicio} - ${fechaFin}`;
 
     if (this.userListCache.has(key)) {
       return of(this.userListCache.get(key)!);
@@ -35,13 +35,12 @@ export class UsersService {
     const params: any = {
       page,
       size,
-      sortBy: sortBy || 'fechaCreacion',
-      sortDirection: 'DESC',
+      sort: sort || 'createdAt,desc',
     };
     if (fechaInicio) params.fechaInicio = fechaInicio;
     if (fechaFin) params.fechaFin = fechaFin;
     if (nombre) params.nombre = nombre;
-    if (estado) params.estado = estado;
+    if (status) params.status = status;
 
     return this._http
       .get<UsuariosResponse>(`${baseUrl}/admin/users`, {

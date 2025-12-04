@@ -38,7 +38,9 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of planList; track item.id) {
+      @if(planesResorce.hasValue()) {
+      <!--  -->
+          @for (item of planesResorce.value().content; track item.id) {
           <tr
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
@@ -46,37 +48,26 @@
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              {{ item.planName }}
+              {{ item.name }}
             </th>
-            <td
+             <td
               class="px-6 py-4"
               [ngClass]="{
-                'text-red-500': item.planState === 'inactivo',
-                'text-green-500': item.planState === 'activo'
+                'text-red-500': item.statusName === 'Inactivo',
+                'text-green-500': item.statusName === 'Activo'
               }"
             >
-              {{ item.planState }}
+              {{item.statusName}}
             </td>
-            <td class="px-6 py-4">{{ item.planCoin }} {{ item.planPrice }}</td>
-            <td class="px-6 py-4">{{ item.planType }}</td>
-            @if (item.promotional === 'true') {
+            <td class="px-6 py-4">{{ item.price }}</td>
+            <td class="px-6 py-4">{{ item.billingCycle }}</td>
             <td
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              Por {{ item.promDuration }} días <br />
-              <span class="text-green-600">
-                {{ item.percentage }}% de descuento
-              </span>
+              Por {{ item.promotion }} días
             </td>
-            }@else {
-            <td
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              ---
-            </td>
-            }
-            <td class="px-6 py-4">{{ item.planDescription }}</td>
-            <td class="px-6 py-4">{{ item.planDate }}</td>
+            <td class="px-6 py-4">{{ item.description }}</td>
+            <td class="px-6 py-4">{{item.createdAt | date : "medium"}}</td>
             <td class="relative px-6 py-4">
               <div class="relative inline-block">
                 <!-- Icono de tres puntos (puedes usar un ícono o texto) -->
@@ -114,14 +105,15 @@
                     >
                       Eliminar
                     </li>
-                    @if (item.planState === 'inactivo') {
+                    <!-- TODO no tiene planes activos -->
+                    <!-- @if (item.planState === 'inactivo') {
                     <li
                       (click)="openModalWar('activar')"
                       class="block px-4 py-2 hover:bg-purple-300 dark:hover:bg-purple-600 cursor-pointer"
                     >
                       Activar
                     </li>
-                    }
+                    } -->
                   </ul>
                 </div>
                 }
@@ -129,6 +121,23 @@
             </td>
           </tr>
           }
+      <!--  -->
+      @empty {
+      <td colspan="7" class="text-center py-4">No hay planes disponibles.</td>
+      }
+      <!--  -->
+      } @if(planesResorce.isLoading()) {
+      <tr>
+        <td colspan="6" class="text-center p-4">
+          <div class="alert alert-info text-center">
+            <span class="font-bold">Cargando planes...</span>
+          </div>
+        </td>
+      </tr>
+      }
+
+
+
         </tbody>
       </table>
     </div>
