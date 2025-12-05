@@ -67,8 +67,8 @@ export default class ListUserAdminPageComponent {
       size: this._paginationService.currentSize(),
       nombre: this.isNameFilter(),
       status: this.isSelectedFilter(),
-      fechaInicio: this.isDateStartFilter(),
-      fechaFin: this.isDateEndFilter(),
+      startDate: this.isDateStartFilter(),
+      endDate: this.isDateEndFilter(),
     }),
     loader: ({ request }) => {
       return (
@@ -77,8 +77,8 @@ export default class ListUserAdminPageComponent {
           size: request.size,
           nombre: request.nombre,
           status: request.status,
-          fechaInicio: request.fechaInicio,
-          fechaFin: request.fechaFin,
+          startDate: request.startDate,
+          endDate: request.endDate,
         }) || {}
       );
     },

@@ -1,11 +1,12 @@
 import { Component, input } from '@angular/core';
-import { Product } from '@app/interfaces/card.interface';
+import { ProductoContent } from '@app/interfaces';
+import { NotImagePipe } from '@app/pipes/not-image.pipe';
 
 @Component({
   selector: 'tyn-product-detail-card',
-  imports: [],
+  imports: [NotImagePipe],
   templateUrl: './product-detail-card.component.html',
 })
 export class ProductDetailCardComponent {
-  listProduct = input.required<any>();
+  listProduct = input.required<ProductoContent>();
 }

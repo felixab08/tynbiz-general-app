@@ -17,8 +17,8 @@ export class RolesService {
       page = 0,
       size = 5,
       sort = '',
-      fechaFin = '',
-      fechaInicio = '',
+      endDate = '',
+      startDate = '',
       nombre = '',
       status = '',
     } = options;
@@ -32,10 +32,10 @@ export class RolesService {
       page,
       size,
       sort: sort || 'fechaCreacion',
-      sortDirection: 'DESC',
+      sortDirection: 'desc',
     };
-    if (fechaInicio) params.fechaInicio = fechaInicio;
-    if (fechaFin) params.fechaFin = fechaFin;
+    if (startDate) params.startDate = startDate;
+    if (endDate) params.endDate = endDate;
     if (nombre) params.nombre = nombre;
     if (status) params.status = status;
 

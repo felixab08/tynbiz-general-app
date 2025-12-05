@@ -4,7 +4,9 @@
     <p>Todo los productos integrados.</p>
   </div>
   <div class="bg-white rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-    @for (product of products; track product.id) {
+@if(productoResorce.hasValue()) {
+    <!--  -->
+    @for (product of productoResorce.value().content; track product.id) {
     <div class="w-full flex justify-between p-4 border-b border-gray-300 dark:border-gray-700">
       <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
       <div class="ms-3 text-sm font-normal items-center flex">
@@ -23,6 +25,14 @@
             Ver
           </button>
       </div>
-    </div>}
+    </div>
+  <!--  -->
+    }
+    <!--  -->
+      } @if(productoResorce.isLoading()) {
+          <div class="alert alert-info text-center">
+            <span class="font-bold">Cargando usuarios...</span>
+          </div>
+      }
   </div>
 </div>

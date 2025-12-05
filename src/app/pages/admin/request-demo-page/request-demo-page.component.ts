@@ -1,23 +1,45 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { RequesDemoService } from '@app/services';
+import { PaginationService } from '@app/components/pagination/pagination.service';
+import { RequestDemoContent } from '@app/interfaces';
 @Component({
   selector: 'tyn-request-demo-page',
   imports: [FormsModule, CommonModule],
   templateUrl: './request-demo-page.component.html',
 })
 export default class RequestDemoPageComponent {
+  private _requesDemoService = inject(RequesDemoService);
+  _paginationService = inject(PaginationService);
+
   resquestList = resquestDemoListMock;
   isState = 'All';
   isModalOpen = signal(false);
-  selectedSolicDemo: any = true;
+  selectedSolicDemo: RequestDemoContent | null = null;
   currentPage = 1;
   itemsPerPage = 10;
   search = '';
   startDate: string = '';
   endDate: string = '';
   selectedTab: string = 'verifyInformation';
+
+  demoResorce = rxResource({
+    request: () => ({
+      page: this._paginationService.currentPage() - 1,
+      size: this._paginationService.currentSize(),
+    }),
+    loader: ({ request }) => {
+      return (
+        this._requesDemoService.getRequestDemo({
+          page: request.page,
+          size: request.size,
+        }) || {}
+      );
+    },
+  });
 
   filterByStatus(status: string): void {
     const isAll = status === 'All';
@@ -28,7 +50,7 @@ export default class RequestDemoPageComponent {
     this.currentPage = 1;
   }
 
-  openModal(SolicDemo: any) {
+  openModal(SolicDemo: RequestDemoContent) {
     this.selectedSolicDemo = SolicDemo;
     this.isModalOpen.set(true);
   }

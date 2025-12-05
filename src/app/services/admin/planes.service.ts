@@ -25,8 +25,8 @@ export class PlanesService {
       page = 0,
       size = 5,
       sort = '',
-      fechaFin = '',
-      fechaInicio = '',
+      endDate = '',
+      startDate = '',
       nombre = '',
       status = '',
     } = options;
@@ -41,8 +41,8 @@ export class PlanesService {
       size,
       sort: sort || 'createdAt,desc',
     };
-    if (fechaInicio) params.fechaInicio = fechaInicio;
-    if (fechaFin) params.fechaFin = fechaFin;
+    if (startDate) params.startDate = startDate;
+    if (endDate) params.endDate = endDate;
     if (nombre) params.nombre = nombre;
     if (status) params.status = status;
     if (sort) params.sort = sort;

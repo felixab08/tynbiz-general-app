@@ -4,8 +4,8 @@ export interface OptionsRequest {
   sort?:        string; //fechaCreacion
   sortDirection?: 'desc' | 'asc'; //DESC
   nombre?:        string; //DESC
-  fechaInicio?:   string; //2025-01-31 año-mes-dia
-  fechaFin?:      string; //2025-12-31 año-mes-dia
+  startDate?:   string; //2025-01-31 año-mes-dia
+  endDate?:      string; //2025-12-31 año-mes-dia
   status?:        string; //1 ACTIVE, 0 INACTIVE
   // Planes
   isActive? :      boolean // true / false

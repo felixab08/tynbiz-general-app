@@ -80,7 +80,9 @@
         </tr>
       </thead>
       <tbody>
-        @for (item of paginatedData; track item.id) {
+      @if(demoResorce.hasValue()) {
+    <!--  -->
+        @for (item of demoResorce.value().content; track item.id) {
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
@@ -88,25 +90,25 @@
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
-            {{ item.storeName }}
+            {{ item.displayName }}
             <br />
             <span class="text-gray-500 dark:text-gray-400">
-              {{ item.storeSite }}</span
+              {{ item.storeUrl }}</span
             >
           </th>
-          <td class="px-6 py-4">{{ item.requestDate }}</td>
-          <td class="px-6 py-4">{{ item.storeEmail }}</td>
+          <td class="px-6 py-4">{{ item.createdAt }}</td>
+          <td class="px-6 py-4">{{ item.storeUrl }}</td>
           <td class="px-6 py-4">
             <span
               class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
               [ngClass]="{
-                'bg-red-100 text-red-800': item.storeStatus === 'Pendiente'
+                'bg-red-100 text-red-800': item.statusName === 'PENDIENTE'
               }"
             >
-              {{ item.storeStatus }}
+              {{ item.statusName }}
             </span>
           </td>
-          @if (item.storeStatus === 'Pendiente') {
+          @if (item.statusName === 'PENDIENTE') {
           <td class="px-6 py-4 text-center">
             <button
               type="button"
@@ -121,7 +123,21 @@
           }
         </tr>
         }
-      </tbody>
+              <!--  -->
+      @empty {
+      <td colspan="7" class="text-center py-4">No hay Demos disponibles.</td>
+      }
+            <!--  -->
+      } @if(demoResorce.isLoading()) {
+      <tr>
+        <td colspan="6" class="text-center p-4">
+          <div class="alert alert-info text-center">
+            <span class="font-bold">Cargando demos...</span>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
     </table>
   </div>
   <!-- Paginación -->
@@ -278,7 +294,7 @@
                 >Estado
               </span>
               <span class="font-semibold text-yellow-600">
-                {{ selectedSolicDemo?.storeStatus }}
+                {{ selectedSolicDemo?.statusName }}
               </span>
             </p>
           </div>
@@ -293,7 +309,7 @@
                 >
                   Tienda
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.storeName }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo?.statusName }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -302,7 +318,7 @@
                 >
                   Enlace
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo.storeLink }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo?.storeUrl }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -311,7 +327,7 @@
                 >
                   Fecha de solicitud
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.requestDate }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo?.createdAt }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -321,7 +337,7 @@
                   Nombre
                 </th>
                 <td class="px-6 py-4">
-                  {{ selectedSolicDemo?.representativeName }}
+                  {{ selectedSolicDemo?.lastName }}
                 </td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
@@ -331,7 +347,7 @@
                 >
                   Correo
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.storeEmail }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo?.email }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -340,7 +356,7 @@
                 >
                   Telefono
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.storePhone }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo?.phoneNumber }}</td>
               </tr>
             </tbody>
           </table>
