@@ -281,6 +281,7 @@
         </button>
       </div>
       <!-- Modal body -->
+       @if (selectedSolicDemo) {
       <div class="p-4 md:p-5 space-y-4">
         <div class="relative overflow-x-auto">
           <div class="mx-5 flex items-center justify-between">
@@ -294,7 +295,7 @@
                 >Estado
               </span>
               <span class="font-semibold text-yellow-600">
-                {{ selectedSolicDemo?.statusName }}
+                {{ selectedSolicDemo.statusName }}
               </span>
             </p>
           </div>
@@ -309,7 +310,7 @@
                 >
                   Tienda
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.statusName }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo.statusName }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -318,7 +319,7 @@
                 >
                   Enlace
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.storeUrl }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo.storeUrl }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -327,7 +328,7 @@
                 >
                   Fecha de solicitud
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.createdAt }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo.createdAt }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -337,7 +338,7 @@
                   Nombre
                 </th>
                 <td class="px-6 py-4">
-                  {{ selectedSolicDemo?.lastName }}
+                  {{ selectedSolicDemo.lastName }}
                 </td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
@@ -347,7 +348,7 @@
                 >
                   Correo
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.email }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo.email }}</td>
               </tr>
               <tr class="bg-white dark:bg-gray-800">
                 <th
@@ -356,7 +357,7 @@
                 >
                   Telefono
                 </th>
-                <td class="px-6 py-4">{{ selectedSolicDemo?.phoneNumber }}</td>
+                <td class="px-6 py-4">{{ selectedSolicDemo.phoneNumber }}</td>
               </tr>
             </tbody>
           </table>
@@ -375,6 +376,7 @@
           >
         </div>
       </div>
+    }
       <!-- Modal footer -->
       <div
         class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"

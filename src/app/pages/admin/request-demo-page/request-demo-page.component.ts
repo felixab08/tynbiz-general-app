@@ -51,8 +51,21 @@ export default class RequestDemoPageComponent {
   }
 
   openModal(SolicDemo: RequestDemoContent) {
-    this.selectedSolicDemo = SolicDemo;
+    this.searchDemoById(SolicDemo.id);
     this.isModalOpen.set(true);
+  }
+
+  searchDemoById(id: number) {
+    this._requesDemoService.getRequestDemoById(id).subscribe({
+      next: (resp: any) => {
+        console.log("resp------>");
+        console.log(resp);
+            this.selectedSolicDemo = resp;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
 
   closeModal() {

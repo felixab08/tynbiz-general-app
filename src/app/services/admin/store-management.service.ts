@@ -1,27 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import {
-  IDemoCreate,
-  IRequestDemo,
-  OptionsRequest,
-  RequestDemoContent,
-} from '@app/interfaces';
+import { OptionsRequest, IStoreManagementResponse } from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
-
 @Injectable({
   providedIn: 'root',
 })
-export class RequesDemoService {
+export class StoreManagementService {
   private _http = inject(HttpClient);
-  private demoListCache = new Map<string, IRequestDemo>();
+  private storeManamentListCache = new Map<string, IStoreManagementResponse>();
 
-  getRequestDemo(options: OptionsRequest): Observable<IRequestDemo> {
+  getAllStores(options: OptionsRequest): Observable<IStoreManagementResponse> {
     const {
       page = 0,
       size = 5,
-      sort = 'createdAt,desc',
+      sort = '',
       endDate = '',
       startDate = '',
       nombre = '',
@@ -29,8 +23,8 @@ export class RequesDemoService {
     } = options;
     const key = `${page} - ${size} - ${sort}`;
 
-    if (this.demoListCache.has(key)) {
-      return of(this.demoListCache.get(key)!);
+    if (this.storeManamentListCache.has(key)) {
+      return of(this.storeManamentListCache.get(key)!);
     }
     // Construir params dinámicamente
     const params: any = {
@@ -42,19 +36,11 @@ export class RequesDemoService {
     if (endDate) params.endDate = endDate;
     if (nombre) params.nombre = nombre;
     if (status) params.status = status;
-    if (sort) params.sort = sort;
-    return this._http.get<IRequestDemo>(`${baseUrl}/demo-requests`, {
-      params,
-    });
-  }
 
-  getRequestDemoById(idDemo: number): Observable<RequestDemoContent> {
-    return this._http.get<RequestDemoContent>(
-      `${baseUrl}/demo-requests/${idDemo}`
-    );
-  }
-
-  postRegisterDemo(user: IDemoCreate) {
-    return this._http.post(`${baseUrl}/demo-requests/public`, user);
+    return this._http
+      .get<IStoreManagementResponse>(`${baseUrl}/api/v1/stores`, {
+        params,
+      })
+      .pipe(tap((resp) => this.storeManamentListCache.set(key, resp)));
   }
 }

@@ -4,6 +4,7 @@ export * from './admin/roles.service';
 export * from './admin/actions-user.service';
 export * from './admin/planes.service';
 export * from './admin/reques-demo.service';
+export * from './admin/store-management.service';
 
 // *general services
 export * from './general/ubigeo.service';

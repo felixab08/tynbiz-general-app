@@ -35,10 +35,10 @@ export class SideMenuComponent {
     this.storeService.user.subscribe((user) => {
       this.user = user;
       if (this.user) {
-        this.menuItemsAll = this.user?.role.includes('STORE_USER')
+        this.menuItemsAll = this.user?.role.includes('STORE_OWNER')
           ? [...menuItemsClienteMock]
           : [...menuAdminMock];
-        this.user?.role.includes('STORE_OWNER')
+        this.user?.role.includes('STORE_USER')
           ? this._router.navigate(['/stores'])
           : this._router.navigate(['/admin']);
       } else {
@@ -48,9 +48,9 @@ export class SideMenuComponent {
     });
   }
 }
-// Email:    admin@tynby.com
-// Password: Admin123!
-// Role:     ADMIN
+// Email    : admin@tynby.com
+// Password : Admin123!
+// Role     : ADMIN
 
 // Email:    owner@tynby.com
 // Password: Admin123!
