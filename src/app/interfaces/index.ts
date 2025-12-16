@@ -6,6 +6,7 @@ export * from './admin/planes.interface';
 export * from './admin/producto.interface';
 export * from './admin/request-demo.interface';
 export * from './admin/store-management.interface';
+export * from './admin/suscription.interface';
 
 
 // Shopper Interfaces

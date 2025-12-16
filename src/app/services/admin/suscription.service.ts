@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { OptionsRequest, IStoreManagementSearch } from '@app/interfaces';
-import { environment } from '@environments/environment';
-import { Observable, of, tap } from 'rxjs';
+import { ISuscriptionResponse, OptionsRequest } from '@app/interfaces';
+import { environment } from '@environments/environment.development';
+import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
+
 @Injectable({
   providedIn: 'root',
 })
-export class StoreManagementService {
+export class SuscriptionService {
   private _http = inject(HttpClient);
-  private storeManamentListCache = new Map<string, IStoreManagementSearch>();
 
-  getAllStoresSeach(
+  getSuscriptionRequest(
     options: OptionsRequest
-  ): Observable<IStoreManagementSearch> {
+  ): Observable<ISuscriptionResponse> {
     const {
       page = 0,
       size = 5,
@@ -23,11 +23,8 @@ export class StoreManagementService {
       nombre = '',
       status = '',
     } = options;
-    const key = `${page} - ${size} - ${sort}`;
+    const key = `${page} - ${size} - ${sort} - ${nombre} - ${status} - ${startDate} - ${endDate}`;
 
-    if (this.storeManamentListCache.has(key)) {
-      return of(this.storeManamentListCache.get(key)!);
-    }
     // Construir params dinámicamente
     const params: any = {
       page,
@@ -39,10 +36,11 @@ export class StoreManagementService {
     if (nombre) params.nombre = nombre;
     if (status) params.status = status;
 
-    return this._http
-      .get<IStoreManagementSearch>(`${baseUrl}/stores/admin/search`, {
+    return this._http.get<ISuscriptionResponse>(
+      `${baseUrl}/admin/subscription-requests`,
+      {
         params,
-      })
-      .pipe(tap((resp) => this.storeManamentListCache.set(key, resp)));
+      }
+    );
   }
 }

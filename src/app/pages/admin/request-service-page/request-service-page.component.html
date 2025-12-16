@@ -40,7 +40,9 @@
         </tr>
       </thead>
       <tbody>
-        @for (item of paginatedData; track item.id) {
+              @if(suscriptionResorce.hasValue()) {
+      <!--  -->
+        @for (item of suscriptionResorce.value().content; track item.id) {
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
@@ -48,30 +50,30 @@
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
-            {{ item.storeName }} <br />
+            {{ item.displayName }} <br />
             <span class="text-gray-500 dark:text-gray-400">{{
-              item.storeSite
+              item.storeUrl
             }}</span>
           </th>
           <td class="px-6 py-4">{{ item.requestDate }}</td>
-          <td class="px-6 py-4">{{ item.storeEmail }}</td>
+          <td class="px-6 py-4">{{ item.businessEmail }}</td>
           <td class="px-6 py-4">
             <span
               class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
               [ngClass]="{
                 'bg-red-100 text-red-800':
-                  item.storeStatusService == 'En revisión',
+                  item.status == 'EN_REVISION',
                 'bg-blue-100 text-blue-800':
-                  item.storeStatusService === 'Enlace enviado',
+                  item.status === 'EN_INCORPORACION',
                 'bg-green-100 text-green-800':
-                  item.storeStatusService === 'Incorporado'
+                  item.status === 'INCORPORADO'
               }"
             >
-              {{ item.storeStatusService }}
+              {{ item.status }}
             </span>
           </td>
           <td class="px-6 py-4">
-            @if (item.storeStatusService==='Incorporado') {
+            @if (item.status==='INCORPORADO') {
             <button
               type="button"
               (click)="openModal(item)"
@@ -90,7 +92,18 @@
             }
           </td>
         </tr>
-        }
+        <!--  -->
+      }
+    <!--  -->
+      } @if(suscriptionResorce.isLoading()) {
+      <tr>
+        <td colspan="6" class="text-center p-4">
+          <div class="alert alert-info text-center">
+            <span class="font-bold">Cargando suscripciones...</span>
+          </div>
+        </td>
+      </tr>
+      }
       </tbody>
     </table>
   </div>

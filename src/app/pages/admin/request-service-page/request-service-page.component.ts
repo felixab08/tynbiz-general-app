@@ -1,7 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { resquestDemoListMock } from '@app/mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { PaginationService } from '@app/components/pagination/pagination.service';
+import { RolesService, SuscriptionService } from '@app/services';
 @Component({
   selector: 'tyn-request-service-page',
   imports: [CommonModule, FormsModule],
@@ -16,14 +19,31 @@ export default class RequestServicePageComponent {
   currentPage = 1;
   itemsPerPage = 10;
 
+  private _suscriptionService = inject(SuscriptionService);
+  _paginationService = inject(PaginationService);
+
+  suscriptionResorce = rxResource({
+    request: () => ({
+      page: this._paginationService.currentPage() - 1,
+      size: this._paginationService.currentSize(),
+    }),
+    loader: ({ request }) => {
+      return (
+        this._suscriptionService.getSuscriptionRequest({
+          page: request.page,
+          size: request.size,
+        }) || {}
+      );
+    },
+  });
 
   filterByStatus(status: string): void {
     const isAll = status === 'All';
     const filteList = isAll
       ? resquestDemoListMock
       : resquestDemoListMock.filter(
-        (store) => store.storeStatusService === status
-      );
+          (store) => store.storeStatusService === status
+        );
     this.resquestList = [...filteList];
     this.currentPage = 1;
   }

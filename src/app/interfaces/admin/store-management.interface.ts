@@ -17,3 +17,20 @@ export interface StoreManagementContent {
   industry:            null;
   createdAt:           Date;
 }
+
+export interface IStoreManagementSearch extends DataPaginationResponse{
+  content:          StoreSeachContent[];
+
+}
+
+export interface StoreSeachContent {
+  id:           number;
+  displayName:  string;
+  storeUrl:     string;
+  departamento: string;
+  categoryName: string;
+  statusName:   string;
+  planType:     string;
+  totalSpent:   string;
+  createdAt:    Date;
+}

@@ -88,7 +88,9 @@
         </tr>
       </thead>
       <tbody>
-        @for (item of paginatedData; track item.id) {
+      @if(storeResorce.hasValue()) {
+      <!--  -->
+        @for (item of storeResorce.value().content; track item.id) {
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
@@ -96,31 +98,34 @@
             scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
-            {{ item.storeName }}
+            {{ item.displayName }}
           </th>
-          <td class="px-6 py-4">{{ item.storeDepartment }}</td>
-          <td class="px-6 py-4">{{ item.storeCategory }}</td>
+          <td class="px-6 py-4">{{ item.departamento }}</td>
+          <td class="px-6 py-4">Falta</td>
           <td class="px-6 py-4 text-center">
             <span
               class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
               [ngClass]="{
             'bg-green-100 text-green-800':
-              item.status == 'activo',
+              item.statusName == 'Activo',
             'bg-red-100 text-red-800':
-              item.status === 'suspendido',
+              item.statusName === 'Suspendido',
 
           }"
             >
-              {{ item.status }}
+              {{ item.statusName }}
             </span>
           </td>
-          <td class="px-6 py-4 text-center">{{ item.plan }}</td>
-          <td class="px-6 py-4 text-center">{{ item.planPrice }}</td>
+          <td class="px-6 py-4 text-center">{{ item.planType }}</td>
+          <td class="px-6 py-4 text-center">{{ item.totalSpent }}</td>
           <td class="px-6 py-4 text-center">
-            {{ item.planDate | date : "medium" }}
+            {{ item.createdAt| date : "medium" }}
           </td>
         </tr>
         }
+        }
+
+
       </tbody>
     </table>
     <!-- Paginación -->
