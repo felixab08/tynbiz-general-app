@@ -34,8 +34,6 @@ export class SuscriptionService {
     if (endDate) params.endDate = endDate;
     if (nombre) params.nombre = nombre;
     if (status && status !== 'All') params.status = status;
-    console.log(params);
-
     return this._http.get<ISuscriptionResponse>(
       `${baseUrl}/admin/subscription-requests`,
       {

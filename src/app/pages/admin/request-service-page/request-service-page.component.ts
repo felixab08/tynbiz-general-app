@@ -1,5 +1,4 @@
-import { Component, inject, linkedSignal, signal } from '@angular/core';
-import { resquestDemoListMock } from '@app/mock/resquet-demo-list.mock';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -13,13 +12,10 @@ import { Router } from '@angular/router';
   templateUrl: './request-service-page.component.html',
 })
 export default class RequestServicePageComponent {
-  resquestList = resquestDemoListMock;
   isState: string = 'All';
   isModalOpen = signal(false);
   selectedSolicDemo: any = true;
   selectedTab: string = 'verifyInformation';
-  currentPage = 1;
-  itemsPerPage = 5;
 
   private _suscriptionService = inject(SuscriptionService);
   _paginationService = inject(PaginationService);
@@ -44,25 +40,11 @@ export default class RequestServicePageComponent {
     },
   });
 
-  filterByStatus(status: string): void {
-    const isAll = status === 'All';
-    const filteList = isAll
-      ? resquestDemoListMock
-      : resquestDemoListMock.filter(
-          (store) => store.storeStatusService === status
-        );
-    this.resquestList = [...filteList];
-    this.currentPage = 1;
-  }
   changeState(state: string): void {
-    this.isState = state;
-    console.log(this.isState);
     this._router.navigate([], {
-      queryParams: { status: this.isState },
+      queryParams: { status: state, page: 1, size: 5 },
       queryParamsHandling: 'merge',
     });
-
-    // this.filterByStatus(state);
   }
   openModal(SolicDemo: any) {
     this.selectedSolicDemo = SolicDemo;
@@ -70,30 +52,5 @@ export default class RequestServicePageComponent {
   }
   closeModal() {
     this.isModalOpen.set(false);
-  }
-  get paginatedData() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.resquestList.slice(start, this.currentPage * this.itemsPerPage);
-  }
-  totalPages() {
-    return Math.ceil(this.resquestList.length / this.itemsPerPage);
-  }
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages()) {
-      this.currentPage = page;
-    }
-  }
-  setPage(page: number) {
-    this.currentPage = page;
-  }
-  prevPage() {
-    if (this.currentPage > 1) this.currentPage--;
-  }
-  nextPage() {
-    if (this.currentPage < this.totalPages()) this.currentPage++;
-  }
-  onItemsPerPageChange(value: number) {
-    this.itemsPerPage = value;
-    this.currentPage = 1;
   }
 }
