@@ -20,7 +20,7 @@ export class SuscriptionService {
       sort = '',
       endDate = '',
       startDate = '',
-      nombre = '',
+      searchTerm = '',
       status = '',
     } = options;
 
@@ -32,7 +32,7 @@ export class SuscriptionService {
     };
     if (startDate) params.startDate = startDate;
     if (endDate) params.endDate = endDate;
-    if (nombre) params.nombre = nombre;
+    if (searchTerm) params.searchTerm = searchTerm;
     if (status && status !== 'All') params.status = status;
     return this._http.get<ISuscriptionResponse>(
       `${baseUrl}/admin/subscription-requests`,

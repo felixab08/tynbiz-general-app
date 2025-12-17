@@ -6,9 +6,10 @@ import { PaginationService } from '@app/components/pagination/pagination.service
 import { SuscriptionService } from '@app/services';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { Router } from '@angular/router';
+import { FilterComponent } from '@app/components/filter/filter.component';
 @Component({
   selector: 'tyn-request-service-page',
-  imports: [CommonModule, FormsModule, PaginationComponent],
+  imports: [CommonModule, FormsModule, PaginationComponent, FilterComponent],
   templateUrl: './request-service-page.component.html',
 })
 export default class RequestServicePageComponent {
@@ -17,7 +18,32 @@ export default class RequestServicePageComponent {
   selectedSolicDemo: any = true;
   selectedTab: string = 'verifyInformation';
   // Filtros por fecha
-  search = '';
+
+  // Filtros
+  filterMenu = signal({
+    searchShow: true,
+    datesShow: true,
+    selectShow: true,
+    filterSelectList: [
+      {
+        id: 'EN_REVISION',
+        value: 'En revisión',
+      },
+      {
+        id: 'EN_INCORPORACION',
+        value: 'En incorporación',
+      },
+      {
+        id: 'INCORPORADO',
+        value: 'Incorporado',
+      },
+    ],
+  });
+
+  isNameFilter = signal('');
+  isDateStartFilter = signal('');
+  isDateEndFilter = signal('');
+
   startDate: string = '';
   endDate: string = '';
 
@@ -30,6 +56,9 @@ export default class RequestServicePageComponent {
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       status: this._paginationService.currentStatus(),
+      searchTerm: this.isNameFilter(),
+      startDate: this.isDateStartFilter(),
+      endDate: this.isDateEndFilter(),
     }),
     loader: ({ request }) => {
       console.log(request);
@@ -38,13 +67,18 @@ export default class RequestServicePageComponent {
         this._suscriptionService.getSuscriptionRequest({
           page: request.page,
           size: request.size,
+          searchTerm: request.searchTerm,
           status: request.status,
+          startDate: request.startDate,
+          endDate: request.endDate,
         }) || {}
       );
     },
   });
 
   changeState(state: string): void {
+    console.log(state);
+
     this._router.navigate([], {
       queryParams: { status: state, page: 1, size: 5 },
       queryParamsHandling: 'merge',

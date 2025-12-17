@@ -10,6 +10,7 @@ export interface OptionsRequest {
   // Planes
   isActive? :      boolean // true / false
   isPublic? :      boolean // true / false
+  searchTerm? :      string // buscar por nombre o descripcion
 
 }
 
