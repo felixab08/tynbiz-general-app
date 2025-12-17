@@ -5,7 +5,6 @@ import {
   inject,
   input,
   linkedSignal,
-  output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -22,11 +21,13 @@ export class PaginationComponent {
   totalElements = input(0);
   currentPage = input<number>(1); // N° de paginas
   currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
+  currentStatus = input<string>('All'); // Estado actual
 
   itemsPage = signal(5);
 
   activePage = linkedSignal(this.currentPage);
   activeSize = linkedSignal(this.currentSize);
+  activeStatus = linkedSignal(this.currentStatus);
 
   _router = inject(Router);
 
@@ -67,7 +68,11 @@ export class PaginationComponent {
     this.activePage.set(1);
     this.activeSize.set(newSize);
     this._router.navigate([], {
-      queryParams: { size: newSize, page: this.activePage() },
+      queryParams: {
+        size: newSize,
+        page: this.activePage(),
+        status: this.activeStatus(),
+      },
       queryParamsHandling: 'merge',
     });
   }

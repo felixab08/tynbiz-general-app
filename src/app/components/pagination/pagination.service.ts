@@ -27,4 +27,12 @@ export class PaginationService {
       initialValue: 5,
     }
   );
+  currentStatus = toSignal(
+    this._activatedRoute.queryParamMap.pipe(
+      map((params) => (params.get('status') ? params.get('status')! : 'All'))
+    ),
+    {
+      initialValue: 'All',
+    }
+  );
 }

@@ -23,7 +23,6 @@ export class SuscriptionService {
       nombre = '',
       status = '',
     } = options;
-    const key = `${page} - ${size} - ${sort} - ${nombre} - ${status} - ${startDate} - ${endDate}`;
 
     // Construir params dinámicamente
     const params: any = {
@@ -34,7 +33,8 @@ export class SuscriptionService {
     if (startDate) params.startDate = startDate;
     if (endDate) params.endDate = endDate;
     if (nombre) params.nombre = nombre;
-    if (status) params.status = status;
+    if (status && status !== 'All') params.status = status;
+    console.log(params);
 
     return this._http.get<ISuscriptionResponse>(
       `${baseUrl}/admin/subscription-requests`,

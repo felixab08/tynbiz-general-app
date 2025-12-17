@@ -1,37 +1,44 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { resquestDemoListMock } from '@app/mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { PaginationService } from '@app/components/pagination/pagination.service';
-import { RolesService, SuscriptionService } from '@app/services';
+import { SuscriptionService } from '@app/services';
+import { PaginationComponent } from '@app/components/pagination/pagination.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'tyn-request-service-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PaginationComponent],
   templateUrl: './request-service-page.component.html',
 })
 export default class RequestServicePageComponent {
   resquestList = resquestDemoListMock;
-  isState = 'All';
+  isState: string = 'All';
   isModalOpen = signal(false);
   selectedSolicDemo: any = true;
   selectedTab: string = 'verifyInformation';
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 5;
 
   private _suscriptionService = inject(SuscriptionService);
   _paginationService = inject(PaginationService);
+  _router = inject(Router);
 
   suscriptionResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
+      status: this._paginationService.currentStatus(),
     }),
     loader: ({ request }) => {
+      console.log(request);
+
       return (
         this._suscriptionService.getSuscriptionRequest({
           page: request.page,
           size: request.size,
+          status: request.status,
         }) || {}
       );
     },
@@ -49,7 +56,13 @@ export default class RequestServicePageComponent {
   }
   changeState(state: string): void {
     this.isState = state;
-    this.filterByStatus(state);
+    console.log(this.isState);
+    this._router.navigate([], {
+      queryParams: { status: this.isState },
+      queryParamsHandling: 'merge',
+    });
+
+    // this.filterByStatus(state);
   }
   openModal(SolicDemo: any) {
     this.selectedSolicDemo = SolicDemo;
