@@ -16,6 +16,10 @@ export default class RequestServicePageComponent {
   isModalOpen = signal(false);
   selectedSolicDemo: any = true;
   selectedTab: string = 'verifyInformation';
+  // Filtros por fecha
+  search = '';
+  startDate: string = '';
+  endDate: string = '';
 
   private _suscriptionService = inject(SuscriptionService);
   _paginationService = inject(PaginationService);
