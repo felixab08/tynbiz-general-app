@@ -38,9 +38,6 @@ export class SideMenuComponent {
         this.menuItemsAll = this.user?.role.includes('STORE_OWNER')
           ? [...menuItemsClienteMock]
           : [...menuAdminMock];
-        this.user?.role.includes('STORE_USER')
-          ? this._router.navigate(['/stores'])
-          : this._router.navigate(['/admin']);
       } else {
         this.menuItemsAll = [...menuItemsMock];
         this._router.navigate(['/']);

@@ -38,6 +38,31 @@ export class AuthService {
   user = computed(() => this._user());
   token = computed(this._token);
 
+  constructor() {
+    // Restaurar usuario y estado desde localStorage al inicializar
+    this.initializeAuthState();
+  }
+
+  private initializeAuthState() {
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+
+    if (storedToken && storedUser) {
+      try {
+        const user = JSON.parse(storedUser) as User;
+        this._user.set(user);
+        this._token.set(storedToken);
+        this._authStatus.set('authenticated');
+        this.storeService.user.next(user);
+      } catch (error) {
+        console.error('Error restaurando usuario del localStorage:', error);
+        this.logout();
+      }
+    } else {
+      this._authStatus.set('not-authenticated');
+    }
+  }
+
   login(username: string, password: string): Observable<boolean> {
     return this.http
       .post<AuthResponse>(`${baseUrl}/auth/login`, {
@@ -65,22 +90,22 @@ export class AuthService {
 
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
-    if (!token) {
+    const userJson = localStorage.getItem('user');
+
+    if (!token || !userJson) {
       this.logout();
       return of(false);
     }
-    this.handleAuthSuccess(this._user() as User, token);
-    return of(true);
-    //   return this.http
-    //     .get<AuthResponse>(`${baseUrl}/auth/check-status`, {
-    //       // headers: {
-    //       //   Authorization: `Bearer ${token}`,
-    //       // },
-    //     })
-    //     .pipe(
-    //       map((resp) => this.handleAuthSuccess(resp)),
-    //       catchError((error: any) => this.handleAuthError(error))
-    //     );
+
+    try {
+      const user = JSON.parse(userJson) as User;
+      this.handleAuthSuccess(user, token);
+      return of(true);
+    } catch (error) {
+      console.error('Error al restaurar usuario:', error);
+      this.logout();
+      return of(false);
+    }
   }
 
   logout() {
