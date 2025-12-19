@@ -2,12 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   effect,
+  inject,
   input,
   linkedSignal,
   output,
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'tyn-filter',
@@ -27,11 +29,21 @@ export class FilterComponent {
 
   startDate: string = '';
   endDate: string = '';
-  isState = 'All';
+
+  _activateRoute = inject(ActivatedRoute);
+  _router = inject(Router);
+
+  queryParam =
+    this._activateRoute.snapshot.queryParamMap.get('status') ?? 'All';
+  isState = linkedSignal(() => this.queryParam);
 
   filterMenu = input.required<any>();
 
-  inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
+  inputParam =
+    this._activateRoute.snapshot.queryParamMap.get('searchTerm') ?? '';
+  inputValue = linkedSignal<string>(
+    () => this.inputParam ?? this.initialValue()
+  );
   selectInitValue = linkedSignal<string>(
     () => this.initialDateStartValue() ?? ''
   );
@@ -41,11 +53,15 @@ export class FilterComponent {
     status = status === 'All' ? '' : status;
     this.selectFilter.emit(status);
   }
+
   debounceEffect = effect((onCleanup) => {
     const value = this.inputValue();
+
     const valueStart = this.selectInitValue();
     const valueEnd = this.selectEndValue();
     const timeout = setTimeout(() => {
+      this.onChangeFilter(value);
+
       this.inputFilter.emit(value);
       this.dateInitialFilter.emit(valueStart);
       this.dateEndFilter.emit(valueEnd);
@@ -54,4 +70,16 @@ export class FilterComponent {
       clearTimeout(timeout);
     });
   });
+
+  onChangeFilter(searchTerm: string) {
+    this._router.navigate([], {
+      queryParams: {
+        size: 5,
+        page: 1,
+        status: this.isState(),
+        searchTerm: searchTerm,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
 }

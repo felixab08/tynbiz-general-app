@@ -14,7 +14,7 @@
     (dateInitialFilter)="isDateStartFilter.set($event)"
     (dateEndFilter)="isDateEndFilter.set($event)"
     placeholder="Buscar"
-    [initialValue]="isNameFilter()"
+    [initialValue]="_paginationService.currentSearchTerm()"
   ></tyn-filter>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table
@@ -107,6 +107,7 @@
     [currentPage]="_paginationService.currentPage()"
     [currentSize]="_paginationService.currentSize()"
     [currentStatus]="_paginationService.currentStatus()"
+    [currentSearchTerm]="_paginationService.currentSearchTerm()"
   />
   }
 </div>

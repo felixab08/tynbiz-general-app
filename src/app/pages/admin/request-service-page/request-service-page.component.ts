@@ -56,7 +56,7 @@ export default class RequestServicePageComponent {
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       status: this._paginationService.currentStatus(),
-      searchTerm: this.isNameFilter(),
+      searchTerm: this._paginationService.currentSearchTerm(),
       startDate: this.isDateStartFilter(),
       endDate: this.isDateEndFilter(),
     }),
@@ -77,8 +77,6 @@ export default class RequestServicePageComponent {
   });
 
   changeState(state: string): void {
-    console.log(state);
-
     this._router.navigate([], {
       queryParams: { status: state, page: 1, size: 5 },
       queryParamsHandling: 'merge',

@@ -35,4 +35,14 @@ export class PaginationService {
       initialValue: 'All',
     }
   );
+  currentSearchTerm = toSignal(
+    this._activatedRoute.queryParamMap.pipe(
+      map((params) =>
+        params.get('searchTerm') ? params.get('searchTerm')! : ''
+      )
+    ),
+    {
+      initialValue: '',
+    }
+  );
 }

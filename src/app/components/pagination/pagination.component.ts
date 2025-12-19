@@ -22,12 +22,14 @@ export class PaginationComponent {
   currentPage = input<number>(1); // N° de paginas
   currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
   currentStatus = input<string>('All'); // Estado actual
+  currentSearchTerm = input<string>(''); // Estado actual
 
   itemsPage = signal(5);
 
   activePage = linkedSignal(this.currentPage);
   activeSize = linkedSignal(this.currentSize);
   activeStatus = linkedSignal(this.currentStatus);
+  activeSearchTerm = linkedSignal(this.currentSearchTerm);
 
   _router = inject(Router);
 
@@ -72,6 +74,7 @@ export class PaginationComponent {
         size: newSize,
         page: this.activePage(),
         status: this.activeStatus(),
+        currentSearchTerm: this.activeSearchTerm(),
       },
       queryParamsHandling: 'merge',
     });
