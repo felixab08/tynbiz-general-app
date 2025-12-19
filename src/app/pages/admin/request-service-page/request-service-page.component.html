@@ -9,11 +9,12 @@
   <!-- Búsqueda general -->
   <tyn-filter
     [filterMenu]="filterMenu()"
-    (inputFilter)="isNameFilter.set($event)"
     (selectFilter)="changeState($event)"
     (dateInitialFilter)="isDateStartFilter.set($event)"
     (dateEndFilter)="isDateEndFilter.set($event)"
     placeholder="Buscar"
+    [currentPage]="_paginationService.currentPage()"
+    [currentSize]="_paginationService.currentSize()"
     [initialValue]="_paginationService.currentSearchTerm()"
   ></tyn-filter>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

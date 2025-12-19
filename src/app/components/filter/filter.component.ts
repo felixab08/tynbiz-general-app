@@ -17,10 +17,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './filter.component.html',
 })
 export class FilterComponent {
-  inputFilter = output<string>();
   selectFilter = output<string>();
   dateInitialFilter = output<string>();
   dateEndFilter = output<string>();
+
+  currentPage = input<number>(1); // N° de paginas
+  currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
 
   placeholder = input<string>('Buscar');
   initialValue = input<string>('');
@@ -62,7 +64,6 @@ export class FilterComponent {
     const timeout = setTimeout(() => {
       this.onChangeFilter(value);
 
-      this.inputFilter.emit(value);
       this.dateInitialFilter.emit(valueStart);
       this.dateEndFilter.emit(valueEnd);
     }, 500);
@@ -74,8 +75,8 @@ export class FilterComponent {
   onChangeFilter(searchTerm: string) {
     this._router.navigate([], {
       queryParams: {
-        size: 5,
-        page: 1,
+        size: this.currentSize(),
+        page: this.currentPage(),
         status: this.isState(),
         searchTerm: searchTerm,
       },

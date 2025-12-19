@@ -40,7 +40,6 @@ export default class RequestServicePageComponent {
     ],
   });
 
-  isNameFilter = signal('');
   isDateStartFilter = signal('');
   isDateEndFilter = signal('');
 
