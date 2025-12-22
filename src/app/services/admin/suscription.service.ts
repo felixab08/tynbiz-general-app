@@ -34,7 +34,6 @@ export class SuscriptionService {
     if (endDate) params.endDate = endDate;
     if (searchTerm) params.searchTerm = searchTerm;
     if (status && status !== 'All') params.status = status;
-    console.log(params);
     return this._http.get<ISuscriptionResponse>(
       `${baseUrl}/admin/subscription-requests`,
       {

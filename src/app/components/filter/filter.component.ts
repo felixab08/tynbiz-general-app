@@ -96,8 +96,6 @@ export class FilterComponent {
       queryParams.size = 5;
     }
     queryParams.searchTerm = this.searchTermLink();
-    console.log(queryParams);
-
     this._router.navigate([], {
       queryParams: queryParams,
       queryParamsHandling: 'merge',
