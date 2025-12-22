@@ -2,8 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { PaginationService } from '@app/components/pagination/pagination.service';
-import { SuscriptionService } from '@app/services';
+import { LinkParamService, SuscriptionService } from '@app/services';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { Router } from '@angular/router';
 import { FilterComponent } from '@app/components/filter/filter.component';
@@ -17,7 +16,6 @@ export default class RequestServicePageComponent {
   isModalOpen = signal(false);
   selectedSolicDemo: any = true;
   selectedTab: string = 'verifyInformation';
-  // Filtros por fecha
 
   // Filtros
   filterMenu = signal({
@@ -40,25 +38,20 @@ export default class RequestServicePageComponent {
     ],
   });
 
-  startDate: string = '';
-  endDate: string = '';
-
   private _suscriptionService = inject(SuscriptionService);
-  _paginationService = inject(PaginationService);
+  _linkService = inject(LinkParamService);
   _router = inject(Router);
 
   suscriptionResorce = rxResource({
     request: () => ({
-      page: this._paginationService.currentPage() - 1,
-      size: this._paginationService.currentSize(),
-      status: this._paginationService.currentStatus(),
-      searchTerm: this._paginationService.currentSearchTerm(),
-      startDate: this._paginationService.currentDateInitialFilter(),
-      endDate: this._paginationService.currentDateEndFilter(),
+      page: this._linkService.currentPage() - 1,
+      size: this._linkService.currentSize(),
+      status: this._linkService.currentStatus(),
+      searchTerm: this._linkService.currentSearchTerm(),
+      startDate: this._linkService.currentDateInitialFilter(),
+      endDate: this._linkService.currentDateEndFilter(),
     }),
     loader: ({ request }) => {
-      console.log(request);
-
       return (
         this._suscriptionService.getSuscriptionRequest({
           page: request.page,

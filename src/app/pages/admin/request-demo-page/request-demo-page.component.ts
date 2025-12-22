@@ -3,8 +3,7 @@ import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { RequesDemoService } from '@app/services';
-import { PaginationService } from '@app/components/pagination/pagination.service';
+import { LinkParamService, RequesDemoService } from '@app/services';
 import { RequestDemoContent } from '@app/interfaces';
 @Component({
   selector: 'tyn-request-demo-page',
@@ -13,7 +12,7 @@ import { RequestDemoContent } from '@app/interfaces';
 })
 export default class RequestDemoPageComponent {
   private _requesDemoService = inject(RequesDemoService);
-  _paginationService = inject(PaginationService);
+  _paginationService = inject(LinkParamService);
 
   resquestList = resquestDemoListMock;
   isState = 'All';
@@ -58,9 +57,9 @@ export default class RequestDemoPageComponent {
   searchDemoById(id: number) {
     this._requesDemoService.getRequestDemoById(id).subscribe({
       next: (resp: any) => {
-        console.log("resp------>");
+        console.log('resp------>');
         console.log(resp);
-            this.selectedSolicDemo = resp;
+        this.selectedSolicDemo = resp;
       },
       error: (error: any) => {
         console.log(error);

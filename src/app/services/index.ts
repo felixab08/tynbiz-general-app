@@ -9,6 +9,7 @@ export * from './admin/suscription.service';
 
 // *general services
 export * from './general/ubigeo.service';
+export * from './general/link-params.service';
 
 // *shopper services
 export * from './shopper/catalog.service';

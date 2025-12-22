@@ -10,9 +10,9 @@ import { UsersService } from '@app/services/admin/users.service';
 
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 
-import { PaginationService } from '@app/components/pagination/pagination.service';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { FilterComponent } from '@app/components/filter/filter.component';
+import { LinkParamService } from '@app/services';
 
 @Component({
   selector: 'tyn-list-user-admin-page',
@@ -29,7 +29,7 @@ import { FilterComponent } from '@app/components/filter/filter.component';
 })
 export default class ListUserAdminPageComponent {
   private _usersService = inject(UsersService);
-  _paginationService = inject(PaginationService);
+  _paginationService = inject(LinkParamService);
 
   userActions = [...userActionsMock];
   isState = 'All';

@@ -22,9 +22,9 @@ export class PaginationComponent {
   currentPage = input<number>(1); // N° de paginas
   currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
   currentStatus = input<string>('All'); // Estado actual
-  currentSearchTerm = input<string>(''); // Estado actual
-  currentDateStartValue = input<string>(''); // Estado actual
-  currentDateEndValue = input<string>(''); // Estado actual
+  currentSearchTerm = input<string>(''); // Busqueda por termino
+  currentDateStartValue = input<string>(''); // Fecha inicial del filtro
+  currentDateEndValue = input<string>(''); // Fecha final del filtro
 
   itemsPage = signal(5);
 

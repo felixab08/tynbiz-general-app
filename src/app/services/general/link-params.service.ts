@@ -6,7 +6,7 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PaginationService {
+export class LinkParamService {
   _activatedRoute = inject(ActivatedRoute);
   currentPage = toSignal(
     this._activatedRoute.queryParamMap.pipe(

@@ -11,11 +11,11 @@
     [filterMenu]="filterMenu()"
     (selectFilter)="changeState($event)"
     placeholder="Buscar"
-    [currentPage]="_paginationService.currentPage()"
-    [currentSize]="_paginationService.currentSize()"
-    [currentSearchTerm]="_paginationService.currentSearchTerm()"
-    [currentDateStartValue]="_paginationService.currentDateInitialFilter()"
-    [currentDateEndValue]="_paginationService.currentDateEndFilter()"
+    [currentPage]="_linkService.currentPage()"
+    [currentSize]="_linkService.currentSize()"
+    [currentSearchTerm]="_linkService.currentSearchTerm()"
+    [currentDateStartValue]="_linkService.currentDateInitialFilter()"
+    [currentDateEndValue]="_linkService.currentDateEndFilter()"
   ></tyn-filter>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table
@@ -105,12 +105,12 @@
   <app-pagination
     [pages]="suscriptionResorce.value().totalPages"
     [totalElements]="suscriptionResorce.value().totalElements"
-    [currentPage]="_paginationService.currentPage()"
-    [currentSize]="_paginationService.currentSize()"
-    [currentStatus]="_paginationService.currentStatus()"
-    [currentSearchTerm]="_paginationService.currentSearchTerm()"
-    [currentDateStartValue]="_paginationService.currentDateInitialFilter()"
-    [currentDateEndValue]="_paginationService.currentDateEndFilter()"
+    [currentPage]="_linkService.currentPage()"
+    [currentSize]="_linkService.currentSize()"
+    [currentStatus]="_linkService.currentStatus()"
+    [currentSearchTerm]="_linkService.currentSearchTerm()"
+    [currentDateStartValue]="_linkService.currentDateInitialFilter()"
+    [currentDateEndValue]="_linkService.currentDateEndFilter()"
   />
   }
 </div>

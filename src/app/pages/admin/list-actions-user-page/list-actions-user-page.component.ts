@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { rxResource } from '@angular/core/rxjs-interop';
 
-import { PaginationService } from '@app/components/pagination/pagination.service';
 import { ActionsUserService } from '@app/services/admin/actions-user.service';
 
 import { userActionsMock } from '@app/mock/rol.mock';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
+import { LinkParamService } from '@app/services';
 @Component({
   selector: 'tyn-list-actions-user-page',
   imports: [CommonModule, FormsModule, PaginationComponent],
@@ -16,7 +16,7 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
 })
 export default class ListActionsUserPageComponent {
   private _userActionsService = inject(ActionsUserService);
-  _paginationService = inject(PaginationService);
+  _paginationService = inject(LinkParamService);
 
   userActions = [...userActionsMock];
   isState = 'All';

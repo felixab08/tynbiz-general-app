@@ -3,8 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { resquestDemoListMock } from '@app/mock/resquet-demo-list.mock';
 import { SimpleCardComponent } from '../../../components/simple-card/simple-card.component';
-import { PaginationService } from '@app/components/pagination/pagination.service';
-import { StoreManagementService } from '@app/services';
+import { LinkParamService, StoreManagementService } from '@app/services';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -15,7 +14,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 export default class ListStorePageComponent {
   rolLists = [...resquestDemoListMock];
   private _storeManagementSrv = inject(StoreManagementService);
-  _paginationService = inject(PaginationService);
+  _paginationService = inject(LinkParamService);
 
   isState = 'All';
   // paginacion

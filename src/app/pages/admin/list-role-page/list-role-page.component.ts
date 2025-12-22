@@ -8,8 +8,8 @@ import { rolsCreateMock } from '@app/mock/rol.mock';
 import { FormNewRolePageComponent } from './form-new-role-page/form-new-role-page.component';
 import { RolesService } from '@app/services/admin/roles.service';
 
-import { PaginationService } from '@app/components/pagination/pagination.service';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
+import { LinkParamService } from '@app/services';
 @Component({
   selector: 'tyn-list-role-page',
   imports: [
@@ -22,7 +22,7 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
 })
 export default class ListRolePageComponent {
   private _rolesService = inject(RolesService);
-  _paginationService = inject(PaginationService);
+  _paginationService = inject(LinkParamService);
 
   rolLists = [...rolsCreateMock];
 
