@@ -40,6 +40,7 @@ export default class RequestServicePageComponent {
     ],
   });
 
+  isSearchTermFilter = signal('');
   isDateStartFilter = signal('');
   isDateEndFilter = signal('');
 
@@ -55,7 +56,9 @@ export default class RequestServicePageComponent {
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       status: this._paginationService.currentStatus(),
-      searchTerm: this._paginationService.currentSearchTerm(),
+      searchTerm:
+        this.isSearchTermFilter() ||
+        this._paginationService.currentSearchTerm(),
       startDate: this.isDateStartFilter(),
       endDate: this.isDateEndFilter(),
     }),

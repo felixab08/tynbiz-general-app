@@ -57,13 +57,12 @@ export class FilterComponent {
   }
 
   debounceEffect = effect((onCleanup) => {
-    const value = this.inputValue();
+    const value = this.inputValue() || '';
 
     const valueStart = this.selectInitValue();
     const valueEnd = this.selectEndValue();
     const timeout = setTimeout(() => {
       this.onChangeFilter(value);
-
       this.dateInitialFilter.emit(valueStart);
       this.dateEndFilter.emit(valueEnd);
     }, 500);
@@ -73,13 +72,20 @@ export class FilterComponent {
   });
 
   onChangeFilter(searchTerm: string) {
+    const queryParams: any = {};
+
+    if (this.currentSize()) {
+      queryParams.size = this.currentSize();
+    }
+    if (this.currentPage()) {
+      queryParams.page = this.currentPage();
+    }
+    if (this.isState() && this.isState().trim()) {
+      queryParams.status = this.isState();
+    }
+    queryParams.searchTerm = searchTerm;
     this._router.navigate([], {
-      queryParams: {
-        size: this.currentSize(),
-        page: this.currentPage(),
-        status: this.isState(),
-        searchTerm: searchTerm,
-      },
+      queryParams: queryParams,
       queryParamsHandling: 'merge',
     });
   }

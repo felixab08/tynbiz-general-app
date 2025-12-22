@@ -65,7 +65,6 @@ export default class ListUserAdminPageComponent {
     request: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
-      nombre: this.isNameFilter(),
       status: this.isSelectedFilter(),
       startDate: this.isDateStartFilter(),
       endDate: this.isDateEndFilter(),
@@ -75,7 +74,6 @@ export default class ListUserAdminPageComponent {
         this._usersService.getUsers({
           page: request.page,
           size: request.size,
-          nombre: request.nombre,
           status: request.status,
           startDate: request.startDate,
           endDate: request.endDate,
