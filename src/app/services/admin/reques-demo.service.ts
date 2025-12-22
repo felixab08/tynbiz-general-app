@@ -18,31 +18,26 @@ export class RequesDemoService {
   private demoListCache = new Map<string, IRequestDemo>();
 
   getRequestDemo(options: OptionsRequest): Observable<IRequestDemo> {
-    const {
-      page = 0,
-      size = 5,
-      sort = 'createdAt,desc',
-      endDate = '',
-      startDate = '',
-      nombre = '',
-      status = '',
-    } = options;
-    const key = `${page} - ${size} - ${sort}`;
+const {
+  page = 0,
+  size = 5,
+  sort = '',
+  endDate = '',
+  startDate = '',
+  searchTerm = '',
+  status = '',
+} = options;
 
-    if (this.demoListCache.has(key)) {
-      return of(this.demoListCache.get(key)!);
-    }
-    // Construir params dinámicamente
-    const params: any = {
-      page,
-      size,
-      sort: sort || 'createdAt,desc',
-    };
-    if (startDate) params.startDate = startDate;
-    if (endDate) params.endDate = endDate;
-    if (nombre) params.nombre = nombre;
-    if (status) params.status = status;
-    if (sort) params.sort = sort;
+// Construir params dinámicamente
+const params: any = {
+  page,
+  size,
+  sort: sort || 'createdAt,desc',
+};
+if (startDate) params.startDate = startDate;
+if (endDate) params.endDate = endDate;
+if (searchTerm) params.searchTerm = searchTerm;
+if (status && status !== 'All') params.status = status;
     return this._http.get<IRequestDemo>(`${baseUrl}/demo-requests`, {
       params,
     });
