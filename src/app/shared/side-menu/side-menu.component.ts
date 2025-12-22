@@ -1,4 +1,13 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  signal,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import {
   Router,
   RouterLink,
@@ -22,11 +31,19 @@ import { AlertService } from '@app/services/alert.service';
   imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent],
   templateUrl: './side-menu.component.html',
 })
-export class SideMenuComponent {
+export class SideMenuComponent implements AfterViewInit, OnDestroy {
   _authService = inject(AuthService);
   _alertService = inject(AlertService);
   _router = inject(Router);
   menuItemsAll: any[] = [...menuItemsMock];
+
+  @ViewChild('drawerToggle', { static: true })
+  drawerToggle!: ElementRef<HTMLButtonElement>;
+
+  @ViewChild('logoSidebar', { static: true })
+  logoSidebar!: ElementRef<HTMLElement>;
+
+  private _observer!: MutationObserver;
 
   public storeService = inject(StoreService);
   public user: User | undefined;
@@ -43,6 +60,41 @@ export class SideMenuComponent {
         this._router.navigate(['/']);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    try {
+      const sidebarEl = this.logoSidebar?.nativeElement;
+      const toggleBtn = this.drawerToggle?.nativeElement;
+      if (!sidebarEl || !toggleBtn) return;
+
+      this._observer = new MutationObserver(() => {
+        const hiddenByAria = sidebarEl.getAttribute('aria-hidden') === 'true';
+        const hiddenByClass = sidebarEl.classList.contains('-translate-x-full');
+        const hidden = hiddenByAria || hiddenByClass;
+        const active = document.activeElement as HTMLElement | null;
+
+        if (hidden && active && sidebarEl.contains(active)) {
+          toggleBtn.focus();
+        }
+      });
+
+      this._observer.observe(sidebarEl, {
+        attributes: true,
+        attributeFilter: ['class', 'aria-hidden'],
+      });
+    } catch (e) {
+      // don't block app on observer errors
+      console.warn('SideMenu: could not attach MutationObserver', e);
+    }
+  }
+
+  ngOnDestroy(): void {
+    try {
+      this._observer?.disconnect();
+    } catch (e) {
+      // ignore
+    }
   }
 }
 // Email    : admin@tynby.com
