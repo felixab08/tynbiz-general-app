@@ -45,4 +45,24 @@ export class PaginationService {
       initialValue: '',
     }
   );
+  currentDateInitialFilter = toSignal(
+    this._activatedRoute.queryParamMap.pipe(
+      map((params) =>
+        params.get('dateInitialFilter') ? params.get('dateInitialFilter')! : ''
+      )
+    ),
+    {
+      initialValue: '',
+    }
+  );
+  currentDateEndFilter = toSignal(
+    this._activatedRoute.queryParamMap.pipe(
+      map((params) =>
+        params.get('dateEndFilter') ? params.get('dateEndFilter')! : ''
+      )
+    ),
+    {
+      initialValue: '',
+    }
+  );
 }

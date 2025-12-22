@@ -23,6 +23,8 @@ export class PaginationComponent {
   currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
   currentStatus = input<string>('All'); // Estado actual
   currentSearchTerm = input<string>(''); // Estado actual
+  currentDateStartValue = input<string>(''); // Estado actual
+  currentDateEndValue = input<string>(''); // Estado actual
 
   itemsPage = signal(5);
 
@@ -75,6 +77,8 @@ export class PaginationComponent {
         page: this.activePage(),
         status: this.activeStatus(),
         currentSearchTerm: this.activeSearchTerm(),
+        dateInitialFilter: this.currentDateStartValue(),
+        dateEndFilter: this.currentDateEndValue(),
       },
       queryParamsHandling: 'merge',
     });

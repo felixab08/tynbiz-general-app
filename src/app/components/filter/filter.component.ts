@@ -18,16 +18,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class FilterComponent {
   selectFilter = output<string>();
-  dateInitialFilter = output<string>();
-  dateEndFilter = output<string>();
 
   currentPage = input<number>(1); // N° de paginas
   currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
 
   placeholder = input<string>('Buscar');
-  initialValue = input<string>('');
-  initialDateStartValue = input<string>('');
-  initialDateEndValue = input<string>('');
+  currentSearchTerm = input<string>('');
+  currentDateStartValue = input<string>('');
+  currentDateEndValue = input<string>('');
+  filterMenu = input.required<any>();
 
   startDate: string = '';
   endDate: string = '';
@@ -35,21 +34,27 @@ export class FilterComponent {
   _activateRoute = inject(ActivatedRoute);
   _router = inject(Router);
 
-  queryParam =
+  statusParam =
     this._activateRoute.snapshot.queryParamMap.get('status') ?? 'All';
-  isState = linkedSignal(() => this.queryParam);
-
-  filterMenu = input.required<any>();
+  isState = linkedSignal(() => this.statusParam);
 
   inputParam =
     this._activateRoute.snapshot.queryParamMap.get('searchTerm') ?? '';
-  inputValue = linkedSignal<string>(
-    () => this.inputParam ?? this.initialValue()
+  searchTermLink = linkedSignal<string>(
+    () => this.inputParam ?? this.currentSearchTerm()
   );
-  selectInitValue = linkedSignal<string>(
-    () => this.initialDateStartValue() ?? ''
+
+  initialDateStartParam =
+    this._activateRoute.snapshot.queryParamMap.get('dateInitialFilter') ?? '';
+  initialDateStart = linkedSignal<string>(
+    () => this.initialDateStartParam ?? this.currentDateStartValue()
   );
-  selectEndValue = linkedSignal<string>(() => this.initialDateEndValue() ?? '');
+
+  initialDateEndParam =
+    this._activateRoute.snapshot.queryParamMap.get('dateEndFilter') ?? '';
+  initialDateEnd = linkedSignal<string>(
+    () => this.initialDateEndParam ?? this.currentDateEndValue()
+  );
 
   filterByStatus(status: string): void {
     status = status === 'All' ? '' : status;
@@ -57,21 +62,18 @@ export class FilterComponent {
   }
 
   debounceEffect = effect((onCleanup) => {
-    const value = this.inputValue() || '';
-
-    const valueStart = this.selectInitValue();
-    const valueEnd = this.selectEndValue();
+    const value = this.searchTermLink() || '';
+    const valueStart = this.initialDateStart();
+    const valueEnd = this.initialDateEnd();
     const timeout = setTimeout(() => {
-      this.onChangeFilter(value);
-      this.dateInitialFilter.emit(valueStart);
-      this.dateEndFilter.emit(valueEnd);
+      this.onChangeFilter();
     }, 500);
     onCleanup(() => {
       clearTimeout(timeout);
     });
   });
 
-  onChangeFilter(searchTerm: string) {
+  onChangeFilter() {
     const queryParams: any = {};
 
     if (this.currentSize()) {
@@ -83,7 +85,19 @@ export class FilterComponent {
     if (this.isState() && this.isState().trim()) {
       queryParams.status = this.isState();
     }
-    queryParams.searchTerm = searchTerm;
+    if (this.initialDateStart()) {
+      queryParams.dateInitialFilter = this.initialDateStart();
+    }
+    if (this.initialDateEnd()) {
+      queryParams.dateEndFilter = this.initialDateEnd();
+    }
+    if (this.searchTermLink()) {
+      queryParams.page = 1;
+      queryParams.size = 5;
+    }
+    queryParams.searchTerm = this.searchTermLink();
+    console.log(queryParams);
+
     this._router.navigate([], {
       queryParams: queryParams,
       queryParamsHandling: 'merge',

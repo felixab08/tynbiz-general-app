@@ -24,10 +24,10 @@
     <input
       #txtSearch
       type="text"
-      [value]="inputValue()"
+      [value]="searchTermLink()"
       [placeholder]="placeholder()"
       autofocus
-      (keyup)="inputValue.set(txtSearch.value)"
+      (keyup)="searchTermLink.set(txtSearch.value)"
       class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
     />
     }
@@ -39,18 +39,16 @@
       #txtFilterStartDate
       type="date"
       placeholder="Fecha desde"
-      [value]="selectInitValue()"
-      (keyup.enter)="dateInitialFilter.emit(txtFilterStartDate.value)"
-      (change)="selectInitValue.set(txtFilterStartDate.value)"
+      [value]="currentDateStartValue()"
+      (change)="initialDateStart.set(txtFilterStartDate.value)"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
     />
     <span class="mx-4 text-gray-500">al</span>
     <input
       #txtFilterEndDate
       type="date"
-      [value]="selectEndValue()"
-      (keyup.enter)="dateEndFilter.emit(txtFilterEndDate.value)"
-      (change)="selectEndValue.set(txtFilterEndDate.value)"
+      [value]="currentDateEndValue()"
+      (change)="initialDateEnd.set(txtFilterEndDate.value)"
       placeholder="Fecha hasta"
       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
     />

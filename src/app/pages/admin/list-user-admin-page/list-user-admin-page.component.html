@@ -17,10 +17,7 @@
   <tyn-filter
     [filterMenu]="filterMenu()"
     (selectFilter)="isSelectedFilter.set($event)"
-    (dateInitialFilter)="isDateStartFilter.set($event)"
-    (dateEndFilter)="isDateEndFilter.set($event)"
     placeholder="Buscar"
-    [initialValue]="isNameFilter()"
   ></tyn-filter>
 
   <table

@@ -40,10 +40,6 @@ export default class RequestServicePageComponent {
     ],
   });
 
-  isSearchTermFilter = signal('');
-  isDateStartFilter = signal('');
-  isDateEndFilter = signal('');
-
   startDate: string = '';
   endDate: string = '';
 
@@ -56,11 +52,9 @@ export default class RequestServicePageComponent {
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       status: this._paginationService.currentStatus(),
-      searchTerm:
-        this.isSearchTermFilter() ||
-        this._paginationService.currentSearchTerm(),
-      startDate: this.isDateStartFilter(),
-      endDate: this.isDateEndFilter(),
+      searchTerm: this._paginationService.currentSearchTerm(),
+      startDate: this._paginationService.currentDateInitialFilter(),
+      endDate: this._paginationService.currentDateEndFilter(),
     }),
     loader: ({ request }) => {
       console.log(request);

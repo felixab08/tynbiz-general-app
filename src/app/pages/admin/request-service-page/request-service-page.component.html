@@ -10,12 +10,12 @@
   <tyn-filter
     [filterMenu]="filterMenu()"
     (selectFilter)="changeState($event)"
-    (dateInitialFilter)="isDateStartFilter.set($event)"
-    (dateEndFilter)="isDateEndFilter.set($event)"
     placeholder="Buscar"
     [currentPage]="_paginationService.currentPage()"
     [currentSize]="_paginationService.currentSize()"
-    [initialValue]="_paginationService.currentSearchTerm()"
+    [currentSearchTerm]="_paginationService.currentSearchTerm()"
+    [currentDateStartValue]="_paginationService.currentDateInitialFilter()"
+    [currentDateEndValue]="_paginationService.currentDateEndFilter()"
   ></tyn-filter>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table
@@ -62,7 +62,7 @@
                   item.status === 'INCORPORADO'
               }"
             >
-              {{ item.status }}
+              {{ item.statusName  }}
             </span>
           </td>
           <td class="px-6 py-4">
@@ -109,6 +109,8 @@
     [currentSize]="_paginationService.currentSize()"
     [currentStatus]="_paginationService.currentStatus()"
     [currentSearchTerm]="_paginationService.currentSearchTerm()"
+    [currentDateStartValue]="_paginationService.currentDateInitialFilter()"
+    [currentDateEndValue]="_paginationService.currentDateEndFilter()"
   />
   }
 </div>
@@ -634,9 +636,8 @@
                 </p>
                 <p class="text-gray-600 mt-1.5 dark:text-gray-400">
                   <span class="font-semibold text-gray-800"> Estado: </span>
-                  @if (selectedSolicDemo.storeStatusService === 'Enlace
-                  enviado') { pendiente en aceptar y crear cuenta inicio sesión
-                  } @else {
+                  @if (selectedSolicDemo.storeStatusService === 'Enlace enviado')
+                  { pendiente en aceptar y crear cuenta inicio sesión } @else {
                   {{ selectedSolicDemo.storeStatusService }}
                   }
                 </p>
