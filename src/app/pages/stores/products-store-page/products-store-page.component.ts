@@ -14,6 +14,8 @@ export default class ProductsStorePageComponent {
   private _productoService = inject(ProductoService);
   _paginationService = inject(LinkParamService);
 
+  productMock = [...productMock];
+
   productoResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
