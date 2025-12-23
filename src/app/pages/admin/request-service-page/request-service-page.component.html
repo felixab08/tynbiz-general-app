@@ -32,8 +32,8 @@
         </tr>
       </thead>
       <tbody>
-              @if(suscriptionResorce.hasValue()) {
-      <!--  -->
+        @if(suscriptionResorce.hasValue()) {
+        <!--  -->
         @for (item of suscriptionResorce.value().content; track item.id) {
         <tr
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -53,15 +53,12 @@
             <span
               class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full"
               [ngClass]="{
-                'bg-red-100 text-red-800':
-                  item.status == 'EN_REVISION',
-                'bg-blue-100 text-blue-800':
-                  item.status === 'EN_INCORPORACION',
-                'bg-green-100 text-green-800':
-                  item.status === 'INCORPORADO'
+                'bg-red-100 text-red-800': item.status == 'EN_REVISION',
+                'bg-blue-100 text-blue-800': item.status === 'EN_INCORPORACION',
+                'bg-green-100 text-green-800': item.status === 'INCORPORADO'
               }"
             >
-              {{ item.statusName  }}
+              {{ item.statusName }}
             </span>
           </td>
           <td class="px-6 py-4">
@@ -85,22 +82,22 @@
           </td>
         </tr>
         <!--  -->
-      }
-    <!--  -->
-      } @if(suscriptionResorce.isLoading()) {
-      <tr>
-        <td colspan="6" class="text-center p-4">
-          <div class="alert alert-info text-center">
-            <span class="font-bold">Cargando suscripciones...</span>
-          </div>
-        </td>
-      </tr>
-      }
+        }
+        <!--  -->
+        } @if(suscriptionResorce.isLoading()) {
+        <tr>
+          <td colspan="6" class="text-center p-4">
+            <div class="alert alert-info text-center">
+              <span class="font-bold">Cargando suscripciones...</span>
+            </div>
+          </td>
+        </tr>
+        }
       </tbody>
     </table>
   </div>
   <!-- Paginación -->
-     @if(suscriptionResorce.hasValue()){
+  @if(suscriptionResorce.hasValue()){
   <app-pagination
     [pages]="suscriptionResorce.value().totalPages"
     [totalElements]="suscriptionResorce.value().totalElements"
@@ -635,8 +632,9 @@
                 </p>
                 <p class="text-gray-600 mt-1.5 dark:text-gray-400">
                   <span class="font-semibold text-gray-800"> Estado: </span>
-                  @if (selectedSolicDemo.storeStatusService === 'Enlace enviado')
-                  { pendiente en aceptar y crear cuenta inicio sesión } @else {
+                  @if (selectedSolicDemo.storeStatusService === 'Enlace
+                  enviado') { pendiente en aceptar y crear cuenta inicio sesión
+                  } @else {
                   {{ selectedSolicDemo.storeStatusService }}
                   }
                 </p>

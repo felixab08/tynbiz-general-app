@@ -1,0 +1,35 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 sm:px-10 lg:px-20 pb-8">
+  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 ">
+    <div class="xl:col-span-2 bg-white rounded-lg p-10 ">
+      <div>
+        <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white"> Crear contenido </h5>
+        <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400"> Realiza una combinacion con <span
+            class="font-bold">5</span> productos </p>
+      </div>
+      <div class="my-24">
+        <tyn-carousel-products-creation [listProduct]="listCreation.products"></tyn-carousel-products-creation>
+      </div>
+
+    </div>
+    <div class="bg-white rounded-lg p-10 ">
+      <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white"> Productos</h5>
+      <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400 mb-6"> Tus productos para crear contenido
+      </p>
+      <div class="overflow-auto h-[600px]">
+      @for (product of listCreation.products; track product.id) {
+      <div class="w-full flex justify-between p-4 border rounded-lg mb-6 border-gray-300 dark:border-gray-700">
+        <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
+        <div class="ms-3 text-sm font-normal items-center flex">
+          <div class="flex items-center ml-4">
+            <input checked  id="purple-checkbox" type="checkbox" value=""
+              class="w-6 h-6 text-purple-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-purple-500 dark:focus:ring-purple-600 ring-offset-neutral-primary focus:ring-2">
+          </div>
+        </div>
+      </div>
+      }
+      </div>
+      <button type="button" class=" bg-gray-800 w-full text-white border hover:text-gray-950 border-gray-300 focus:outline-none hover:bg-gray-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" fdprocessedid="uj8vs6b"> Siguiente </button>
+    </div>
+
+  </div>
+</div>

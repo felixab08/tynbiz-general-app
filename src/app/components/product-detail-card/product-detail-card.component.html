@@ -1,20 +1,21 @@
 @if (listProduct()) {
 <div class="flex items-center">
   <div class="relative bg-white w-24 h-24 shrink-0 justify-center flex items-center rounded-lg">
-    <img class="h-20" [src]="listProduct().mediaUrls[0] | notImage" alt="Jese Leos image" />
+    <img class="h-20" [src]="listProduct().image| notImage" alt="Jese Leos image" />
   </div>
   <div class="ms-3 text-sm font-normal">
     <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-      {{ listProduct().storeName }}
+      {{ listProduct().marca }}
     </p>
     <p class="text-sm font-bold text-gray-900 dark:text-white">
-      {{ listProduct().name }}
+      {{ listProduct().nameProduct }}
     </p>
     <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-      Color: {{ listProduct().colors.join() }} Talla: {{ listProduct().sizes.join() }}
+      Color: {{ listProduct().color }} Talla: {{ listProduct().talla }}
     </p>
     <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-      {{ listProduct().originalPrice }}
+      {{ listProduct().price }}
     </p>
   </div>
+
 </div>}

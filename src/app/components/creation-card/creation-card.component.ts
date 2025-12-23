@@ -3,9 +3,10 @@ import { Cardcreations } from '@app/interfaces/card.interface';
 import { CommonModule } from '@angular/common';
 import { initCarousels } from 'flowbite';
 import { ProductDetailCardComponent } from '../product-detail-card/product-detail-card.component';
+import { CarouselProductsCreation } from '../carousel-products-creation/carousel-products-creation.component';
 @Component({
   selector: 'tyn-creation-card',
-  imports: [CommonModule, ProductDetailCardComponent],
+  imports: [CommonModule, ProductDetailCardComponent, CarouselProductsCreation],
   templateUrl: './creation-card.component.html',
 })
 export class CreationCardComponent {

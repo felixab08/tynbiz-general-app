@@ -41,6 +41,11 @@ export const storesRoutes: Routes = [
           import('./suscription-store-page/suscription-store-page.component'),
       },
       {
+        path: 'create-creation',
+        loadComponent: () =>
+          import('./create-creation-store-page/create-creation-store-page.component'),
+      },
+      {
         path: '',
         redirectTo: 'init-store',
         pathMatch: 'full',
