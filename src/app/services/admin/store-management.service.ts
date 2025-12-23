@@ -9,7 +9,6 @@ const baseUrl = environment.baseUrl;
 })
 export class StoreManagementService {
   private _http = inject(HttpClient);
-  private storeManamentListCache = new Map<string, IStoreManagementSearch>();
 
   getAllStoresSeach(
     options: OptionsRequest
@@ -20,14 +19,10 @@ export class StoreManagementService {
       sort = '',
       endDate = '',
       startDate = '',
-      nombre = '',
+      searchTerm = '',
       status = '',
     } = options;
-    const key = `${page} - ${size} - ${sort}`;
 
-    if (this.storeManamentListCache.has(key)) {
-      return of(this.storeManamentListCache.get(key)!);
-    }
     // Construir params dinámicamente
     const params: any = {
       page,
@@ -36,13 +31,14 @@ export class StoreManagementService {
     };
     if (startDate) params.startDate = startDate;
     if (endDate) params.endDate = endDate;
-    if (nombre) params.nombre = nombre;
-    if (status) params.status = status;
+    if (searchTerm) params.searchTerm = searchTerm;
+    if (status && status !== 'All') params.status = status;
 
-    return this._http
-      .get<IStoreManagementSearch>(`${baseUrl}/stores/admin/search`, {
+    return this._http.get<IStoreManagementSearch>(
+      `${baseUrl}/stores/admin/search`,
+      {
         params,
-      })
-      .pipe(tap((resp) => this.storeManamentListCache.set(key, resp)));
+      }
+    );
   }
 }
