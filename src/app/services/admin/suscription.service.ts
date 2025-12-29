@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ISuscriptionResponse, OptionsRequest } from '@app/interfaces';
+import {
+  ISuscription,
+  ISuscriptionResponse,
+  OptionsRequest,
+} from '@app/interfaces';
 import { environment } from '@environments/environment.development';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
 
 @Injectable({
@@ -11,6 +15,14 @@ const baseUrl = environment.baseUrl;
 export class SuscriptionService {
   private _http = inject(HttpClient);
 
+  /**
+   * @description Obtiene la lista de solicitudes de suscripción.
+   * @params options Type <OptionsRequest>
+   * @param page = 0, PAGINA
+   * @param size : 20, CANTIDAD
+   * @param sort : createdAt,desc ORDEN
+   * @return ISuscriptionResponse[]
+   */
   getSuscriptionRequest(
     options: OptionsRequest
   ): Observable<ISuscriptionResponse> {
@@ -39,6 +51,27 @@ export class SuscriptionService {
       {
         params,
       }
+    );
+  }
+  /**
+   * @description Obtener suscripción por ID
+   * @param id
+   * @returns Observable<ISuscription>
+   */
+  getSuscriptionById(id: number): Observable<ISuscription> {
+    return this._http.get<ISuscription>(
+      `${baseUrl}/admin/subscription-requests/${id}`
+    );
+  }
+  /**
+   * @description Incorporar suscripción por ID
+   * @param id
+   * @returns Observable<ISuscription>
+   */
+  postSuscriptionIncoporateById(id: number): Observable<ISuscription> {
+    return this._http.post<ISuscription>(
+      `${baseUrl}/admin/subscription-requests/${id}/incorporate`,
+      id
     );
   }
 }

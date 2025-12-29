@@ -238,7 +238,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.storeName"
+                  [value]="selectedSolicDemo?.businessName"
                   disabled
                 />
               </div>
@@ -253,7 +253,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.storeSite"
+                  [value]="selectedSolicDemo?.storeUrl"
                   disabled
                 />
               </div>
@@ -272,7 +272,7 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option selected>
-                      {{ selectedSolicDemo.storeDepartment }}
+                      {{ selectedSolicDemo?.departamento }}
                     </option>
                   </select>
                 </div>
@@ -288,11 +288,11 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option selected>
-                      {{ selectedSolicDemo.storeProvince }}
+                      {{ selectedSolicDemo?.distrito }}
                     </option>
                   </select>
                 </div>
-                <div>
+                <!-- <div>
                   <label
                     for="countries"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -307,7 +307,7 @@
                       {{ selectedSolicDemo.storeDistrict }}
                     </option>
                   </select>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="grid grid-cols-1 mb-6 md:mb-0 md:grid-cols-2 gap-4">
@@ -322,7 +322,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.storeAddress"
+                  [value]="selectedSolicDemo?.address"
                   disabled
                 />
               </div>
@@ -337,7 +337,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.storeEmail"
+                  [value]="selectedSolicDemo?.businessEmail"
                   disabled
                 />
               </div>
@@ -356,11 +356,11 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option selected>
-                    {{ selectedSolicDemo.storeCategory }}
+                    {{ selectedSolicDemo?.storeCategory }}
                   </option>
                 </select>
               </div>
-              <div>
+              <!-- <div>
                 <label
                   for="email"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -371,10 +371,10 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.storeCategory2"
+                  [value]="selectedSolicDemo?.storeCategory2"
                   disabled
                 />
-              </div>
+              </div> -->
             </div>
 
             <div class="mb-5">
@@ -388,7 +388,7 @@
                 id="disabled-input"
                 aria-label="disabled input"
                 class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo.storePhone"
+                [value]="selectedSolicDemo?.businessPhone"
                 disabled
               />
             </div>
@@ -407,7 +407,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.representativeName"
+                  [value]="selectedSolicDemo?.firstName + ' ' + selectedSolicDemo?.lastName"
                   disabled
                 />
               </div>
@@ -422,7 +422,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo.representativeDNI"
+                  [value]="selectedSolicDemo?.documentNumber"
                   disabled
                 />
               </div>
@@ -454,7 +454,7 @@
             Plan elegido por la tienda
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            @if (selectedSolicDemo.storeStatusService === 'En revisión') {
+            @if (selectedSolicDemo?.status === 'EN_REVISION') {
             <input
               checked
               type="radio"
@@ -511,10 +511,10 @@
                 for="hosting-medium"
                 [ngClass]="{
                   'cursor-pointer peer-checked:border-purple-600  peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200':
-                    selectedSolicDemo.storeStatusService === 'En revisión',
+                    selectedSolicDemo?.status === 'EN_REVISION',
                   'cursor-not-allowed':
-                    selectedSolicDemo.storeStatusService === 'Enlace enviado' ||
-                    'Incorporado'
+                    selectedSolicDemo?.status === 'EN_INCORPORACION' ||
+                    selectedSolicDemo?.status === 'INCORPORADO'
                 }"
                 class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg"
               >
@@ -539,10 +539,10 @@
                 for="hosting-large"
                 [ngClass]="{
                   'cursor-pointer peer-checked:border-purple-600  peer-checked:text-purple-600 hover:text-gray-600 hover:bg-purple-200':
-                    selectedSolicDemo.storeStatusService === 'En revisión',
+                    selectedSolicDemo?.status === 'EN_REVISION',
                   'cursor-not-allowed':
-                    selectedSolicDemo.storeStatusService === 'Enlace enviado' ||
-                    'Incorporado'
+                    selectedSolicDemo?.status === 'EN_INCORPORACION' ||
+                    selectedSolicDemo?.status === 'INCORPORADO'
                 }"
                 class="inline-flex max-w-sm mb-4 items-center justify-between w-full p-5 text-gray-700 bg-white border border-gray-200 rounded-lg"
               >
@@ -589,19 +589,20 @@
               <div class="flex flex-col">
                 <p class="text-gray-600 mb-1.5 dark:text-gray-400">
                   <span class="font-semibold text-gray-800"> Correo: </span>
-                  {{ selectedSolicDemo.storeEmail }}
+                  {{ selectedSolicDemo?.businessEmail }}
                 </p>
                 <p class="text-gray-600 mt-1.5 dark:text-gray-400">
                   Se enviará un enlace de crear cuenta inicio de sesión
                 </p>
               </div>
               <div class="flex items-center justify-center">
-                @if (selectedSolicDemo.storeStatusService === 'En revisión' ) {
+                @if (selectedSolicDemo?.status === 'EN_REVISION') {
                 <button
                   data-modal-hide="default-modal"
                   type="button"
                   class="text-white w-36 bg-gray-600 ml-4 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
-                >
+                  (click)="sendIncorporationLink()"
+                  >
                   Enviar enlace</button
                 >} @else {
                 <button
@@ -610,7 +611,7 @@
                   disabled
                   class="text-white cursor-not-allowed w-36 bg-gray-600 ml-4 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600"
                 >
-                  Enviar enlace
+                  confirmar Enviar enlace
                 </button>
                 }
               </div>
@@ -632,15 +633,14 @@
                 </p>
                 <p class="text-gray-600 mt-1.5 dark:text-gray-400">
                   <span class="font-semibold text-gray-800"> Estado: </span>
-                  @if (selectedSolicDemo.storeStatusService === 'Enlace
-                  enviado') { pendiente en aceptar y crear cuenta inicio sesión
+                  @if (selectedSolicDemo?.status === 'Enlace enviado') { pendiente en aceptar y crear cuenta inicio sesión
                   } @else {
-                  {{ selectedSolicDemo.storeStatusService }}
+                  {{ selectedSolicDemo?.status }}
                   }
                 </p>
               </div>
               <div class="flex items-center justify-center">
-                @if (selectedSolicDemo.storeStatusService === 'Enlace enviado')
+                @if (selectedSolicDemo?.status === 'Enlace enviado')
                 {
                 <button
                   data-modal-hide="default-modal"

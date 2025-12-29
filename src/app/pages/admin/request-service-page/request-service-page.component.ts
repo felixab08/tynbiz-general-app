@@ -6,6 +6,7 @@ import { LinkParamService, SuscriptionService } from '@app/services';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { Router } from '@angular/router';
 import { FilterComponent } from '@app/components/filter/filter.component';
+import { ISuscription } from '@app/interfaces';
 @Component({
   selector: 'tyn-request-service-page',
   imports: [CommonModule, FormsModule, PaginationComponent, FilterComponent],
@@ -14,7 +15,7 @@ import { FilterComponent } from '@app/components/filter/filter.component';
 export default class RequestServicePageComponent {
   isState: string = 'All';
   isModalOpen = signal(false);
-  selectedSolicDemo: any = true;
+  selectedSolicDemo: ISuscription | null = null;
   selectedTab: string = 'verifyInformation';
 
   // Filtros
@@ -72,10 +73,33 @@ export default class RequestServicePageComponent {
     });
   }
   openModal(SolicDemo: any) {
-    this.selectedSolicDemo = SolicDemo;
-    this.isModalOpen.set(true);
+    this._suscriptionService.getSuscriptionById(SolicDemo.id).subscribe({
+      next: (resp) => {
+        this.selectedSolicDemo = resp;
+        this.selectedTab = 'verifyInformation';
+        this.isModalOpen.set(true);
+      },
+      error: (err) => {
+        console.error('Error fetching subscription by ID:', err);
+      },
+    });
   }
   closeModal() {
     this.isModalOpen.set(false);
+  }
+  sendIncorporationLink() {
+    if (!this.selectedSolicDemo) return;
+    this._suscriptionService
+      .postSuscriptionIncoporateById(this.selectedSolicDemo.id)
+      .subscribe({
+        next: (resp) => {
+          console.log('Incorporation link sent successfully:', resp);
+          this.closeModal();
+          this.suscriptionResorce.reload();
+        },
+        error: (err) => {
+          console.error('Error sending incorporation link:', err);
+        },
+      });
   }
 }

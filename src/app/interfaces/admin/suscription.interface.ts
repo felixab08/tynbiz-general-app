@@ -13,3 +13,28 @@ export interface SuscriptionContent {
   status:        string;
   statusName:    string;
 }
+
+export interface ISuscription {
+  id:             number;
+  businessName:   string;
+  ruc:            string;
+  displayName:    string;
+  storeUrl:       string;
+  storeCategory:  string;
+  ubigeoId:       string;
+  address:        string;
+  departamento:   string;
+  provincia:      string;
+  distrito:       string;
+  businessEmail:  string;
+  businessPhone:  string;
+  firstName:      string;
+  lastName:       string;
+  documentType:   string;
+  documentNumber: string;
+  planId:         number;
+  planName:       string;
+  status:         string;
+  statusName:     string;
+  requestDate:    Date;
+}
