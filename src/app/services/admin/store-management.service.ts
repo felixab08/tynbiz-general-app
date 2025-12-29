@@ -4,6 +4,7 @@ import {
   OptionsRequest,
   IStoreManagementSearch,
   StoreSeachContent,
+  IStore,
 } from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
@@ -16,6 +17,11 @@ export class StoreManagementService {
   private _http = inject(HttpClient);
   private _userListCache = new Map<string, IStoreManagementSearch>();
 
+  /**
+   * Obtiene la lista de tiendas con paginación y filtros
+   * @param options Opciones de solicitud que incluyen paginación y filtros
+   * @returns Observable con la respuesta de la lista de tiendas
+   */
   getAllStoresSeach(
     options: OptionsRequest
   ): Observable<IStoreManagementSearch> {
@@ -49,6 +55,12 @@ export class StoreManagementService {
       })
       .pipe(tap((resp) => this._userListCache.set(key, resp)));
   }
+  /**
+   * Actualiza el estado de una tienda
+   * @param id ID de la tienda
+   * @param status Nuevo estado de la tienda
+   * @returns Observable con la respuesta de la tienda actualizada
+   */
   putStoreState(
     id: number,
     status: storeStatus
@@ -61,6 +73,11 @@ export class StoreManagementService {
         })
       );
   }
+
+  /**
+   * Actualiza la caché de la lista de tiendas
+   * @param store Tienda actualizada
+   */
   updateStoreListCache(store: StoreSeachContent) {
     const storeId = store.id;
     this._userListCache.forEach((userResponse) => {
@@ -70,5 +87,16 @@ export class StoreManagementService {
           ))
         : [store, ...userResponse.content];
     });
+  }
+
+  /**
+   * Obtiene los detalles de una tienda por su ID
+   * @param id ID de la tienda
+   * @returns Observable con los detalles de la tienda
+   */
+  getStoreById(id: number): Observable<IStore> {
+    return this._http
+      .get<IStore>(`${baseUrl}/stores/${id}`)
+      .pipe(tap((resp) => console.log(resp)));
   }
 }
