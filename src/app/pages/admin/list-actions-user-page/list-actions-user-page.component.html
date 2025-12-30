@@ -3,51 +3,16 @@
     <h1 class="text-2xl font-semibold">Registro de acciones del usuario</h1>
   </div>
   <!-- Búsqueda general -->
-  <div class="flex items-center justify-between pb-4">
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-      >
-        <svg
-          class="w-4 h-4 text-gray-500 dark:text-gray-400"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-          />
-        </svg>
-      </div>
-      <input
-        type="text"
-        [(ngModel)]="search"
-        placeholder="Palabra clave"
-        class="block w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-      />
-    </div>
-    <div class="flex items-center">
-      <span class="mx-4 text-gray-500">Fechas</span>
-      <input
-        type="date"
-        [(ngModel)]="startDate"
-        placeholder="Fecha desde"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-      />
-      <span class="mx-4 text-gray-500">al</span>
-      <input
-        type="date"
-        [(ngModel)]="endDate"
-        placeholder="Fecha hasta"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-      />
-    </div>
-  </div>
+  <tyn-filter
+    [filterMenu]="filterMenu()"
+    (selectFilter)="changeState($event)"
+    placeholder="Buscar"
+    [currentPage]="_linkService.currentPage()"
+    [currentSize]="_linkService.currentSize()"
+    [currentSearchTerm]="_linkService.currentSearchTerm()"
+    [currentDateStartValue]="_linkService.currentDateInitialFilter()"
+    [currentDateEndValue]="_linkService.currentDateEndFilter()"
+  ></tyn-filter>
 
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-x-auto"
@@ -70,16 +35,16 @@
       <tr
         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
-        <th class="px-6 py-4">{{ item.usuarioRol }}</th>
+        <th class="px-6 py-4">{{ item.roleName }}</th>
         <td
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
         >
-          {{ item.usuarioNombre }}<br />
+          {{ item.userDisplayName }}<br />
         </td>
-        <td class="px-6 py-4">{{ item.fechaCreacion | date : "medium" }}</td>
-        <td class="px-6 py-4">{{ item.entidad }}</td>
-        <td class="px-6 py-4">{{ item.accion }}</td>
+        <td class="px-6 py-4">{{ item.actionDate| date : "medium" }}</td>
+        <td class="px-6 py-4">{{ item.moduleName }}</td>
+        <td class="px-6 py-4">{{ item.actionDescription }}</td>
       </tr>
       }
       <!--  -->
@@ -98,13 +63,17 @@
       }
     </tbody>
   </table>
-  <!-- Paginación -->
-  @if(userActionsResorce.hasValue()){
-  <app-pagination
-    [pages]="userActionsResorce.value().totalPages"
-    [totalElements]="userActionsResorce.value().totalElements"
-    [currentPage]="_paginationService.currentPage()"
-    [currentSize]="_paginationService.currentSize()"
-  />
-  }
+    <!-- Paginación -->
+    @if(userActionsResorce.hasValue()){
+    <app-pagination
+      [pages]="userActionsResorce.value().totalPages"
+      [totalElements]="userActionsResorce.value().totalElements"
+      [currentPage]="_linkService.currentPage()"
+      [currentSize]="_linkService.currentSize()"
+      [currentStatus]="_linkService.currentStatus()"
+      [currentSearchTerm]="_linkService.currentSearchTerm()"
+      [currentDateStartValue]="_linkService.currentDateInitialFilter()"
+      [currentDateEndValue]="_linkService.currentDateEndFilter()"
+    />
+    }
 </div>

@@ -86,6 +86,18 @@ export default class RequestDemoPageComponent {
   }
 
   closeModal() {
+    if (this.selectedSolicDemo?.statusName === 'ATENDIDO') {
+      this._requesDemoService
+        .patchToggleDemo(this.selectedSolicDemo.id)
+        .subscribe({
+          next: (resp: any) => {
+            this.demoResorce.reload();
+          },
+          error: (error: any) => {
+            console.log(error);
+          },
+        });
+    }
     this.isModalOpen.set(false);
   }
 }

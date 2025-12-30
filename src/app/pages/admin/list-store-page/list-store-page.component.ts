@@ -8,6 +8,13 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { FilterComponent } from '@app/components/filter/filter.component';
+import { FILTERSELECTLIST, ISREPORTSTORE } from '@app/constant';
+type storeStatus =
+  | 'suspend'
+  | 'activate'
+  | 'cancel'
+  | 'complete-onboarding'
+  | 'view';
 
 @Component({
   selector: 'tyn-list-store-page',
@@ -25,55 +32,41 @@ export default class ListStorePageComponent {
   private _storeManagementSrv = inject(StoreManagementService);
   _linkService = inject(LinkParamService);
   _router = inject(Router);
-
+  selectedPlanList: any = true;
+  openDropdownIndex: number | null = null;
   isState = 'All';
   // Filtros por fecha
-  isReportStore = [
-    {
-      id: 1111,
-      title: 'Total tiendas',
-      describe: 'Tiendas virtuales asociados a plataforma tynbiz',
-      cant: 10000,
-    },
-    {
-      id: 1112,
-      title: 'Tiendas activas',
-      describe:
-        'Tiendas virtuales activas que estan con un plan en la plataforma tynbiz',
-      cant: 8000,
-    },
-    {
-      id: 1113,
-      title: 'Tiendas Suspendidos',
-      describe:
-        'Tiendas virtuales suspendidos por falta de pago de un plan en la plat. tynbiz',
-      cant: 1500,
-    },
-  ];
+  isReportStore = ISREPORTSTORE;
   // Filtros
   filterMenu = signal({
     searchShow: true,
     datesShow: true,
     selectShow: true,
-    filterSelectList: [
-      {
-        id: 'PENDING',
-        value: 'Pendiente',
-      },
-      {
-        id: 'ACTIVE',
-        value: 'Activo',
-      },
-      {
-        id: 'SUSPENDED',
-        value: 'Suspendido',
-      },
-      {
-        id: 'CANCELLED',
-        value: 'Cancelado',
-      },
-    ],
+    filterSelectList: FILTERSELECTLIST,
   });
+
+  listStatus = [
+    {
+      id: 'Ver tienda',
+      value: 'view',
+      status: 'All',
+    },
+    {
+      id: 'Suspender',
+      value: 'suspend',
+      status: 'Suspendido',
+    },
+    {
+      id: 'Cancelar',
+      value: 'cancel',
+      status: 'Cancelado',
+    },
+    {
+      id: 'Activar',
+      value: 'activate',
+      status: 'Activo',
+    },
+  ] as any;
 
   storeResorce = rxResource({
     request: () => ({
@@ -103,5 +96,19 @@ export default class ListStorePageComponent {
       queryParams: { status: state, page: 1, size: 5 },
       queryParamsHandling: 'merge',
     });
+  }
+  toggleDropdown(plan: any) {
+    this.selectedPlanList = plan;
+    this.openDropdownIndex =
+      this.openDropdownIndex === plan.id ? null : plan.id;
+  }
+  currentStateOption(id: number, type: storeStatus): void {
+    console.log(id, type);
+    if (type !== 'view') {
+      this._storeManagementSrv.putStoreState(id, type).subscribe((response) => {
+        console.log('Store state updated:', response);
+      });
+      this.openDropdownIndex = null;
+    }
   }
 }

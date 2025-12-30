@@ -72,15 +72,33 @@ export class PaginationComponent {
     this.activePage.set(1);
     this.activeSize.set(newSize);
     this._router.navigate([], {
-      queryParams: {
-        size: newSize,
-        page: this.activePage(),
-        status: this.activeStatus(),
-        currentSearchTerm: this.activeSearchTerm(),
-        dateInitialFilter: this.currentDateStartValue(),
-        dateEndFilter: this.currentDateEndValue(),
-      },
+      queryParams: this.buildQueryParams(1),
       queryParamsHandling: 'merge',
     });
+  }
+
+  buildQueryParams(page: number) {
+    const params: Record<string, any> = {
+      page,
+      size: this.activeSize(),
+      status: this.activeStatus(),
+    };
+
+    const term = this.activeSearchTerm();
+    if (term !== null && term !== undefined && String(term).trim() !== '') {
+      params['searchTerm'] = term;
+    }
+
+    const start = this.currentDateStartValue();
+    if (start !== null && start !== undefined && String(start).trim() !== '') {
+      params['dateInitialFilter'] = start;
+    }
+
+    const end = this.currentDateEndValue();
+    if (end !== null && end !== undefined && String(end).trim() !== '') {
+      params['dateEndFilter'] = end;
+    }
+
+    return params;
   }
 }

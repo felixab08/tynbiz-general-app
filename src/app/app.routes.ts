@@ -11,6 +11,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/account/account.component'),
   },
   {
+    path: 'confirmation',
+    loadComponent: () =>
+      import('./pages/account/confirmation/confirmation.component'),
+  },
+  {
     path: 'admin',
     loadChildren: () =>
       import('./pages/admin/admin.routes').then((m) => m.userRoutes),

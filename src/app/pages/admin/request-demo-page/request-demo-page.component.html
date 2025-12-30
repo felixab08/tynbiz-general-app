@@ -47,7 +47,7 @@
             >
           </th>
           <td class="px-6 py-4">{{ item.createdAt | date : "medium" }}</td>
-          <td class="px-6 py-4">{{ item.storeUrl }}</td>
+          <td class="px-6 py-4">{{ item.email }}</td>
           <td class="px-6 py-4">
             <span
               class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
@@ -109,7 +109,7 @@
 @if (isModalOpen()) {
 <div
   class="fixed inset-0 bg-black opacity-50 z-40"
-  (click)="closeModal()"
+  (click)="isModalOpen.set(false)"
 ></div>
 }
 <!-- Main modal -->
@@ -132,7 +132,7 @@
         </h3>
         <button
           type="button"
-          (click)="closeModal()"
+          (click)="isModalOpen.set(false)"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
           data-modal-hide="default-modal"
         >
@@ -242,7 +242,8 @@
             type="checkbox"
             value=""
             class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
+            (change)="selectedSolicDemo.statusName = 'ATENDIDO'"
+            />
           <label
             for="checkbox-2"
             class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
