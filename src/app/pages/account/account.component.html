@@ -1,4 +1,7 @@
 <div class="p-2 md:px-20 space-y-4">
+  <div class="mb-6 text-gray-900 dark:text-white">
+    <h1 class="text-2xl font-semibold">Mi cuenta</h1>
+  </div>
   <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
     <ul
       class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
@@ -15,7 +18,7 @@
           type="button"
           role="tab"
         >
-          Verificar informacion
+          Perfil general
         </button>
       </li>
       <li class="me-2" role="presentation">
@@ -29,7 +32,7 @@
           type="button"
           role="tab"
         >
-          Verificar plan
+          Seguridad y privacidad
         </button>
       </li>
     </ul>
@@ -37,13 +40,11 @@
 
   <div
     *ngIf="selectedTab === 'selectProfile'"
-    class="p-10 bg-white rounded-lg dark:bg-gray-800"
   >
     <tyn-profile></tyn-profile>
   </div>
   <div
     *ngIf="selectedTab === 'selectPrivacity'"
-    class="p-4 bg-white rounded-lg dark:bg-gray-800"
   >
     <tyn-security-privacity />
   </div>

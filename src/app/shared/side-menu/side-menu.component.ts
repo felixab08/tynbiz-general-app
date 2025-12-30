@@ -8,12 +8,7 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import {
-  Router,
-  RouterLink,
-  RouterModule,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import {
@@ -28,7 +23,7 @@ import { AlertService } from '@app/services/alert.service';
 
 @Component({
   selector: 'app-side-menu',
-  imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent],
+  imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent, RouterLinkActive],
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {

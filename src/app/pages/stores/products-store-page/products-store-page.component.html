@@ -1,17 +1,16 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 pb-8">
-  <div class="mb-6 text-gray-900 dark:text-white">
-    <h1 class="text-2xl font-semibold">Productos</h1>
-    <p>Todo los productos integrados.</p>
-  </div>
-  <div class="bg-white rounded-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-
-
-    <!--  -->
-    @for (product of productMock; track product.id) {
-    <div class="w-full flex justify-between p-4 border-b border-gray-300 dark:border-gray-700">
-      <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
-      <div class="ms-3 text-sm font-normal items-center flex">
-        <!-- <button data-modal-hide="default-modal" type="button"
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8">
+  <div class="max-w-7xl m-auto">
+    <div class="mb-6">
+      <h1 class="text-3xl font-semibold mb-2">Productos</h1>
+      <p>Todo los productos integrados.</p>
+    </div>
+    <div class="bg-white rounded-lg border border-gray-300">
+      <!--  -->
+      @for (product of productMock; track product.id) {
+      <div class="w-full flex justify-between p-4  border-b border-gray-300">
+        <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
+        <div class="md:ms-3 text-sm font-normal items-center flex">
+          <!-- <button data-modal-hide="default-modal" type="button"
             class="text-white inline-flex items-center  bg-purple-700 ml-4 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
             <svg class="w-6 h-6 mr-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               fill="currentColor" viewBox="0 0 24 24">
@@ -21,25 +20,27 @@
             </svg>
             Agregar
           </button> -->
-        <button data-modal-hide="default-modal" type="button"
-          class="text-white bg-gray-700 ml-4 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-          Ver
-        </button>
+          <button type="button"
+            class="text-white bg-gray-700 ml-4 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Ver
+          </button>
 
-        <div class="flex items-center ml-4">
-    <input id="purple-checkbox" type="checkbox" value="" class="w-6 h-6 text-purple-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-purple-500 dark:focus:ring-purple-600 ring-offset-neutral-primary focus:ring-2">
-
-</div>
+          <div class="flex items-center ml-4">
+            <input id="purple-checkbox" type="checkbox" [checked]="createCreation.isSelected(product)" [disabled]="
+              createCreation.isFull() && !createCreation.isSelected(product)
+            " (change)="createCreation.toggle(product)"
+              class="w-6 h-6 text-purple-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-purple-500 ring-offset-neutral-primary focus:ring-2" />
+          </div>
+        </div>
       </div>
-    </div>
-    <!--  -->
-    }
-    <!--  -->
-
-    <!-- @if(productMock.isLoading()) {
+      <!--  -->
+      }
+      <!--  -->
+      <!-- @if(productMock.isLoading()) {
       <div class="alert alert-info text-center">
         <span class="font-bold">Cargando usuarios...</span>
       </div>
       } -->
+    </div>
   </div>
 </div>

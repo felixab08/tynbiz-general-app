@@ -1,35 +1,176 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 sm:px-10 lg:px-20 pb-8">
-  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 ">
-    <div class="xl:col-span-2 bg-white rounded-lg p-10 ">
+  @if (showAlert()) {
+  <div class="mb-6 flex items-center p-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 border border-yellow-300">
+    <i class="fa-solid fa-triangle-exclamation fa-beat fa-2x"></i>
+
+    <span class="flex-1 ml-4">
+      Para crear una creación debes seleccionar
+      <strong>hasta 5 productos</strong>.
+    </span>
+
+    <button (click)="goToProducts()" class="ml-4 bg-yellow-700 text-white px-4 py-2 rounded-lg hover:bg-yellow-800">
+      Ir a productos
+    </button>
+  </div>
+  }
+
+  <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div class="xl:col-span-2 bg-white rounded-lg p-10">
       <div>
-        <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white"> Crear contenido </h5>
-        <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400"> Realiza una combinacion con <span
-            class="font-bold">5</span> productos </p>
+        <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white">
+          Crear contenido
+        </h5>
+        <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400">
+          Realiza una combinacion con <span class="font-bold">5</span> productos
+        </p>
       </div>
       <div class="my-24">
-        <tyn-carousel-products-creation [listProduct]="listCreation.products"></tyn-carousel-products-creation>
+        <tyn-carousel-products-creation [listProduct]="createCreation.products()"></tyn-carousel-products-creation>
       </div>
-
     </div>
-    <div class="bg-white rounded-lg p-10 ">
-      <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white"> Productos</h5>
-      <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400 mb-6"> Tus productos para crear contenido
+    @if (step() === 'products') {
+    <div class="bg-white rounded-lg p-10">
+      <h5 class="text-m font-semibold text-gray-900 truncate dark:text-white">
+        Productos
+      </h5>
+      <p class="text-sm font-semibold text-gray-500 truncate dark:text-gray-400 mb-6">
+        Tus productos para crear contenido
       </p>
       <div class="overflow-auto h-[600px]">
-      @for (product of listCreation.products; track product.id) {
-      <div class="w-full flex justify-between p-4 border rounded-lg mb-6 border-gray-300 dark:border-gray-700">
-        <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
-        <div class="ms-3 text-sm font-normal items-center flex">
-          <div class="flex items-center ml-4">
-            <input checked  id="purple-checkbox" type="checkbox" value=""
-              class="w-6 h-6 text-purple-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-purple-500 dark:focus:ring-purple-600 ring-offset-neutral-primary focus:ring-2">
+        @for (product of createCreation.products(); track product.id) {
+        <div class="w-full flex justify-between p-4 border rounded-lg mb-6 border-gray-300 dark:border-gray-700">
+          <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
+          <div class="ms-3 text-sm font-normal items-center flex">
+            <div class="flex items-center ml-4">
+              <input checked id="purple-checkbox" type="checkbox" [checked]="createCreation.isSelected(product)"
+                [disabled]="
+                  createCreation.isFull() && !createCreation.isSelected(product)
+                " (change)="createCreation.toggle(product)"
+                class="w-6 h-6 text-purple-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-purple-500 dark:focus:ring-purple-600 ring-offset-neutral-primary focus:ring-2" />
+            </div>
           </div>
         </div>
+        }
       </div>
-      }
-      </div>
-      <button type="button" class=" bg-gray-800 w-full text-white border hover:text-gray-950 border-gray-300 focus:outline-none hover:bg-gray-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" fdprocessedid="uj8vs6b"> Siguiente </button>
-    </div>
+      <button type="button" (click)="nextStep()"
+        class="bg-gray-800 w-full text-white border hover:text-gray-950 border-gray-300 focus:outline-none hover:bg-gray-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+        fdprocessedid="uj8vs6b">
+        Siguiente
+      </button>
+    </div>}
+    @if (step() === 'details') {
+    <div class="bg-white rounded-lg p-10">
+       <button
+      (click)="backToProducts()"
+      class="mb-4 text-sm text-gray-600 hover:underline">
+      ← Volver
+    </button>
+      <h5 class="text-m mb-4 font-bold text-gray-900 truncate dark:text-white">
+        Detalles del contenido a publicar
+      </h5>
 
+      <form class="overflow-auto">
+        <div class="mb-5">
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la
+            creacion</label>
+          <input type="text"
+            class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-purple-500 dark:focus:border-purple-500" />
+        </div>
+        <div class="mb-5">
+          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contenido (normal
+            o full ofertas)</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
+            <option selected>Normal</option>
+            <option selected>Ofertas</option>
+          </select>
+        </div>
+        <div class="mb-5">
+          <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Elige tus opciones
+            de Publicacion</label>
+          <select id="" #publicationSelect (change)="onPublicationChange(publicationSelect.value)"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500">
+            <option value="solo" selected>Solo publicación</option>
+            <option value="vivo">Publicación en vivo</option>
+          </select>
+        </div>
+        @if (publicationType() === 'vivo') {
+        <div class="mb-5">
+          <label
+            class="w-full flex items-center justify-between cursor-pointer p-4 bg-neutral-primary-soft border border-gray-300 rounded-lg shadow-xs">
+            <div class="me-2.5">
+              <p class="text-sm font-black text-heading mb-1">Habilitar</p>
+              <p class="text-sm font-normal text-body select-none">Si desea publicar para fecha y hora posterior</p>
+            </div>
+            <input type="checkbox" value="" class="sr-only peer "  [checked]="scheduleEnabled()"
+      (change)="toggleSchedule()">
+            <div
+              class="relative w-9 h-5 bg-gray-300 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-600 dark:peer-checked:bg-purple-600">
+            </div>
+          </label>
+        </div>}
+        @if (publicationType() === 'vivo' && scheduleEnabled()) {
+        <div class="mb-5">
+          <label for="time" class="block mb-2 text-sm font-medium text-heading">Fecha</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+              <i class="fa-solid fa-calendar"></i>
+            </div>
+           <input
+  type="date"
+  class="bg-gray-50 border border-gray-300
+         text-gray-900 text-sm rounded-lg
+         focus:ring-purple-500 focus:border-purple-500
+         block w-full p-2 pr-10
+         appearance-none
+         [&::-webkit-calendar-picker-indicator]:opacity-0
+         [&::-webkit-calendar-picker-indicator]:absolute
+         [&::-webkit-calendar-picker-indicator]:right-0
+         [&::-webkit-calendar-picker-indicator]:w-full
+         dark:bg-gray-700 dark:border-gray-600
+         dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+/>
+          </div>
+        </div>
+        <div class="mb-5">
+          <label for="time" class="block mb-2 text-sm font-medium text-heading">Hora</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+                <input
+      type="time"
+      id="time"
+      min="09:00"
+      max="18:00"
+      value="00:00"
+      required
+      class="bg-gray-50 border border-gray-300
+             text-gray-900 text-sm rounded-lg
+             focus:ring-purple-500 focus:border-purple-500
+             block w-full p-2 pr-10
+             appearance-none
+             [&::-webkit-calendar-picker-indicator]:opacity-0
+             [&::-webkit-calendar-picker-indicator]:absolute
+             [&::-webkit-calendar-picker-indicator]:right-0
+             [&::-webkit-calendar-picker-indicator]:w-full
+             dark:bg-gray-700 dark:border-gray-600
+             dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+    />
+          </div>
+        </div>}
+      </form>
+      <div
+        class="mb-5 w-full items-center p-4 bg-gray-300 border border-gray-300 rounded-lg shadow-xs">
+        <p class="text-sm font-black text-heading mb-1">Aviso</p>
+        <p class="text-sm font-normal text-body select-none">La interaccion creada que va estar publicado en ttendok
+          tendra una duracion de <span class="font-bold"> 10 dias</span></p>
+      </div>
+      <button type="button"
+        class="bg-gray-800 w-full text-white border hover:text-gray-950 border-gray-300 focus:outline-none hover:bg-gray-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+        fdprocessedid="uj8vs6b">
+        Publicar creación
+      </button>
+    </div>}
   </div>
 </div>

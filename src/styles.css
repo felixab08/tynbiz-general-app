@@ -20,9 +20,12 @@
   --spacing-8xl: 90rem;
   --text-2xs: 0.625rem;
 
-  --color-primary: #7c3aed;
-
   --animate-fadeIn: fadeIn 0.5s ease-in-out;
+
+  --color-primary: #412984;    /* morado */
+  --color-primary-light: #edeeff; /* morado claro */
+  --color-primary-dark: #28184e;  /* morado oscuro */
+  --color-secondary: #dedeff;  /* morado claro */
 
   @keyframes fadeIn {
     0% {
@@ -33,3 +36,5 @@
     }
   }
 }
+
+
