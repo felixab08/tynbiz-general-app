@@ -3,7 +3,7 @@
     <h4 class="text-lg font-bold">Tiendas virtuales</h4>
     <p>Toda las tiendas asociados</p>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-2 m-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 m-6">
     @for (item of isReportStore; track item.id) {
     <tyn-simple-card [isCardValue]="item" [tipeCant]="'monto'" />
     }

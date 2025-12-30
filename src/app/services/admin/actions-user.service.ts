@@ -13,6 +13,7 @@ export class ActionsUserService {
   private _http = inject(HttpClient);
   private actionsListCache = new Map<string, UsersActionsResponse>();
 
+  // TODO:eliminar este metodo y usar el de action-audit.service.ts
   getUsersActions(options: OptionsRequest): Observable<UsersActionsResponse> {
     const { page = 0, size = 5, sort = '' } = options;
     const key = `${page} - ${size} - ${sort}`;
