@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './shared/navbar/navbar.component';
 import { initFlowbite } from 'flowbite';
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 
