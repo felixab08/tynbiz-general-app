@@ -27,6 +27,8 @@ export class NavbarComponent {
 
     this.storeService.user.subscribe((user) => {
       this.user = user;
+      console.log(user);
+
     });
   }
 

@@ -15,27 +15,27 @@ export const storesRoutes: Routes = [
         loadComponent: () =>
           import('./products-store-page/products-store-page.component'),
       },
-       {
+      {
         path: 'contact',
         loadComponent: () =>
           import('./contact-store-page/contact-store-page.component'),
       },
-       {
+      {
         path: 'creation',
         loadComponent: () =>
           import('./creation-store-page/creation-store-page.component'),
       },
-       {
+      {
         path: 'client',
         loadComponent: () =>
           import('./client-store-page/client-store-page.component'),
       },
-       {
+      {
         path: 'info-store',
         loadComponent: () =>
           import('./info-store-page/info-store-page.component'),
       },
-       {
+      {
         path: 'subscriptions',
         loadComponent: () =>
           import('./suscription-store-page/suscription-store-page.component'),
@@ -43,7 +43,13 @@ export const storesRoutes: Routes = [
       {
         path: 'create-creation',
         loadComponent: () =>
-          import('./create-creation-store-page/create-creation-store-page.component'),
+          import(
+            './create-creation-store-page/create-creation-store-page.component'
+          ),
+      },
+      {
+        path: 'create-calendar',
+        loadComponent: () => import('./create-calendar/create-calendar'),
       },
       {
         path: '',
