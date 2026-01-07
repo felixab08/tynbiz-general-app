@@ -14,12 +14,283 @@
       atender a su cliente
     </p>
   </div>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-1 min-h-96 md:grid-cols-2 gap-4">
     <div
-      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4"
-    ></div>
+      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
+    >
+      <!-- <h3 class="text-lg font-bold">Selecciona las fechas</h3> -->
+
+      <div class="flex">
+        <input
+          class="hidden cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-xl focus:ring-brand focus:border-brand w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+          angular-mydatepicker
+          name="reactiveFormsDate"
+          formControlName="myDate"
+          [options]="myDatePickerOptions"
+          #dp="angular-mydatepicker"
+          autocomplete="off"
+          locale="es"
+          (click)="toggleCalendar()"
+        />
+        <i
+          class="fa-regular fa-calendar-days fa-xl mt-5 mx-2 cursor-pointer"
+          (click)="toggleCalendar()"
+        ></i>
+      </div>
+    </div>
     <div
-      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4"
-    ></div>
+      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
+    >
+      <h3 class="text-lg font-bold">Horas semanales</h3>
+      <p>
+        Selecciona las horas en las que vas a estar disponible para atender a
+        tus clientes
+      </p>
+      @for (horario of listHorarioAtendimiento; track $index) {
+      <div class="grid grid-cols-3 gap-2 mt-4">
+        <div class="flex items-center">
+          <input
+            [checked]="horario.status"
+            id="checked-checkbox-{{horario.dia}}"
+            type="checkbox"
+            class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+          />
+          <label
+            for="checked-checkbox-{{horario.dia}}"
+            class="select-none ms-2 text-xl font-medium text-heading"
+            >{{horario.dia}}</label
+          >
+        </div>
+        <div>
+          <label
+            for="from-{{horario.dia}}"
+            class="block mb-2 text-sm font-medium text-heading"
+            >Desde:</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-body"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="time"
+              id="from-{{horario.dia}}"
+              class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+              [min]="horario.desde"
+              [max]="horario.hasta"
+              [value]="horario.desde"
+              required
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            for="to-{{horario.dia}}"
+            class="block mb-2 text-sm font-medium text-heading"
+            >Hasta:</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-body"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="time"
+              id="to-{{horario.dia}}"
+              class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+              [min]="horario.desde"
+              [max]="horario.hasta"
+              [value]="horario.hasta"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      }
+      <!-- martes -->
+
+      <div class="text-center my-6 flex justify-end">
+        <button
+          type="button"
+          class="text-white bg-primary hover:bg-primary-light hover:text-primary border-primary border-2 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none"
+        >
+          Guardar cambios
+        </button>
+      </div>
+    </div>
   </div>
+<!-- copia del primero pero con horas en la mañan y en la tarde -->
+
+  <div class="grid grid-cols-1 min-h-96 md:grid-cols-2 gap-4">
+    <div
+      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
+    >
+
+      <div class="flex">
+        <input
+          class="hidden cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-xl focus:ring-brand focus:border-brand w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+          angular-mydatepicker
+          name="reactiveFormsDate"
+          formControlName="myDate"
+          [options]="myDatePickerOptions"
+          #dp="angular-mydatepicker"
+          autocomplete="off"
+          locale="es"
+          (click)="toggleCalendar()"
+          (dateChanged)="chageDate($event)"
+        />
+      </div>
+    </div>
+    <div
+      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
+    >
+      <h3 class="text-lg font-bold">Horas semanales</h3>
+      <p>
+        Selecciona las horas en las que vas a estar disponible para atender a
+        tus clientes
+      </p>
+      @if (handlerTurno()) {
+      @for (horario of listHorarioTurno; track $index) {
+      <div class="grid grid-cols-3 gap-2 mt-4">
+        <div class="flex items-center">
+          <input
+            [checked]="horario.status"
+            id="checked-checkbox-{{horario.dia}}"
+            type="checkbox"
+            class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+          />
+          <label
+            for="checked-checkbox-{{horario.dia}}"
+            class="select-none ms-2 text-xl font-medium text-heading"
+            >{{horario.dia}}</label
+          >
+        </div>
+        <div>
+          <label
+            for="from-{{horario.dia}}"
+            class="block mb-2 text-sm font-medium text-heading"
+            >Desde:</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-body"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="time"
+              id="from-{{horario.dia}}"
+              class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+              [min]="horario.desde"
+              [max]="horario.hasta"
+              [value]="horario.desde"
+              required
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            for="to-{{horario.dia}}"
+            class="block mb-2 text-sm font-medium text-heading"
+            >Hasta:</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-body"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="time"
+              id="to-{{horario.dia}}"
+              class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+              [min]="horario.desde"
+              [max]="horario.hasta"
+              [value]="horario.hasta"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      }
+
+      <div class="text-center my-6 flex justify-end">
+        <button
+        (click)="onDisableToday(true)"
+          type="button"
+          class="text-white bg-primary hover:bg-primary-light hover:text-primary border-primary border-2 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none"
+        >
+          Guardar cambios
+        </button>
+      </div>
+    }
+    </div>
+  </div>
+
 </div>

@@ -13,7 +13,7 @@
       <button
         (click)="openModal()"
         type="button"
-        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        class="min-w-35 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
       >
         Identificate
       </button>
@@ -23,7 +23,7 @@
       @if (user.role==='STORE_OWNER') {
         <div>
           <p class="text-sm text-gray-500"> Atensión al cliente activa </p>
-          <p >
+          <p class="sm:text-2xs text-xs text-gray-400">
             1 enero 2026 - 1 febrero 2026
             <i class="fa-regular fa-clock fa-xl mt-3 mx-1"></i>
           </p>
@@ -31,9 +31,10 @@
       <button
         type="button"
         routerLink="/stores/create-calendar"
-        class="cursor-pointer text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+        class="cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
       >
-        <p>Calendario <i class="fa-regular fa-calendar-days fa-xl"></i></p>
+        <p class="md:block hidden">Calendario <i class="fa-regular fa-calendar-days fa-xl"></i></p>
+        <p class="md:hidden block"><i class="fa-regular fa-calendar-days fa-xl"></i></p>
       </button>
 
       }
@@ -47,7 +48,6 @@
         data-dropdown-toggle="user-dropdown"
         data-dropdown-placement="bottom"
       >
-        <span class="sr-only">Open user menu</span>
         <img
           class="w-8 h-8 rounded-full"
           src="./assets/img/user.jpeg"
