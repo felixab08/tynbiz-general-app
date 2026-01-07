@@ -1,11 +1,12 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { User } from '@app/auth/interfaces/user.interface';
 import { FormUtils } from '@app/utils/form.util';
 
 @Component({
@@ -15,6 +16,7 @@ import { FormUtils } from '@app/utils/form.util';
 })
 export class ProfileComponent {
   private _fb = inject(FormBuilder);
+  user = input.required<User | undefined>();
 
   formUtils = FormUtils;
 

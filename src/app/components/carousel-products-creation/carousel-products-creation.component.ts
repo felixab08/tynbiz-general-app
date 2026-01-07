@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { IProduct } from '@app/interfaces';
 import { Product } from '@app/interfaces/card.interface';
 import { initCarousels } from 'flowbite';
 
@@ -10,7 +11,7 @@ import { initCarousels } from 'flowbite';
   templateUrl: './carousel-products-creation.component.html',
 })
 export class CarouselProductsCreation {
-  listProduct = input.required<Product[]>();
+  listProduct = input.required<IProduct[]>();
   ngAfterViewInit(): void {
       initCarousels(); // inicializa el carrusel de Flowbite
     }

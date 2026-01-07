@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ProductoContent } from '@app/interfaces';
+import { IProduct, ProductoContent } from '@app/interfaces';
 import { Product } from '@app/interfaces/card.interface';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 
@@ -9,5 +9,5 @@ import { NotImagePipe } from '@app/pipes/not-image.pipe';
   templateUrl: './product-detail-card.component.html',
 })
 export class ProductDetailCardComponent {
-  listProduct = input.required<Product>();
+  listProduct = input.required<IProduct>();
 }

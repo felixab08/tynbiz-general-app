@@ -1,16 +1,16 @@
 @if (creation()) {
 <div class="flex items-start max-w-xs p-2 rounded-lg">
 
-  <div class="bg-white border border-gray-300 rounded-lg p-1.5 dark:bg-gray-800 dark:border-gray-700">
+  <div class="bg-white border border-gray-300 rounded-lg p-1.5">
     <div class="grid grid-cols-2 gap-1 w-32">
       <ng-container *ngFor="let producto of creation().products.slice(0, 3)">
-        <div class="w-14 m-0.5 h-14 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-14 m-0.5 h-14 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden">
           <img [src]="producto.image" alt="Producto" class="h-10 object-contain" />
         </div>
       </ng-container>
       @if (creation().products.length > 3) {
-      <div class="w-14 m-0.5 h-14 border border-gray-300 rounded-md flex items-center justify-center bg-white dark:bg-gray-800 dark:border-gray-700">
-        <span class="text-xs font-semibold text-gray-600 dark:text-gray-200">
+      <div class="w-14 m-0.5 h-14 border border-gray-300 rounded-md flex items-center justify-center bg-white">
+        <span class="text-xs font-semibold text-gray-600">
           +{{ creation().products.length - 3 }}
         </span>
       </div>
@@ -18,11 +18,11 @@
     </div>
   </div>
   <div class="ml-4 flex flex-col justify-start gap-1">
-    <p class="text-sm font-medium text-gray-800 leading-snug dark:text-gray-300">
+    <p class="text-sm font-medium text-gray-800 leading-snug">
       {{ creation().title }}
     </p>
     @if (creation().offer) {
-    <span class="text-xs font-medium text-green-800 bg-green-100 px-2 py-0.5 rounded-full w-fit dark:bg-green-800 dark:text-green-200">
+    <span class="text-xs font-medium text-green-800 bg-green-100 px-2 py-0.5 rounded-full w-fit">
       Oferta
     </span>
     }

@@ -14,7 +14,6 @@ export class CreateCreation {
   readonly isFull = computed(() => this.count() >= MAX);
 
   constructor() {
-    // 💾 Persistencia automática
     effect(() => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this._products()));
     });
@@ -22,12 +21,10 @@ export class CreateCreation {
 
   toggle(product: any) {
     const exists = this._products().some((p) => p.id === product.id);
-
     if (exists) {
       this._products.update((list) => list.filter((p) => p.id !== product.id));
       return;
     }
-
     if (this.isFull()) return;
 
     this._products.update((list) => [...list, product]);

@@ -1,37 +1,28 @@
-<div class="p-2 md:px-20 space-y-4">
-  <div class="mb-6 text-gray-900 dark:text-white">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8 m-4">
+  <div class="max-w-7xl m-auto">
+  <div class="mb-6">
     <h1 class="text-2xl font-semibold">Mi cuenta</h1>
   </div>
-  <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+  <div class="mb-4">
     <ul
-      class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
+      class="flex flex-wrap -mb-px md:text-lg text-sm text-center text-gray-500"
       role="tablist"
     >
-      <li class="me-2" role="presentation">
-        <button
-          (click)="selectedTab = 'selectProfile'"
-          [ngClass]="
+      <li class="md:me-2" role="presentation">
+        <button (click)="selectedTab = 'selectProfile'" [ngClass]="
             selectedTab === 'selectProfile'
-              ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
-              : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
-          "
-          type="button"
-          role="tab"
-        >
+              ? 'inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg active'
+              : 'inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300'
+          " type="button" role="tab">
           Perfil general
         </button>
       </li>
-      <li class="me-2" role="presentation">
-        <button
-          (click)="selectedTab = 'selectPrivacity'"
-          [ngClass]="
+      <li class="md:me-2" role="presentation">
+        <button (click)="selectedTab = 'selectPrivacity'" [ngClass]="
             selectedTab === 'selectPrivacity'
-              ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
-              : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
-          "
-          type="button"
-          role="tab"
-        >
+              ? 'inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg active'
+              : 'inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300'
+          " type="button" role="tab">
           Seguridad y privacidad
         </button>
       </li>
@@ -41,11 +32,12 @@
   <div
     *ngIf="selectedTab === 'selectProfile'"
   >
-    <tyn-profile></tyn-profile>
+    <tyn-profile [user]="user"></tyn-profile>
   </div>
   <div
     *ngIf="selectedTab === 'selectPrivacity'"
   >
     <tyn-security-privacity />
+  </div>
   </div>
 </div>

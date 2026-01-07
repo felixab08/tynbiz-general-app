@@ -12,6 +12,8 @@ export * from './admin/action-audit.interface';
 
 // Shopper Interfaces
 export * from './shopper/catalog.interface';
+export * from './shopper/product-store.interface';
+
 
 //General Interfaces
 export * from './general/services.interface';

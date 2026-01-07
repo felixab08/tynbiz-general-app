@@ -20,13 +20,15 @@ import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AlertComponent } from '@app/components/alert/alert.component';
 import { AlertService } from '@app/services/alert.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-side-menu',
-  imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent, RouterLinkActive],
+  imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent, RouterLinkActive, NgClass],
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {
+
   _authService = inject(AuthService);
   _alertService = inject(AlertService);
   _router = inject(Router);

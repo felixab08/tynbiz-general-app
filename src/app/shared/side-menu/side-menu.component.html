@@ -1,91 +1,54 @@
-<button
-  data-drawer-target="logo-sidebar"
-  data-drawer-toggle="logo-sidebar"
-  aria-controls="logo-sidebar"
-  #drawerToggle
+<button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" #drawerToggle
   type="button"
-  class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
->
+  class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
   <span class="sr-only">Open sidebar</span>
-  <svg
-    class="w-6 h-6"
-    aria-hidden="true"
-    fill="currentColor"
-    viewBox="0 0 20 20"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      clip-rule="evenodd"
-      fill-rule="evenodd"
-      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-    ></path>
+  <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path clip-rule="evenodd" fill-rule="evenodd"
+      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+    </path>
   </svg>
 </button>
 
-<aside
-  id="logo-sidebar"
-  #logoSidebar
-  class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0"
-  aria-label="Sidebar"
->
+<aside id="logo-sidebar" #logoSidebar
+  class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
   <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-primary-dark">
     <a href="#" class="flex items-center justify-center ps-2.5 mb-5">
-      <img
-        src="./assets/svg/ImagotipoTynbizBlanco.svg"
-        class="h-6 me-3 sm:h-8"
-        alt="Tynbiz Logo"
-      />
+      <img src="./assets/svg/ImagotipoTynbizBlanco.svg" class="h-6 me-3 sm:h-8" alt="Tynbiz Logo" />
     </a>
     <ul class="space-y-2 font-medium">
       @for (menu of menuItemsAll; track menu.id) { @if (menu.route.length >= 2)
       {
       <li>
-        <a
-          [routerLink]="menu.route"
-          routerLinkActive="bg-secondary text-primary-dark"
-          class="flex items-center p-2 text-white rounded-lg hover:bg-secondary hover:text-primary-dark group"
-        >
-          <i [class]="menu.icon"></i>
+        <a [routerLink]="menu.route" routerLinkActive #rla="routerLinkActive"
+          [routerLinkActiveOptions]="{ exact: true }" class="flex items-center p-2 rounded-lg transition-colors"
+          [ngClass]="{
+          'bg-secondary text-primary-dark': rla.isActive,
+          'text-white hover:bg-secondary hover:text-primary-dark': !rla.isActive
+        }">
+          <i [class]="menu.icon" class="text-current"></i>
           <span class="ms-3">{{ menu.name }}</span>
         </a>
       </li>
       } @else {
       <li>
-        <button
-          type="button"
+        <button type="button"
           class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-secondary hover:text-primary-dark"
-          [attr.aria-controls]="menu.id"
-          [attr.data-collapse-toggle]="menu.id"
-        >
+          [attr.aria-controls]="menu.id" [attr.data-collapse-toggle]="menu.id">
           <i [class]="menu.icon"></i>
-          <span
-            class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
-            >{{ menu.name }}</span
-          >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 10 6"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 4 4 4-4"
-            />
+          <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">{{ menu.name }}</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 4 4 4-4" />
           </svg>
         </button>
         <ul [id]="menu.id" class="hidden py-2 space-y-2">
           @for (item of menu.children; track item.name) {
           <li>
-            <a
-              [routerLink]="item.route"
-              routerLinkActive="bg-secondary text-primary-dark"
-              class="flex items-center p-2 text-white rounded-lg  hover:bg-secondary hover:text-primary-dark group"
-            >
+            <a [routerLink]="item.route" routerLinkActive #rlaChild="routerLinkActive"
+              class="flex items-center p-2 rounded-lg transition-colors" [ngClass]="{
+              'bg-secondary text-primary-dark': rlaChild.isActive,
+              'text-white hover:bg-secondary hover:text-primary-dark': !rlaChild.isActive
+            }">
               <span class="ms-3">{{ item.name }}</span>
             </a>
           </li>
@@ -95,11 +58,7 @@
       } }
     </ul>
     @if (this.user?.role?.includes('STORE_OWNER')) {
-    <div
-      id="dropdown-cta"
-      class="p-4 mt-6 rounded-lg flex justify-between bg-gray-100 "
-      role="alert"
-    >
+    <div id="dropdown-cta" class="p-4 mt-6 rounded-lg flex justify-between bg-gray-100 " role="alert">
       <div>
         <p class="font-bold text-sm">Feedback</p>
         <p class="text-sm">Esta en desarrollo</p>
@@ -109,11 +68,7 @@
       </div>
     </div>
 
-    <div
-      id="dropdown-cta"
-      class="p-4 mt-6 rounded-lg bg-gray-100"
-      role="alert"
-    >
+    <div id="dropdown-cta" class="p-4 mt-6 rounded-lg bg-gray-100" role="alert">
       <p class="mb-3 font-bold text-sm ">
         Publica tu creación
       </p>
@@ -121,11 +76,8 @@
         Publica o promociona tus productos en vivo
       </p>
       <div class="flex items-center">
-        <a
-        href="#/stores/create-creation"
-          type="button"
-          class="w-full flex justify-evenly text-white bg-red-800 hover:text-red-700 border-2 border-red-700 hover:bg-red-200 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-3xl text-sm px-5 py-2.5 text-center me-2 mb-2"
-        >
+        <a href="#/stores/create-creation" type="button"
+          class="w-full flex justify-evenly text-white bg-red-800 hover:text-red-700 border-2 border-red-700 hover:bg-red-200 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-3xl text-sm px-5 py-2.5 text-center me-2 mb-2">
           Crear
         </a>
       </div>

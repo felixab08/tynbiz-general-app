@@ -23,9 +23,10 @@
   --animate-fadeIn: fadeIn 0.5s ease-in-out;
 
   --color-primary: #412984;    /* morado */
-  --color-primary-light: #edeeff; /* morado claro */
+  --color-primary-light: #edeeff; /* morado super claro */
   --color-primary-dark: #28184e;  /* morado oscuro */
   --color-secondary: #dedeff;  /* morado claro */
+  --color-secondary-dark: #a5a0ff; /* morado medio */
 
   @keyframes fadeIn {
     0% {
