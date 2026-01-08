@@ -1,3 +1,4 @@
+import { IProduct } from "./shopper/product-store.interface";
 export interface CardInfo {
   id: number;
   title: string;
@@ -49,7 +50,7 @@ export interface Cardcreations {
   numVistas: string;
   offer: boolean;
   store: CardStores;
-  products: Product[];
+  products: IProduct[];
 }
 export interface creationStore {
     id: number;

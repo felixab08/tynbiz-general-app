@@ -13,8 +13,8 @@
           )
         }">Nombre</label>
           <input type="text" id="name" formControlName="name"
-            class="border text-sm rounded-lg block w-full p-2.5 focus:border-primary" [placeholder]="user()?.firstName" [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500':
+            class="input-base" [placeholder]="user()?.firstName" [ngClass]="{
+          'input-error':
             formUtils.isValiedField(myForm, 'name')
         }" />
           @if(formUtils.isValiedField(myForm,'name')){
@@ -34,8 +34,8 @@
           )
         }">Apellidos</label>
           <input type="text" id="lastName" formControlName="lastName"
-            class="border text-sm rounded-lg block w-full p-2.5 focus:border-primary" [placeholder]="user()?.lastName" [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500':
+            class="input-base" [placeholder]="user()?.lastName" [ngClass]="{
+          'input-error':
             formUtils.isValiedField(myForm, 'lastName')
         }" />
           @if(formUtils.isValiedField(myForm,'lastName')){
@@ -52,7 +52,7 @@
         <div>
           <label for="gender" class="block mb-2 text-sm font-medium text-black">Genero</label>
           <select id="gender"
-            class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
+            class="input-base">
             <option selected>Seleccione</option>
             <option value="US">Masculino</option>
             <option value="CA">Femenino</option>
@@ -66,8 +66,8 @@
           )
         }">Correo electronico</label>
           <input type="text" id="email" formControlName="email"
-            class="border text-sm rounded-lg block w-full p-2.5 focus:border-primary" [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500':
+            class="input-base" [ngClass]="{
+          'input-error':
             formUtils.isValiedField(myForm, 'email')
         }" />
           @if(formUtils.isValiedField(myForm,'email')){
@@ -90,8 +90,8 @@
           )
         }">DNI</label>
           <input type="text" id="dni" formControlName="dni"
-            class="border text-sm rounded-lg block w-full p-2.5 focus:border-primary" [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 ':
+            class="input-base" [ngClass]="{
+          'input-error':
             formUtils.isValiedField(myForm, 'dni')
         }" />
           @if(formUtils.isValiedField(myForm,'dni')){
@@ -111,8 +111,8 @@
           )
         }">N° celular</label>
           <input type="text" id="phone" formControlName="phone"
-            class="border text-sm rounded-lg block w-full p-2.5 focus:border-primary" [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500':
+            class="input-base" [ngClass]="{
+          'input-error':
             formUtils.isValiedField(myForm, 'phone')
         }" />
           @if(formUtils.isValiedField(myForm,'phone')){
@@ -133,8 +133,8 @@
         )
       }">Fecha de nacimiento</label>
         <input type="date" id="birthdate" formControlName="birthdate"
-          class="border text-sm rounded-lg block w-full p-2.5 focus:border-primary" [ngClass]="{
-        ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500':
+          class="input-base" [ngClass]="{
+        'input-error':
           formUtils.isValiedField(myForm, 'birthdate')
       }" />
         @if(formUtils.isValiedField(myForm,'birthdate')){
@@ -154,11 +154,11 @@
           </div>
           <div class="flex gap-3">
             <button type="button"
-              class="py-2.5 px-5 ms-3 text-sm font-medium text-black focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100 ">
+              class="button-secondary">
               Eliminar foto
             </button>
             <label
-              class="py-2.5 px-5 ms-3 text-sm font-medium text-black focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100 ">
+              class="button-primary">
               Agregar foto
               <input type="file" class="hidden" />
             </label>
@@ -172,7 +172,7 @@
         <div>
           <label for="language" class="block mb-2 text-sm font-medium text-black">Idioma</label>
           <select id="language"
-            class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
+            class=" input-base">
 
             <option value="ES">Español</option>
             <option value="EN">Ingles</option>
@@ -193,11 +193,11 @@
 
     <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
       <button type="button"
-        class="py-2.5 px-5 ms-3 text-sm font-medium text-black focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100">
+        class="button-secondary me-3">
         Cancelar
       </button>
       <button data-modal-hide="default-modal" type="button"
-        class="text-white bg-primary ml-4 hover:bg-primary-900 focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+        class="button-primary">
         Guardar
       </button>
     </div>
