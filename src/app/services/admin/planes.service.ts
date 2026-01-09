@@ -24,11 +24,11 @@ export class PlanesService {
     const {
       page = 0,
       size = 5,
-      sort = '',
-      endDate = '',
+      isActive = true,
       startDate = '',
-      nombre = '',
-      status = '',
+      endDate = '',
+      searchTerm = '',
+      sort = '',
     } = options;
     const key = `${page} - ${size} - ${sort}`;
 
@@ -43,10 +43,10 @@ export class PlanesService {
     };
     if (startDate) params.startDate = startDate;
     if (endDate) params.endDate = endDate;
-    if (nombre) params.nombre = nombre;
-    if (status) params.status = status;
+    if (isActive) params.isActive = isActive;
+    if (searchTerm) params.searchTerm = searchTerm;
     if (sort) params.sort = sort;
-    return this._http.get<IPlanResponse>(`${baseUrl}/subscription-plans/all`, {
+    return this._http.get<IPlanResponse>(`${baseUrl}/subscription-plans`, {
       params,
     });
   }

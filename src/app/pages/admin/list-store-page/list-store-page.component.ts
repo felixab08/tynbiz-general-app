@@ -28,7 +28,6 @@ type storeStatus =
   templateUrl: './list-store-page.component.html',
 })
 export default class ListStorePageComponent {
-  rolLists = [...resquestDemoListMock];
   private _storeManagementSrv = inject(StoreManagementService);
   _linkService = inject(LinkParamService);
   _router = inject(Router);

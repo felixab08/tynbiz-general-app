@@ -38,3 +38,13 @@ export const FILTERSELECTLIST = [
     value: 'Cancelado',
   },
 ];
+export const FILTERISACTIVELIST = [
+  {
+    id: 'false',
+    value: 'Activo',
+  },
+  {
+    id: 'true',
+    value: 'Inactivo',
+  },
+];

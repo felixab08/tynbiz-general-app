@@ -6,7 +6,11 @@ import { PlanesSuscriptionFormModalPageComponent } from './planes-suscription-fo
 import { WarningModalComponent } from '@app/components/warning-modal/warning-modal.component';
 import { SuccessModalComponent } from '@app/components/success-modal/success-modal.component';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { PlanesService } from '@app/services';
+import { LinkParamService, PlanesService } from '@app/services';
+import { Router } from '@angular/router';
+import { FILTERISACTIVELIST } from '@app/constant';
+import { FilterComponent } from '@app/components/filter/filter.component';
+import { PaginationComponent } from '@app/components/pagination/pagination.component';
 
 @Component({
   selector: 'tyn-planes-suscription-page',
@@ -17,6 +21,8 @@ import { PlanesService } from '@app/services';
     PlanesSuscriptionFormModalPageComponent,
     SuccessModalComponent,
     DatePipe,
+    FilterComponent,
+    PaginationComponent,
   ],
   templateUrl: './planes-suscription-page.component.html',
 })
@@ -33,24 +39,46 @@ export default class PlanesSuscriptionPageComponent {
   successModalVisible = false;
   currentAction: 'eliminar' | 'activar' = 'eliminar';
   successType: 'success' | 'error' | 'warning' = 'success';
+  _linkService = inject(LinkParamService);
+  _router = inject(Router);
 
   private _planesService = inject(PlanesService);
+  // Filtros
+  filterMenu = signal({
+    searchShow: true,
+    datesShow: true,
+    selectShow: true,
+    filterSelectList: FILTERISACTIVELIST,
+  });
 
   planesResorce = rxResource({
     request: () => ({
-      isActive: true,
-      isPublic: true,
+      page: this._linkService.currentPage() - 1,
+      size: this._linkService.currentSize(),
+      status: this._linkService.currentStatus(),
+      searchTerm: this._linkService.currentSearchTerm(),
+      startDate: this._linkService.currentDateInitialFilter(),
+      endDate: this._linkService.currentDateEndFilter(),
     }),
     loader: ({ request }) => {
       return (
         this._planesService.getPlanes({
-          isActive: request.isActive,
-          isPublic: request.isPublic,
+          page: request.page,
+          size: request.size,
+          searchTerm: request.searchTerm,
+          status: request.status,
+          startDate: request.startDate,
+          endDate: request.endDate,
         }) || {}
       );
     },
   });
-
+  changeState(state: string): void {
+    this._router.navigate([], {
+      queryParams: { status: state, page: 1, size: 5 },
+      queryParamsHandling: 'merge',
+    });
+  }
   toggleDropdown(plan: any) {
     this.selectedPlan = plan;
     this.openDropdownIndex =
@@ -98,27 +126,6 @@ export default class PlanesSuscriptionPageComponent {
     this.successModalVisible = true;
   }
 
-  totalPages() {
-    return Math.ceil(this.planList.length / this.itemsPerPage);
-  }
-  get paginatedData() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.planList.slice(start, this.currentPage * this.itemsPerPage);
-  }
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages()) {
-      this.currentPage = page;
-    }
-  }
-  setPage(page: number) {
-    this.currentPage = page;
-  }
-  prevPage() {
-    if (this.currentPage > 1) this.currentPage--;
-  }
-  nextPage() {
-    if (this.currentPage < this.totalPages()) this.currentPage++;
-  }
   onItemsPerPageChange(value: number) {
     this.itemsPerPage = value;
     this.currentPage = 1;
@@ -142,12 +149,7 @@ export default class PlanesSuscriptionPageComponent {
 
   onSavePlan(planData: any) {
     if (this.modalMode === 'crear') {
-      this.planList.push(planData);
-    } else {
-      const index = this.planList.findIndex((p) => p.id === planData.id);
-      if (index !== -1) {
-        this.planList[index] = planData;
-      }
+      console.log(planData);
     }
     this.closeFormModal();
   }

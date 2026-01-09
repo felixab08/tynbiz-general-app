@@ -36,15 +36,15 @@ export class PlanesSuscriptionFormModalPageComponent {
   initForm() {
     if (this.selectedPlan) {
       // Modo editar
-      this.namePlan.set(this.selectedPlan.planName);
-      this.descriptionPlan.set(this.selectedPlan.planDescription);
-      this.price.set(this.selectedPlan.planPrice);
-      this.coin.set(this.selectedPlan.planCoin);
-      this.selectedTypePlan.set(this.selectedPlan.planType);
-      this.estado.set(this.selectedPlan.planState);
-      this.isOffer.set(this.selectedPlan.promotional === 'true');
-      this.discount.set(this.selectedPlan.percentage || 0);
-      this.promoDays.set(this.selectedPlan.promDuration || 0);
+      this.namePlan.set(this.selectedPlan.name);
+      this.descriptionPlan.set(this.selectedPlan.description);
+      this.price.set(this.selectedPlan.price);
+      this.coin.set(this.selectedPlan.currency);
+      this.selectedTypePlan.set(this.selectedPlan.billingCycle);
+      this.estado.set(this.selectedPlan.isActive);
+      this.isOffer.set(this.selectedPlan.hasPromotion === 'true');
+      this.discount.set(this.selectedPlan.discountPercentage || 0);
+      this.promoDays.set(this.selectedPlan.discountDays || 0);
     } else {
       // Modo nuevo plan
       this.namePlan.set('');
@@ -52,7 +52,7 @@ export class PlanesSuscriptionFormModalPageComponent {
       this.price.set(0);
       this.coin.set('USD');
       this.selectedTypePlan.set('uso de tynbiz');
-      this.estado.set('activo');
+      this.estado.set('true');
       this.isOffer.set(false);
       this.discount.set(0);
       this.promoDays.set(0);
@@ -66,16 +66,15 @@ export class PlanesSuscriptionFormModalPageComponent {
   onSave() {
     const data = {
       id: this.selectedPlan?.id || Date.now(), // solo si es nuevo
-      planName: this.namePlan(),
-      planDescription: this.descriptionPlan(),
-      planPrice: this.price(),
-      planCoin: this.coin(),
-      planType: this.selectedTypePlan(),
-      planState: this.estado(),
-      promotional: this.isOffer() ? 'true' : 'false',
-      percentage: this.discount(),
-      promDuration: this.promoDays(),
-      planDate: new Date().toISOString().split('T')[0],
+      name: this.namePlan(),
+      description: this.descriptionPlan(),
+      price: this.price(),
+      currency: this.coin(),
+      billingCycle: this.selectedTypePlan(),
+      isActive: this.estado(),
+      hasPromotion: this.isOffer() ? 'true' : 'false',
+      discountPercentage: this.discount(),
+      discountDays: this.promoDays(),
     };
     this.save.emit(data);
   }

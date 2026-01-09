@@ -18,7 +18,17 @@
       </button>
     </div>
   </div>
-  <div class="overflow-x-auto">
+  <!-- Búsqueda general -->
+  <tyn-filter
+    [filterMenu]="filterMenu()"
+    (selectFilter)="changeState($event)"
+    placeholder="Buscar"
+    [currentPage]="_linkService.currentPage()"
+    [currentSize]="_linkService.currentSize()"
+    [currentSearchTerm]="_linkService.currentSearchTerm()"
+    [currentDateStartValue]="_linkService.currentDateInitialFilter()"
+    [currentDateEndValue]="_linkService.currentDateEndFilter()"
+  ></tyn-filter>
     <div class="relative shadow-md rounded-md">
       <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -142,95 +152,18 @@
       </table>
     </div>
     <!-- Paginación -->
-    <div class="flex justify-between">
-      <div class="flex my-6 items-center">
-        <p class="text-sm text-gray-700">Filas por página:</p>
-        <select
-          [(ngModel)]="itemsPerPage"
-          (ngModelChange)="onItemsPerPageChange($event)"
-          class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
-        >
-          @for (option of [5, 10, 15, 20, 50]; track $index) {
-          <option [value]="option">{{ option }}</option>
-          }
-        </select>
-      </div>
-      <div class="justify-end">
-        <nav
-          aria-label="Page navigation example "
-          class="my-6 flex justify-center"
-        >
-          <ul class="flex items-center -space-x-px h-8 text-sm">
-            <li>
-              <button
-                (click)="prevPage()"
-                [disabled]="currentPage === 1"
-                class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                <span class="sr-only">Previous</span>
-                <svg
-                  class="w-2.5 h-2.5 rtl:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 1 1 5l4 4"
-                  />
-                </svg>
-              </button>
-            </li>
-            <!-- Números de página generados dinámicamente -->
-            <li
-              *ngFor="let page of [].constructor(totalPages()); let i = index"
-            >
-              <button
-                (click)="setPage(i + 1)"
-                [ngClass]="{
-                  'z-10 text-purple-600 border-purple-400 bg-purple-300 hover:bg-purple-100 hover:text-purple-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white':
-                    currentPage === i + 1,
-                  'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
-                    currentPage !== i + 1
-                }"
-                class="flex items-center justify-center px-3 h-8 leading-tight border"
-              >
-                {{ i + 1 }}
-              </button>
-            </li>
-            <li>
-              <button
-                (click)="nextPage()"
-                [disabled]="currentPage === totalPages()"
-                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                <span class="sr-only">Next</span>
-                <svg
-                  class="w-2.5 h-2.5 rtl:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
+    @if(planesResorce.hasValue()){
+    <app-pagination
+      [pages]="planesResorce.value().totalPages"
+      [totalElements]="planesResorce.value().totalElements"
+      [currentPage]="_linkService.currentPage()"
+      [currentSize]="_linkService.currentSize()"
+      [currentStatus]="_linkService.currentStatus()"
+      [currentSearchTerm]="_linkService.currentSearchTerm()"
+      [currentDateStartValue]="_linkService.currentDateInitialFilter()"
+      [currentDateEndValue]="_linkService.currentDateEndFilter()"
+    />
+    }
 </div>
 
 <!-- Modal nuevo Plan -->
