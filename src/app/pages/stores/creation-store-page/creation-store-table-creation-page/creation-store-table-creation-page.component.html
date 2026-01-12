@@ -1,38 +1,38 @@
 <div class="relative rounded-md shadow-lg border border-gray-300 overflow-x-auto">
-  <table class="w-full text-sm text-left rtl:text-right text-black rounded-md bg-white">
-    <thead class="text-sm text-black border-b border-gray-300 bg-gray-100">
+  <table class="tabla">
+    <thead class="bg-gray-100">
       <tr>
-        <th scope="col" class="px-6 py-3">Publicados</th>
-        <th scope="col" class="px-6 py-3">Estado</th>
+        <th scope="col">Publicados</th>
+        <th scope="col">Estado</th>
         @if(tipeTable()==='live'){
-        <th scope="col" class="px-6 py-3">Se activa en Vivo</th>
-        <th scope="col" class="px-6 py-3">Tiempo en vivo</th>
+        <th scope="col">Se activa en Vivo</th>
+        <th scope="col">Tiempo en vivo</th>
         }
-        <th scope="col" class="px-6 py-3">Vistas</th>
-        <th scope="col" class="px-6 py-3">Disponible</th>
-        <th scope="col" class="px-6 py-3">Fecha</th>
-        <th scope="col" class="px-6 py-3">Opción</th>
+        <th scope="col">Vistas</th>
+        <th scope="col">Disponible</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Opción</th>
       </tr>
     </thead>
     <tbody>
       @for (item of selectedList(); track item.id) {
       <tr
-        class="border-b border-gray-300 hover:bg-gray-50">
-        <td class="p-2  w-80">
+        >
+        <th class="p-2 w-80">
           <tyn-creationes-store-card-creation-page [creation]="item" ></tyn-creationes-store-card-creation-page>
-        </td>
-        <td class="px-6 py-4" [ngClass]="{
+        </th>
+        <td  [ngClass]="{
               ' text-green-600': item.state === 'activo',
               ' text-red-600': item.state === 'inactivo'
             }"> {{item.state}} </td>
         @if(tipeTable()==='live'){
-        <td class="px-6 py-4">{{item.timeForActive}}</td>
-        <td class="px-6 py-4">{{item.timeActive}}</td>
+        <td >{{item.timeForActive}}</td>
+        <td >{{item.timeActive}}</td>
         }
-        <td class="px-6 py-4"> {{item.numVistas}} </td>
-        <td class="px-6 py-4"> {{item.timeAvailable}}  </td>
-        <td class="px-6 py-4"> {{item.date}}  </td>
-        <td class="relative px-6 py-4">
+        <td > {{item.numVistas}} </td>
+        <td > {{item.timeAvailable}}  </td>
+        <td > {{item.date}}  </td>
+        <td class="relative">
           <div class="relative inline-block">
             <!-- Icono de tres puntos (puedes usar un ícono o texto) -->
             <button (click)="toggleDropdown(item)" class="text-xl px-2 py-1">

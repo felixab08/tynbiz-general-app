@@ -1,7 +1,7 @@
-<div class="p-6rounded-lg m-6 xl:w-2/3 xl:m-auto">
+<div class=" rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
   @if (user()) {
   <form class="mt-5" autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()">
-    <div class="rounded-lg bg-white p-6 mb-6">
+    <div class="mb-6 card-static">
       <h1 class="text-xl font-bold mb-6">Información básica</h1>
       <!-- name -->
       <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -145,11 +145,11 @@
         </p>
         }
       </div>}
-      <div class="mb-6">
+      <div class="mb-2">
         <h4 class="text-lg font-semibold mt-4">Foto </h4>
         <h4 class="text-sm font-normal mb-4">Carga una foto a tu perfil de tu cuenta</h4>
-        <div class="flex items-center gap-6 mb-8 justify-between">
-          <div class="flex items-center justify-center w-20 h-20 rounded-full">
+        <div class="md:flex items-center gap-6 justify-between">
+          <div class="flex items-center justify-center w-20 h-20 rounded-full mb-6">
             <img src="./assets/img/log-4.jpg" class="rounded-full" alt="">
           </div>
           <div class="flex gap-3">
@@ -166,9 +166,9 @@
         </div>
       </div>
     </div>
-    <div class="rounded-lg bg-white p-6">
+    <div class="mb-6 card-static">
       <h1 class="text-xl font-bold mb-6">Configuración de la cuenta</h1>
-      <div class="grid gap-6 mb-6 md:grid-cols-2">
+      <div class="grid gap-6 mb-2 md:grid-cols-2">
         <div>
           <label for="language" class="block mb-2 text-sm font-medium text-black">Idioma</label>
           <select id="language"

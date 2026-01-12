@@ -1,128 +1,106 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8 m-4">
-  <div class="max-w-7xl m-auto">
-    <div class="mb-6 text-gray-900 ">
-      <h1 class="text-2xl font-semibold">Información de tienda</h1>
+<div class="mb-6 text-gray-900 ">
+  <h1 class="text-2xl font-semibold">Información de tienda</h1>
+</div>
+<div class="p-4 md:p-8 bg-white rounded-lg relative shadow-lg border border-gray-300 overflow-x-auto max-w-2xl">
+  <form class="mx-auto">
+    <h4 class="text-lg font-semibold mb-4">Datos tienda online</h4>
+    <h4 class="text-lg font-semibold my-4">Carga logo de la tienda virtual</h4>
+    <div class="mb-10">
+      <!-- Logo upload -->
+      <div class="flex items-center gap-6 mb-8 justify-between">
+
+        <!-- Preview logo -->
+        <div class="flex items-center justify-center w-20 h-20 rounded-l">
+          <img src="./assets/img/log-4.jpg" class="rounded-xl" alt="">
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-3">
+          <button type="button" class="button-secondary">
+            Eliminar foto
+          </button>
+
+          <label class="button-secondary">
+            Agregar foto
+            <input type="file" class="hidden" />
+          </label>
+        </div>
+
+      </div>
+
     </div>
-    <div class="p-4 md:p-8 bg-white rounded-lg relative shadow-lg border border-gray-300 overflow-x-auto max-w-2xl">
-      <form class="mx-auto">
-        <h4 class="text-lg font-semibold mb-4">Datos tienda online</h4>
-        <h4 class="text-lg font-semibold my-4">Carga logo de la tienda virtual</h4>
-        <div class="mb-10">
-          <!-- Logo upload -->
-          <div class="flex items-center gap-6 mb-8 justify-between">
-
-            <!-- Preview logo -->
-            <div class="flex items-center justify-center w-20 h-20 rounded-l">
-              <img src="./assets/img/log-4.jpg" class="rounded-xl" alt="">
-            </div>
-
-            <!-- Buttons -->
-            <div class="flex gap-3">
-              <button type="button"
-                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100">
-                Eliminar foto
-              </button>
-
-              <label
-                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100">
-                Agregar foto
-                <input type="file" class="hidden" />
-              </label>
-            </div>
-
-          </div>
-
-        </div>
-        <div class="mb-5">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la empresa
-            online</label>
-          <input type="text"
-            class="md:mb-6 input-base" />
-        </div>
-        <div class="mb-5">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la tienda
-            online</label>
-          <input type="text"
-            class="md:mb-6 input-base" />
-        </div>
-        <div class="mb-5">
-          <label for="number" class="block mb-2 text-sm font-medium text-gray-900">RUC</label>
-          <input type="text"
-            class="mb-6 input-base" />
-        </div>
-        <div class="mb-5">
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Enlace
-            tienda</label>
-          <input type="text"
-            class="mb-5 input-base" />
-        </div>
-        <div class="mb-5">
-          <div class="grid md:grid-cols-3 gap-4">
-            <div>
-              <label for="countries"
-                class="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
-              <select id="countries"
-                class="input-base">
-                <option selected></option>
-              </select>
-            </div>
-            <div>
-              <label for="countries"
-                class="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
-              <select id="countries"
-                class="input-base">
-                <option selected></option>
-              </select>
-            </div>
-            <div>
-              <label for="countries"
-                class="block mb-2 text-sm font-medium text-gray-900">Distrito</label>
-              <select id="countries"
-                class="input-base">
-                <option selected></option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="mb-5">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Direccion</label>
-          <input type="text"
-            class="md:mb-6 input-base" />
-        </div>
-        <div class="mb-5">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Categoria de la tienda
-            online</label>
-          <select id="countries"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 ">
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la empresa
+        online</label>
+      <input type="text" class="md:mb-6 input-base" />
+    </div>
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la tienda
+        online</label>
+      <input type="text" class="md:mb-6 input-base" />
+    </div>
+    <div class="mb-5">
+      <label for="number" class="block mb-2 text-sm font-medium text-gray-900">RUC</label>
+      <input type="text" class="mb-6 input-base" />
+    </div>
+    <div class="mb-5">
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Enlace
+        tienda</label>
+      <input type="text" class="mb-5 input-base" />
+    </div>
+    <div class="mb-5">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div>
+          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
+          <select id="countries" class="input-base">
             <option selected></option>
           </select>
         </div>
-        <div class="mb-5">
-          <input type="text"
-            class="md:mb-6 input-base" />
+        <div>
+          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
+          <select id="countries" class="input-base">
+            <option selected></option>
+          </select>
         </div>
-        <div class="mb-5">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Correo</label>
-          <input type="text"
-            class="mb-6 input-base" />
+        <div>
+          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Distrito</label>
+          <select id="countries" class="input-base">
+            <option selected></option>
+          </select>
         </div>
-        <div class="mb-5">
-          <label for="number" class="block mb-2 text-sm font-medium text-gray-900">Numero de
-            telefono</label>
-          <input type="text"
-            class="mb-6 input-base" />
-        </div>
-      </form>
-      <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
-        <button type="button"
-          class="button-secondary me-3">
-          Cancelar
-        </button>
-        <button data-modal-hide="default-modal" type="button"
-          class="button-primary">
-          Guardar
-        </button>
       </div>
     </div>
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Direccion</label>
+      <input type="text" class="md:mb-6 input-base" />
+    </div>
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Categoria de la tienda
+        online</label>
+      <select id="countries"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 ">
+        <option selected></option>
+      </select>
+    </div>
+    <div class="mb-5">
+      <input type="text" class="md:mb-6 input-base" />
+    </div>
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Correo</label>
+      <input type="text" class="mb-6 input-base" />
+    </div>
+    <div class="mb-5">
+      <label for="number" class="block mb-2 text-sm font-medium text-gray-900">Numero de
+        telefono</label>
+      <input type="text" class="mb-6 input-base" />
+    </div>
+  </form>
+  <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
+    <button type="button" class="button-secondary me-3">
+      Cancelar
+    </button>
+    <button data-modal-hide="default-modal" type="button" class="button-primary">
+      Guardar
+    </button>
   </div>
 </div>

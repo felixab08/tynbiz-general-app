@@ -1,9 +1,9 @@
 @if (listProduct()) {
 <div class="flex items-center">
-  <div class="relative bg-white w-24 h-24 shrink-0 justify-center flex items-center rounded-lg">
+  <div class="mini-card-img md">
     <img class="h-20" [src]="listProduct().mediaUrls | notImage" alt="Jese Leos image" />
   </div>
-  <div class="md:ms-3 text-sm font-normal">
+  <div class="md:ms-3 text-sm font-normal ms-2">
     <p class="text-sm font-normal text-black">
       {{ listProduct().sku }}
     </p>
@@ -14,7 +14,7 @@
       Color: {{ listProduct().colors.join(', ') }} Talla: {{ listProduct().sizes.join(', ') }}
     </p>
     <p class="text-sm font-normal text-black">
-      {{ listProduct().originalPrice }}
+      S/. {{ listProduct().originalPrice }}
     </p>
   </div>
 

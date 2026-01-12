@@ -11,24 +11,24 @@
         }
       </div>
       <!-- Slider indicators -->
-      <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+      <!-- <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
         @for (item of listProduct(); track $index) {
         <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
           data-carousel-slide-to="0"></button>}
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="col-span-2 xl:col-span-1 z-14">
     <!-- imagenes de productos extras right -->
     <ng-container *ngFor="let producto of listProduct().slice(0, 2)">
       <div
-        class="bg-purple-200 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
+        class="mini-card-img xs">
         <img class="h-10 rounded-sm" [src]="producto.mediaUrls[0]" alt="Producto" />
       </div>
     </ng-container>
     @if (listProduct().length > 2) {
-    <div class="bg-purple-200 float-right my-2 w-12 h-12 flex justify-center items-center rounded-sm dark:bg-gray-600">
-      <span class="font-medium text-gray-600 dark:text-gray-300">+{{ listProduct().length - 2 }}
+    <div class="mini-card-img xs">
+      <span class="font-medium text-gray-600">+{{ listProduct().length - 2 }}
       </span>
     </div>
     }
