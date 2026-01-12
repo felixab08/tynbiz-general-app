@@ -1,40 +1,36 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8 m-4">
-  <div class="max-w-7xl m-auto">
-    <div class="mb-6">
-      <h1 class="text-2xl font-semibold mb-2">Creaciones</h1>
-    </div>
-    <div class="mb-4">
-      <ul class="flex flex-wrap -mb-px md:text-lg text-sm text-center text-gray-500" role="tablist">
-        <li class="me-2" role="presentation">
-          <button (click)="selectedTab = 'published'" [ngClass]="
-                  selectedTab === 'published'
-                    ? 'inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg active'
-                    : 'inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300'
-                " type="button" role="tab">
-            Publicados
-          </button>
-        </li>
-        <li class="me-2" role="presentation">
-          <button (click)="selectedTab = 'offers'" [ngClass]="
-                  selectedTab === 'offers'
-                    ? 'inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg active'
-                    : 'inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300'
-                " type="button" role="tab">
-            Ofertas
-          </button>
-        </li>
-        <li class="me-2" role="presentation">
-          <button (click)="selectedTab = 'live'" [ngClass]="
-                  selectedTab === 'live'
-                    ? 'inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg active'
-                    : 'inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300'
-                " type="button" role="tab">
-            En vivo
-          </button>
-        </li>
-      </ul>
-    </div>
-    <tyn-creation-store-table-creation-page [listCreation]="cardCrea"
-      [tipeTable]="selectedTab"></tyn-creation-store-table-creation-page>
-  </div>
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold mb-2">Creaciones</h1>
 </div>
+<div class="mb-4">
+  <ul class="tab" role="tablist">
+    <li class="me-2" role="presentation">
+      <button (click)="selectedTab = 'published'" [ngClass]="
+                  selectedTab === 'published'
+                    ? 'tab-active'
+                    : 'tab-inactive'
+                " type="button" role="tab">
+        Publicados
+      </button>
+    </li>
+    <li class="me-2" role="presentation">
+      <button (click)="selectedTab = 'offers'" [ngClass]="
+                  selectedTab === 'offers'
+                    ? 'tab-active'
+                    : 'tab-inactive'
+                " type="button" role="tab">
+        Ofertas
+      </button>
+    </li>
+    <li class="me-2" role="presentation">
+      <button (click)="selectedTab = 'live'" [ngClass]="
+                  selectedTab === 'live'
+                    ? 'tab-active'
+                    : 'tab-inactive'
+                " type="button" role="tab">
+        En vivo
+      </button>
+    </li>
+  </ul>
+</div>
+<tyn-creation-store-table-creation-page [listCreation]="cardCrea"
+  [tipeTable]="selectedTab"></tyn-creation-store-table-creation-page>

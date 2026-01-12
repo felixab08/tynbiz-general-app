@@ -10,6 +10,7 @@
   font-family: "Montserrat";
   src: url('/assets/fonts/montserrat/montserrat-alternates-medium.ttf');
 }
+
 @font-face {
   font-family: "Lato";
   src: url('/assets/fonts/lato/Lato-Regular.ttf');
@@ -18,76 +19,123 @@
 @theme {
   --font-body: "Lato", "ui-sans-serif", "system-ui";
   --font-heading: "Lato", "Inter", "ui-sans-serif", "system-ui";
-   --font-sans: var(--font-heading);
+  --font-sans: var(--font-heading);
   --font-mono: "ui-monospace", "SFMono-Regular", "Menlo", "monospace";
   --spacing-8xl: 90rem;
   --text-2xs: 0.625rem;
 
   --animate-fadeIn: fadeIn 0.5s ease-in-out;
 
-  --color-primary: #412984;    /* morado */
-  --color-primary-light: #edeeff; /* morado super claro */
-  --color-primary-dark: #28184e;  /* morado oscuro */
-  --color-secondary: #dedeff;  /* morado claro */
-  --color-secondary-dark: #a5a0ff; /* morado medio */
+  --color-primary: #412984;
+  /* morado */
+  --color-primary-light: #edeeff;
+  /* morado super claro */
+  --color-primary-dark: #28184e;
+  /* morado oscuro */
+  --color-secondary: #dedeff;
+  /* morado claro */
+  --color-secondary-dark: #a5a0ff;
+  /* morado medio */
 
   @keyframes fadeIn {
     0% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
   }
 }
-body {
-  @apply font-sans;
-}
-.text-body {
-  @apply font-[var(--font-body)];
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
 }
 
-.text-heading {
-  @apply font-[var(--font-heading)];
-}
+@layer components {
+  .table {}
+
+  .button-primary {
+    @apply px-5 py-2.5 text-sm cursor-pointer font-medium text-white focus:outline-none bg-primary rounded-lg border border-primary hover:bg-primary-light hover:text-primary focus-within:outline-none focus:ring-4 focus:ring-primary-light;
+  }
+
+  .button-secondary {
+    @apply py-2.5 px-5 md:ms-3 text-sm cursor-pointer font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-400 hover:bg-gray-200 hover:text-gray-600 focus-within:outline-none focus:ring-4 focus:ring-gray-100;
+  }
+
+  .input-base {
+    @apply block w-full rounded-lg border p-2.5 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary;
+  }
+
+  .input-error {
+    @apply border-red-500 text-red-900 placeholder-red-700 focus:border-red-500 focus:ring-red-500;
+  }
+
+  .card {
+    @apply bg-white p-6 rounded-lg border border-gray-200 shadow-md hover:bg-gray-100;
+  }
+
+  .card-static {
+    @apply w-full p-6 bg-white rounded-lg shadow-sm border border-gray-300;
+  }
+
+  .card-store {
+    @apply w-full md:p-4 bg-gray-200 rounded-lg shadow-sm border border-gray-300 p-2;
+  }
+
+  .mini-card-img {
+    @apply bg-white float-right my-2 flex justify-center items-center border border-gray-200;
+  }
+
+  .mini-card-img.xs {
+    @apply w-12 h-12 rounded-sm;
+  }
+
+  .mini-card-img.md {
+    @apply w-24 h-24 rounded-lg;
+  }
+
+  .mini-card-img.sm {
+    @apply w-18 h-18 rounded-lg;
+  }
+
+  .body-primary {
+    @apply relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8 m-4;
+  }
+
+  .body-secondary {
+    @apply max-w-7xl m-auto;
+  }
+
+  .tab {
+    @apply flex flex-wrap mb-px md:text-lg text-sm text-center text-gray-500;
+  }
+
+  .tab-active {
+    @apply inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg;
+  }
+
+  .tab-inactive {
+    @apply inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300;
+  }
+
+  .tabla {
+    @apply w-full text-sm text-left rtl:text-right text-black rounded-md bg-white;
+  }
+  .tabla thead{
+    @apply text-sm text-black border-b border-gray-300 bg-gray-100;
+  }
+  .tabla thead tr th{
+    @apply px-6 py-3;
+  }
+  .tabla tbody tr{
+    @apply border-b border-gray-300 hover:bg-gray-50;
+  }
+  .tabla tbody tr td{
+    @apply px-6 py-4;
+  }
 
 
-.button-primary {
-  @apply text-white bg-primary hover:bg-primary-light hover:text-primary border-primary border font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none focus-within:outline-none focus:ring-4 focus:ring-primary-light;
-}
-
-.button-secondary {
-  @apply  py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100;
-}
-
-.input-base {
-  @apply block w-full rounded-lg border p-2.5 text-sm
-    focus:outline-none
-    focus:border-primary
-    focus:ring-1 focus:ring-primary;
-}
-.input-error {
-  @apply border-red-500 text-red-900 placeholder-red-700
-    focus:border-red-500 focus:ring-red-500;
-}
-
-/* tabla */
-.table {
-  @apply w-full text-sm text-left rtl:text-right text-black rounded-md bg-white border-collapse;
-}
-
-.table thead {
-  @apply text-sm text-black border-b border-gray-300 bg-gray-100;
-}
-
-.table th {
-  @apply px-6 py-3;
-}
-
-.table td {
-  @apply px-4 py-3 border-t;
-}
-
-.table tbody tr {
-  @apply border-b border-gray-300 hover:bg-gray-50;
 }
