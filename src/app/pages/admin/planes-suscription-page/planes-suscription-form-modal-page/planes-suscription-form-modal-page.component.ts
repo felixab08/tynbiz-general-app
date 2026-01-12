@@ -51,7 +51,7 @@ export class PlanesSuscriptionFormModalPageComponent {
       this.descriptionPlan.set('');
       this.price.set(0);
       this.coin.set('USD');
-      this.selectedTypePlan.set('uso de tynbiz');
+      this.selectedTypePlan.set('PAY_PER_USE');
       this.estado.set('true');
       this.isOffer.set(false);
       this.discount.set(0);
@@ -65,14 +65,13 @@ export class PlanesSuscriptionFormModalPageComponent {
 
   onSave() {
     const data = {
-      id: this.selectedPlan?.id || Date.now(), // solo si es nuevo
       name: this.namePlan(),
       description: this.descriptionPlan(),
       price: this.price(),
       currency: this.coin(),
       billingCycle: this.selectedTypePlan(),
-      isActive: this.estado(),
-      hasPromotion: this.isOffer() ? 'true' : 'false',
+      isActive: this.estado().toLowerCase() === 'true',
+      hasPromotion: this.isOffer() ? true : false,
       discountPercentage: this.discount(),
       discountDays: this.promoDays(),
     };

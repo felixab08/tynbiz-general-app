@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IPlan, IPlanResponse, OptionsRequest } from '@app/interfaces';
+import {
+  IPlan,
+  IplanRequest,
+  IPlanResponse,
+  OptionsRequest,
+} from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -69,5 +74,12 @@ export class PlanesService {
     return this._http.get<IPlan[]>(`${baseUrl}/public/subscriptions/plans`, {
       params,
     });
+  }
+
+  postPlanes(newPlan: IplanRequest): Observable<IplanRequest> {
+    return this._http.post<IplanRequest>(
+      `${baseUrl}/subscription-plans`,
+      newPlan
+    );
   }
 }

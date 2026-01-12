@@ -29,3 +29,29 @@ export interface IPlan {
   pricePerUse:         number;
   features:            string[];
 }
+
+export interface IplanRequest {
+  name:                    string;
+  description:             string;
+  billingCycle:            string;
+  currency:                string;
+  price:                   number;
+  isActive:                boolean;
+  hasPromotion:            boolean;
+  discountPercentage?:      number;
+  discountDays?:            number;
+  freeTrialMonths?:         number;
+  pricePerUse?:             number;
+  maxUsers?:                number;
+  maxStorageGb?:            number;
+  maxProducts?:             number;
+  maxTransactionsPerMonth?: number;
+  features?:                Features;
+  trialDays?:               number;
+  isPublic?:                boolean;
+  sortOrder?:               number;
+}
+
+export interface Features {
+  "Reportes avanzados": boolean;
+}

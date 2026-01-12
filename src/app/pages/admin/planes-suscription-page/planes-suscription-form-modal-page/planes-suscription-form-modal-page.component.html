@@ -86,8 +86,8 @@
                       <div class="flex items-center me-4">
                         <input
                           id="inline-radio"
-                          type="radio"
-                          (change)="selectedTypePlan.set('uso de tynbiz')"
+                          type="radio"                          
+                          (change)="selectedTypePlan.set('PAY_PER_USE')"
                           name="type"
                           class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
@@ -101,7 +101,7 @@
                         <input
                           id="inline-2-radio"
                           type="radio"
-                          (change)="selectedTypePlan.set('mensual')"
+                          (change)="selectedTypePlan.set('MONTHLY')"
                           name="type"
                           class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
@@ -156,8 +156,8 @@
                             name="coin"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                           >
-                            <option selected>S/.</option>
-                            <option>USD</option>
+                            <option value="SOL" selected>S/.</option>
+                            <option value="USD">USD</option>
                           </select>
                         </div>
                         <div>
@@ -227,8 +227,8 @@
                           name="coin"
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
                         >
-                          <option selected>S/.</option>
-                          <option>USD</option>
+                          <option value="SOL" selected>S/.</option>
+                          <option value="USD">USD</option>
                         </select>
                       </div>
                       <div>
@@ -360,7 +360,7 @@
                   >
                     {{ coin() }} {{ price() }}
                     <span class="font-normal">
-                      @switch (selectedTypePlan()) { @case ('mensual') { / Mes }
+                      @switch (selectedTypePlan()) { @case ('MONTHLY') { / Mes }
                       @case ('anual') { / Año } @case ('uso de tynbiz') { por
                       venta } }
                     </span>
