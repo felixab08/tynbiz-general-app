@@ -13,7 +13,7 @@
     <div class="p-2 space-y-4 col-span-8">
       <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
         <ul
-          class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
+          class="tab"
           role="tablist"
         >
           <li class="me-2" role="presentation">
@@ -21,8 +21,8 @@
               (click)="selectedTab = 'selectSecurityUser'"
               [ngClass]="
                 selectedTab === 'selectSecurityUser'
-                  ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
-                  : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+                  ? 'tab-active'
+                  : 'tab-inactive'
               "
               type="button"
               role="tab"
@@ -35,8 +35,8 @@
               (click)="selectedTab = 'selectDetailUser'"
               [ngClass]="
                 selectedTab === 'selectDetailUser'
-                  ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
-                  : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+                  ? 'tab-active'
+                  : 'tab-inactive'
               "
               type="button"
               role="tab"
@@ -49,8 +49,8 @@
               (click)="selectedTab = 'selectPrivacityUser'"
               [ngClass]="
                 selectedTab === 'selectPrivacityUser'
-                  ? 'inline-block p-4 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active dark:text-purple-500 dark:border-purple-500'
-                  : 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+                  ? 'tab-active'
+                  : 'tab-inactive'
               "
               type="button"
               role="tab"
