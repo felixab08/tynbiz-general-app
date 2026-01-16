@@ -1,29 +1,28 @@
 <div class="grid grid-cols-12 items-center justify-center">
   <div class="col-span-10 xl:col-span-11 z-12">
-    <div id="indicators-carousel bg-white" class="relative w-full" data-carousel="slide">
+    <div id="default-carousel" class="relative w-full" data-carousel="slide">
       <!-- Carousel wrapper -->
       <div class="relative h-56 xl:h-72 overflow-hidden rounded-lg">
-        @for (product of listProduct(); track product.id) {
-        <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-          <img [src]="product.mediaUrls[0]"
-            class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+        @for (product of listProduct(); track product.id; let i = $index) {
+        <div class="hidden duration-700 ease-in-out" [attr.data-carousel-item]="i === 0 ? 'active' : ''">
+          <img [src]="product?.mediaUrls?.[0]"
+            class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Producto" />
         </div>
         }
       </div>
       <!-- Slider indicators -->
-      <!-- <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
-        @for (item of listProduct(); track $index) {
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-          data-carousel-slide-to="0"></button>}
-      </div> -->
+      <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+        @for (item of listProduct(); track $index; let i = $index) {
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" [attr.aria-label]="'Slide ' + (i + 1)"
+          [attr.data-carousel-slide-to]="i" ></button>}
+      </div>
     </div>
   </div>
   <div class="col-span-2 xl:col-span-1 z-14">
     <!-- imagenes de productos extras right -->
     <ng-container *ngFor="let producto of listProduct().slice(0, 2)">
-      <div
-        class="mini-card-img xs">
-        <img class="h-10 rounded-sm" [src]="producto.mediaUrls[0]" alt="Producto" />
+      <div class="mini-card-img xs">
+        <img class="" [src]="producto.mediaUrls[0]" alt="Producto" />
       </div>
     </ng-container>
     @if (listProduct().length > 2) {

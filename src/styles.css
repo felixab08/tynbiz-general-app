@@ -78,7 +78,7 @@
   }
 
   .card-static {
-    @apply w-full p-6 bg-white rounded-lg shadow-sm border border-gray-300;
+    @apply w-full p-6 bg-white rounded-lg shadow-sm border border-gray-200;
   }
 
   .card-store {
@@ -86,23 +86,29 @@
   }
 
   .mini-card-img {
-    @apply bg-white float-right my-2 flex justify-center items-center border border-gray-200;
+    @apply bg-white float-right flex justify-center items-center border border-gray-300;
+  }
+  .mini-card-img.md img {
+    @apply rounded-lg w-full h-full object-contain;
+  }
+  .mini-card-img.xs img {
+    @apply rounded-sm w-full h-full object-contain;
+  }
+  .mini-card-img.xs {
+    @apply w-12 h-12 my-1  rounded-sm;
   }
 
-  .mini-card-img.xs {
-    @apply w-12 h-12 rounded-sm;
-  }
 
   .mini-card-img.md {
     @apply w-24 h-24 rounded-lg;
   }
 
   .mini-card-img.sm {
-    @apply w-18 h-18 rounded-lg;
+    @apply w-18 h-18 my-2  rounded-lg;
   }
 
   .body-primary {
-    @apply relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 pb-8 m-4;
+    @apply relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 py-12 m-4;
   }
 
   .body-secondary {
@@ -136,6 +142,11 @@
   .tabla tbody tr td{
     @apply px-6 py-4;
   }
-
+  .content-details-product{
+    @apply md:ms-3 text-sm font-normal ms-2;
+  }
+  .content-details-product p{
+    @apply text-sm font-normal  text-black;
+  }
 
 }

@@ -12,7 +12,28 @@ import { initCarousels } from 'flowbite';
 })
 export class CarouselProductsCreation {
   listProduct = input.required<IProduct[]>();
-  ngAfterViewInit(): void {
-      initCarousels(); // inicializa el carrusel de Flowbite
+
+  products: IProduct[] = [];
+
+  private initialized = false;
+
+  ngAfterViewChecked(): void {
+    const currentProducts = this.listProduct();
+
+    if (currentProducts.length > 0) {
+
+      if (this.products !== currentProducts) {
+        this.products = currentProducts;
+        this.initialized = false;
+      }
+
+      if (!this.initialized) {
+        this.initialized = true;
+
+        setTimeout(() => {
+          initCarousels();
+        });
+      }
     }
+  }
  }

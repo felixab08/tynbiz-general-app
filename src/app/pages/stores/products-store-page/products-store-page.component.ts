@@ -5,24 +5,44 @@ import { productMock } from '@app/mock/product.mock';
 import { LinkParamService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
 import { ProductsStoreService } from '@app/services/stores/products-store.service';
+import { FilterComponent } from "@app/components/filter/filter.component";
+import { PaginationComponent } from "@app/components/pagination/pagination.component";
 
 @Component({
   selector: 'tyn-products-store-page',
-  imports: [ProductDetailCardComponent],
+  imports: [ProductDetailCardComponent, FilterComponent, PaginationComponent],
   templateUrl: './products-store-page.component.html',
 })
 export default class ProductsStorePageComponent {
   private _productsStoreService = inject(ProductsStoreService);
+  _linkService = inject(LinkParamService);
   productMock = productMock;
+
+    // Filtros
+  filterMenu = signal({
+    searchShow: true,
+    datesShow: false,
+    selectShow: false,
+    filterSelectList: [],
+  });
 
   productsResource = rxResource({
     request: () => ({
-      storeId: 1,
+      page: this._linkService.currentPage() - 1,
+      size: this._linkService.currentSize(),
+      searchTerm: this._linkService.currentSearchTerm(),
     }),
     loader: ({ request }) =>
-      this._productsStoreService.getCompleteProductsByStore(request.storeId)
+      {
+        return (
+        this._productsStoreService.getProductsByStore({
+          page: request.page,
+          size: request.size,
+          searchTerm: request.searchTerm,
+        }) || {}
+      );
+      }
   });
-
 
   constructor(public createCreation: CreateCreation) {
   }

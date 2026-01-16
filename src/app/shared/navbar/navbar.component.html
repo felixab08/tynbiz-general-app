@@ -1,96 +1,64 @@
 <nav class="grid justify-end">
-  <div
-    class="max-w-screen-xl mx-auto p-4 md:grid md:grid-cols-12 gap-2 flex flex-wrap"
-  >
+  <div class="max-w-screen-xl mx-auto gap-2 flex flex-wrap ">
     @if (!user) {
-    <div class="flex flex-wrap md:col-start-7 col-span-4 justify-end">
-      <button
-        type="button"
-        class="text-white bg-primary hover:bg-primary-light hover:text-primary border-primary border-2 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none"
-      >
+    <div class="flex flex-wrap justify-end">
+      <button type="button" class="button-primary me-2">
         Solicitar Tynbiz
       </button>
-      <button
-        (click)="openModal()"
-        type="button"
-        class="min-w-35 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-      >
+      <button (click)="openModal()" type="button" class="button-secondary">
         Identificate
       </button>
     </div>
     } @if (user) {
-    <div class="flex flex-wrap md:col-start-7 col-span-4 justify-end">
+    <div class="flex flex-wrap gap-2 justify-end">
       @if (user.role==='STORE_OWNER') {
-        <div>
-          <p class="text-sm text-gray-500"> Atensión al cliente activa </p>
-          <p class="sm:text-2xs text-xs text-gray-400">
-            1 enero 2026 - 1 febrero 2026
-            <i class="fa-regular fa-clock fa-xl mt-3 mx-1"></i>
-          </p>
-        </div>
-      <button
-        type="button"
-        routerLink="/stores/create-calendar"
-        class="cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
-      >
+      <div>
+        <p class="text-sm text-gray-500"> Atensión al cliente activa </p>
+        <p class="sm:text-2xs text-xs text-gray-400">
+          1 enero 2026 - 1 febrero 2026
+          <i class="fa-regular fa-clock fa-xl mt-3 mx-1"></i>
+        </p>
+      </div>
+      <button type="button" routerLink="/stores/create-calendar"
+        class="cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
         <p class="md:block hidden">Calendario <i class="fa-regular fa-calendar-days fa-xl"></i></p>
         <p class="md:hidden block"><i class="fa-regular fa-calendar-days fa-xl"></i></p>
       </button>
 
       }
     </div>
-    <div class="flex items-center md:col-span-2 justify-end">
-      <button
-        type="button"
+    <div class="flex items-center justify-end">
+      <button type="button"
         class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-        id="user-menu-button"
-        aria-expanded="false"
-        data-dropdown-toggle="user-dropdown"
-        data-dropdown-placement="bottom"
-      >
-        <img
-          class="w-8 h-8 rounded-full"
-          src="./assets/img/user.jpeg"
-          alt="user photo"
-        />
+        id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+        data-dropdown-placement="bottom">
+        <img class="w-8 h-8 rounded-full" src="./assets/img/user.jpeg" alt="user photo" />
       </button>
       <!-- Dropdown menu -->
       <div
         class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600"
-        id="user-dropdown"
-      >
+        id="user-dropdown">
         <div class="px-4 py-3">
-          <span class="block text-sm text-gray-900 dark:text-white"
-            >Deminth Sanches</span
-          >
-          <span class="block text-sm text-gray-500 truncate dark:text-gray-400"
-            >wmarcian071131&#64;gmail.com</span
-          >
+          <span class="block text-sm text-gray-900 dark:text-white">Deminth Sanches</span>
+          <span class="block text-sm text-gray-500 truncate dark:text-gray-400">wmarcian071131&#64;gmail.com</span>
         </div>
         <ul class="py-2" aria-labelledby="user-menu-button">
           <li>
-            <a
-              [routerLink]="['/account']"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >Gestionar Cuenta</a
-            >
+            <a [routerLink]="['/account']"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Gestionar
+              Cuenta</a>
           </li>
           <li>
-            <a
-              (click)="_authService.logoutAndReload()"
-              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >Cerrar sesión</a
-            >
+            <a (click)="_authService.logoutAndReload()"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar
+              sesión</a>
           </li>
         </ul>
       </div>
     </div>
     }
 
-    <div
-      class="items-center hidden w-full md:flex md:w-auto md:order-1 justify-end"
-      id="navbar-user"
-    ></div>
+    <div class="items-center hidden w-full md:flex md:w-auto md:order-1 justify-end" id="navbar-user"></div>
   </div>
 </nav>
 

@@ -1,21 +1,23 @@
 @if (listProduct()) {
 <div class="flex items-center">
   <div class="mini-card-img md">
-    <img class="h-20" [src]="listProduct().mediaUrls | notImage" alt="Jese Leos image" />
+    <img class="" [src]="listProduct().mediaUrls[0] | notImage" alt="Jese Leos image" />
   </div>
-  <div class="md:ms-3 text-sm font-normal ms-2">
-    <p class="text-sm font-normal text-black">
+  <div class=" content-details-product">
+    <p>
       {{ listProduct().sku }}
     </p>
-    <p class="text-sm font-bold text-black">
+    <p class="text-sm font-bold max-w-[160px] text-black truncate">
       {{ listProduct().name }}
     </p>
-    <p class="text-sm font-normal text-black">
-      Color: {{ listProduct().colors.join(', ') }} Talla: {{ listProduct().sizes.join(', ') }}
+    <p class="truncate max-w-[160px]">
+      <span class="font-semibold"> Color:</span> {{ listProduct().colors.join(', ') }}
     </p>
-    <p class="text-sm font-normal text-black">
+    <p class="truncate max-w-[160px]">
+      <span class="font-semibold"> Talla:</span> {{ listProduct().sizes.join(', ') }}
+    </p>
+    <p>
       S/. {{ listProduct().originalPrice }}
     </p>
   </div>
-
 </div>}
