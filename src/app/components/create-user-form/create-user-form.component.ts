@@ -27,6 +27,8 @@ export class CreateUserFormComponent {
   formUtils = FormUtils;
   alertCreate = signal(false);
   myForm: FormGroup = this._fb.group({});
+  lookIconIsPassword = signal(false);
+  lookIconIsPasswordConfirm = signal(false);
 
   ngOnInit(): void {
     this.createForm();
@@ -72,11 +74,7 @@ export class CreateUserFormComponent {
         ],
         dniPerson: [
           '',
-          [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.maxLength(8),
-          ],
+          [Validators.required, this.formUtils.dniPeruanoValidator()],
         ],
         email: [
           '',
@@ -95,6 +93,7 @@ export class CreateUserFormComponent {
         phone: [
           ,
           [
+            Validators.pattern(this.formUtils.onlyNumbers),
             Validators.required,
             Validators.minLength(9),
             Validators.maxLength(9),
@@ -114,10 +113,9 @@ export class CreateUserFormComponent {
         passwordRepit: ['', [Validators.required, Validators.minLength(8)]],
       },
       {
-        validators: this.formUtils.passIgualesValidator(
-          'password',
-          'passwordRepit'
-        ),
+        validators: [
+          this.formUtils.passIgualesValidator('password', 'passwordRepit'),
+        ],
       }
     );
   }
@@ -135,4 +133,10 @@ export class CreateUserFormComponent {
       );
     },
   });
+  changeTypeInput() {
+    this.lookIconIsPassword.update((value) => !value);
+  }
+  changeTypeInputConfirm() {
+    this.lookIconIsPasswordConfirm.update((value) => !value);
+  }
 }

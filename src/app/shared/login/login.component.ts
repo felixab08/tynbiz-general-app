@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   hasError = signal(false);
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
+  lookIconIsPassword = signal(false);
 
   formUtils = FormUtils;
 
@@ -79,6 +80,9 @@ export class LoginComponent implements OnInit {
         },
       });
     // this.myForm.reset();
+  }
+  changeTypeInput() {
+    this.lookIconIsPassword.update((value) => !value);
   }
 
   closeModal() {

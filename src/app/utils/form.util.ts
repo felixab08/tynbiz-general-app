@@ -7,6 +7,7 @@ import {
 
 export class FormUtils {
   // [TODO] expresiones regulares
+  static onlyNumbers = '/^[0-9]+$/';
   static doblePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
   static dobleLastName = '([a-zA-Z]+) ([a-zA-Z]+)';
   static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
@@ -42,6 +43,11 @@ export class FormUtils {
           if (errors['pattern'].requiredPattern === `${FormUtils.urlRegex}`) {
             return `El campo debe ser un URL válido`;
           }
+          if (
+            errors['onlyNumbers'].requiredPattern === `${FormUtils.onlyNumbers}`
+          ) {
+            return `El campo debe ser un número válido`;
+          }
           return `El campo no cumple con el formato requerido`;
         case 'dataMaxToday':
           return `La fecha debe ser menor o igual a la fecha actual`;
@@ -70,6 +76,8 @@ export class FormUtils {
           return `La contraseña no cumple con los requisitos de seguridad`;
         case 'contraseñasNoCoinciden':
           return `Las contraseñas no coinciden`;
+        case 'dniPeruano':
+          return `El DNI debe contener exactamente 8 dígitos`;
 
         default:
           return 'Error de validación no controlado';
@@ -322,6 +330,39 @@ export class FormUtils {
         }
         return null;
       }
+    };
+  }
+
+  /**
+   * Valida que el DNI peruano sea válido
+   * - Debe contener exactamente 8 caracteres
+   * - Debe ser numérico
+   * - Puede iniciar en 0
+   * @param dni número de DNI
+   * @returns true si es válido, false en caso contrario
+   */
+  static validateDNI(dni: string): boolean {
+    if (!dni) {
+      return false;
+    }
+    const dniString = dni.toString();
+    return /^\d{8}$/.test(dniString);
+  }
+
+  /**
+   * Validador para uso en formularios Angular
+   * Valida que el DNI peruano sea válido (8 dígitos numéricos)
+   * @returns ValidatorFn para usar en FormControl
+   */
+  static dniPeruanoValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value.toString()) {
+        return null;
+      }
+      console.log(control);
+
+      const isValid = FormUtils.validateDNI(control.value.toString());
+      return isValid ? null : { dniPeruano: true };
     };
   }
 
