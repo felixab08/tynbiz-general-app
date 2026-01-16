@@ -1,6 +1,6 @@
 import {
-  IProductStore,
-  IProduct,
+  IProductStoreResponse,
+  OptionsRequest,
 } from '@app/interfaces';
 
 import { HttpClient } from '@angular/common/http';
@@ -14,32 +14,26 @@ const baseUrl = environment.baseUrl;
 })
 export class ProductsStoreService {
   private _http = inject(HttpClient);
-  getProductsByIdStore(idStore: number): Observable<IProductStore[]> {
-    return this._http.get<IProductStore[]>(
-      `${baseUrl}/products/store/${idStore}`
+
+  getProductsByStore(options: OptionsRequest): Observable<IProductStoreResponse> {
+    const {
+      page = 0,
+      size = 20,
+      searchTerm = 'shirt',
+    } = options;
+    // Construir params dinámicamente
+    const params: any = {
+      searchTerm,
+      page,
+      size,
+    };
+      if (searchTerm) params.searchTerm = searchTerm;
+    return this._http.post<IProductStoreResponse>(
+      `${baseUrl}/proxy/falabella/products`,
+      params
     );
   }
-  getProductById(idProduct: number): Observable<IProduct> {
-    return this._http.get<IProduct>(
-      `${baseUrl}/products/${idProduct}`
-    );
 
-  }
-  getCompleteProductsByStore(idStore: number): Observable<IProduct[]> {
-  return this.getProductsByIdStore(idStore).pipe(
-    switchMap((productsStore: IProductStore[]) => {
 
-      if (!productsStore.length) {
-        return of([]);
-      }
-
-      const productRequests: Observable<IProduct>[] =
-        productsStore.map(product => {
-          return this.getProductById(product.id,);
-        });
-      return forkJoin(productRequests);
-    })
-  );
-}
 }
 

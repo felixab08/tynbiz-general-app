@@ -11,9 +11,9 @@ type CreationStep = 'products' | 'details';
 })
 export default class CreateCreationStorePage {
 
-   step = signal<CreationStep>('products');
-   publicationType = signal<'solo' | 'vivo'>('solo');
-   scheduleEnabled = signal(false);
+  step = signal<CreationStep>('products');
+  publicationType = signal<'solo' | 'vivo'>('solo');
+  scheduleEnabled = signal(false);
 
   showAlert = signal(false);
   constructor(

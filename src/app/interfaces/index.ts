@@ -17,3 +17,6 @@ export * from './shopper/product-store.interface';
 
 //General Interfaces
 export * from './general/services.interface';
+
+//Store Interfaces
+export * from './stores/store-products.interface';
