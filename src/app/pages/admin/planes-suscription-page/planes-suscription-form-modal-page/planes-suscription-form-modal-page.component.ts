@@ -1,10 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, signal, SimpleChanges } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormUtils } from '@app/utils/form.util';
 
 @Component({
   selector: 'tyn-planes-suscription-form-modal-page',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './planes-suscription-form-modal-page.component.html',
 })
 export class PlanesSuscriptionFormModalPageComponent {
@@ -12,6 +21,10 @@ export class PlanesSuscriptionFormModalPageComponent {
   @Input() selectedPlan: any = null; // Si es null, es modo crear
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<any>();
+
+  private _fb = inject(FormBuilder);
+  formUtils = FormUtils;
+  myForm: FormGroup = this._fb.group({});
 
   namePlan = signal('');
   descriptionPlan = signal('');
@@ -42,9 +55,20 @@ export class PlanesSuscriptionFormModalPageComponent {
       this.coin.set(this.selectedPlan.currency);
       this.selectedTypePlan.set(this.selectedPlan.billingCycle);
       this.estado.set(this.selectedPlan.isActive);
-      this.isOffer.set(this.selectedPlan.hasPromotion === 'true');
+      this.isOffer.set(this.selectedPlan.hasPromotion === 'true' || this.selectedPlan.hasPromotion === true);
       this.discount.set(this.selectedPlan.discountPercentage || 0);
       this.promoDays.set(this.selectedPlan.discountDays || 0);
+      this.myForm = this._fb.group({
+        name: [this.selectedPlan.name || '', [Validators.required]],
+        description: [this.selectedPlan.description || ''],
+        billingCycle: [this.selectedPlan.billingCycle || '', [Validators.required]],
+        currency: [this.selectedPlan.currency || ''],
+        price: [this.selectedPlan.price || '', [Validators.required]],
+        isActive: [this.selectedPlan.isActive || '', [Validators.required]],
+        hasPromotion: [this.selectedPlan.hasPromotion || false, [Validators.required]],
+        discountPercentage: [this.selectedPlan.discountPercentage || ''],
+        discountDays: [this.selectedPlan.discountDays || ''],
+      });
     } else {
       // Modo nuevo plan
       this.namePlan.set('');
@@ -56,6 +80,17 @@ export class PlanesSuscriptionFormModalPageComponent {
       this.isOffer.set(false);
       this.discount.set(0);
       this.promoDays.set(0);
+      this.myForm = this._fb.group({
+        name: ['', [Validators.required]],
+        description: [''],
+        billingCycle: ['', [Validators.required]],
+        currency: [''],
+        price: ['', [Validators.required]],
+        isActive: ['', [Validators.required]],
+        hasPromotion: [false, [Validators.required]],
+        discountPercentage: [''],
+        discountDays: [''],
+      });
     }
   }
 
@@ -77,4 +112,4 @@ export class PlanesSuscriptionFormModalPageComponent {
     };
     this.save.emit(data);
   }
- }
+}

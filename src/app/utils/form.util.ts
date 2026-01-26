@@ -16,9 +16,9 @@ export class FormUtils {
     /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
   static isValiedField(form: FormGroup, fieldName: string): boolean | null {
-    return (
-      !!form.controls[fieldName].errors && form.controls[fieldName].touched
-    );
+    const control = form.controls[fieldName];
+    if (!control) return false;
+    return !!control.errors && control.touched;
   }
 
   static getFieldError(form: FormGroup, fieldName: string): string | null {
