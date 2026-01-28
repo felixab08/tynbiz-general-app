@@ -20,3 +20,4 @@ export * from './general/services.interface';
 
 //Store Interfaces
 export * from './stores/store-products.interface';
+export * from './stores/horary.interface';

@@ -8,7 +8,13 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { Router, RouterLink, RouterModule, RouterOutlet, RouterLinkActive } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterModule,
+  RouterOutlet,
+  RouterLinkActive,
+} from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import {
@@ -24,11 +30,17 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-side-menu',
-  imports: [RouterOutlet, NavbarComponent, RouterLink, AlertComponent, RouterLinkActive, NgClass],
+  imports: [
+    RouterOutlet,
+    NavbarComponent,
+    RouterLink,
+    AlertComponent,
+    RouterLinkActive,
+    NgClass,
+  ],
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {
-
   _authService = inject(AuthService);
   _alertService = inject(AlertService);
   _router = inject(Router);
@@ -44,6 +56,11 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
 
   public storeService = inject(StoreService);
   public user: User | undefined;
+  typeRole = [
+    { id: 1, type: 'PAY_PER_USE', name: 'Pago por uso' },
+    { id: 2, type: 'MONTHLY', name: 'Pago mensual' },
+    { id: 3, type: 'YEARLY', name: 'Pago anual' },
+  ];
 
   constructor() {
     this.storeService.user.subscribe((user) => {
@@ -57,6 +74,7 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
         this._router.navigate(['/']);
       }
     });
+    localStorage.setItem('typeRole', JSON.stringify(this.typeRole[0]));
   }
 
   ngAfterViewInit(): void {

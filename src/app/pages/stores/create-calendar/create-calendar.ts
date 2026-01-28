@@ -5,15 +5,17 @@ import {
   ChangeDetectorRef,
   signal,
 } from '@angular/core';
+import { IHorary } from '@app/interfaces';
 import {
   AngularMyDatePickerDirective,
   AngularMyDatePickerModule,
   IAngularMyDpOptions,
 } from '@nodro7/angular-mydatepicker';
+import { HoraryCreate } from './horary-create/horary-create';
 
 @Component({
   selector: 'tyn-create-calendar',
-  imports: [AngularMyDatePickerModule],
+  imports: [AngularMyDatePickerModule, HoraryCreate],
   templateUrl: './create-calendar.html',
 })
 export default class CreateCalendar {
@@ -25,14 +27,70 @@ export default class CreateCalendar {
     dateFormat: 'dd/mm/yyyy',
     inline: true,
   };
-  listHorarioAtendimiento: any[] = [
-    { id: 1, status: true, dia: 'Lunes', desde: '08:00', hasta: '18:00' },
-    { id: 2, status: true, dia: 'Martes', desde: '08:00', hasta: '18:00' },
-    { id: 3, status: true, dia: 'Miércoles', desde: '08:00', hasta: '18:00' },
-    { id: 4, status: true, dia: 'Jueves', desde: '08:00', hasta: '18:00' },
-    { id: 5, status: true, dia: 'Viernes', desde: '08:00', hasta: '18:00' },
-    { id: 6, status: true, dia: 'Sábado', desde: '12:00', hasta: '16:30' },
-    { id: 7, status: false, dia: 'Domingo', desde: '--', hasta: '--' },
+  listHorarioAtendimiento: IHorary[] = [
+    {
+      id: 1,
+      status: true,
+      dia: 'Lunes',
+      mornDesde: '08:00',
+      mornHasta: '12:00',
+      aftDesde: '12:00',
+      aftHasta: '16:00',
+    },
+    {
+      id: 2,
+      status: true,
+      dia: 'Martes',
+      mornDesde: '08:00',
+      mornHasta: '12:00',
+      aftDesde: '12:00',
+      aftHasta: '16:00',
+    },
+    {
+      id: 3,
+      status: true,
+      dia: 'Miércoles',
+      mornDesde: '08:00',
+      mornHasta: '12:00',
+      aftDesde: '12:00',
+      aftHasta: '16:00',
+    },
+    {
+      id: 4,
+      status: true,
+      dia: 'Jueves',
+      mornDesde: '08:00',
+      mornHasta: '12:00',
+      aftDesde: '12:00',
+      aftHasta: '16:00',
+    },
+    {
+      id: 5,
+      status: true,
+      dia: 'Viernes',
+      mornDesde: '08:00',
+      mornHasta: '12:00',
+      aftDesde: '12:00',
+      aftHasta: '16:00',
+    },
+    {
+      id: 6,
+      status: false,
+      dia: 'Sábado',
+      mornDesde: '12:00',
+      mornHasta: '16:30',
+      aftDesde: '12:00',
+      aftHasta: '16:00',
+    },
+    {
+      id: 7,
+      status: false,
+      dia: 'Domingo',
+      mornDesde: '--',
+      mornHasta: '--',
+      aftDesde: '--',
+      aftHasta: '--',
+    },
   ];
 
   listHorarioTurno: any[] = [
