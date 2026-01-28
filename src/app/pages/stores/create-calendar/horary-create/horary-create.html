@@ -1,181 +1,191 @@
 @if(horario()){
-<div
-  class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
->
-  <div class="flex items-center">
-    <input
-      (change)="handleStatus()"
-      [checked]="horario().status"
-      id="checked-checkbox-{{horario().dia}}"
-      type="checkbox"
-      class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
-    />
-    <label
-      for="checked-checkbox-{{horario().dia}}"
-      class="select-none ms-2 text-xl font-medium text-heading"
-      >{{horario().dia}}</label
-    >
-  </div>
-  @if(horario().status){
-  <!-- en mañana -->
-  <div>
-    <label
-      for="from-{{horario().dia}}"
-      class="block mb-2 text-sm font-medium text-heading"
-      >Desde:</label
-    >
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-      >
-        <svg
-          class="w-4 h-4 text-body"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-      </div>
+<form class="" autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()">
+  <div
+    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+  >
+    <div class="flex items-center">
       <input
-        type="time"
-        id="from-{{horario().dia}}"
-        class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-        [min]="horario().mornDesde"
-        [max]="horario().mornHasta"
-        [value]="horario().mornDesde"
-        required
+        (change)="handleStatus()"
+        checked="status"
+        formControlName="status"
+        id="checked-checkbox"
+        type="checkbox"
+        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
       />
-    </div>
-  </div>
-  <div>
-    <label
-      for="to-{{horario().dia}}"
-      class="block mb-2 text-sm font-medium text-heading"
-      >Hasta:</label
-    >
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+      <label
+        for="checked-checkbox"
+        class="select-none ms-2 text-xl font-medium text-heading"
+        >{{horario().dia}}</label
       >
-        <svg
-          class="w-4 h-4 text-body"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-      </div>
-      <input
-        type="time"
-        id="to-{{horario().dia}}"
-        class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-        [min]="horario().mornDesde"
-        [max]="horario().mornHasta"
-        [value]="horario().mornHasta"
-        required
-      />
     </div>
-  </div>
-  <!-- en la tarde -->
-  <div>
-    <label
-      for="from-{{horario().dia}}"
-      class="block mb-2 text-sm font-medium text-heading"
-      >Desde:</label
-    >
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+    @if(horario().status){
+    <!-- en mañana -->
+    <div>
+      <label
+        for="from-horario-manana"
+        class="block mb-2 text-sm font-medium text-heading"
+        >Desde:</label
       >
-        <svg
-          class="w-4 h-4 text-body"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
         >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
+          <svg
+            class="w-4 h-4 text-body"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </div>
+        <input
+          type="time"
+          id="from-horario-manana"
+          class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+          min="08:00"
+          max="12:00"
+          value="08:00"
+          required
+          formControlName="mornDesde"
+        />
       </div>
-      <input
-        type="time"
-        id="from-{{horario().dia}}"
-        class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-        [min]="horario().aftDesde"
-        [max]="horario().aftHasta"
-        [value]="horario().aftDesde"
-        required
-      />
     </div>
-  </div>
-  <div>
-    <label
-      for="to-{{horario().dia}}"
-      class="block mb-2 text-sm font-medium text-heading"
-      >Hasta:</label
-    >
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+    <div>
+      <label
+        for="to-horario-manana"
+        class="block mb-2 text-sm font-medium text-heading"
+        >Hasta:</label
       >
-        <svg
-          class="w-4 h-4 text-body"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
         >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
+          <svg
+            class="w-4 h-4 text-body"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </div>
+        <input
+          type="time"
+          id="to-horario-manana"
+          class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+          min="08:00"
+          max="12:00"
+          value="12:00"
+          required
+          formControlName="mornHasta"
+        />
       </div>
-      <input
-        type="time"
-        id="to-{{horario().dia}}"
-        class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-        [min]="horario().aftDesde"
-        [max]="horario().aftHasta"
-        [value]="horario().aftHasta"
-        required
-      />
     </div>
+    <!-- en la tarde -->
+     <div class="col-span-2 flex gap-2">
+       <div>
+         <label
+           for="from-horario-tarde"
+           class="block mb-2 text-sm font-medium text-heading"
+           >Desde:</label
+         >
+         <div class="relative">
+           <div
+             class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+           >
+             <svg
+               class="w-4 h-4 text-body"
+               aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               fill="none"
+               viewBox="0 0 24 24"
+             >
+               <path
+                 stroke="currentColor"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 stroke-width="2"
+                 d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+               />
+             </svg>
+           </div>
+           <input
+             type="time"
+             id="from-horario-tarde"
+             class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+             min="12:00"
+             max="24:00"
+             value="12:00"
+             required
+             formControlName="aftDesde"
+           />
+         </div>
+       </div>
+       <div>
+         <label
+           for="to-horario-tarde"
+           class="block mb-2 text-sm font-medium text-heading"
+           >Hasta:</label
+         >
+         <div class="relative">
+           <div
+             class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+           >
+             <svg
+               class="w-4 h-4 text-body"
+               aria-hidden="true"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               fill="none"
+               viewBox="0 0 24 24"
+             >
+               <path
+                 stroke="currentColor"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 stroke-width="2"
+                 d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+               />
+             </svg>
+           </div>
+           <input
+             type="time"
+             id="to-horario-tarde"
+             class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+             min="12:00"
+             max="24:00"
+             value="12:00"
+             required
+             formControlName="aftHasta"
+           />
+         </div>
+       </div>
+       <i class="fa fa-trash my-auto cursor-pointer" (click)="resetAfter()" aria-hidden="true"></i>
+     </div>
+    <button type="submit" class="button-primary m-auto w-24 h-8">add</button>
+    }
   </div>
-  <button type="button" class="button-primary m-auto w-24 h-8">add</button>
-  }
-</div>
+</form>
 }
