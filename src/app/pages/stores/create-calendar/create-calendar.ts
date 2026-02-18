@@ -11,11 +11,11 @@ import {
   AngularMyDatePickerModule,
   IAngularMyDpOptions,
 } from '@nodro7/angular-mydatepicker';
-import { HoraryCreate } from './horary-create/horary-create';
+import { Horaries } from './horaries/horaries';
 
 @Component({
   selector: 'tyn-create-calendar',
-  imports: [AngularMyDatePickerModule, HoraryCreate],
+  imports: [AngularMyDatePickerModule, Horaries],
   templateUrl: './create-calendar.html',
 })
 export default class CreateCalendar {
@@ -27,71 +27,6 @@ export default class CreateCalendar {
     dateFormat: 'dd/mm/yyyy',
     inline: true,
   };
-  listHorarioAtendimiento: IHorary[] = [
-    {
-      id: 1,
-      status: false,
-      dia: 'Lunes',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-    {
-      id: 2,
-      status: false,
-      dia: 'Martes',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-    {
-      id: 3,
-      status: false,
-      dia: 'Miércoles',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-    {
-      id: 4,
-      status: false,
-      dia: 'Jueves',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-    {
-      id: 5,
-      status: false,
-      dia: 'Viernes',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-    {
-      id: 6,
-      status: false,
-      dia: 'Sábado',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-    {
-      id: 7,
-      status: false,
-      dia: 'Domingo',
-      mornDesde: '--',
-      mornHasta: '--',
-      aftDesde: '--',
-      aftHasta: '--',
-    },
-  ];
 
   listHorarioTurno: any[] = [
     { id: 1, status: true, dia: 'Mañana', desde: '07:00', hasta: '12:00' },

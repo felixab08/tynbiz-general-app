@@ -1,0 +1,40 @@
+<!-- ![TODO] poner el grid-cols-1 en grid-cols-2 -->
+<div class="grid grid-cols-1 min-h-96 md:grid-cols-1 gap-4">
+  <!-- <div
+      class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
+    >
+      <div class="flex">
+        <input
+          class="hidden cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-xl focus:ring-brand focus:border-brand w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+          angular-mydatepicker
+          name="reactiveFormsDate"
+          formControlName="myDate"
+          [options]="myDatePickerOptions"
+          #dp="angular-mydatepicker"
+          autocomplete="off"
+          locale="es"
+          (click)="toggleCalendar()"
+        />
+        <i
+          class="fa-regular fa-calendar-days fa-xl mt-5 mx-2 cursor-pointer"
+          (click)="toggleCalendar()"
+        ></i>
+      </div>
+    </div> -->
+  <div
+    class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
+  >
+    <h3 class="text-lg font-bold">Horas semanales</h3>
+    <p>
+      Selecciona las horas en las que vas a estar disponible para atender a tus
+      clientes
+    </p>
+    <div class="grid grid-cols-6 gap-2 mt-4">
+      <p class="text-3xl font-bold text-center">Dias</p>
+      <p class="text-3xl font-bold text-center col-span-2">Mañana</p>
+      <p class="text-3xl font-bold text-center col-span-2">Tarde</p>
+      <p></p>
+    </div>
+    <tyn-horary-create />
+  </div>
+</div>
