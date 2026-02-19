@@ -1,7 +1,7 @@
 export const dataHours = [
   {
     id: 1,
-    status: false,
+    status: true,
     dia: 'Lunes',
     mornDesde: '09:00',
     mornHasta: '13:00',

@@ -41,10 +41,9 @@
     <div
       class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
     >
-      <h3 class="text-lg font-bold">Horas semanales</h3>
+      <h3 class="text-lg font-bold">Marcar fechas especiales (Excepciones) </h3>
       <p>
-        Selecciona las horas en las que vas a estar disponible para atender a
-        tus clientes
+        La tienda puede indicar días que son diferentes a su horario normal:
       </p>
       @if (handlerTurno()) { @for (horario of listHorarioTurno; track $index) {
       <div class="grid grid-cols-3 gap-2 mt-4">

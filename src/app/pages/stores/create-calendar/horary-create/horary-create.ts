@@ -3,7 +3,7 @@ import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IHorary } from '@app/interfaces';
 import { FormUtils } from '@app/utils/form.util';
-import { dataHours } from '../horaries/horaries.database';
+import { dataHours } from './horaries.database';
 
 @Component({
   selector: 'tyn-horary-create',
@@ -76,7 +76,9 @@ export class HoraryCreate {
     }),
   });
 
-  constructor() {}
+  constructor() {
+    this.onEdit(this.horario);
+  }
 
   onSave() {
     if (this.myForm.invalid) {
@@ -86,6 +88,7 @@ export class HoraryCreate {
     // console.log('Form submitted', this.myForm.value);
     this.listWhitStatusActive(this.myForm.value);
   }
+
   listWhitStatusActive(formValue: any) {
     const activeDays = [];
     for (const day in formValue) {
@@ -96,15 +99,31 @@ export class HoraryCreate {
     console.log('Active days:', activeDays);
   }
 
-  onEdit(horario: IHorary) {
-    this.myForm.patchValue({
-      status: horario.status,
-      dia: horario.dia,
-      mornDesde: horario.mornDesde,
-      mornHasta: horario.mornHasta,
-      aftDesde: horario.aftDesde,
-      aftHasta: horario.aftHasta,
-    });
+  onEdit(horario: IHorary[] | undefined) {
+    if (!Array.isArray(horario)) return;
+
+    // Rellena cada FormGroup (lunes..domingo) con los valores del array `horario`
+    for (let i = 0; i < this.dayKeys.length; i++) {
+      const key = this.keyForIndex(i);
+      const group = this.getDayGroup(key);
+      const src = horario[i];
+      if (!group) continue;
+
+      // Si no hay objeto fuente, dejamos los valores por defecto del formulario
+      if (!src) {
+        group.patchValue({ status: false });
+        continue;
+      }
+
+      group.patchValue({
+        status: !!src.status,
+        dia: src.dia ?? group.get('dia')?.value,
+        mornDesde: src.mornDesde ?? '--:--',
+        mornHasta: src.mornHasta ?? '--:--',
+        aftDesde: src.aftDesde ?? '--:--',
+        aftHasta: src.aftHasta ?? '--:--',
+      });
+    }
   }
 
   resetMorng() {
