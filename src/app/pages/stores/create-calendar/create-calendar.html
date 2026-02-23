@@ -15,7 +15,7 @@
     </p>
   </div>
 
-<tyn-horaries/>
+  <tyn-horaries />
 
   <!-- copia del primero pero con horas en la mañan y en la tarde -->
 
@@ -41,11 +41,25 @@
     <div
       class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
     >
-      <h3 class="text-lg font-bold">Marcar fechas especiales (Excepciones) </h3>
+      <h3 class="text-lg font-bold">Marcar fechas especiales (Excepciones)</h3>
       <p>
         La tienda puede indicar días que son diferentes a su horario normal:
       </p>
-      @if (handlerTurno()) { @for (horario of listHorarioTurno; track $index) {
+      @if (handlerTurno()) {
+
+
+<form class="max-w-sm mx-auto">
+  <label for="countries" class="block mb-2.5 text-sm font-medium text-heading">Seleccione opción</label>
+  <select id="countries" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+    <option value="US">Cerrado parcialmente</option>
+    <option value="CA">Cerrado todo el día</option>
+    <option value="FR">Horario extendido</option>
+  </select>
+</form>
+
+
+        @for (horario of listHorarioTurno; track $index) {
+
       <div class="grid grid-cols-3 gap-2 mt-4">
         <div class="flex items-center">
           <input
