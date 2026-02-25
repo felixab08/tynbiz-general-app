@@ -5,20 +5,23 @@ import {
   ChangeDetectorRef,
   signal,
 } from '@angular/core';
-import { IHorary } from '@app/interfaces';
 import {
   AngularMyDatePickerDirective,
   AngularMyDatePickerModule,
   IAngularMyDpOptions,
 } from '@nodro7/angular-mydatepicker';
 import { Horaries } from './horaries/horaries';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tyn-create-calendar',
-  imports: [AngularMyDatePickerModule, Horaries],
+  standalone: true,
+  imports: [AngularMyDatePickerModule, Horaries, CommonModule],
   templateUrl: './create-calendar.html',
 })
 export default class CreateCalendar {
+  isCase = 'CP';
+  checkHours = signal(false);
   handlerTurno = signal(false);
   turnoCreate = signal<any | null>(null);
   cdr = inject(ChangeDetectorRef);
@@ -63,13 +66,24 @@ export default class CreateCalendar {
       : { year: 0, month: 0, day: 0 };
     this.myDatePickerOptions = copy;
   }
+
   sendAgenda(): void {
     console.log('agenda enviada');
   }
-  onDisableToday(checked: boolean): void {
+
+  onDisableToday(): void {
     let copy = this.getCopyOfOptions();
     copy.disableDates = true ? this.listDisabledDates : [];
     this.myDatePickerOptions = copy;
     this.handlerTurno.set(false);
+  }
+
+  handlerCase(event: any) {
+    console.log(event.value);
+    if (event.value === 'CP' || event.value === 'HX') {
+      this.checkHours.set(true);
+    } else {
+      this.checkHours.set(false);
+    }
   }
 }

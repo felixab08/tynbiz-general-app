@@ -19,7 +19,7 @@
 
   <!-- copia del primero pero con horas en la mañan y en la tarde -->
 
-  <div class="grid grid-cols-1 min-h-96 md:grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 min-h-96 lg:grid-cols-2 gap-4">
     <div
       class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
     >
@@ -46,19 +46,28 @@
         La tienda puede indicar días que son diferentes a su horario normal:
       </p>
       @if (handlerTurno()) {
-
-
-<form class="max-w-sm mx-auto">
-  <label for="countries" class="block mb-2.5 text-sm font-medium text-heading">Seleccione opción</label>
-  <select id="countries" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
-    <option value="US">Cerrado parcialmente</option>
-    <option value="CA">Cerrado todo el día</option>
-    <option value="FR">Horario extendido</option>
-  </select>
-</form>
-
-
-        @for (horario of listHorarioTurno; track $index) {
+      <!-- busqueda por estado -->
+      <div class="relative w-48">
+        <label
+          for="casesClosed"
+          class="block mb-2.5 text-sm font-medium text-heading"
+          >Seleccione opción</label
+        >
+        <select
+        #casesClosed
+          (change)="handlerCase($event.target)"
+          id="casesClosed"
+          class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+        >
+          <option selected disabled>Seleccione opción</option>
+          <option value="CP">Cerrado parcialmente</option>
+          <option value="CT">Cerrado todo el día</option>
+          <option value="HX">Horario extendido</option>
+        </select>
+      </div>
+      @if (checkHours()) {
+      <!--  -->
+      @for (horario of listHorarioTurno; track $index) {
 
       <div class="grid grid-cols-3 gap-2 mt-4">
         <div class="flex items-center">
@@ -154,14 +163,15 @@
         </div>
       </div>
       }
+      }
 
       <div class="text-center my-6 flex justify-end">
         <button
-          (click)="onDisableToday(true)"
+          (click)="onDisableToday()"
           type="button"
           class="text-white bg-primary hover:bg-primary-light hover:text-primary border-primary border-2 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none"
         >
-          Guardar cambios
+          Guardar excepciones
         </button>
       </div>
       }

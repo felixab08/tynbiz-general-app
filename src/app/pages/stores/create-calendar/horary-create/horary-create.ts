@@ -183,27 +183,6 @@ export class HoraryCreate {
     return this.myForm.get(day) as FormGroup;
   }
 
-  // Retorna todos los atributos del grupo "lunes" si está activo,
-  // si está inactivo devuelve solo { status, dia } (sin horarios)
-  getLunesProcessed() {
-    const g = this.getDayGroup('lunes');
-    const val = g.value;
-    if (val.status) {
-      return val;
-    }
-    return { status: val.status, dia: val.dia };
-  }
-
-  // Versión genérica para cualquier día
-  getDayProcessed(day: string) {
-    const g = this.getDayGroup(day);
-    const val = g.value;
-    if (val.status) {
-      return val;
-    }
-    return { status: val.status, dia: val.dia };
-  }
-
   // Mapeo índice -> clave del grupo
   private dayKeys = [
     'lunes',
