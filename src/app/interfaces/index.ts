@@ -14,10 +14,10 @@ export * from './admin/action-audit.interface';
 export * from './shopper/catalog.interface';
 export * from './shopper/product-store.interface';
 
-
 //General Interfaces
 export * from './general/services.interface';
 
 //Store Interfaces
 export * from './stores/store-products.interface';
 export * from './stores/horary.interface';
+export * from './stores/creations.interface';

@@ -29,7 +29,7 @@
     </div>
     <div class="my-24">
       <tyn-carousel-products-creation
-        [listProduct]="createCreation.products()"
+        [listProduct]="_createCreation.products()"
       ></tyn-carousel-products-creation>
     </div>
   </div>
@@ -40,7 +40,7 @@
         Tus productos para crear contenido
       </p>
       <div class="overflow-auto h-[600px]">
-        @for (product of createCreation.products(); track product.id) {
+        @for (product of _createCreation.products(); track product.id) {
           <div
             class="w-full flex justify-between p-4 border rounded-lg mb-6 border-gray-300"
           >
@@ -53,12 +53,12 @@
                   checked
                   id="purple-checkbox"
                   type="checkbox"
-                  [checked]="createCreation.isSelected(product)"
+                  [checked]="_createCreation.isSelected(product)"
                   [disabled]="
-                    createCreation.isFull() &&
-                    !createCreation.isSelected(product)
+                    _createCreation.isFull() &&
+                    !_createCreation.isSelected(product)
                   "
-                  (change)="createCreation.toggle(product)"
+                  (change)="_createCreation.toggle(product)"
                   class="w-6 h-6 text-purple-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-purple-500 ring-offset-neutral-primary focus:ring-2"
                 />
               </div>
@@ -99,12 +99,13 @@
                 'title'
               ),
             }"
-            >Nombre de la creacion</label
+            >Nombre de la creación</label
           >
           <input
             type="text"
             id="title"
             formControlName="title"
+            placeholder="Nombre de la creación"
             class="input-base"
             [ngClass]="{
               'input-error': formUtils.isValiedField(myFormCreations, 'title'),
@@ -141,8 +142,9 @@
               ),
             }"
           >
-            <option value="normal" selected>Normal</option>
-            <option value="oferta">Ofertas</option>
+            <option value="" selected disabled>Seleccione</option>
+            <option value="NORMAL" >Normal</option>
+            <option value="OFERTAS">Ofertas</option>
           </select>
           @if (formUtils.isValiedField(myFormCreations, "contentDetail")) {
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -171,8 +173,9 @@
             (change)="onPublicationChange(publicationSelect.value)"
             class="input-base"
           >
-            <option value="solo" selected>Solo publicación</option>
-            <option value="vivo">Publicación en vivo</option>
+            <option value="" selected disabled>Seleccione</option>
+            <option value="SOLO_PUBLICACION ">Solo publicación</option>
+            <option value="EN_VIVO">Publicación en vivo</option>
           </select>
           @if (formUtils.isValiedField(myFormCreations, "publicationOption")) {
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -182,7 +185,7 @@
             </p>
           }
         </div>
-        @if (publicationType() === "vivo") {
+        @if (publicationType() === "EN_VIVO") {
           <div class="mb-5">
             <label
               class="w-full flex items-center justify-between cursor-pointer p-4 bg-neutral-primary-soft border border-gray-300 rounded-lg shadow-xs"
@@ -206,7 +209,7 @@
             </label>
           </div>
         }
-        @if (publicationType() === "vivo" && scheduleEnabled()) {
+        @if (publicationType() === "EN_VIVO" && scheduleEnabled()) {
           <div class="mb-5">
             <label
               for="startDate"
@@ -289,7 +292,7 @@
         </p>
       </div>
       <button
-        type="button"
+        type="submit"
         class="button-primary w-full"
         (click)="publishCreation()"
         fdprocessedid="uj8vs6b"

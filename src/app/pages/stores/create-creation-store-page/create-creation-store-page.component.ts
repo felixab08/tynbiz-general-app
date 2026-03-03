@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { CarouselProductsCreation } from '@app/components/carousel-products-creation/carousel-products-creation.component';
 import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
+import { AlertService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
 import { FormUtils } from '@app/utils/form.util';
 type CreationStep = 'products' | 'details';
@@ -24,23 +25,24 @@ type CreationStep = 'products' | 'details';
 })
 export default class CreateCreationStorePage {
   step = signal<CreationStep>('products');
-  publicationType = signal<'solo' | 'vivo'>('solo');
+  publicationType = signal<'SOLO_PUBLICACION ' | 'EN_VIVO'>(
+    'SOLO_PUBLICACION ',
+  );
   scheduleEnabled = signal(false);
+  _createCreation = inject(CreateCreation);
+  _alertService = inject(AlertService);
 
   showAlert = signal(false);
-
+  router = inject(Router);
   private _fb = inject(FormBuilder);
   formUtils = FormUtils;
   myFormCreations: FormGroup = this._fb.group({});
   ngOnInit(): void {
     this.createForm();
   }
-  constructor(
-    public createCreation: CreateCreation,
-    private router: Router,
-  ) {
+  constructor() {
     effect(() => {
-      if (this.createCreation.count() === 0) {
+      if (this._createCreation.count() === 0) {
         setTimeout(() => this.showAlert.set(true), 500);
       } else {
         this.showAlert.set(false);
@@ -52,7 +54,7 @@ export default class CreateCreationStorePage {
     this.router.navigate(['/stores/products']);
   }
   nextStep() {
-    if (this.createCreation.count() === 0) return;
+    if (this._createCreation.count() === 0) return;
     this.step.set('details');
   }
 
@@ -60,10 +62,10 @@ export default class CreateCreationStorePage {
     this.step.set('products');
   }
   onPublicationChange(value: string) {
-    this.publicationType.set(value as 'solo' | 'vivo');
+    this.publicationType.set(value as 'SOLO_PUBLICACION ' | 'EN_VIVO');
 
     // resetear toggle y fecha/hora si cambia a "solo"
-    if (value === 'solo') {
+    if (value === 'SOLO_PUBLICACION ') {
       this.scheduleEnabled.set(false);
     }
   }
@@ -84,10 +86,10 @@ export default class CreateCreationStorePage {
 
   buildNewCreation() {
     const formData = this.myFormCreations.value;
-    const products = this.createCreation.products();
+    const products = this._createCreation.products();
     const newCreation = {
       ...formData,
-      products: products.map((p) => ({
+      productIds: products.map((p) => ({
         id: p.id,
         name: p.name,
         sku: p.sku,
@@ -122,6 +124,21 @@ export default class CreateCreationStorePage {
       return;
     }
     const payload = this.buildNewCreation();
+    this._createCreation.postRegisterCreations(payload).subscribe({
+      next: (resp) => {
+        this._alertService.getAlert(
+          'Creación registrada con éxito:',
+          'Tu creación ha sido registrada exitosamente.',
+          'success',
+        );
+        this._createCreation.clear();
+        localStorage.removeItem('creation_creation');
+        this.router.navigate(['/stores/products']);
+      },
+      error: (err) => {
+        console.error('Error al registrar la creación:', err);
+      },
+    });
     console.log('Payload enviado:', payload);
   }
 }
