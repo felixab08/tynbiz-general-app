@@ -1,0 +1,62 @@
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold mb-2">Productos</h1>
+  <p>Todo los productos integrados.</p>
+</div>
+<tyn-filter
+  [filterMenu]="filterMenu()"
+  placeholder="Buscar"
+  [currentPage]="_linkService.currentPage()"
+  [currentSize]="_linkService.currentSize()"
+  [currentSearchTerm]="_linkService.currentSearchTerm()"
+></tyn-filter>
+<div class="bg-white rounded-lg border border-gray-300">
+  @if (productsResource.hasValue()) { @let products = productsResource.value()!;
+  @for (product of products.content; track product.id) {
+  <div class="w-full flex justify-between p-4 border-b border-gray-300">
+    <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
+    <div class="md:ms-3 text-sm font-normal items-center flex">
+      <a
+        type="button"
+        [href]="product.productUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-white bg-gray-700 ml-4 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+      >
+        Ver
+      </a>
+      <div class="flex items-center ml-4">
+        <input
+          id="purple-checkbox"
+          type="checkbox"
+          [checked]="createCreation.isSelected(product)"
+          [disabled]="
+                createCreation.isFull() && !createCreation.isSelected(product)
+              "
+          (change)="createCreation.toggle(product)"
+          class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
+        />
+      </div>
+    </div>
+  </div>
+  } @empty {
+  <td colspan="7" class="text-center p-4">No hay Productos disponibles.</td>
+  <!--  -->
+  } @if (productsResource.isLoading()) {
+  <tr>
+    <td colspan="6" class="text-center p-4">
+      <div class="alert alert-info text-center">
+        <span class="font-bold">Cargando productos...</span>
+      </div>
+    </td>
+  </tr>
+  } }
+</div>
+@if (productsResource.hasValue()) {
+<app-pagination
+  [pages]="productsResource.value().totalPages"
+  [totalElements]="productsResource.value().totalElements"
+  [currentPage]="_linkService.currentPage()"
+  [currentSize]="_linkService.currentSize()"
+  [currentSearchTerm]="_linkService.currentSearchTerm()"
+/>
+}

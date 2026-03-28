@@ -1,67 +1,142 @@
-<div class="mb-6">
-  <h1 class="text-2xl font-semibold mb-2">Productos</h1>
-  <p>Todo los productos integrados.</p>
-</div>
-<tyn-filter
-  [filterMenu]="filterMenu()"
-  placeholder="Buscar"
-  [currentPage]="_linkService.currentPage()"
-  [currentSize]="_linkService.currentSize()"
-  [currentSearchTerm]="_linkService.currentSearchTerm()"
-></tyn-filter>
-<div class="bg-white rounded-lg border border-gray-300">
-  @if (productsResource.hasValue()) {
-    @let products = productsResource.value()!;
-    @for (product of products.content; track product.id) {
-      <div class="w-full flex justify-between p-4 border-b border-gray-300">
-        <tyn-product-detail-card
-          [listProduct]="product"
-        ></tyn-product-detail-card>
-        <div class="md:ms-3 text-sm font-normal items-center flex">
-          <a
-            type="button"
-            [href]="product.productUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-white bg-gray-700 ml-4 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+<div class="max-w-lg mx-auto overflow-hidden border rounded">
+  <div class="px-8 pt-8 pb-6 text-center border-b border-border">
+    <div
+      class="inline-flex items-center justify-center h-16 w-16 rounded-2xl mb-4"
+      style="background: linear-gradient(135deg, #1a7340, #2da060)"
+    >
+      <svg
+        viewBox="0 0 109.5 124.5"
+        class="h-8 w-8"
+        fill="white"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M74.7 14.8s-.3-.2-.9-.4c-.1-2.7-1.4-10.1-7.4-10.1h-.3c-1.8-2.4-4-3.5-5.9-3.5-14.5 0-21.4 18.1-23.6 27.3-5.6 1.7-9.6 3-9.7 3-.3.1-3 .9-3.1 3.1L20.6 95.9l49 9.4 26.5-6.4L74.7 14.8zm-15.1-9.4c1.1 0 2.2.4 3.1 1.1-3.8 1.8-7.9 6.2-9.6 15.1l-13.4 4.1c2.6-9.6 9-20.3 19.9-20.3zm-3.5 47.3c0 0-3.6-1.9-8-1.9-6.5 0-6.8 4.1-6.8 5.1 0 5.6 14.6 7.7 14.6 20.8 0 10.3-6.5 16.9-15.3 16.9-10.5 0-15.9-6.6-15.9-6.6l2.8-9.3s5.5 4.7 10.2 4.7c3 0 4.3-2.4 4.3-4.1 0-7.2-12-7.5-12-19.5 0-10 7.2-19.7 21.7-19.7 5.6 0 8.4 1.6 8.4 1.6l-4 11z"
+        />
+      </svg>
+    </div>
+    <h2 class="text-xl font-bold text-foreground">Conecta tu tienda Shopify</h2>
+    <p class="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+      Sincroniza tu catálogo en segundos y vende en vivo con un clic
+    </p>
+  </div>
+
+  <div class="flex border-b border-border">
+    @for (stepItem of stepOptions; track $index) {
+    <button
+      (click)="stepItem.value === 2 ? installOpened && (step = 2) : (step = 1)"
+      [disabled]="stepItem.value === 2 && !installOpened"
+      [ngClass]="
+        step === stepItem.value
+          ? 'flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors bg-primary/10 text-primary border-b-2 border-primary'
+          : 'flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground'
+      "
+    >
+      <span
+        [ngClass]="
+          step > stepItem.value
+            ? 'flex items-center justify-center h-5 w-5 rounded-full text-xs font-bold text-primary-foreground'
+            : step === stepItem.value
+              ? 'flex items-center justify-center h-5 w-5 rounded-full text-xs font-bold text-primary-foreground'
+              : 'flex items-center justify-center h-5 w-5 rounded-full text-xs font-bold bg-muted text-muted-foreground'
+        "
+      >
+        <ng-container *ngIf="step > stepItem.value">✔</ng-container>
+        <ng-container *ngIf="step <= stepItem.value">{{ stepItem.value }}</ng-container>
+      </span>
+      {{ stepItem.label }}
+    </button>
+  }
+  </div>
+
+  <div class="p-8">
+    <div *ngIf="step === 1" class="space-y-6">
+      <div class="space-y-3">
+        @for (t of listSteps; track $index; let i = $index) {
+        <div
+          class="flex items-start gap-3"
+        >
+          <span
+            class="flex items-center justify-center h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold shrink-0 mt-0.5"
+            >{{ i + 1 }}</span
           >
-            Ver
-          </a>
-          <div class="flex items-center ml-4">
-            <input
-              id="purple-checkbox"
-              type="checkbox"
-              [checked]="createCreation.isSelected(product)"
-              [disabled]="
-                createCreation.isFull() && !createCreation.isSelected(product)
-              "
-              (change)="createCreation.toggle(product)"
-              class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
-            />
-          </div>
+          <p class="text-sm text-muted-foreground leading-snug">{{ t }}</p>
+        </div>
+      }
+      </div>
+
+      <div class="space-y-3">
+        <button
+          (click)="handleOpenInstall()"
+          class="w-full px-4 py-3 text-sm font-medium rounded bg-primary text-white"
+        >
+          🔗
+          {{
+            installOpened
+              ? "Abrir Shopify de nuevo"
+              : "Abrir Shopify e Instalar"
+          }}
+        </button>
+
+        <div *ngIf="installOpened" class="space-y-3">
+          <p
+            class="text-success text-sm font-medium flex items-center justify-center gap-1.5"
+          >
+            ✔ ¡Enlace abierto! Completa la instalación en Shopify.
+          </p>
+          <button
+            (click)="step = 2"
+            class="w-full px-4 py-3 text-sm font-medium rounded bg-primary text-white"
+          >
+            Ya instalé la app →
+          </button>
         </div>
       </div>
-    } @empty {
-      <td colspan="7" class="text-center p-4">No hay Productos disponibles.</td>
-      <!--  -->
-    }
-    @if (productsResource.isLoading()) {
-      <tr>
-        <td colspan="6" class="text-center p-4">
-          <div class="alert alert-info text-center">
-            <span class="font-bold">Cargando productos...</span>
-          </div>
-        </td>
-      </tr>
-    }
-  }
+    </div>
+
+    <div *ngIf="step === 2" class="space-y-6">
+      <div class="text-center">
+        <h3 class="text-lg font-bold text-foreground mb-1">
+          Ingresa tu dominio
+        </h3>
+        <p class="text-muted-foreground text-sm">
+          Escribe el dominio de tu tienda Shopify para completar la conexión.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <label class="block text-sm text-muted-foreground"
+          >Dominio de Shopify</label
+        >
+        <input
+          [(ngModel)]="shopDomain"
+          placeholder="mitienda.myshopify.com"
+          class="w-full px-3 py-2 border rounded"
+          autofocus
+        />
+        <div class="flex gap-3">
+          <button (click)="step = 1" class="px-3 py-2 border rounded">
+            ← Atrás
+          </button>
+          <button
+            (click)="connect()"
+            [disabled]="
+              !shopDomain.includes('.myshopify.com') || connectIsPending
+            "
+            class="flex-1 px-3 py-2 rounded bg-primary text-white"
+          >
+            {{ connectIsPending ? "Conectando..." : "🔗 Conectar Shopify" }}
+          </button>
+        </div>
+      </div>
+
+      <p
+        *ngIf="connectIsError"
+        class="text-destructive text-sm font-medium text-center"
+        role="alert"
+      >
+        Error al conectar. Verifica el dominio e intenta de nuevo.
+      </p>
+    </div>
+  </div>
 </div>
-@if (productsResource.hasValue()) {
-  <app-pagination
-    [pages]="productsResource.value().totalPages"
-    [totalElements]="productsResource.value().totalElements"
-    [currentPage]="_linkService.currentPage()"
-    [currentSize]="_linkService.currentSize()"
-    [currentSearchTerm]="_linkService.currentSearchTerm()"
-  />
-}

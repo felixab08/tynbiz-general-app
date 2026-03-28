@@ -1,49 +1,71 @@
-import { Component, inject, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
-import { productMock } from '@app/mock/product.mock';
-import { LinkParamService } from '@app/services';
-import { CreateCreation } from '@app/services/stores/create-creation.service';
-import { ProductsStoreService } from '@app/services/stores/products-store.service';
-import { FilterComponent } from "@app/components/filter/filter.component";
-import { PaginationComponent } from "@app/components/pagination/pagination.component";
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'tyn-products-store-page',
-  imports: [ProductDetailCardComponent, FilterComponent, PaginationComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './products-store-page.component.html',
 })
-export default class ProductsStorePageComponent {
-  private _productsStoreService = inject(ProductsStoreService);
-  _linkService = inject(LinkParamService);
-  productMock = productMock;
+export default class ProductsStorePageComponent implements OnInit, OnDestroy {
+  step = 1;
+  shopDomain = '';
+  installOpened = false;
+  connectIsPending = false;
+  connectIsError = false;
+  appName = 'Mi App'; // ![TODO] reemplazar por valor real de configuración
+  private sub?: Subscription;
+  private route = inject(ActivatedRoute);
+  stepOptions = [
+    { value: 1, label: 'Conectar tienda' },
+    { value: 2, label: 'Instalar aplicación' },
+  ];
 
-    // Filtros
-  filterMenu = signal({
-    searchShow: true,
-    datesShow: false,
-    selectShow: false,
-    filterSelectList: [],
-  });
+  listSteps = [
+    'Haz clic en el botón para abrir Shopify',
+    'Instala la app personalizada de ' + this.appName,
+    'Vuelve aquí y continúa al paso 2',
+  ];
 
-  productsResource = rxResource({
-    request: () => ({
-      page: this._linkService.currentPage() - 1,
-      size: this._linkService.currentSize(),
-      searchTerm: this._linkService.currentSearchTerm(),
-    }),
-    loader: ({ request }) =>
-      {
-        return (
-        this._productsStoreService.getProductsByStore({
-          page: request.page,
-          size: request.size,
-          searchTerm: request.searchTerm,
-        }) || {}
-      );
+  ngOnInit() {
+    this.sub = this.route.queryParamMap.subscribe((params) => {
+      if (params.get('step') === '2') {
+        this.step = 2;
+        this.installOpened = true;
       }
-  });
+    });
+  }
 
-  constructor(public createCreation: CreateCreation) {
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
+
+  handleOpenInstall() {
+    window.open(
+      environment.NEXT_PUBLIC_SHOPIFY_INSTALL_URL,
+      '_blank',
+      'noopener,noreferrer',
+    );
+    this.installOpened = true;
+  }
+
+  connect() {
+    if (!this.shopDomain.includes('.myshopify.com')) return;
+    this.connectIsPending = true;
+    this.connectIsError = false;
+    // TODO: reemplazar por llamada real a servicio
+    setTimeout(() => {
+      this.connectIsPending = false;
+      const success = Math.random() > 0.3;
+      if (!success) {
+        this.connectIsError = true;
+      } else {
+        console.log('Shopify conectado:', this.shopDomain);
+      }
+    }, 1200);
   }
 }
