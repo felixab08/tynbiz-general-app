@@ -12,6 +12,7 @@ import {
 } from '@nodro7/angular-mydatepicker';
 import { Horaries } from './horaries/horaries';
 import { CommonModule } from '@angular/common';
+type TynSectionDate = 'detalles' | 'horario' | 'fechas';
 
 @Component({
   selector: 'tyn-create-calendar',
@@ -25,6 +26,8 @@ export default class CreateCalendar {
   handlerTurno = signal(false);
   turnoCreate = signal<any | null>(null);
   cdr = inject(ChangeDetectorRef);
+  selectedSection = signal<TynSectionDate>('detalles');
+
   public myDatePickerOptions: IAngularMyDpOptions = {
     dateRange: false,
     dateFormat: 'dd/mm/yyyy',
