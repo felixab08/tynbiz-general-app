@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { environment } from '@environments/environment';
+import { ShopifyService } from '@app/services/stores/shopify.service';
 
 @Component({
   selector: 'tyn-products-store-page',
@@ -12,6 +13,7 @@ import { environment } from '@environments/environment';
   templateUrl: './products-store-page.component.html',
 })
 export default class ProductsStorePageComponent implements OnInit, OnDestroy {
+  _shopifyService = inject(ShopifyService);
   step = 1;
   shopDomain = '';
   installOpened = false;
@@ -37,6 +39,9 @@ export default class ProductsStorePageComponent implements OnInit, OnDestroy {
         this.step = 2;
         this.installOpened = true;
       }
+    });
+    this._shopifyService.getShopifyStatus().subscribe((res: any) => {
+      console.log(res);
     });
   }
 
