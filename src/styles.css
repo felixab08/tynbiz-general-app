@@ -112,7 +112,7 @@
   }
 
   .body-primary {
-    @apply relative overflow-x-auto shadow-md sm:rounded-lg px-4 lg:px-10 py-12 m-4;
+    @apply relative overflow-x-auto md:shadow-md sm:rounded-lg px-4 lg:px-10 py-12 md:m-4;
   }
 
   .body-secondary {

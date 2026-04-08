@@ -1,5 +1,5 @@
 <!-- ![TODO] poner el grid-cols-1 en grid-cols-2 -->
-<div class="grid grid-cols-1 min-h-96 md:grid-cols-1 gap-4">
+<div class="card-static">
   <!-- <div
       class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
     >
@@ -21,20 +21,18 @@
         ></i>
       </div>
     </div> -->
-  <div
-    class="relative overflow-x-auto shadow-md sm:rounded-lg px-10 m-4 col-span-1"
-  >
-    <h3 class="text-lg font-bold">Horas semanales</h3>
+
+    <h1 class="text-lg font-semibold mb-2">Horas semanales de atención</h1>
     <p>
       Selecciona las horas en las que vas a estar disponible para atender a tus
       clientes
     </p>
     <div class="grid grid-cols-6 gap-2 mt-4">
-      <p class="text-3xl font-bold text-center">Dias</p>
-      <p class="text-3xl font-bold text-center col-span-2">Mañana</p>
-      <p class="text-3xl font-bold text-center col-span-2">Tarde</p>
+      <p class="text-base font-bold text-center">Dias</p>
+      <p class="text-base font-bold text-center col-span-2">Mañana</p>
+      <p class="text-base font-bold text-center col-span-2">Tarde</p>
       <p></p>
     </div>
     <tyn-horary-create />
   </div>
-</div>
+

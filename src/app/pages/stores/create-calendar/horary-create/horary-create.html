@@ -2,19 +2,20 @@
   <!-- ?lunes -->
   <div
     formGroupName="lunes"
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
+      id="purple-checkbox"
         (change)="handleStatus(0)"
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+        class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
       />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[0].dia}}</label
       >
     </div>
@@ -52,7 +53,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -92,7 +93,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -136,7 +137,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -176,7 +177,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -191,7 +192,7 @@
   <!-- ?Martes -->
   <div
     formGroupName="martes"
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
@@ -199,11 +200,11 @@
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+        class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
       />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[1].dia}}</label
       >
     </div>
@@ -241,7 +242,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -281,7 +282,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -324,7 +325,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -364,7 +365,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -379,7 +380,7 @@
   <!-- ?Miercoles -->
   <div
     formGroupName="miercoles"
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
@@ -387,11 +388,11 @@
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+        class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
       />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[2].dia}}</label
       >
     </div>
@@ -429,7 +430,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -469,7 +470,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -512,7 +513,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -552,7 +553,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -567,7 +568,7 @@
   <!-- ?Juevez -->
   <div
     formGroupName="jueves"
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
@@ -576,11 +577,11 @@
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+        class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
       />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[3].dia}}</label
       >
     </div>
@@ -618,7 +619,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -658,7 +659,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -701,7 +702,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -741,7 +742,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -757,7 +758,7 @@
   <div
       formGroupName="viernes"
 
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
@@ -766,11 +767,11 @@
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+        class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
       />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[4].dia}}</label
       >
     </div>
@@ -808,7 +809,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -848,7 +849,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -891,7 +892,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -931,7 +932,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -946,7 +947,7 @@
   <!-- ?sabado -->
   <div
     formGroupName="sabado"
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
@@ -954,11 +955,11 @@
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
-      />
+          class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
+        />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[5].dia}}</label
       >
     </div>
@@ -996,7 +997,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -1036,7 +1037,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -1079,7 +1080,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -1119,7 +1120,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -1134,7 +1135,7 @@
   <!-- ?domingo -->
   <div
     formGroupName="domingo"
-    class="grid grid-cols-6 gap-2 mt-4 bg-neutral-primary-soft p-6 border border-default rounded-xl shadow-xs"
+    class="grid lg:grid-cols-5 gap-2 mt-4 bg-neutral-primary-soft p-4 border border-gray-300 border-default rounded-lg shadow-xs"
   >
     <div class="flex items-center">
       <input
@@ -1142,11 +1143,11 @@
         formControlName="status"
         id="checked-checkbox"
         type="checkbox"
-        class="w-7 h-7 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+        class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2"
       />
       <label
         for="checked-checkbox"
-        class="select-none ms-2 text-xl font-medium text-heading"
+        class="select-none ms-2 text-lg font-medium text-heading"
         >{{horario[6].dia}}</label
       >
     </div>
@@ -1184,7 +1185,7 @@
           <input
             type="time"
             id="from-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="08:00"
@@ -1224,7 +1225,7 @@
           <input
             type="time"
             id="to-horario-manana"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -1267,7 +1268,7 @@
           <input
             type="time"
             id="from-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -1307,7 +1308,7 @@
           <input
             type="time"
             id="to-horario-tarde"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border-2 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
             min="12:00"
             max="24:00"
             value="12:00"
@@ -1319,7 +1320,7 @@
     </div>
     }
   </div>
-  <div class="text-center my-6 flex justify-end text-fg-disabled">
+  <div class="text-center mt-6 flex justify-end text-fg-disabled">
     <button
       type="submit"
       [ngClass]="myForm.valid ?'button-primary':'button-disabled'"
