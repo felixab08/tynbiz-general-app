@@ -1,0 +1,48 @@
+<div class="card-static">
+  <div class="mb-6">
+    <h1 class="text-lg font-bold">Servicios</h1>
+    <p>Defina que servicios ofrece en la sala tynbiz</p>
+    <div [formGroup]="form">
+      <div formArrayName="servicios">
+        @for (servicio of servicios.controls; track servicio; let i = $index) {
+        <div class="flex gap-4 mt-4 items-center" [formGroupName]="i">
+          <input
+            type="text"
+            class="input-base"
+            placeholder="Ej: Asesoria express"
+            formControlName="nombre"
+          />
+          <div class="max-w-sm">
+            <select
+              class="rounded-lg border p-2.5 pr-12 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              formControlName="tiempo"
+            >
+              <option [value]="15">15 min</option>
+              <option [value]="30">30 min</option>
+              <option [value]="45">45 min</option>
+              <option [value]="60">60 min</option>
+            </select>
+          </div>
+          @if (servicios.length > 1) {
+          <button
+            type="button"
+            class="text-white bg-gray-700 hover:bg-gray-900 focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            (click)="eliminarServicio(i)"
+          >
+            -
+          </button>
+          } @if (i === servicios.length - 1) {
+          <button
+            type="button"
+            class="text-white bg-primary hover:bg-primary-dark focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            (click)="agregarServicio()"
+          >
+            +
+          </button>
+          }
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

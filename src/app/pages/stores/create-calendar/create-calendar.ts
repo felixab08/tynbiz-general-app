@@ -12,12 +12,13 @@ import {
 } from '@nodro7/angular-mydatepicker';
 import { Horaries } from './horaries/horaries';
 import { CommonModule } from '@angular/common';
-type TynSectionDate = 'detalles' | 'horario' | 'fechas';
+import { ServicesDurationHorary } from "./services-duration-horary/services-duration-horary";
+type TynSectionDate = 'citas'|'detalles' | 'horario' | 'fechas';
 
 @Component({
   selector: 'tyn-create-calendar',
   standalone: true,
-  imports: [AngularMyDatePickerModule, Horaries, CommonModule],
+  imports: [AngularMyDatePickerModule, Horaries, CommonModule, ServicesDurationHorary],
   templateUrl: './create-calendar.html',
 })
 export default class CreateCalendar {

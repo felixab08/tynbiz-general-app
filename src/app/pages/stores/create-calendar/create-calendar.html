@@ -6,7 +6,7 @@
   </p>
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<div class="lg:grid lg:grid-cols-3 gap-4">
   <div class="card-static mb-6">
     <h1 class="text-lg font-semibold mb-2 text-center">Atención a clientes</h1>
     <p class="text-center">
@@ -17,45 +17,124 @@
     <h1 class="text-lg font-semibold mb-2 mt-6">
       Programe su calendario de atencion
     </h1>
-    <button
-      (click)="selectedSection.set('detalles')"
-      class="mb-4 grid grid-cols-12 gap-4 bg-white hover:bg-gray-100 card-store cursor-pointer"
-    >
-      <div class="col-span-10">
-        <h1 class="text-base font-semibold">Detalles de atención</h1>
-      </div>
-      <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-    </button>
-    <button
-      (click)="selectedSection.set('horario')"
-      class="mb-4 grid grid-cols-12 gap-4 bg-white hover:bg-gray-100 card-store cursor-pointer"
-    >
-      <div class="col-span-10">
-        <h1 class="text-base font-semibold">Horario de atención</h1>
-      </div>
-      <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-    </button>
-    <button
-      (click)="selectedSection.set('fechas')"
-      class="mb-4 grid grid-cols-12 gap-4 bg-white hover:bg-gray-100 card-store cursor-pointer"
-    >
-      <div class="col-span-10">
-        <h1 class="text-base font-semibold">Fechas especiales</h1>
-      </div>
-      <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-    </button>
+    <div class="">
+      <button
+        (click)="selectedSection.set('detalles')"
+        [ngClass]="selectedSection() === 'detalles'
+    ? 'bg-primary-light border border-primary'
+    : 'bg-white hover:bg-primary-light'"
+        class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer"
+      >
+        <div class="col-span-10">
+          <h1 class="text-base font-semibold">Detalles de atención</h1>
+        </div>
+        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
+      </button>
+      <button
+        (click)="selectedSection.set('citas')"
+        [ngClass]="selectedSection() === 'citas'
+    ? 'bg-primary-light border border-primary'
+    : 'bg-white hover:bg-primary-light'"
+        class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer"
+      >
+        <div class="col-span-10">
+          <h1 class="text-base font-semibold">Duración de citas</h1>
+        </div>
+        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
+      </button>
+      <button
+        (click)="selectedSection.set('horario')"
+        [ngClass]="selectedSection() === 'horario'
+    ? 'bg-primary-light border border-primary'
+    : 'bg-white hover:bg-primary-light'"
+        class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer"
+      >
+        <div class="col-span-10">
+          <h1 class="text-base font-semibold">Horario de atención</h1>
+        </div>
+        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
+      </button>
+      <button
+        (click)="selectedSection.set('fechas')"
+        [ngClass]="selectedSection() === 'fechas'
+    ? 'bg-primary-light border border-primary'
+    : 'bg-white hover:bg-primary-light'"
+        class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer"
+      >
+        <div class="col-span-10">
+          <h1 class="text-base font-semibold">Fechas especiales</h1>
+        </div>
+        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
+      </button>
+    </div>
   </div>
   <div class="col-span-2">
     @if (selectedSection() === 'detalles') {
-    <div class="card-static my-6">
-      <h1 class="text-lg font-bold">Detalles de atención</h1>
-      <p>Información sobre los detalles de tu horario de atención.</p>
+    <h1 class="text-lg font-bold mb-4">Detalles de atención</h1>
+    <div class="card-static">
+      <div class="mb-6">
+        <h1 class="text-lg font-bold">Citas por dia</h1>
+        <p>Defina cuantos citas diarias puede atender en la sala tynbiz</p>
+        <div class="mt-4 max-w-sm">
+          <select id="" class="input-base">
+            <option value="15">5</option>
+            <option value="30">10</option>
+            <option value="20">15</option>
+            <option value="60">20</option>
+          </select>
+        </div>
+      </div>
+      <!-- <div class="mb-6">
+        <h1 class="text-lg font-bold">Duración</h1>
+        <p>
+          Defina cuantos minutos puede atender a sus clientes en la sala tynbiz
+        </p>
+        <div class="mt-4 max-w-sm">
+          <select id="" class="input-base">
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="20">45 min</option>
+            <option value="60">60 min</option>
+            <option value="time">personalizado</option>
+          </select>
+          <div class="flex gap-4 mt-4">
+            <input type="number" class="input-base" />
+            <select id="" class="input-base">
+              <option value="10">min</option>
+              <option value="15">h</option>
+            </select>
+          </div>
+        </div>
+      </div> -->
+      <div>
+        <h1 class="text-lg font-bold">Atencion en sala</h1>
+        <p>
+          Todo las dudas de tus clientes seran atendidos utilizando la sala de
+          tynbiz
+        </p>
+        <div
+          class="input-base flex items-center gap-2 border border-gray-300 rounded-lg mt-4"
+        >
+          <div class="w-full flex justify-between">
+            <h1 class="text-md font-bold">Tynbiz sala</h1>
+            <a
+              class="inline-flex text-sm items-center text-primary hover:underline cursor-pointer"
+            >
+              Uso
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    }
-    @if (selectedSection() === 'horario') {
+    } @if (selectedSection() === 'citas') {
+    <h1 class="text-lg font-bold mb-4">Duración de citas</h1>
+    <tyn-services-duration-horary />
+    } @if (selectedSection() === 'horario') {
+    <h1 class="text-lg font-bold mb-4">Horario de atención</h1>
     <tyn-horaries />
     } @if (selectedSection() === 'fechas') {
-    <div class="card-static my-6">
+    <h1 class="text-lg font-bold mb-4">Fechas especiales</h1>
+    <div class="card-static">
       <div class="mb-6">
         <h3 class="text-lg font-bold">
           Marcar fechas especiales (Excepciones)
