@@ -1,6 +1,5 @@
 import {
   Component,
-  effect,
   inject,
   signal,
   ViewChild,
@@ -11,7 +10,6 @@ import {
 import {
   Router,
   RouterLink,
-  RouterModule,
   RouterOutlet,
   RouterLinkActive,
 } from '@angular/router';
@@ -45,7 +43,7 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   _alertService = inject(AlertService);
   _router = inject(Router);
   menuItemsAll: any[] = [...menuItemsMock];
-
+  routerState = '/shop/home';
   @ViewChild('drawerToggle', { static: true })
   drawerToggle!: ElementRef<HTMLButtonElement>;
 
@@ -69,8 +67,13 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
         this.menuItemsAll = this.user?.role.includes('STORE_OWNER')
           ? [...menuItemsClienteMock]
           : [...menuAdminMock];
+        this.routerState = this.user?.role.includes('STORE_OWNER')
+          ? '/stores/init-store'
+          : '/admin/dashboard';
+        this._router.navigate([this.routerState]);
       } else {
         this.menuItemsAll = [...menuItemsMock];
+        this.routerState = '/';
         this._router.navigate(['/']);
       }
     });
@@ -112,14 +115,3 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
     }
   }
 }
-// Email    : admin@tynby.com
-// Password : Admin123!
-// Role     : ADMIN
-
-// Email:    owner@tynby.com
-// Password: Admin123!
-// Role:     STORE_OWNER (dueño de las 3 tiendas)
-
-// Email:    user@tynby.com
-// Password: Admin123!
-// Role:     STORE_USER

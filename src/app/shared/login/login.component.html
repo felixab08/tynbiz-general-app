@@ -1,11 +1,11 @@
-<div class="p-4 md:p-5">
+<div class="p-2 md:p-5">
   <h4 class="font-bold text-2xl text-center">Iniciar sesión</h4>
   <p>
     Ingresa a Tynbiz y interactua con amigos, familiares o con el vendedor
     directamente en tus compras
   </p>
   <form
-    class="mt-5 p-10"
+    class="p-5 md:p-10"
     autocomplete="off"
     [formGroup]="myForm"
     (ngSubmit)="logginForm()"
@@ -14,13 +14,13 @@
       <label
         for="user"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Usuario</label
+        >Correo</label
       >
       <input
         type="text"
         id="user"
         formControlName="user"
-        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800"
+        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
         [ngClass]="{
           ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
             formUtils.isValiedField(myForm, 'user')
@@ -45,7 +45,7 @@
           [type]="lookIconIsPassword() ? 'text' : 'password'"
           id="password"
           formControlName="password"
-          class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-purple-800"
+          class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
               formUtils.isValiedField(myForm, 'password')
@@ -54,7 +54,7 @@
         <button
           type="button"
           (click)="changeTypeInput()"
-          class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500"
+          class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-primary-600 dark:text-neutral-600 dark:focus:text-primary-500"
         >
           <svg
             class="shrink-0 size-3.5"
@@ -98,7 +98,7 @@
             id="remember"
             type="checkbox"
             value=""
-            class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+            class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
             required
           />
         </div>
@@ -108,7 +108,7 @@
           >Recuerdame</label
         >
       </div>
-      <a class="text-sm text-blue-700 hover:underline dark:text-blue-500"
+      <a class="text-sm text-primary-700 hover:underline dark:text-primary-500"
         >Olvidaste tu contraseña?</a
       >
     </div>
@@ -120,7 +120,7 @@
     </button>
     <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
       Not registered?
-      <a class="text-blue-700 hover:underline dark:text-blue-500"
+      <a class="text-primary-700 hover:underline dark:text-primary-500"
         >Crear cuenta</a
       >
     </div>

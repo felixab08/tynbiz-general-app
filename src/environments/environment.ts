@@ -4,5 +4,5 @@ export const environment = {
 
   // baseUrl: 'http://localhost:8080/api/v1',
   NEXT_PUBLIC_SHOPIFY_INSTALL_URL:
-    'https://admin.shopify.com/store/tienda1/oauth/install_custom_app?client_id=7ab45001f72342e712dc9262a970f2c3&no_redirect=true&signature=eyJleHBpcmVzX2F0IjoxNzc1MTY0MDQ4LCJwZXJtYW5lbnRfZG9tYWluIjoidGllbmRhMS5teXNob3BpZnkuY29tIiwiY2xpZW50X2lkIjoiN2FiNDUwMDFmNzIzNDJlNzEyZGM5MjYyYTk3MGYyYzMiLCJwdXJwb3NlIjoiY3VzdG9tX2FwcCJ9--bc5e5ed4ffe09d1ded2b9af7337b00da901cf6ee',
+    'https://admin.shopify.com/oauth/install_custom_app?client_id=360cd7d6cc2074797e98b010aaeaf32d&no_redirect=true&signature=eyJleHBpcmVzX2F0IjoxNzc1NzUxNDU4LCJwZXJtYW5lbnRfZG9tYWluIjoidGVzdC1saXZlc2VsbC1jbGV2ZXIubXlzaG9waWZ5LmNvbSIsImNsaWVudF9pZCI6IjM2MGNkN2Q2Y2MyMDc0Nzk3ZTk4YjAxMGFhZWFmMzJkIiwicHVycG9zZSI6ImN1c3RvbV9hcHAiLCJtZXJjaGFudF9vcmdhbml6YXRpb25faWQiOjIwNzc1MzkyN30%3D--cb47b1c1c2b859d199cfaab1c7343221568598bd',
 };

@@ -23,8 +23,8 @@
 <aside id="logo-sidebar" #logoSidebar
   class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 block"
   aria-label="Sidebar">
-  <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-primary-dark">
-    <a href="#" class="flex items-center justify-center ps-2.5 mb-5">
+  <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-white">
+    <a class="flex items-center justify-center ps-2.5 mb-5" [routerLink]="routerState">
       <img src="./assets/svg/ImagotipoTynbizBlanco.svg" class="h-6 me-3 sm:h-8" alt="Tynbiz Logo" />
     </a>
     <ul class="space-y-2 font-medium">
@@ -34,8 +34,8 @@
         <a [routerLink]="menu.route" routerLinkActive #rla="routerLinkActive"
           [routerLinkActiveOptions]="{ exact: true }" class="flex items-center p-2 rounded-lg transition-colors"
           [ngClass]="{
-          'bg-secondary text-primary-dark': rla.isActive,
-          'text-white hover:bg-secondary hover:text-primary-dark': !rla.isActive
+          'bg-secondary text-primary-dark font-bold': rla.isActive,
+          'text-black hover:bg-secondary hover:text-primary-dark ': !rla.isActive
         }">
           <i [class]="menu.icon" class="text-current"></i>
           <span class="ms-3">{{ menu.name }}</span>
@@ -44,7 +44,7 @@
       } @else {
       <li>
         <button type="button"
-          class="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-secondary hover:text-primary-dark"
+          class="flex items-center w-full p-2 text-base text-black transition duration-75 rounded-lg group hover:bg-secondary hover:text-primary-dark"
           [attr.aria-controls]="menu.id" [attr.data-collapse-toggle]="menu.id">
           <i [class]="menu.icon"></i>
           <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">{{ menu.name }}</span>
@@ -58,8 +58,8 @@
           <li>
             <a [routerLink]="item.route" routerLinkActive #rlaChild="routerLinkActive"
               class="flex items-center p-2 rounded-lg transition-colors" [ngClass]="{
-              'bg-secondary text-primary-dark': rlaChild.isActive,
-              'text-white hover:bg-secondary hover:text-primary-dark': !rlaChild.isActive
+              'bg-secondary text-primary-dark font-bold': rlaChild.isActive,
+              'text-black hover:bg-secondary hover:text-primary-dark': !rlaChild.isActive
             }">
               <span class="ms-3">{{ item.name }}</span>
             </a>
@@ -89,7 +89,7 @@
       </p>
       <div class="flex items-center">
         <a href="#/stores/create-creation" type="button"
-          class="w-full flex justify-evenly text-white bg-red-800 hover:text-red-700 border-2 border-red-700 hover:bg-red-200 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-3xl text-sm px-5 py-2.5 text-center me-2 mb-2">
+          class="w-full flex justify-evenly text-white bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl text-sm px-5 py-2.5 text-center me-2 mb-2">
           Crear
         </a>
       </div>

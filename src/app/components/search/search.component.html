@@ -12,71 +12,71 @@
     >
     <div class="relative">
       @for (item of arrSearchChips; track item) {
-      <span
-        id="badge-dismiss-default"
-        class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-purple-800 bg-purple-100 rounded-sm dark:bg-purple-900 dark:text-purple-300"
-      >
-        {{ item }}
-        <button
-          type="button"
-          (click)="removeChips(item)"
-          class="inline-flex items-center p-1 ms-2 text-sm text-purple-400 bg-transparent rounded-xs hover:bg-purple-200 hover:text-purple-900 dark:hover:bg-purple-800 dark:hover:text-purple-300"
-          data-dismiss-target="#badge-dismiss-default"
-          aria-label="Remove"
+        <span
+          id="badge-dismiss-default"
+          class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-primary-800 bg-primary-100 rounded-sm dark:bg-primary-900 dark:text-primary-300"
         >
-          <svg
-            class="w-2 h-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
+          {{ item }}
+          <button
+            type="button"
+            (click)="removeChips(item)"
+            class="inline-flex items-center p-1 ms-2 text-sm text-primary-400 bg-transparent rounded-xs hover:bg-primary-200 hover:text-primary-900 dark:hover:bg-primary-800 dark:hover:text-primary-300"
+            data-dismiss-target="#badge-dismiss-default"
+            aria-label="Remove"
           >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span class="sr-only">Remove badge</span>
-        </button>
-      </span>
+            <svg
+              class="w-2 h-2"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+            <span class="sr-only">Remove badge</span>
+          </button>
+        </span>
       }
 
       <div
         class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
       ></div>
-      <input
-        type="text"
-        id="floating_standard"
-        #textSearch
-        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
-        placeholder="Buscar... "
-        formControlName="name"
-        autofocus="true"
-        (keyup.enter)="addChips()"
-      />
-
-      <button
-        type="submit"
-        (click)="openModal()"
-        data-modal-target="default-modal"
-        data-modal-toggle="default-modal"
-        class="text-white absolute block end-2.5 bottom-2.5 bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
-      >
-        Buscar
-      </button>
+      <div class="flex">
+        <input
+          type="text"
+          id="floating_standard"
+          #textSearch
+          class="block py-2.5 px-0 w-full mr-2 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer"
+          placeholder="Buscar... "
+          formControlName="name"
+          autofocus="true"
+          (keyup.enter)="addChips()"
+        />
+        <button
+          type="submit"
+          (click)="openModal()"
+          data-modal-target="default-modal"
+          data-modal-toggle="default-modal"
+          class="button-primary"
+        >
+          Buscar
+        </button>
+      </div>
     </div>
   </form>
   <div class="relative z-0"></div>
 </div>
 @if (isModalOpen()) {
   <div
-  class="fixed inset-0 bg-black opacity-50 z-40"
-  (click)="closeModal()"
->
-</div>
+    class="fixed inset-0 bg-black opacity-50 z-40"
+    (click)="closeModal()"
+  ></div>
 }
 <!-- Main modal -->
 <div
@@ -137,7 +137,7 @@
         >
           <option selected>Selecciona...</option>
           @for (dep of theApartament; track dep.id_ubigeo) {
-          <option value="{{ dep.id_ubigeo }}">{{ dep.nombre_ubigeo }}</option>
+            <option value="{{ dep.id_ubigeo }}">{{ dep.nombre_ubigeo }}</option>
           }
         </select>
 
@@ -154,9 +154,9 @@
             >
               <option selected>Selecciona...</option>
               @for (dep of theApartament; track dep.id_ubigeo) {
-              <option value="{{ dep.id_ubigeo }}">
-                {{ dep.nombre_ubigeo }}
-              </option>
+                <option value="{{ dep.id_ubigeo }}">
+                  {{ dep.nombre_ubigeo }}
+                </option>
               }
             </select>
           </div>
@@ -172,31 +172,30 @@
             >
               <option selected>Selecciona...</option>
               @for (dep of theApartament; track dep.id_ubigeo) {
-              <option value="{{ dep.id_ubigeo }}">
-                {{ dep.nombre_ubigeo }}
-              </option>
+                <option value="{{ dep.id_ubigeo }}">
+                  {{ dep.nombre_ubigeo }}
+                </option>
               }
             </select>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
           @for (category of categorys; track category.id) {
-          <div
-            class="grid grid-cols-12 border-2  bg-purple-200 rounded-xl w-full p-4"
-            [ngClass]="{
-              'border-purple-800 dark:border-gray-500':
-                category.state === true,
-              'border-purple-200':
-                category.state === false
-            }"
-            (click)="selectCategory(category)"
-          >
-            <div class="col-span-10">
-              <p class="text-base font-semibold">{{ category.nombre }}</p>
-              <p class="text-2xs">{{ category.cant }} tiendas</p>
+            <div
+              class="grid grid-cols-12 border-2 bg-primary-200 rounded-xl w-full p-4"
+              [ngClass]="{
+                'border-primary-800 dark:border-gray-500':
+                  category.state === true,
+                'border-primary-200': category.state === false,
+              }"
+              (click)="selectCategory(category)"
+            >
+              <div class="col-span-10">
+                <p class="text-base font-semibold">{{ category.nombre }}</p>
+                <p class="text-2xs">{{ category.cant }} tiendas</p>
+              </div>
+              <i class="fa fa-house col-span-2 m-auto"></i>
             </div>
-            <i class="fa fa-house col-span-2 m-auto"></i>
-          </div>
           }
         </div>
       </div>
@@ -204,19 +203,18 @@
       <div
         class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
       >
-
         <button
           data-modal-hide="default-modal"
           type="button"
-          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-purple-300 hover:bg-purple-200 hover:text-purple-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-primary-300 hover:bg-primary-200 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
         >
           Cancelar
         </button>
-         <button
+        <button
           data-modal-hide="default-modal"
           type="button"
           (click)="selectCategoryData()"
-          class="button-primary "
+          class="button-primary"
         >
           Aplicar
         </button>
