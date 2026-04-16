@@ -1,1 +1,0 @@
-import{a as t}from"./chunk-DBI76LIG.js";import{Ga as n}from"./chunk-7F27GKRL.js";var a=t.baseUrl,i=class e{transform(r){return r||"./assets/img/no-image.jpg"}static \u0275fac=function(s){return new(s||e)};static \u0275pipe=n({name:"notImage",type:e,pure:!0})};export{i as a};
