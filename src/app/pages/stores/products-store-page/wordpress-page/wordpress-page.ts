@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconnectWordpress } from '@app/interfaces';
 import { WordpressService } from '@app/services/stores/wordpress.service';
@@ -50,7 +50,9 @@ export class WordpressPage {
       console.log('authorizationUrl:', data.authorizationUrl);
       const url = data.authorizationUrl ?? '';
       if (!url.startsWith('https://')) {
-        alert('Callback inseguro: la URL de autorización debe usar HTTPS. Para desarrollo usa ngrok u otro túnel TLS.');
+        alert(
+          'Callback inseguro: la URL de autorización debe usar HTTPS. Para desarrollo usa ngrok u otro túnel TLS.',
+        );
         return;
       }
       const newWin = window.open(url, '_blank');
