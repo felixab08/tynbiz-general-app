@@ -1,0 +1,77 @@
+<div class="max-w-lg mx-auto overflow-hidden border rounded">
+  <div class="px-8 pt-8 pb-6 text-center border-b border-border">
+    <div
+      class="inline-flex items-center justify-center h-16 w-16 rounded-2xl mb-4"
+      style="background: linear-gradient(135deg, #21759b, #2b7bb9)"
+    >
+      <svg
+        viewBox="0 0 48 48"
+        class="h-8 w-8"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="24" cy="24" r="24" fill="white" opacity="0.06" />
+        <text
+          x="50%"
+          y="50%"
+          fill="white"
+          font-size="22"
+          font-family="Arial, Helvetica, sans-serif"
+          dominant-baseline="middle"
+          text-anchor="middle"
+        >
+          W
+        </text>
+      </svg>
+    </div>
+    <h2 class="text-xl font-bold text-foreground">
+      Conecta tu sitio WordPress
+    </h2>
+    <p class="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+      Sincroniza tu catálogo desde WordPress y vende con un clic
+    </p>
+  </div>
+
+  <div class="p-8">
+    <div class="space-y-6">
+      <div class="text-center">
+        <h3 class="text-lg font-bold text-foreground mb-1">
+          Ingresa la URL de tu sitio
+        </h3>
+        <p class="text-muted-foreground text-sm">
+          Escribe la URL completa de tu sitio WordPress para completar la
+          conexión.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <label class="block text-sm text-muted-foreground"
+          >URL de WordPress</label
+        >
+        <input
+          [(ngModel)]="siteUrl"
+          placeholder="https://mitienda.com"
+          class="w-full px-3 py-2 border rounded"
+          autofocus
+        />
+        <div class="flex gap-3">
+          <button (click)="cancel()" class="px-3 py-2 border rounded">
+            ← Atrás
+          </button>
+          <button
+            (click)="connectWordpress()"
+            [disabled]="!siteUrl || connectIsPending"
+            class="flex-1 px-3 py-2 rounded bg-primary text-white"
+          >
+            {{ connectIsPending ? "Conectando..." : "🔗 Conectar WordPress" }}
+          </button>
+        </div>
+      </div>
+
+      @if(connectIsError) {
+      <p class="text-destructive text-sm font-medium text-center" role="alert">
+        Error al conectar. Verifica la URL e intenta de nuevo.
+      </p>
+      }
+    </div>
+  </div>
+</div>
