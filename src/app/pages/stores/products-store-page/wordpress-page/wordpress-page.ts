@@ -106,7 +106,7 @@ export class WordpressPage {
           }
         },
       });
-    }, 1500);
+    }, 5500);
   }
 
   cancel(): void {

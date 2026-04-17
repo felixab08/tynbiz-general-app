@@ -1,7 +1,7 @@
 
 import { DataPaginationResponse } from "../general/services.interface";
 
-export interface IProductStoreResponse extends DataPaginationResponse {
+export interface IProductStoreResp extends DataPaginationResponse {
   content: ProductContent[];
 }
 export interface ProductContent {

@@ -1,5 +1,10 @@
 import { Component, input } from '@angular/core';
-import { IProduct, IProductStoreResponse, ProductContent, ProductoContent } from '@app/interfaces';
+import {
+  IProduct,
+  IProductStoreResp,
+  ProductContent,
+  ProductoContent,
+} from '@app/interfaces';
 import { Product } from '@app/interfaces/card.interface';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 

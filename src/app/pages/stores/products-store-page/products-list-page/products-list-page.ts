@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
 import { productMock } from '@app/mock/product.mock';
@@ -10,13 +10,14 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
 
 @Component({
   selector: 'tyn-products-list-page',
-  imports: [ProductDetailCardComponent],
+  imports: [ProductDetailCardComponent, FilterComponent, PaginationComponent],
   templateUrl: './products-list-page.html',
 })
 export class ProductsListPage {
   private _productsStoreService = inject(ProductsStoreService);
   _linkService = inject(LinkParamService);
-  productsResource = input<any>(undefined);
+  productMock = productMock;
+
   // Filtros
   filterMenu = signal({
     searchShow: true,
@@ -25,26 +26,22 @@ export class ProductsListPage {
     filterSelectList: [],
   });
 
-  // productsResource = rxResource({
-  //   request: () => ({
-  //     page: this._linkService.currentPage() - 1,
-  //     size: this._linkService.currentSize(),
-  //     searchTerm: this._linkService.currentSearchTerm(),
-  //   }),
-  //   loader: ({ request }) => {
-  //     return (
-  //       this._productsStoreService.getProductsByStore({
-  //         page: request.page,
-  //         size: request.size,
-  //         searchTerm: request.searchTerm,
-  //       }) || {}
-  //     );
-  //   },
-  // });
+  productsResource = rxResource({
+    request: () => ({
+      page: this._linkService.currentPage() - 1,
+      size: this._linkService.currentSize(),
+      searchTerm: this._linkService.currentSearchTerm(),
+    }),
+    loader: ({ request }) => {
+      return (
+        this._productsStoreService.getProductsByStore({
+          page: request.page,
+          size: request.size,
+          searchTerm: request.searchTerm,
+        }) || {}
+      );
+    },
+  });
 
-  constructor(public createCreation: CreateCreation) {
-    if (this.productsResource()) {
-      console.log(this.productsResource());
-    }
-  }
+  constructor(public createCreation: CreateCreation) {}
 }

@@ -21,7 +21,7 @@ import { ProductsListPage } from './products-list-page/products-list-page';
 export default class ProductsStorePageComponent {
   statusHandleIsPending = signal(true);
   _wordpressService = inject(WordpressService);
-  productsResource = signal<any>(null);
+  productsResource = signal<boolean>(false);
   constructor() {
     // Opcional: verificar estado al cargar la página
     this.checkStatus();
@@ -35,23 +35,11 @@ export default class ProductsStorePageComponent {
           ? this.statusHandleIsPending.set(true)
           : this.statusHandleIsPending.set(false);
         if (res.status === 'ACTIVE') {
-          this.listProducts();
+          this.productsResource.set(true);
         }
       },
       error: () => {
         alert('Error al obtener el estado de WordPress');
-      },
-    });
-  }
-
-  listProducts(): void {
-    this._wordpressService.getWordpressProducts().subscribe({
-      next: (products: any) => {
-        console.log('Productos obtenidos:', products);
-        this.productsResource.set(products);
-      },
-      error: () => {
-        alert('Error al obtener los productos de la tienda');
       },
     });
   }

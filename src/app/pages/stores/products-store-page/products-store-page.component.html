@@ -5,8 +5,8 @@
   </div>
 } @else {
   <div class="alert alert-info text-center">
-    <tyn-products-list-page
-      [productsResource]="productsResource()"
-    />
+    @if (productsResource()) {
+      <tyn-products-list-page/>
+    }
   </div>
 }

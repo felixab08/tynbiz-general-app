@@ -67,13 +67,14 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
         this.menuItemsAll = this.user?.role.includes('STORE_OWNER')
           ? [...menuItemsClienteMock]
           : [...menuAdminMock];
-        this.routerState = this.user?.role.includes('STORE_OWNER')
-          ? '/stores/init-store'
-          : '/admin/dashboard';
-        this._router.navigate([this.routerState]);
+        // TODO: revisar rutas para cada rol y descomentar esta parte
+        // this.routerState = this.user?.role.includes('STORE_OWNER')
+        //   ? '/stores/init-store'
+        //   : '/admin/dashboard';
+        // this._router.navigate([this.routerState]);
       } else {
         this.menuItemsAll = [...menuItemsMock];
-        this.routerState = '/';
+        // this.routerState = '/';
         this._router.navigate(['/']);
       }
     });
