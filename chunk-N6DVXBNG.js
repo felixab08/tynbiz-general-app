@@ -1,0 +1,1 @@
+import{K as i,ea as e,g as o}from"./chunk-EJCHW4J3.js";var t=class n{isSessionActive$=new e;isLoading$=new e;isModalConfirm$=new e;menuIzquierdo$=new e;isLoginSubject=new o(!1);user=new o(void 0);isAlertSubject=new o(!1);static \u0275fac=function(r){return new(r||n)};static \u0275prov=i({token:n,factory:n.\u0275fac,providedIn:"root"})};export{t as a};
