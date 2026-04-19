@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { ICreateResq, ICreationResp } from '@app/interfaces';
+import { ICreateResq, ICreationResp, OptionsRequest } from '@app/interfaces';
 import { environment } from '@environments/environment.development';
 import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
 
 const STORAGE_KEY = 'creation_creation';
 const MAX = 5;
-
+type TYPE_CREATION = 'ALL' | 'SHOWCASE' | 'NORMAL' | 'OFFER' | 'OFERTAS';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,9 +26,12 @@ export class CreateCreation {
     });
   }
 
-  getCreationDiscovery(type: string = 'ALL'): Observable<ICreationResp> {
+  getCreationDiscovery(
+    options: OptionsRequest,
+    type: TYPE_CREATION = 'ALL',
+  ): Observable<ICreationResp> {
     return this._http.get<ICreationResp>(
-      `${baseUrl}/contents/discovery?type=${type}`,
+      `${baseUrl}/public/contents/discovery?type=${type}`,
     );
   }
 

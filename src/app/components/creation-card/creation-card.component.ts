@@ -4,13 +4,14 @@ import { CommonModule } from '@angular/common';
 import { initCarousels } from 'flowbite';
 import { ProductDetailCardComponent } from '../product-detail-card/product-detail-card.component';
 import { CarouselProductsCreation } from '../carousel-products-creation/carousel-products-creation.component';
+import { ICreationContent } from '@app/interfaces';
 @Component({
   selector: 'tyn-creation-card',
   imports: [CommonModule, ProductDetailCardComponent, CarouselProductsCreation],
   templateUrl: './creation-card.component.html',
 })
 export class CreationCardComponent {
-  listCreation = input.required<Cardcreations[]>();
+  listCreation = input.required<ICreationContent>();
   isModalOpen = signal(false);
   selectedcreations: any = true;
   ngAfterViewInit(): void {

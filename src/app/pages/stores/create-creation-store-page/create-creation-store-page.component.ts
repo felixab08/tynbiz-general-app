@@ -89,31 +89,7 @@ export default class CreateCreationStorePage {
     const products = this._createCreation.products();
     const newCreation = {
       ...formData,
-      productIds: products.map((p) => ({
-        id: p.id,
-        name: p.name,
-        sku: p.sku,
-        storeId: p.storeId,
-        storeName: p.storeName,
-        description: p.description,
-        stock: p.stock,
-        categoryCatId: p.categoryCatId,
-        sizes: p.sizes,
-        colors: p.colors,
-        originalPrice: p.originalPrice,
-        discountPrice: p.discountPrice,
-        currentPrice: p.currentPrice,
-        discountPercentage: p.discountPercentage,
-        mediaUrls: p.mediaUrls,
-        productUrl: p.productUrl,
-        isActive: p.isActive,
-        featured: p.featured,
-        inStock: p.inStock,
-        hasDiscount: p.hasDiscount,
-        createdAt: p.createdAt,
-        updatedAt: p.updatedAt,
-        createdBy: p.createdBy,
-      })),
+      productIds: products.map((p) => p.id),
     };
     return newCreation;
   }

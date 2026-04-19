@@ -1,3 +1,5 @@
+import { DataPaginationResponse } from "../general/services.interface";
+
 export interface ICreateResq {
   title:             string;
   description:       string;
@@ -10,11 +12,6 @@ export interface ICreateResq {
   productIds:        number[];
   userIds:           number[];
   observacion:       string;
-}
-
-export interface ICreationResp {
-  sections:      Section[];
-  totalElements: number;
 }
 
 export interface Section {
@@ -32,7 +29,19 @@ export interface Item {
   store:         Store;
   metrics:       Metrics;
   products:      any[];
-  scheduledInfo: null;
+  scheduledInfo: string;
+}
+
+export interface ICreationResp extends DataPaginationResponse{
+  content:          ICreationContent[];
+}
+
+
+export interface ICreationContent {
+  categoryName: string;
+  categoryCode: string;
+  totalItems:   number;
+  items:        Item[];
 }
 
 export interface Metrics {
@@ -41,9 +50,19 @@ export interface Metrics {
   participantAvatars: any[];
 }
 
+export interface ProductCreation {
+  id:                 number;
+  name:               string;
+  brand:              string;
+  imageUrl:           string;
+  originalPrice:      number;
+  offerPrice:         number;
+  discountPercentage: number;
+}
+
 export interface Store {
   id:      number;
   name:    string;
-  logoUrl: null;
+  logoUrl: string;
   url:     string;
 }

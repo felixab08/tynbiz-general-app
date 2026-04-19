@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { IProduct } from '@app/interfaces';
+import { IProduct, ProductCreation } from '@app/interfaces';
 import { Product } from '@app/interfaces/card.interface';
 import { initCarousels } from 'flowbite';
-
 
 @Component({
   selector: 'tyn-carousel-products-creation',
@@ -11,9 +10,9 @@ import { initCarousels } from 'flowbite';
   templateUrl: './carousel-products-creation.component.html',
 })
 export class CarouselProductsCreation {
-  listProduct = input.required<IProduct[]>();
+  listProduct = input.required<ProductCreation[]>();
 
-  products: IProduct[] = [];
+  products: ProductCreation[] = [];
 
   private initialized = false;
 
@@ -21,7 +20,6 @@ export class CarouselProductsCreation {
     const currentProducts = this.listProduct();
 
     if (currentProducts.length > 0) {
-
       if (this.products !== currentProducts) {
         this.products = currentProducts;
         this.initialized = false;
@@ -36,4 +34,4 @@ export class CarouselProductsCreation {
       }
     }
   }
- }
+}

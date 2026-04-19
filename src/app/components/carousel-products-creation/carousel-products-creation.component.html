@@ -5,7 +5,7 @@
       <div class="relative h-56 xl:h-72 overflow-hidden rounded-lg">
         @for (product of listProduct(); track product.id; let i = $index) {
         <div class="hidden duration-700 ease-in-out" [attr.data-carousel-item]="i === 0 ? 'active' : ''">
-          <img [src]="product?.mediaUrls?.[0]"
+          <img [src]="product?.imageUrl"
             class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Producto" />
         </div>
         }
@@ -22,7 +22,7 @@
     <!-- imagenes de productos extras right -->
     <ng-container *ngFor="let producto of listProduct().slice(0, 2)">
       <div class="mini-card-img xs">
-        <img class="" [src]="producto.mediaUrls[0]" alt="Producto" />
+        <img class="" [src]="producto.imageUrl" alt="Producto" />
       </div>
     </ng-container>
     @if (listProduct().length > 2) {

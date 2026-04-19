@@ -4,6 +4,8 @@
     Todas las creaciones con productos en ofertas que es para ti
   </p>
 </div>
-<div class="mt-6">
-  <tyn-creation-card [listCreation]="cardOffer" />
-</div>
+@if (offertResorce.hasValue()) {
+  <div class="mt-6">
+    <tyn-creation-card [listCreation]="offertResorce.value().content[0]" />
+  </div>
+}

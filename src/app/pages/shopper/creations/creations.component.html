@@ -4,5 +4,9 @@
 </div>
 <tyn-search (valueSearch)="valueSearch($event)" />
 <div class="mt-6">
-  <tyn-creation-card [listCreation]="cardCrea" />
+ @if (offertResorce.hasValue()) {
+  <div class="mt-6">
+    <tyn-creation-card [listCreation]="offertResorce.value().content[0]" />
+  </div>
+}
 </div>

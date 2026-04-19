@@ -10,7 +10,10 @@
   [currentSearchTerm]="_linkService.currentSearchTerm()"
 ></tyn-filter>
 <div class="bg-white rounded-lg border border-gray-300">
-  @if (productsResource.hasValue()) { @let products = productsResource.value()!;
+  @if (productsResource.hasValue()) {
+  <!--  -->
+  @let products = productsResource.value()!;
+  <!--  -->
   @for (product of products.content; track product.id) {
   <div class="w-full flex justify-between p-4 border-b border-gray-300">
     <tyn-product-detail-card [listProduct]="product"></tyn-product-detail-card>
