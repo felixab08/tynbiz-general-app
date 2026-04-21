@@ -13,22 +13,47 @@ import {
 import { Horaries } from './horaries/horaries';
 import { CommonModule } from '@angular/common';
 import { ServicesDurationHorary } from "./services-duration-horary/services-duration-horary";
+import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
+import { FormUtils } from '@app/utils/form.util';
 type TynSectionDate = 'citas'|'detalles' | 'horario' | 'fechas';
 
 @Component({
   selector: 'tyn-create-calendar',
   standalone: true,
-  imports: [AngularMyDatePickerModule, Horaries, CommonModule, ServicesDurationHorary],
+  imports: [AngularMyDatePickerModule, Horaries, CommonModule, ServicesDurationHorary, ReactiveFormsModule],
   templateUrl: './create-calendar.html',
 })
 export default class CreateCalendar {
+  private _fb = inject(FormBuilder);
   isCase = 'CP';
   checkHours = signal(false);
   handlerTurno = signal(false);
   turnoCreate = signal<any | null>(null);
   cdr = inject(ChangeDetectorRef);
   selectedSection = signal<TynSectionDate>('detalles');
-
+  tynForm: FormGroup = this._fb.group({
+    optionNumber: ['15'],
+    customNumber: [{ value: '', disabled: true }],
+  });
+    ngOnInit(): void {
+      this.onDisableUntilYesterday(true);
+      this.tynForm.get('optionNumber')?.valueChanges.subscribe((val) => {
+        if (val === 'num') {
+          this.tynForm.get('customNumber')?.enable();
+          this.tynForm.get('customNumber')?.setValidators([
+            (control) => {
+              const value = Number(control.value);
+              return value > 0 ? null : { min: true };
+            },
+          ]);
+        } else {
+          this.tynForm.get('customNumber')?.disable();
+          this.tynForm.get('customNumber')?.setValue('');
+          this.tynForm.get('customNumber')?.clearValidators();
+        }
+        this.tynForm.get('customNumber')?.updateValueAndValidity();
+      });
+    }
   public myDatePickerOptions: IAngularMyDpOptions = {
     dateRange: false,
     dateFormat: 'dd/mm/yyyy',
@@ -43,10 +68,6 @@ export default class CreateCalendar {
     { year: 2024, month: 6, day: 10 },
   ];
   @ViewChild('dp', { static: true }) myDp!: AngularMyDatePickerDirective;
-
-  ngOnInit(): void {
-    this.onDisableUntilYesterday(true);
-  }
 
   toggleCalendar(): void {
     this.cdr.detectChanges();

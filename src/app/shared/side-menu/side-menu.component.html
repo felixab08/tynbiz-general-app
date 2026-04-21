@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div id="dropdown-cta" class="p-4 mt-6 rounded-lg bg-gray-100" role="alert">
+    <div id="dropdown-cta" class="p-4 mt-6 rounded-lg border border-primary" role="alert">
       <p class="mb-3 font-bold text-sm ">
         Publica tu creación
       </p>
@@ -99,30 +99,50 @@
 </aside>
 
 @if (this.user?.role !== 'STORE_OWNER' && this.user?.role !=='ADMIN' && this.user?.role !== 'SUPER-ADMIN' ) {
-<nav class="fixed bottom-0 left-0 z-50 w-full h-16 bg-gray-100 border-t border-gray-300 sm:hidden">
+<nav class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-300 sm:hidden">
   <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
-    <a href="#/shop/home" type="button"
-      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group">
+    <a routerLink="/shop/home"  type="button" routerLinkActive #rla2="routerLinkActive"
+      class="inline-flex flex-col items-center justify-center px-3 group"
+      [ngClass]="{
+              'text-primary font-bold': rla2.isActive,
+              'text-black ': !rla2.isActive
+            }">
       <i class="fa-solid fa-house mb-2"></i>
       <span class="text-sm text-body group-hover:text-fg-brand">Inicio</span>
     </a>
-    <a href="#/shop/creations" type="button"
-      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group">
+    <a routerLink="/shop/creations" type="button" routerLinkActive #rla3="routerLinkActive"
+      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group"
+      [ngClass]="{
+              'text-primary font-bold': rla3.isActive,
+              'text-black ': !rla3.isActive
+            }">
       <i class="fa-solid fa-user-group mb-2"></i>
       <span class="text-sm text-body group-hover:text-fg-brand">Para ti</span>
     </a>
-    <a href="#/shop/offer" type="button"
-      class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group">
+    <a routerLink="/shop/offer" type="button" routerLinkActive #rla4="routerLinkActive"
+      class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
+      [ngClass]="{
+              'text-primary font-bold': rla4.isActive,
+              'text-black ': !rla4.isActive
+            }">
       <i class="fa-solid fa-bag-shopping mb-2"></i>
       <span class="text-sm text-body group-hover:text-fg-brand">Ofertas</span>
     </a>
-    <a href="#/shop/stores" type="button"
-      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group">
+    <a routerLink="/shop/stores" type="button" routerLinkActive #rla5="routerLinkActive"
+      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group"
+      [ngClass]="{
+              'text-primary font-bold': rla5.isActive,
+              'text-black ': !rla5.isActive
+            }">
       <i class="fa-solid fa-store mb-2"></i>
       <span class="text-sm text-body group-hover:text-fg-brand">Tiendas</span>
     </a>
-    <a href="#/shop/profile" type="button"
-      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group">
+    <a routerLink="/shop/profile" type="button" routerLinkActive #rla6="routerLinkActive"
+      class="inline-flex flex-col items-center justify-center px-3  hover:bg-neutral-secondary-medium group"
+      [ngClass]="{
+              'text-primary font-bold': rla6.isActive,
+              'text-black ': !rla6.isActive
+            }">
       <i class="fa-solid fa-user mb-2"></i>
       <span class="text-sm text-body group-hover:text-fg-brand">Perfil</span>
     </a>

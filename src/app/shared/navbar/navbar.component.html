@@ -1,16 +1,26 @@
-<nav class="grid justify-end">
-  <div class="max-w-screen-xl mx-auto gap-2 flex flex-wrap ">
+<nav class="grid ">
+  <div class="max-w-screen-xl mx-auto gap-2 md:gap-6 flex flex-wrap ">
     @if (!user) {
-    <div class="flex flex-wrap justify-end">
-      <button type="button" class="button-primary me-2">
-        Solicitar Tynbiz
-      </button>
-      <button (click)="openModal()" type="button" class="button-secondary">
-        Identificate
-      </button>
-    </div>
+
+      <div class=" flex-wrap justify-end md:block hidden">
+        <button type="button" class="button-primary me-2">
+          Solicitar Tynbiz
+        </button>
+        <button (click)="openModal()" type="button" class="button-secondary">
+          Identificate
+        </button>
+      </div>
+      <div class="md:hidden block">
+        <a class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="./assets/svg/ImagotipoTynbizBlanco.svg" class="h-8" alt="Tynbiz Logo" />
+          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          </span>
+        </a>
+      </div>
+
+
     } @if (user) {
-    <div class="flex flex-wrap gap-2 justify-end">
+    <div class="flex flex-wrap gap-2 md:gap-6 justify-end">
       @if (user.role==='STORE_OWNER') {
       <div>
         <p class="text-sm text-gray-500"> Atensión al cliente activa </p>
@@ -20,8 +30,8 @@
         </p>
       </div>
       <button type="button" routerLink="/stores/create-calendar"
-        class="cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-        <p class="md:block hidden">Calendario <i class="fa-regular fa-calendar-days fa-xl"></i></p>
+        class="button-primary cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+        <p class="md:block hidden font-semibold ">Calendario <i class="fa-regular fa-calendar-days fa-xl ml-2"></i></p>
         <p class="md:hidden block"><i class="fa-regular fa-calendar-days fa-xl"></i></p>
       </button>
 
