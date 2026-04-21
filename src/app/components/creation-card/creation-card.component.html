@@ -22,7 +22,7 @@
               0 dias
             </p>
             <p class="text-sm text-gray-500 truncate">
-              0 horas
+              0
             </p>
             }
           </div>
@@ -30,7 +30,7 @@
         <div class="flex -space-x-4 rtl:space-x-reverse">
           <img class="h-10 border-2 border-white rounded-full" src="./assets/img/u5.png" alt="" />
           <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-primary border-2 border-white rounded-full hover:bg-gray-600"
-            href="#">+9</a>
+            href="#">+{{listCreation.metrics.viewerCount}}</a>
         </div>
       </div>
       <tyn-carousel-products-creation [listProduct]="listCreation.products"></tyn-carousel-products-creation>

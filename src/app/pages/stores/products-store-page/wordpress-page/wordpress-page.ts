@@ -88,6 +88,7 @@ export class WordpressPage {
             if (this._checkIntervalId) {
               clearInterval(this._checkIntervalId);
               this._checkIntervalId = undefined;
+              this._wordpressService.postIntegrationWordpressSync().subscribe();
             }
             try {
               sub.unsubscribe();

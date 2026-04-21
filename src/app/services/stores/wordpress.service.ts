@@ -32,6 +32,10 @@ export class WordpressService {
     );
   }
 
+  postIntegrationWordpressSync(): Observable<any> {
+    return this._http.post<any>(`${baseUrl}/integrations/wordpress/sync`, {});
+  }
+
   getWordpressProducts() {
     return this._http.get(`${baseUrl}/integrations/wordpress/products`);
   }
