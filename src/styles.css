@@ -34,7 +34,7 @@
   /* morado oscuro */
   --color-secondary: #dedeff;
   /* morado claro */
-  --color-secondary-dark: #a5a0ff;
+  --color-secondary-dark: #BCBEDF;
   /* morado medio */
 
   @keyframes fadeIn {
@@ -147,7 +147,7 @@
     @apply px-6 py-4;
   }
   .content-details-product{
-    @apply md:ms-3 text-sm font-normal ms-2;
+    @apply md:ms-3 text-sm font-normal ms-2 text-start;
   }
   .content-details-product p{
     @apply text-sm font-normal  text-black;
