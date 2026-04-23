@@ -8,12 +8,12 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url('/assets/fonts/montserrat/montserrat-alternates-medium.ttf');
+  src: url('./assets/fonts/montserrat/montserrat-alternates-medium.ttf');
 }
 
 @font-face {
   font-family: "Lato";
-  src: url('/assets/fonts/lato/Lato-Regular.ttf');
+  src: url('./assets/fonts/lato/Lato-Regular.ttf');
 }
 
 @theme {
