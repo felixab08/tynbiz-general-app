@@ -30,22 +30,23 @@
             ],
             "scripts": ["./node_modules/flowbite/dist/flowbite.min.js"]
           },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "900kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
+           "configurations": {
+             "production": {
+               "budgets": [
+                 {
+                   "type": "initial",
+                   "maximumWarning": "900kB",
+                   "maximumError": "1MB"
+                 },
+                 {
+                   "type": "anyComponentStyle",
+                   "maximumWarning": "4kB",
+                   "maximumError": "8kB"
+                 }
+               ],
+               "outputHashing": "all",
+               "deployUrl": "/tynbiz-general-app/"
+             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
