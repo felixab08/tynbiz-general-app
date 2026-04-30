@@ -30,7 +30,7 @@ export default class ProductsStorePageComponent {
   checkStatus(): void {
     this._wordpressService.getWordpressStatus().subscribe({
       next: (res) => {
-        alert(`Estado actual de WordPress: ${res.status}`);
+        // alert(`Estado actual de WordPress: ${res.status}`);
         res.status === 'ACTIVE'
           ? this.statusHandleIsPending.set(true)
           : this.statusHandleIsPending.set(false);

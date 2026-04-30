@@ -48,6 +48,8 @@ export default class CreateCreationStorePage {
         this.showAlert.set(false);
       }
     });
+    console.log(this._createCreation.products());
+
   }
 
   goToProducts() {

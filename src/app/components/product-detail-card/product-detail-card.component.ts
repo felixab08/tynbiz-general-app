@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
 import {
   IProduct,
@@ -10,7 +11,7 @@ import { NotImagePipe } from '@app/pipes/not-image.pipe';
 
 @Component({
   selector: 'tyn-product-detail-card',
-  imports: [NotImagePipe],
+  imports: [NotImagePipe, CommonModule],
   templateUrl: './product-detail-card.component.html',
 })
 export class ProductDetailCardComponent {

@@ -54,7 +54,7 @@ export interface ProductCreation {
   id:                 number;
   name:               string;
   brand:              string;
-  imageUrl:           string;
+  imageUrl:           string | string[];
   originalPrice:      number;
   offerPrice:         number;
   discountPercentage: number;

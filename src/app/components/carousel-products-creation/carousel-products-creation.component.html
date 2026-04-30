@@ -5,7 +5,7 @@
       <div class="relative h-56 xl:h-72 overflow-hidden rounded-lg">
         @for (product of listProduct(); track product.id; let i = $index) {
         <div class="hidden duration-700 ease-in-out" [attr.data-carousel-item]="i === 0 ? 'active' : ''">
-          <img [src]="product?.imageUrl"
+          <img [src]="product.imageUrl"
             class="p-6 absolute block h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Producto" />
         </div>
         }

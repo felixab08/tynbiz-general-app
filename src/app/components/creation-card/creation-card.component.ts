@@ -15,6 +15,8 @@ export class CreationCardComponent {
   isModalOpen = signal(false);
   selectedcreations: any = true;
   ngAfterViewInit(): void {
+    console.log(this.listCreation());
+
     initCarousels(); // inicializa el carrusel de Flowbite
   }
   openModal(creations: any) {

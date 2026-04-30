@@ -1,21 +1,31 @@
 @if (listProduct()) {
 <div class="flex items-center">
   <div class="mini-card-img md">
-    <img class="" [src]="listProduct().mediaUrls[0] | notImage" alt="Jese Leos image" />
+    <img [src]="listProduct().mediaUrls | notImage" alt="Jese Leos image" />
   </div>
   <div class=" content-details-product">
-    <p>
-      {{ listProduct().sku }}
-    </p>
+    @if (listProduct().sku) {
+      <p>
+        {{ listProduct().sku }}
+      </p>
+    }
+
     <p class="text-sm font-bold max-w-[160px] text-black truncate">
-      {{ listProduct().name }}
+      {{ listProduct().name |  uppercase }}
     </p>
-    <p class="truncate max-w-[160px]">
-      <span class="font-semibold"> Color:</span> {{ listProduct().colors.join(', ') }}
-    </p>
-    <p class="truncate max-w-[160px]">
-      <span class="font-semibold"> Talla:</span> {{ listProduct().sizes.join(', ') }}
-    </p>
+    <!-- @if (listProduct().description) {
+      <p class="text-sm text-gray-600" [innerHTML]="listProduct().description"></p>
+    } -->
+    @if (listProduct().colors.length > 0) {
+      <p class="truncate max-w-[160px]">
+        <span class="font-semibold"> Color:</span> {{ listProduct().colors.join(', ') }}
+      </p>
+    }
+    @if (listProduct().sizes.length > 0) {
+      <p class="truncate max-w-[160px]">
+        <span class="font-semibold"> Talla:</span> {{ listProduct().sizes.join(', ') }}
+      </p>
+    }
     <p>
       S/. {{ listProduct().originalPrice }}
     </p>
