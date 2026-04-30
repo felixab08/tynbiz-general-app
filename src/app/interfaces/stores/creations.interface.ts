@@ -14,14 +14,8 @@ export interface ICreateResq {
   observacion:       string;
 }
 
-export interface Section {
-  categoryName: string;
-  categoryCode: string;
-  totalItems:   number;
-  items:        Item[];
-}
 
-export interface Item {
+export interface ItemCreation {
   id:            number;
   title:         string;
   status:        string;
@@ -41,7 +35,7 @@ export interface ICreationContent {
   categoryName: string;
   categoryCode: string;
   totalItems:   number;
-  items:        Item[];
+  items:        ItemCreation[];
 }
 
 export interface Metrics {

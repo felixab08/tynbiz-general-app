@@ -1,7 +1,7 @@
 @if (listProduct()) {
 <div class="flex items-center">
   <div class="mini-card-img md">
-    <img [src]="listProduct().mediaUrls | notImage" alt="Jese Leos image" />
+    <img [src]="listProduct().imageUrl | notImage" alt="Jese Leos image" />
   </div>
   <div class=" content-details-product">
     @if (listProduct().sku) {
@@ -16,12 +16,12 @@
     <!-- @if (listProduct().description) {
       <p class="text-sm text-gray-600" [innerHTML]="listProduct().description"></p>
     } -->
-    @if (listProduct().colors.length > 0) {
+    @if (listProduct().colors && listProduct().colors.length > 0) {
       <p class="truncate max-w-[160px]">
         <span class="font-semibold"> Color:</span> {{ listProduct().colors.join(', ') }}
       </p>
     }
-    @if (listProduct().sizes.length > 0) {
+    @if (listProduct().sizes && listProduct().sizes.length > 0) {
       <p class="truncate max-w-[160px]">
         <span class="font-semibold"> Talla:</span> {{ listProduct().sizes.join(', ') }}
       </p>

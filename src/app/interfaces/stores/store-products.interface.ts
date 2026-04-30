@@ -30,4 +30,5 @@ export interface ProductContent {
   createdBy:          number;
   updatedBy:          number;
   observacion:        string;
+  imageUrl:        string;
 }
