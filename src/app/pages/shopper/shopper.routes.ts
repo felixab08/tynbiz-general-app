@@ -26,6 +26,11 @@ export const shopperRoutes: Routes = [
         loadComponent: () => import('./offer/offer.component'),
       },
       {
+        path: 'register',
+        loadComponent: () =>
+          import('./../../shared/register-page/register-page'),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

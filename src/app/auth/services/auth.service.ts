@@ -7,6 +7,7 @@ import { AuthResponse } from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
 import { StoreService } from '@app/services/store.service';
 import { Router } from '@angular/router';
+import { IRegisterReq } from '@app/interfaces';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
@@ -78,7 +79,7 @@ export class AuthService {
             throw new Error('User not found');
           }
         }),
-        catchError((error: any) => this.handleAuthError(error))
+        catchError((error: any) => this.handleAuthError(error)),
       );
   }
 
@@ -139,5 +140,9 @@ export class AuthService {
   private handleAuthError(error: any) {
     this.logout();
     return of(false);
+  }
+
+  postRegisterBuyerUser(register: IRegisterReq) {
+    return this.http.post(`${baseUrl}/auth/register-buyer`, register);
   }
 }

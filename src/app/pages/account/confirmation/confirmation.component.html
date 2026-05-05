@@ -22,15 +22,15 @@
         class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
         [ngClass]="{
           ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-            formUtils.isValiedField(myForm, 'user')
+            formUtils.isValiedField(myForm, 'user'),
         }"
       />
-      @if(formUtils.isValiedField(myForm,'user')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "user")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "user")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "user")
+          }}</span>
+        </p>
       }
     </div>
     <div class="mt-2">
@@ -47,28 +47,27 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'newpassword')
+              formUtils.isValiedField(myForm, 'newpassword'),
           }"
         />
         @if (lookIconIsPassword()) {
-        <i
-          class="fas fa-eye fa-xg pt-3 pl-1 cursor-pointer"
-          (click)="changeTypeInput()"
-        ></i>
+          <i
+            class="fas fa-eye fa-xg pt-3 pl-1 cursor-pointer"
+            (click)="changeTypeInput()"
+          ></i>
         } @else {
-
-        <i
-          class="fa-solid fa-eye-slash fa-xg pt-3 pl-1 cursor-pointer"
-          (click)="changeTypeInput()"
-        ></i>
+          <i
+            class="fa-solid fa-eye-slash fa-xg pt-3 pl-1 cursor-pointer"
+            (click)="changeTypeInput()"
+          ></i>
         }
       </div>
-      @if(formUtils.isValiedField(myForm,'newpassword')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "newpassword")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "newpassword")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "newpassword")
+          }}</span>
+        </p>
       }
     </div>
     <div class="mt-2">
@@ -85,69 +84,67 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'confirmationPassword')
+              formUtils.isValiedField(myForm, 'confirmationPassword'),
           }"
         />
         @if (lookIconIsPasswordConfirm()) {
-
-        <i
-          class="fas fa-eye fa-xg pt-3 pl-1 cursor-pointer"
-          (click)="changeTypeInputConfirm()"
-        ></i>
+          <i
+            class="fas fa-eye fa-xg pt-3 pl-1 cursor-pointer"
+            (click)="changeTypeInputConfirm()"
+          ></i>
         } @else {
-
-        <i
-          class="fa-solid fa-eye-slash fa-xg pt-3 pl-1 cursor-pointer"
-          (click)="changeTypeInputConfirm()"
-        ></i>
+          <i
+            class="fa-solid fa-eye-slash fa-xg pt-3 pl-1 cursor-pointer"
+            (click)="changeTypeInputConfirm()"
+          ></i>
         }
       </div>
 
-      @if(formUtils.isValiedField(myForm,'confirmationPassword')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "confirmationPassword")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "confirmationPassword")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "confirmationPassword")
+          }}</span>
+        </p>
       }
     </div>
 
     <button
       type="submit"
-      [disabled]="myForm.invalid"
-      class="w-full my-4 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      [ngClass]="myForm.valid ? 'button-primary' : 'button-disabled'"
+      [disabled]="!myForm.valid"
     >
       Iniciar sesión
     </button>
   </form>
 </div>
 @if (this.hasError()) {
-<div
-  class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-  role="alert"
->
-  <svg
-    class="shrink-0 inline w-4 h-4 me-3"
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 20 20"
+  <div
+    class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+    role="alert"
   >
-    <path
-      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
-    />
-  </svg>
-  <span class="sr-only">
-    <p>
-      Perfecto. Para una contraseña segura, puedes definir un validador
-      personalizado que verifique varios criterios comunes de seguridad, como:
-      <br />
-      - Longitud mínima (por ejemplo, 8 caracteres) <br />
-      - Al menos una letra mayúscula <br />
-      - Al menos una letra minúscula <br />
-      - Al menos un número <br />
-      - Al menos un carácter especial (como &#64;, #, $, etc.) <br />
-    </p>
-  </span>
-</div>
+    <svg
+      class="shrink-0 inline w-4 h-4 me-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+      />
+    </svg>
+    <span class="sr-only">
+      <p>
+        Perfecto. Para una contraseña segura, puedes definir un validador
+        personalizado que verifique varios criterios comunes de seguridad, como:
+        <br />
+        - Longitud mínima (por ejemplo, 8 caracteres) <br />
+        - Al menos una letra mayúscula <br />
+        - Al menos una letra minúscula <br />
+        - Al menos un número <br />
+        - Al menos un carácter especial (como &#64;, #, $, etc.) <br />
+      </p>
+    </span>
+  </div>
 }

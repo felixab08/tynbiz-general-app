@@ -9,10 +9,11 @@ import {
 import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services/store.service';
 import { FormUtils } from '@app/utils/form.util';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   providers: [AuthService],
   templateUrl: './login.component.html',
 })
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
     this._authService
       .login(
         this.myForm.controls['user'].value,
-        this.myForm.controls['password'].value
+        this.myForm.controls['password'].value,
       )
       .subscribe({
         next: (response) => {

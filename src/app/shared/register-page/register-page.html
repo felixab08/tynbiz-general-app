@@ -1,0 +1,223 @@
+<div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
+  <form
+    class="mt-5"
+    autocomplete="off"
+    [formGroup]="myForm"
+    (ngSubmit)="onSave()"
+  >
+    <div class="mb-6 card-static">
+      <h1 class="text-xl font-bold mb-6">Crear cuenta</h1>
+      <!-- firstName -->
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+          <label
+            for="firstName"
+            class="block mb-2 text-sm font-medium"
+            [ngClass]="{
+          ' text-red-700': formUtils.isValiedField(
+            myForm,
+            'firstName'
+          )
+        }"
+            >Nombre</label
+          >
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            class="input-base"
+            [ngClass]="{
+          'input-error':
+            formUtils.isValiedField(myForm, 'firstName')
+        }"
+          />
+          @if(formUtils.isValiedField(myForm,'firstName')){
+          <p class="mt-2 text-sm text-red-600">
+            <span class="font-medium"
+              >{{ formUtils.getFieldError(myForm, "firstName") }}</span
+            >
+          </p>
+          }
+        </div>
+        <!-- last_name -->
+        <div>
+          <label
+            for="lastName"
+            class="block mb-2 text-sm font-medium"
+            [ngClass]="{
+          ' text-red-700': formUtils.isValiedField(
+            myForm,
+            'lastName'
+          )
+        }"
+            >Apellidos</label
+          >
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            class="input-base"
+            [ngClass]="{
+          'input-error':
+            formUtils.isValiedField(myForm, 'lastName')
+        }"
+          />
+          @if(formUtils.isValiedField(myForm,'lastName')){
+          <p class="mt-2 text-sm text-red-600">
+            <span class="font-medium"
+              >{{ formUtils.getFieldError(myForm, "lastName") }}</span
+            >
+          </p>
+          }
+        </div>
+      </div>
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+          <label for="gender" class="block mb-2 text-sm font-medium text-black"
+            >Genero</label
+          >
+          <select id="gender" class="input-base" formControlName="gender">
+            <option selected>Seleccione</option>
+            <option value="MASCULINO">Masculino</option>
+            <option value="FEMENINO">Femenino</option>
+          </select>
+        </div>
+        <div>
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium"
+            [ngClass]="{
+          ' text-red-700': formUtils.isValiedField(
+            myForm,
+            'email'
+          )
+        }"
+            >Correo electronico</label
+          >
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="input-base"
+            [ngClass]="{
+          'input-error':
+            formUtils.isValiedField(myForm, 'email')
+        }"
+          />
+          @if(formUtils.isValiedField(myForm,'email')){
+          <p class="mt-2 text-sm text-red-600">
+            <span class="font-medium"
+              >{{ formUtils.getFieldError(myForm, "email") }}</span
+            >
+          </p>
+          }
+        </div>
+      </div>
+
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <!-- <div>
+          <label
+            for="dni"
+            class="block mb-2 text-sm font-medium"
+            [ngClass]="{
+          ' text-red-700': formUtils.isValiedField(
+            myForm,
+            'dni'
+          )
+        }"
+            >DNI</label
+          >
+          <input
+            type="text"
+            id="dni"
+            formControlName="dni"
+            class="input-base"
+            [ngClass]="{
+          'input-error':
+            formUtils.isValiedField(myForm, 'dni')
+        }"
+          />
+          @if(formUtils.isValiedField(myForm,'dni')){
+          <p class="mt-2 text-sm text-red-600">
+            <span class="font-medium"
+              >{{ formUtils.getFieldError(myForm, "dni") }}</span
+            >
+          </p>
+          }
+        </div> -->
+        <div>
+          <label
+            for="phone"
+            class="block mb-2 text-sm font-medium"
+            [ngClass]="{
+          ' text-red-700': formUtils.isValiedField(
+            myForm,
+            'phone'
+          )
+        }"
+            >N° celular</label
+          >
+          <input
+            type="number"
+            id="phone"
+            formControlName="phone"
+            class="input-base"
+            [ngClass]="{
+          'input-error':
+            formUtils.isValiedField(myForm, 'phone')
+        }"
+          />
+          @if(formUtils.isValiedField(myForm,'phone')){
+          <p class="mt-2 text-sm text-red-600">
+            <span class="font-medium"
+              >{{ formUtils.getFieldError(myForm, "phone") }}</span
+            >
+          </p>
+          }
+        </div>
+        <div>
+          <label
+            for="birthDate"
+            class="block mb-2 text-sm font-medium"
+            [ngClass]="{
+        ' text-red-700': formUtils.isValiedField(
+          myForm,
+          'birthDate'
+        )
+      }"
+            >Fecha de nacimiento</label
+          >
+          <input
+            type="date"
+            id="birthDate"
+            formControlName="birthDate"
+            class="input-base"
+            [ngClass]="{
+        'input-error':
+          formUtils.isValiedField(myForm, 'birthDate')
+      }"
+          />
+          @if(formUtils.isValiedField(myForm,'birthDate')){
+          <p class="mt-2 text-sm text-red-600">
+            <span class="font-medium"
+              >{{ formUtils.getFieldError(myForm, "birthDate") }}</span
+            >
+          </p>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+      <button type="button" class="button-secondary me-3" routerLink="/">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [ngClass]="myForm.valid ?'button-primary':'button-disabled'"
+        [disabled]="!myForm.valid"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>
