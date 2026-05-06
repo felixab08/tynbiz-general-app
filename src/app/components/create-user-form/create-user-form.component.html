@@ -15,7 +15,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'UserName'
-            )
+            ),
           }"
           >Nombre</label
         >
@@ -26,15 +26,15 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
-              formUtils.isValiedField(myForm, 'UserName')
+              formUtils.isValiedField(myForm, 'UserName'),
           }"
         />
-        @if(formUtils.isValiedField(myForm,'UserName')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "UserName")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "UserName")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "UserName")
+            }}</span>
+          </p>
         }
       </div>
       <!-- Last name -->
@@ -46,7 +46,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'fullNamePerson'
-            )
+            ),
           }"
           >Apellidos</label
         >
@@ -57,15 +57,15 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
-              formUtils.isValiedField(myForm, 'fullNamePerson')
+              formUtils.isValiedField(myForm, 'fullNamePerson'),
           }"
         />
-        @if(formUtils.isValiedField(myForm,'fullNamePerson')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "fullNamePerson")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "fullNamePerson")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "fullNamePerson")
+            }}</span>
+          </p>
         }
       </div>
     </div>
@@ -80,7 +80,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'dniPerson'
-            )
+            ),
           }"
           >DNI</label
         >
@@ -91,15 +91,15 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'dniPerson')
+              formUtils.isValiedField(myForm, 'dniPerson'),
           }"
         />
-        @if(formUtils.isValiedField(myForm,'dniPerson')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "dniPerson")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "dniPerson")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "dniPerson")
+            }}</span>
+          </p>
         }
       </div>
       <!-- email -->
@@ -111,7 +111,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'email'
-            )
+            ),
           }"
           >Correo electronico</label
         >
@@ -141,16 +141,16 @@
             class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800 ps-10"
             [ngClass]="{
               ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-                formUtils.isValiedField(myForm, 'email')
+                formUtils.isValiedField(myForm, 'email'),
             }"
           />
         </div>
-        @if(formUtils.isValiedField(myForm,'email')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "email")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "email")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "email")
+            }}</span>
+          </p>
         }
       </div>
     </div>
@@ -163,7 +163,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'phone'
-            )
+            ),
           }"
           >N° celular</label
         >
@@ -174,15 +174,15 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'phone')
+              formUtils.isValiedField(myForm, 'phone'),
           }"
         />
-        @if(formUtils.isValiedField(myForm,'phone')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "phone")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "phone")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "phone")
+            }}</span>
+          </p>
         }
       </div>
       <div>
@@ -193,7 +193,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'gender'
-            )
+            ),
           }"
           >Genero</label
         >
@@ -205,19 +205,19 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'gender'
-            )
+            ),
           }"
         >
           <option ngValue="" selected disabled>Seleccione</option>
           <option ngValue="0">Femenino</option>
           <option ngValue="1">Masculino</option>
         </select>
-        @if(formUtils.isValiedField(myForm,'gender')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "gender")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "gender")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "gender")
+            }}</span>
+          </p>
         }
       </div>
     </div>
@@ -230,7 +230,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'direction'
-            )
+            ),
           }"
           >Dirección</label
         >
@@ -241,15 +241,15 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'direction')
+              formUtils.isValiedField(myForm, 'direction'),
           }"
         />
-        @if(formUtils.isValiedField(myForm,'direction')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "direction")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "direction")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "direction")
+            }}</span>
+          </p>
         }
       </div>
       <div>
@@ -260,7 +260,7 @@
             ' text-red-700 dark:text-red-500': formUtils.isValiedField(
               myForm,
               'birthdate'
-            )
+            ),
           }"
           >Fecha de nacimiento</label
         >
@@ -271,15 +271,15 @@
           class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'birthdate')
+              formUtils.isValiedField(myForm, 'birthdate'),
           }"
         />
-        @if(formUtils.isValiedField(myForm,'birthdate')){
-        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "birthdate")
-          }}</span>
-        </p>
+        @if (formUtils.isValiedField(myForm, "birthdate")) {
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+            <span class="font-medium">{{
+              formUtils.getFieldError(myForm, "birthdate")
+            }}</span>
+          </p>
         }
       </div>
     </div>
@@ -292,7 +292,7 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'status'
-          )
+          ),
         }"
         >Estado</label
       >
@@ -304,19 +304,19 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'status'
-          )
+          ),
         }"
       >
         <option ngValue="" selected disabled>Seleccione...</option>
         <option ngValue="Activo">Activo</option>
         <option ngValue="Inactivo">Inactivo</option>
       </select>
-      @if(formUtils.isValiedField(myForm,'status')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "status")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "status")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "status")
+          }}</span>
+        </p>
       }
     </div>
 
@@ -328,7 +328,7 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'role'
-          )
+          ),
         }"
         >Seleccione rol</label
       >
@@ -340,22 +340,23 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'role'
-          )
+          ),
         }"
       >
         <option ngValue="" selected disabled>Seleccione...</option>
-        @if(rolesResorce.hasValue()) {
-        <!--  -->
-        @for (item of rolesResorce.value().content; track item.id) {
-        <option [ngValue]="item.id">{{ item.description }}</option>
-        } }
+        @if (rolesResorce.hasValue()) {
+          <!--  -->
+          @for (item of rolesResorce.value().content; track item.id) {
+            <option [ngValue]="item.id">{{ item.description }}</option>
+          }
+        }
       </select>
-      @if(formUtils.isValiedField(myForm,'role')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "role")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "role")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "role")
+          }}</span>
+        </p>
       }
     </div>
 
@@ -368,7 +369,7 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'accounUser'
-          )
+          ),
         }"
         >Usuario</label
       >
@@ -379,15 +380,15 @@
         class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
         [ngClass]="{
           ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
-            formUtils.isValiedField(myForm, 'accounUser')
+            formUtils.isValiedField(myForm, 'accounUser'),
         }"
       />
-      @if(formUtils.isValiedField(myForm,'accounUser')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "accounUser")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "accounUser")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "accounUser")
+          }}</span>
+        </p>
       }
     </div>
 
@@ -399,22 +400,22 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'password'
-          )
+          ),
         }"
         >Contraseña</label
       >
-       <div class="relative">
-      <input
-      [type]="lookIconIsPassword() ? 'text' : 'password'"
-        id="password"
-        formControlName="password"
-        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
-        [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
-            formUtils.isValiedField(myForm, 'password')
-        }"
-      />
-      <button
+      <div class="relative">
+        <input
+          [type]="lookIconIsPassword() ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
+          [ngClass]="{
+            ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
+              formUtils.isValiedField(myForm, 'password'),
+          }"
+        />
+        <button
           type="button"
           (click)="changeTypeInput()"
           class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500"
@@ -431,30 +432,30 @@
             stroke-linejoin="round"
           >
             @if (!lookIconIsPassword()) {
-            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-            <path
-              d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-            ></path>
-            <path
-              d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-            ></path>
-            <line x1="2" x2="22" y1="2" y2="22"></line>
-            } @if (lookIconIsPassword()) {
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+              <path
+                d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+              ></path>
+              <path
+                d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+              ></path>
+              <line x1="2" x2="22" y1="2" y2="22"></line>
+            }
+            @if (lookIconIsPassword()) {
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
             }
           </svg>
         </button>
       </div>
-      @if(formUtils.isValiedField(myForm,'password')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "password")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "password")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "password")
+          }}</span>
+        </p>
       }
     </div>
-
 
     <div class="mb-6">
       <label
@@ -464,23 +465,23 @@
           ' text-red-700 dark:text-red-500': formUtils.isValiedField(
             myForm,
             'passwordRepit'
-          )
+          ),
         }"
         >Repetir contraseña</label
       >
 
-       <div class="relative">
-      <input
-      [type]="lookIconIsPasswordConfirm() ? 'text' : 'password'"
-        id="passwordRepit"
-        formControlName="passwordRepit"
-        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
-        [ngClass]="{
-          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
-            formUtils.isValiedField(myForm, 'passwordRepit')
-        }"
-      />
-            <button
+      <div class="relative">
+        <input
+          [type]="lookIconIsPasswordConfirm() ? 'text' : 'password'"
+          id="passwordRepit"
+          formControlName="passwordRepit"
+          class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
+          [ngClass]="{
+            ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 ':
+              formUtils.isValiedField(myForm, 'passwordRepit'),
+          }"
+        />
+        <button
           type="button"
           (click)="changeTypeInputConfirm()"
           class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500"
@@ -497,37 +498,34 @@
             stroke-linejoin="round"
           >
             @if (!lookIconIsPasswordConfirm()) {
-            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-            <path
-              d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-            ></path>
-            <path
-              d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-            ></path>
-            <line x1="2" x2="22" y1="2" y2="22"></line>
-            } @if (lookIconIsPasswordConfirm()) {
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+              <path
+                d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+              ></path>
+              <path
+                d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+              ></path>
+              <line x1="2" x2="22" y1="2" y2="22"></line>
+            }
+            @if (lookIconIsPasswordConfirm()) {
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
             }
           </svg>
         </button>
       </div>
-      @if(formUtils.isValiedField(myForm,'passwordRepit')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "passwordRepit")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "passwordRepit")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "passwordRepit")
+          }}</span>
+        </p>
       }
     </div>
     <button
       type="submit"
+      [ngClass]="myForm.valid ? 'button-primary' : 'button-disabled'"
       [disabled]="!myForm.valid"
-      class="button-primary"
-      [ngClass]="{
-        'cursor-not-allowed bg-blue-700/50 hover:bg-blue-800/50': !myForm.valid,
-        'cursor-pointer': myForm.valid
-      }"
     >
       Crear usuario
     </button>

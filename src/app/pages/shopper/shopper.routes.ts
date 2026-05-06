@@ -30,6 +30,11 @@ export const shopperRoutes: Routes = [
         loadComponent: () => import('./profile.component/profile.component'),
       },
       {
+        path: 'register',
+        loadComponent: () =>
+          import('./../../shared/register-page/register-page'),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

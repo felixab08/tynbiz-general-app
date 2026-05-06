@@ -78,7 +78,8 @@ export class FormUtils {
           return `Las contraseñas no coinciden`;
         case 'dniPeruano':
           return `El DNI debe contener exactamente 8 dígitos`;
-
+        case 'validateCantNumber':
+          return `${errors['validateCantNumber'].name} debe contener ${errors['validateCantNumber'].cant} dígitos`;
         default:
           return 'Error de validación no controlado';
       }
@@ -132,7 +133,7 @@ export class FormUtils {
   static dateRangeCurrentDate(
     formGroup: FormGroup,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
@@ -150,17 +151,17 @@ export class FormUtils {
         const compararFechaActual = new Date(
           fechaActual.getFullYear(),
           fechaActual.getMonth(),
-          fechaActual.getDate()
+          fechaActual.getDate(),
         );
         const compararFechaDesde = new Date(
           fechaDesde.getFullYear(),
           fechaDesde.getMonth(),
-          fechaDesde.getDate()
+          fechaDesde.getDate(),
         );
         const compararFechaHasta = new Date(
           fechaHasta.getFullYear(),
           fechaHasta.getMonth(),
-          fechaHasta.getDate()
+          fechaHasta.getDate(),
         );
 
         if (
@@ -175,14 +176,14 @@ export class FormUtils {
           formGroup.controls[startDate].setErrors(
             this._deleteError(
               formGroup.controls[startDate].errors,
-              'errorDateRange'
-            )
+              'errorDateRange',
+            ),
           );
           formGroup.controls[endDate].setErrors(
             this._deleteError(
               formGroup.controls[endDate].errors,
-              'errorDateRange'
-            )
+              'errorDateRange',
+            ),
           );
         }
       }
@@ -219,7 +220,7 @@ export class FormUtils {
   static compareNumbers(
     formGroup: FormGroup,
     startNumber: any,
-    endNumber: any
+    endNumber: any,
   ): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
@@ -237,14 +238,14 @@ export class FormUtils {
           formGroup.controls[startNumber].setErrors(
             this._deleteError(
               formGroup.controls[startNumber].errors,
-              'errorCompareNumber'
-            )
+              'errorCompareNumber',
+            ),
           );
           formGroup.controls[endNumber].setErrors(
             this._deleteError(
               formGroup.controls[endNumber].errors,
-              'errorCompareNumber'
-            )
+              'errorCompareNumber',
+            ),
           );
         }
       }
@@ -372,5 +373,18 @@ export class FormUtils {
     return arrayErrors && Object.keys(arrayErrors).length > 0
       ? arrayErrors
       : null;
+  }
+
+  static validateCantNumber(cant: number, name: string): ValidatorFn {
+    if (!Number.isInteger(cant) || cant <= 0) {
+      return (_: AbstractControl): ValidationErrors | null => null;
+    }
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null || control.value === '') return null;
+      const valueStr = control.value.toString();
+      const regex = new RegExp(`^\\d{${cant}}$`);
+      const isValid = regex.test(valueStr);
+      return isValid ? null : { validateCantNumber: { cant, name } };
+    };
   }
 }

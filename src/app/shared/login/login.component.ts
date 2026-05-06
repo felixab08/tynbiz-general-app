@@ -9,31 +9,26 @@ import {
 import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services/store.service';
 import { FormUtils } from '@app/utils/form.util';
+import { Router, RouterLink } from '@angular/router';
+import { MenuService } from '@app/auth/services/menu.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   providers: [AuthService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
   storeService = inject(StoreService);
   _authService = inject(AuthService);
+  _menuService = inject(MenuService);
+  _router = inject(Router);
   hasError = signal(false);
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
   lookIconIsPassword = signal(false);
 
   formUtils = FormUtils;
-
-  // "username": "emilys",
-  // "password": "emilyspass",
-  // "role": "admin"
-  // ==================
-  // "username": "noahh",
-  // "password": "noahhpass",
-  // "role": "moderator"
-
   myForm: FormGroup = this._fb.group({
     user: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(3)]],
@@ -53,12 +48,14 @@ export class LoginComponent implements OnInit {
     this._authService
       .login(
         this.myForm.controls['user'].value,
-        this.myForm.controls['password'].value
+        this.myForm.controls['password'].value,
       )
       .subscribe({
         next: (response) => {
           if (response) {
             this.closeModal();
+            const route = this._menuService.redirectLinkForRole();
+            this._router.navigate([route]);
             setTimeout(() => {
               location.reload();
             }, 1000);

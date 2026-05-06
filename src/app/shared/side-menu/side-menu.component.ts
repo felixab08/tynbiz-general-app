@@ -15,16 +15,12 @@ import {
 } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '@app/auth/services/auth.service';
-import {
-  menuAdminMock,
-  menuItemsClienteMock,
-  menuItemsMock,
-} from '@app/mock/menu.mock';
 import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AlertComponent } from '@app/components/alert/alert.component';
 import { AlertService } from '@app/services/alert.service';
 import { NgClass } from '@angular/common';
+import { MenuService } from '@app/auth/services/menu.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -40,10 +36,12 @@ import { NgClass } from '@angular/common';
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {
   _authService = inject(AuthService);
+  _menuService = inject(MenuService);
   _alertService = inject(AlertService);
   _router = inject(Router);
-  menuItemsAll: any[] = [...menuItemsMock];
+  menuItemsAll: any[] = [];
   routerState = '/shop/home';
+
   @ViewChild('drawerToggle', { static: true })
   drawerToggle!: ElementRef<HTMLButtonElement>;
 
@@ -64,18 +62,12 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
     this.storeService.user.subscribe((user) => {
       this.user = user;
       if (this.user) {
-        this.menuItemsAll = this.user?.role.includes('STORE_OWNER')
-          ? [...menuItemsClienteMock]
-          : [...menuAdminMock];
+        this.menuItemsAll = this._menuService.createMenuForRole();
+
         // TODO: revisar rutas para cada rol y descomentar esta parte
-        // this.routerState = this.user?.role.includes('STORE_OWNER')
-        //   ? '/stores/init-store'
-        //   : '/admin/dashboard';
-        // this._router.navigate([this.routerState]);
+        this.routerState = this._menuService.redirectLinkForRole();
       } else {
-        this.menuItemsAll = [...menuItemsMock];
-        // this.routerState = '/';
-        this._router.navigate(['/']);
+        this.menuItemsAll = this._menuService.createMenuForRole();
       }
     });
     localStorage.setItem('typeRole', JSON.stringify(this.typeRole[0]));
