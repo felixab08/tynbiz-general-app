@@ -26,6 +26,10 @@ export const shopperRoutes: Routes = [
         loadComponent: () => import('./offer/offer.component'),
       },
       {
+        path: 'profile',
+        loadComponent: () => import('./profile.component/profile.component'),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

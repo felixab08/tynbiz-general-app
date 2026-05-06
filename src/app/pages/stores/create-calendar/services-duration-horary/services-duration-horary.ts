@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -12,6 +12,7 @@ import {
   templateUrl: './services-duration-horary.html',
 })
 export class ServicesDurationHorary {
+  @Input() appointmentDuration: number[] | undefined = [];
   form!: FormGroup;
 
   constructor(private fb: FormBuilder) {
