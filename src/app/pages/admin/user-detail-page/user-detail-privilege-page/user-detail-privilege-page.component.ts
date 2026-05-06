@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { menuAdminMock } from '@app/mock/menu.mock';
+import { menuAdminMock } from '@app/auth/data/menu.data';
 
 @Component({
   selector: 'tyn-user-detail-privilege-page',
