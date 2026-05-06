@@ -8,12 +8,12 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url('./assets/fonts/montserrat/montserrat-alternates-medium.ttf');
+  src: url('../public/assets/fonts/montserrat/montserrat-alternates-medium.ttf');
 }
 
 @font-face {
   font-family: "Lato";
-  src: url('./assets/fonts/lato/Lato-Regular.ttf');
+  src: url('../public/assets/fonts/lato/Lato-Regular.ttf');
 }
 /* TODO: revisar esta linea en angular.json -> "deployUrl": "/tynbiz-general-app/" */
 @theme {
@@ -82,7 +82,7 @@
   }
 
   .card-static {
-    @apply w-full p-6 bg-white rounded-lg shadow-sm border border-gray-200;
+    @apply w-full md:p-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200;
   }
 
   .card-store {

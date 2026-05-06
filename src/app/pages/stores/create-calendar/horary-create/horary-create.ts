@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, Input, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IHorary } from '@app/interfaces';
 import { FormUtils } from '@app/utils/form.util';
@@ -12,7 +12,6 @@ import { dataHours } from './horaries.database';
 })
 export class HoraryCreate {
   horario: IHorary[] = dataHours;
-
   selectHour = output<IHorary>();
   private _fb = inject(FormBuilder);
   formUtils = FormUtils;
@@ -197,4 +196,5 @@ export class HoraryCreate {
   private keyForIndex(index: number) {
     return this.dayKeys[index] || 'lunes';
   }
+
 }

@@ -7,3 +7,4 @@ export interface IHorary {
   aftDesde:   string;
   aftHasta:   string;
 }
+

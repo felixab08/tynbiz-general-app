@@ -14,70 +14,16 @@
       debe estar programado para los siguientes días, semanas y meses que va
       atender a su cliente
     </p>
-    <h1 class="text-lg font-semibold mb-2 mt-6">
-      Programe su calendario de atencion
-    </h1>
-    <div class="">
-      <button (click)="selectedSection.set('detalles')" [ngClass]="selectedSection() === 'detalles'
-    ? 'bg-primary-light border border-primary'
-    : 'bg-white hover:bg-primary-light'" class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer">
-        <div class="col-span-10">
-          <h1 class="text-base font-semibold">Detalles de atención</h1>
-        </div>
-        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-      </button>
-      <button (click)="selectedSection.set('citas')" [ngClass]="selectedSection() === 'citas'
-    ? 'bg-primary-light border border-primary'
-    : 'bg-white hover:bg-primary-light'" class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer">
-        <div class="col-span-10">
-          <h1 class="text-base font-semibold">Duración de citas</h1>
-        </div>
-        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-      </button>
-      <button (click)="selectedSection.set('horario')" [ngClass]="selectedSection() === 'horario'
-    ? 'bg-primary-light border border-primary'
-    : 'bg-white hover:bg-primary-light'" class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer">
-        <div class="col-span-10">
-          <h1 class="text-base font-semibold">Horario de atención</h1>
-        </div>
-        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-      </button>
-      <button (click)="selectedSection.set('fechas')" [ngClass]="selectedSection() === 'fechas'
-    ? 'bg-primary-light border border-primary'
-    : 'bg-white hover:bg-primary-light'" class="mb-4 grid grid-cols-12 gap-4 card-store cursor-pointer">
-        <div class="col-span-10">
-          <h1 class="text-base font-semibold">Fechas especiales</h1>
-        </div>
-        <i class="fa-solid fa-chevron-right col-span-2 m-auto"></i>
-      </button>
-    </div>
-  </div>
-  <div class="col-span-2">
-    @if (selectedSection() === 'detalles') {
-    <h1 class="text-lg font-bold mb-4">Detalles de atención</h1>
-    <div class="card-static">
-      <div class="mb-6">
-        <form [formGroup]="tynForm">
-          <h1 class="text-lg font-bold">Citas por dia</h1>
-          <p>Defina cuantos citas diarias puede atender en la sala tynbiz</p>
-          <div class="mt-4 flex gap-4">
-            <select id="" class="input-base max-w-3xs" formControlName="optionNumber" name="optionNumber">
-              <option value="15">5</option>
-              <option value="30">10</option>
-              <option value="20">15</option>
-              <option value="60">20</option>
-              <option value="num">personalizado</option>
-            </select>
-            @if (tynForm.get('optionNumber')?.value === 'num') {
-              <div class="flex gap-4 ">
-                <input type="number" class="input-base max-w-3xs" formControlName="customNumber" min="1" placeholder="Ingrese un número" />
-                <span *ngIf="tynForm.get('customNumber')?.invalid && tynForm.get('customNumber')?.touched" class="text-red-500 text-xs">Debe ser mayor a 0</span>
-              </div>
-            }
-          </div>
-        </form>
-      </div>
 
+    <p class="mb-2 mt-6 text-center">Programe su calendario de atencion</p>
+    <button data-modal-hide="default-modal" type="button" (click)="isModalVisible.set(true)"
+      class="button-primary w-full font-semibold">
+      Programar mi calendario
+    </button>
+  </div>
+  <div class="col-span-2 mb-6">
+    <h1 class="text-lg font-bold mb-4">Detalles de atención</h1>
+    <div class="card-static mb-4">
       <div>
         <h1 class="text-lg font-bold">Atencion en sala</h1>
         <p>
@@ -94,97 +40,85 @@
         </div>
       </div>
     </div>
-    } @if (selectedSection() === 'citas') {
-    <h1 class="text-lg font-bold mb-4">Duración de citas</h1>
-    <tyn-services-duration-horary />
-    } @if (selectedSection() === 'horario') {
-    <h1 class="text-lg font-bold mb-4">Horario de atención</h1>
-    <tyn-horaries />
-    } @if (selectedSection() === 'fechas') {
-    <h1 class="text-lg font-bold mb-4">Fechas especiales</h1>
-    <div class="card-static">
-      <div class="mb-6">
-        <h3 class="text-lg font-bold">
-          Marcar fechas especiales (Excepciones)
-        </h3>
-        <p>
-          La tienda puede indicar días que son diferentes a su horario normal:
-        </p>
-      </div>
-      <div class="flex gap-6">
-        <input
-          class="hidden cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-xl focus:ring-brand focus:border-brand w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-          angular-mydatepicker name="reactiveFormsDate" formControlName="myDate" [options]="myDatePickerOptions"
-          #dp="angular-mydatepicker" autocomplete="off" locale="es" (click)="toggleCalendar()"
-          (dateChanged)="chageDate($event)" />
-        <div>
-          @if (handlerTurno()) {
-          <!-- busqueda por estado -->
-          <div class="relative w-48">
-            <label for="casesClosed" class="block mb-2.5 text-base font-medium text-heading">Seleccione opción</label>
-            <select #casesClosed (change)="handlerCase($event.target)" id="casesClosed"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 ng-pristine ng-valid ng-touched">
-              <option selected disabled>Seleccione opción</option>
-              <option value="CP">Cerrado parcialmente</option>
-              <option value="CT">Cerrado todo el día</option>
-              <option value="HX">Horario extendido</option>
-            </select>
-          </div>
-          @if (checkHours()) { @for (horario of listHorarioTurno; track $index)
-          {
-
-          <div class="grid grid-cols-3 gap-2 mt-4">
-            <div class="flex items-center">
-              <input [checked]="horario.status" id="checked-checkbox-{{horario.dia}}" type="checkbox"
-                class="w-6 h-6 text-primary bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-primary ring-offset-neutral-primary focus:ring-2" />
-              <label for="checked-checkbox-{{horario.dia}}"
-                class="select-none ms-2 text-base font-medium text-heading">{{horario.dia}}</label>
+    <div class="card-static mb-4">
+      <h1 class="text-lg font-bold">Horario de atención</h1>
+      <p class="mb-4">Asi veran tus clientes tu horario de atención.</p>
+      <div class="flex gap-1 flex-wrap">
+        @if (myCalendarResource.value()?.daySchedules) {
+          @for (day of myCalendarResource.value()!.daySchedules; track day.id) {
+            <div class="flex-1 min-w-[150px] bg-primary-light rounded-lg shadow-sm border border-primary flex flex-col items-center p-2">
+              <p class="font-medium">{{ day.dayOfWeek }}</p>
+              @if (day.isWorkDay) {
+                @if (day.morningStart && day.morningEnd) {
+                  <div class="flex gap-2 items-center text-xs">
+                    <i class="fa-solid fa-sun text-amber-400"></i>
+                    <p class="text-sm text-gray-500">
+                      {{ day.morningStart | timeOfDay }} - {{ day.morningEnd | timeOfDay }}
+                    </p>
+                  </div>
+                }
+                @if (day.afternoonStart && day.afternoonEnd) {
+                  <div class="flex gap-2 items-center text-xs">
+                    <i class="fa-solid fa-moon text-primary"></i>
+                    <p class="text-sm text-gray-500">
+                      {{ day.afternoonStart | timeOfDay }} - {{ day.afternoonEnd | timeOfDay }}
+                    </p>
+                  </div>
+                }
+              } @else {
+                <p class="text-xs text-gray-500 font-semibold">Cerrado</p>
+              }
             </div>
-            <div>
-              <label for="from-{{horario.dia}}" class="block mb-2 text-sm font-medium text-heading">Desde:</label>
-              <div class="relative">
-                <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-                  <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                  </svg>
-                </div>
-                <input type="time" id="from-{{horario.dia}}"
-                  class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-                  [min]="horario.desde" [max]="horario.hasta" [value]="horario.desde" required />
-              </div>
-            </div>
-            <div>
-              <label for="to-{{horario.dia}}" class="block mb-2 text-sm font-medium text-heading">Hasta:</label>
-              <div class="relative">
-                <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-                  <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                  </svg>
-                </div>
-                <input type="time" id="to-{{horario.dia}}"
-                  class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-                  [min]="horario.desde" [max]="horario.hasta" [value]="horario.hasta" required />
-              </div>
-            </div>
-          </div>
-          } }
-
-          <div class="text-center mt-6 flex justify-end">
-            <button (click)="onDisableToday()" type="button"
-              class="text-white bg-primary hover:bg-primary-light hover:text-primary border-primary border-2 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none">
-              Guardar excepciones
-            </button>
-          </div>
           }
+        }
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <div class="card-static">
+        <h1 class="text-lg font-bold mb-3">Fechas especiales</h1>
+        <div class="relative rounded-md border border-gray-300 overflow-x-auto md:block hidden">
+          <div class="w-full text-sm text-left rtl:text-right text-body">
+            @if (myCalendarResource.value()?.dateOverrides && myCalendarResource.value()!.dateOverrides.length > 0) {
+              @for (dateOverride of myCalendarResource.value()!.dateOverrides; track dateOverride.id) {
+                <div class="bg-neutral-primary border-b border-gray-300 p-2.5 flex w-full justify-between items-center">
+                  <div scope="row" class=" font-medium">
+                    <p class="font-semibold">{{ dateOverride.overrideDate | date: 'dd-MM-yyyy' }}</p>
+                    <p class="font-normal text-gray-500">{{ dateOverride.reason || 'Sin descripción' }}</p>
+                  </div>
+                  <div>
+                    <span [ngClass]="dateOverride.isDayOff ? 'bg-red-500' : 'bg-green-500'" class="text-white text-sm font-medium px-2 py-1 rounded">
+                      {{ dateOverride.isDayOff ? 'Cerrado' : 'Horario especial' }}
+                    </span>
+                  </div>
+                </div>
+              }
+            } @else {
+              <div class="bg-neutral-primary border-b border-gray-300 p-2.5 text-center text-gray-500">
+                <p>No hay fechas especiales programadas</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="card-static">
+        <h1 class="text-lg font-bold mb-3">Citas</h1>
+        <div class="input-base flex items-center gap-2 border border-gray-300 rounded-lg">
+          <div class="w-full flex justify-between">
+            <h1 class="text-md font-bold">Personal shopper</h1>
+            <a class="inline-flex text-sm items-center text-primary">
+              30 min
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    }
+
   </div>
 </div>
 
 <!-- copia del primero pero con horas en la mañan y en la tarde -->
+
+<!-- modal editar calendario -->
+<tyn-create-calendar-modal [visible]="isModalVisible()" [selectedCalendar]="myCalendarResource.value()"
+  (close)="onModalClose()" (save)="onModalSave()">
+</tyn-create-calendar-modal>

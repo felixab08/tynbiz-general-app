@@ -17,10 +17,9 @@
               class="rounded-lg border p-2.5 pr-12 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
               formControlName="tiempo"
             >
-              <option [value]="15">15 min</option>
-              <option [value]="30">30 min</option>
-              <option [value]="45">45 min</option>
-              <option [value]="60">60 min</option>
+            @for (item of appointmentDuration; track $index) {
+              <option [value]="item">{{ item }} min</option>
+            }
             </select>
           </div>
           @if (servicios.length > 1) {
