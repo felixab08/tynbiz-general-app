@@ -118,13 +118,14 @@ export class AuthService {
   }
 
   logoutAndReload() {
+
     this.logout();
-    location.reload();
+    setTimeout(() => {
+      location.reload();
+    }, 500);
   }
 
   private handleAuthSuccess(user: User, token: string) {
-    console.log('user OK', user);
-
     this._user.set(user);
 
     this.storeService.user.next(this._user() as User);

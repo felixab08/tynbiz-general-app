@@ -22,6 +22,10 @@ export class MenuService {
     });
   }
   createMenuForRole() {
+    if (!this.user) {
+      // this._router.navigate(['/shop/home']);
+      return menuItemsMock.splice(0, 4);
+    }
     switch (this.user?.role) {
       case 'ADMIN':
         return menuAdminMock;
@@ -35,6 +39,9 @@ export class MenuService {
   }
 
   redirectLinkForRole() {
+    if (!this.user) {
+      return '/shop/home';
+    }
     switch (this.user?.role) {
       case 'ADMIN':
         return '/admin/dashboard';
