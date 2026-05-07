@@ -1,4 +1,4 @@
-<div class="flex flex-col min-h-screen p-4 shadow-md m-4 rounded-lg">
+<div class="flex flex-col min-h-screen p-4 shadow-md m-4 rounded-lg dark:bg-gray-700 dark:border-gray-700">
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
       Panel de Control
@@ -8,12 +8,12 @@
     class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mb-6"
   >
     <div
-      class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-4 md:p-6"
+      class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600 p-4 md:p-6 transition-colors"
     >
       <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
         Nuevos usuarios
       </h5>
-      <p class="text-gray-600 dark:text-gray-400 my-2">450</p>
+      <p class="text-gray-600 dark:text-gray-300 my-2">450</p>
       <div class="md:flex items-center justify-between">
         <div class="flex items-center">
           <svg
@@ -33,7 +33,7 @@
               d="M12 6v13m0-13 4 4m-4-4-4 4"
             />
           </svg>
-          <p class="w-6 h-6 text-green-600 dark:text-green-400">20%</p>
+          <p class="w-6 h-6 text-green-600 dark:text-green-400 font-semibold">20%</p>
         </div>
         <p class="text-gray-600 dark:text-gray-400 md:text-right">
           Desde el mes pasado
@@ -41,12 +41,12 @@
       </div>
     </div>
     <div
-      class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-4 md:p-6"
+      class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600 p-4 md:p-6 transition-colors"
     >
       <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
         Ganancias netas
       </h5>
-      <p class="text-gray-600 dark:text-gray-400 my-2">S/. 7.500 </p>
+      <p class="text-gray-600 dark:text-gray-300 my-2">S/. 7.500 </p>
       <div class="md:flex items-center justify-between">
         <span class="flex items-center">
           <svg
@@ -66,7 +66,7 @@
               d="M12 6v13m0-13 4 4m-4-4-4 4"
             />
           </svg>
-          <p class="w-6 h-6 text-green-600 dark:text-green-400">15%</p>
+          <p class="w-6 h-6 text-green-600 dark:text-green-400 font-semibold">15%</p>
         </span>
         <p class="text-gray-600 dark:text-gray-400 md:text-right">
           Desde el mes pasado
@@ -77,7 +77,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-3">
     <div
-      class="my-2 sm:mx-2 sm:col-span-1 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+      class="my-2 sm:mx-2 sm:col-span-1 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-700 transition-colors"
     >
       <div class="relative overflow-x-auto">
         <div class="flex items-center m-6 justify-between mb-4">
@@ -94,34 +94,34 @@
           </a>
         </div>
         <div class="relative overflow-x-auto m-6">
-          <table
-            class="tabla"
-          >
-            <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-              <tr>
-                <th scope="col" class="py-3">Roles</th>
-                <th scope="col" class="py-3">Cant. Us</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (rolList of rolLists; track rolList.id) {
-              <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              >
-                <td class="py-4">
-                  {{ rolList.name }}
-                </td>
-                <td class="py-4">{{ rolList.cantHabitity }} usuarios</td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div
-      class="my-2 sm:mx-2 sm:col-span-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-    >
+           <table
+             class="tabla"
+           >
+             <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+               <tr>
+                 <th scope="col" class="py-3 dark:bg-gray-700">Roles</th>
+                 <th scope="col" class="py-3 dark:bg-gray-700">Cant. Us</th>
+               </tr>
+             </thead>
+             <tbody>
+               @for (rolList of rolLists; track rolList.id) {
+               <tr
+                 class="bg-white border-b dark:bg-gray-700 dark:border-gray-600 border-gray-200"
+               >
+                 <td class="py-4 text-gray-900 dark:text-white">
+                   {{ rolList.name }}
+                 </td>
+                 <td class="py-4 text-gray-600 dark:text-gray-300">{{ rolList.cantHabitity }} usuarios</td>
+               </tr>
+               }
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+     <div
+       class="my-2 sm:mx-2 sm:col-span-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-700 transition-colors"
+     >
       <div class="relative overflow-x-auto">
         <div class="flex items-center m-6 justify-between mb-4">
           <h5
@@ -136,46 +136,46 @@
             Ver todas las acciones
           </a>
         </div>
-        <div class="relative overflow-x-auto m-6">
-          <table
-            class="tabla"
-          >
-            <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-              <tr>
-                <th scope="col" class="py-3">Nombre rol</th>
-                <th scope="col" class="py-3">Fecha</th>
-                <th scope="col" class="py-3">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (userAction of userActions; track userAction.id) {
-              <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              >
-                <th
-                  scope="row"
-                  class="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {{ userAction.rol }}
-                </th>
-                <td class="py-4">
-                  {{ userAction.dateAction | date : "medium" }}
-                </td>
-                <td class="py-4">
-                  Usuario {{ userAction.nameUser }} {{ userAction.action }}
-                </td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="grid grid-cols-1 lg:grid-cols-2">
-    <div
-      class="my-2 sm:mx-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-    >
+         <div class="relative overflow-x-auto m-6">
+           <table
+             class="tabla"
+           >
+             <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+               <tr>
+                 <th scope="col" class="py-3 dark:bg-gray-700">Nombre rol</th>
+                 <th scope="col" class="py-3 dark:bg-gray-700">Fecha</th>
+                 <th scope="col" class="py-3 dark:bg-gray-700">Acción</th>
+               </tr>
+             </thead>
+             <tbody>
+               @for (userAction of userActions; track userAction.id) {
+               <tr
+                 class="bg-white border-b dark:bg-gray-700 dark:border-gray-600 border-gray-200"
+               >
+                 <th
+                   scope="row"
+                   class="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                 >
+                   {{ userAction.rol }}
+                 </th>
+                 <td class="py-4 text-gray-600 dark:text-gray-300">
+                   {{ userAction.dateAction | date : "medium" }}
+                 </td>
+                 <td class="py-4 text-gray-600 dark:text-gray-300">
+                   Usuario {{ userAction.nameUser }} {{ userAction.action }}
+                 </td>
+               </tr>
+               }
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="grid grid-cols-1 lg:grid-cols-2">
+     <div
+       class="my-2 sm:mx-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-700 transition-colors"
+     >
       <div class="relative overflow-x-auto">
         <div class="flex items-center m-6 justify-between mb-4">
           <h5
@@ -204,7 +204,7 @@
             <tbody>
               @for (userConect of userConects; track userConect.id) {
               <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                class="bg-white border-b dark:bg-gray-700 dark:border-gray-700 border-gray-200"
               >
                 <th
                   scope="row"
@@ -216,16 +216,16 @@
                 <td class="py-4">
                   {{ userConect.dateAction | date : "medium" }}
                 </td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div
-      class="my-2 sm:mx-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-    >
+               </tr>
+               }
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+     <div
+       class="my-2 sm:mx-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-700 transition-colors"
+     >
       <div class="relative overflow-x-auto">
         <div class="flex items-center m-6 justify-between mb-4">
           <span class="flex items-center space-x-2">
@@ -255,30 +255,30 @@
             >
               Ganancias
             </h5>
-          </span>
-          <a
-            (click)="routeLink('revenue')"
-            class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
-          >
-            Ver ganancias
-          </a>
-        </div>
-        <div class="grid grid-cols-2 gap-4 m-6">
-          @for (item of ganancias; track item.id) {
-          <div
-            class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-4 md:p-6"
-          >
-            <h5
-              class="text-base font-bold leading-none text-gray-900 dark:text-white"
-            >
-              {{ item.title}}
-            </h5>
-            <p class="text-gray-600 dark:text-gray-400 my-2">
-              {{ item.cant | soles }}
-            </p>
-          </div>
-          }
-        </div>
+           </span>
+           <a
+             (click)="routeLink('revenue')"
+             class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
+           >
+             Ver ganancias
+           </a>
+         </div>
+         <div class="grid grid-cols-2 gap-4 m-6">
+           @for (item of ganancias; track item.id) {
+           <div
+             class="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600 p-4 md:p-6 transition-colors"
+           >
+             <h5
+               class="text-base font-bold leading-none text-gray-900 dark:text-white"
+             >
+               {{ item.title}}
+             </h5>
+             <p class="text-gray-600 dark:text-gray-300 my-2">
+               {{ item.cant | soles }}
+             </p>
+           </div>
+           }
+         </div>
       </div>
     </div>
   </div>

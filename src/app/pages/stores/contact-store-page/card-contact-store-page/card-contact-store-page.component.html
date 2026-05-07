@@ -3,7 +3,7 @@
   [ngClass]="{'bg-secondary-dark': listContact().active === true,
   'bg-white': listContact().active === false
   }"
-  class="block max-w-sm p-6 border m-2 border-gray-300 rounded-lg shadow-sm">
+  class="dark:bg-gray-700 dark:text-white block max-w-sm p-6 border m-2 border-gray-300 rounded-lg shadow-sm">
   <div class="flex gap-4 mb-3">
     <img class="w-10 h-10 rounded-full" [src]="listContact().image" alt="">
     <div class="font-medium">
@@ -23,7 +23,7 @@
 
   <button type="button"
 
-    class="w-full text-black font-semibold bg-white border border-gray-300 focus:outline-none hover:bg-primary hover:text-white focus:ring-4 focus:ring-gray-100 rounded-full text-sm px-5 py-2.5">
+    class="w-full text-black font-semibold bg-white border border-gray-300 focus:outline-none hover:bg-primary hover:text-white focus:ring-4 focus:ring-gray-100 rounded-full text-sm px-5 py-2.5 dark:bg-gray-700 dark:text-white dark:border-gray-600">
     Acceder a atender
   </button>
 </a>}

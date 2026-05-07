@@ -1,5 +1,5 @@
 <header
-  class="sticky top-0 left-0 right-0 z-30 sm:ml-64 items-center justify-between h-[59px] px-4 py-2 bg-white border-b border-gray-300 shadow-sm"
+  class="sticky top-0 left-0 right-0 z-30 sm:ml-64 items-center justify-between h-[59px] px-4 py-2 bg-white dark:bg-gray-700 border-b border-gray-300 dark:border-gray-600 shadow-sm transition-colors"
 >
   <div class="flex items-center justify-between w-full h-full miax-w-7xl">
     <div class="flex">
@@ -14,7 +14,7 @@
           aria-controls="logo-sidebar"
           #drawerToggle
           type="button"
-          class="block md:hidden items-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          class="block md:hidden items-center text-sm text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
         >
           <span class="sr-only">Open sidebar</span>
           <svg
@@ -44,7 +44,7 @@
   class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 block"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-white">
+  <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-white dark:bg-gray-700 transition-colors">
     <a
       class="flex items-center justify-center ps-2.5 mb-5"
       [routerLink]="routerState"
@@ -66,9 +66,8 @@
               [routerLinkActiveOptions]="{ exact: true }"
               class="flex items-center p-2 rounded-lg transition-colors"
               [ngClass]="{
-                'bg-secondary text-primary-dark font-bold': rla.isActive,
-                'text-black hover:bg-secondary hover:text-primary-dark ':
-                  !rla.isActive,
+                'bg-primary text-white font-bold': rla.isActive,
+                'text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700': !rla.isActive
               }"
             >
               <i [class]="menu.icon" class="text-current"></i>
@@ -107,20 +106,18 @@
             <ul [id]="menu.id" class="hidden py-2 space-y-2">
               @for (item of menu.children; track item.name) {
                 <li>
-                  <a
-                    [routerLink]="item.route"
-                    routerLinkActive
-                    #rlaChild="routerLinkActive"
-                    class="flex items-center p-2 rounded-lg transition-colors"
-                    [ngClass]="{
-                      'bg-secondary text-primary-dark font-bold':
-                        rlaChild.isActive,
-                      'text-black hover:bg-secondary hover:text-primary-dark':
-                        !rlaChild.isActive,
-                    }"
-                  >
-                    <span class="ms-3">{{ item.name }}</span>
-                  </a>
+                    <a
+                      [routerLink]="item.route"
+                      routerLinkActive
+                      #rlaChild="routerLinkActive"
+                      class="flex items-center p-2 rounded-lg transition-colors"
+                      [ngClass]="{
+                        'bg-primary text-white font-bold': rlaChild.isActive,
+                        'text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700': !rlaChild.isActive
+                      }"
+                    >
+                      <span class="ms-3">{{ item.name }}</span>
+                    </a>
                 </li>
               }
             </ul>
@@ -128,6 +125,9 @@
         }
       }
     </ul>
+
+
+
     @if (this.user?.role?.includes("STORE_OWNER")) {
       <div
         id="dropdown-cta"
@@ -143,23 +143,23 @@
         </div>
       </div>
 
-      <div
-        id="dropdown-cta"
-        class="p-4 mt-6 rounded-lg border border-primary"
-        role="alert"
-      >
-        <p class="mb-3 font-bold text-sm">Publica tu creación</p>
-        <p class="mb-3 text-sm">Publica o promociona tus productos en vivo</p>
-        <div class="flex items-center">
-          <a
-            href="#/stores/create-creation"
-            type="button"
-            class="w-full flex justify-evenly text-white bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl text-sm px-5 py-2.5 text-center me-2 mb-2"
-          >
-            Crear
-          </a>
-        </div>
-      </div>
+       <div
+         id="dropdown-cta"
+         class="p-4 mt-6 rounded-lg border border-primary dark:bg-gray-700 dark:border-primary"
+         role="alert"
+       >
+         <p class="mb-3 font-bold text-sm text-gray-900 dark:text-white">Publica tu creación</p>
+         <p class="mb-3 text-sm text-gray-600 dark:text-gray-300">Publica o promociona tus productos en vivo</p>
+         <div class="flex items-center">
+           <a
+             href="#/stores/create-creation"
+             type="button"
+             class="w-full flex justify-evenly text-white bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl text-sm px-5 py-2.5 text-center me-2 mb-2"
+           >
+             Crear
+           </a>
+         </div>
+       </div>
     }
   </div>
 </aside>
@@ -170,7 +170,7 @@
   this.user?.role !== "SUPER-ADMIN"
 ) {
   <nav
-    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-300 sm:hidden"
+    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600 sm:hidden transition-colors"
   >
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
       <a
@@ -181,7 +181,7 @@
         class="inline-flex flex-col items-center justify-center px-3 group"
         [ngClass]="{
           'text-primary font-bold': rla2.isActive,
-          'text-black ': !rla2.isActive,
+          'text-gray-800 dark:text-gray-200': !rla2.isActive
         }"
       >
         <i class="fa-solid fa-house mb-2"></i>
@@ -195,7 +195,7 @@
         class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
         [ngClass]="{
           'text-primary font-bold': rla3.isActive,
-          'text-black ': !rla3.isActive,
+          'text-gray-800 dark:text-gray-200': !rla3.isActive
         }"
       >
         <i class="fa-solid fa-user-group mb-2"></i>
@@ -209,7 +209,7 @@
         class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
         [ngClass]="{
           'text-primary font-bold': rla4.isActive,
-          'text-black ': !rla4.isActive,
+          'text-gray-800 dark:text-gray-200': !rla4.isActive
         }"
       >
         <i class="fa-solid fa-bag-shopping mb-2"></i>
@@ -223,7 +223,7 @@
         class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
         [ngClass]="{
           'text-primary font-bold': rla5.isActive,
-          'text-black ': !rla5.isActive,
+          'text-gray-800 dark:text-gray-200': !rla5.isActive
         }"
       >
         <i class="fa-solid fa-store mb-2"></i>
@@ -237,7 +237,7 @@
         class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
         [ngClass]="{
           'text-primary font-bold': rla6.isActive,
-          'text-black ': !rla6.isActive,
+          'text-gray-800 dark:text-gray-200': !rla6.isActive
         }"
       >
         <i class="fa-solid fa-user mb-2"></i>
@@ -247,7 +247,7 @@
   </nav>
 }
 
-<div class="p-0 sm:ml-64 pb-16 sm:pb-0">
+<div class="p-0 sm:ml-64 pb-16 sm:pb-0 dark:bg-gray-700 dark:text-white">
   <router-outlet />
 </div>
 @if (_alertService.isAlert()) {

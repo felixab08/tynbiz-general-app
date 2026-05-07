@@ -1,7 +1,6 @@
 import {
   Component,
   inject,
-  signal,
   ViewChild,
   ElementRef,
   AfterViewInit,
@@ -63,8 +62,6 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
       this.user = user;
       if (this.user) {
         this.menuItemsAll = this._menuService.createMenuForRole();
-
-        // TODO: revisar rutas para cada rol y descomentar esta parte
         this.routerState = this._menuService.redirectLinkForRole();
       } else {
         this.menuItemsAll = this._menuService.createMenuForRole();
@@ -95,7 +92,6 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
         attributeFilter: ['class', 'aria-hidden'],
       });
     } catch (e) {
-      // don't block app on observer errors
       console.warn('SideMenu: could not attach MutationObserver', e);
     }
   }

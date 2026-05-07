@@ -26,31 +26,31 @@
     @if (user) {
       <div class="flex flex-wrap gap-2 md:gap-6 justify-end">
         @if (user.role === "STORE_OWNER") {
-          <div>
-            <p class="text-sm text-gray-500">Atensión al cliente activa</p>
-            <p class="sm:text-2xs text-xs text-gray-400">
-              1 enero 2026 - 1 febrero 2026
-              <i class="fa-regular fa-clock fa-xl mt-3 mx-1"></i>
-            </p>
-          </div>
-          <button
-            type="button"
-            routerLink="/stores/create-calendar"
-            class="button-primary cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
-          >
-            <p class="md:block hidden font-semibold">
-              Calendario <i class="fa-regular fa-calendar-days fa-xl ml-2"></i>
-            </p>
-            <p class="md:hidden block">
-              <i class="fa-regular fa-calendar-days fa-xl"></i>
-            </p>
-          </button>
+           <div>
+             <p class="text-sm text-gray-500 dark:text-gray-300">Atensión al cliente activa</p>
+             <p class="sm:text-2xs text-xs text-gray-400 dark:text-gray-400">
+               1 enero 2026 - 1 febrero 2026
+               <i class="fa-regular fa-clock fa-xl mt-3 mx-1"></i>
+             </p>
+           </div
+           ><button
+             type="button"
+             routerLink="/stores/create-calendar"
+             class="button-primary cursor-pointer text-body bg-neutral-secondary-medium md:box-border md:border hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+           >
+             <p class="md:block hidden font-semibold">
+               Calendario <i class="fa-regular fa-calendar-days fa-xl ml-2"></i>
+             </p>
+             <p class="md:hidden block">
+               <i class="fa-regular fa-calendar-days fa-xl"></i>
+             </p>
+           </button>
         }
       </div>
       <div class="flex items-center justify-end">
         <button
           type="button"
-          class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          class="flex text-sm bg-gray-800 dark:bg-gray-700 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 transition-colors"
           id="user-menu-button"
           aria-expanded="false"
           data-dropdown-toggle="user-dropdown"

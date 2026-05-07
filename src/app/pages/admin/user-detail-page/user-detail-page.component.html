@@ -63,7 +63,7 @@
 
       <div
         *ngIf="selectedTab === 'selectSecurityUser'"
-        class="p-10 bg-white rounded-lg dark:bg-gray-800"
+        class="p-10 bg-white rounded-lg dark:bg-gray-700"
       >
         @if (userInfo) {
         <tyn-user-detail-security-page [userInfo]="userInfo" />
@@ -71,7 +71,7 @@
       </div>
       <div
         *ngIf="selectedTab === 'selectDetailUser'"
-        class="p-4 bg-white rounded-lg dark:bg-gray-800"
+        class="p-4 bg-white rounded-lg dark:bg-gray-700"
       >
         @if (userInfo) {
         <tyn-user-detail-actions-page [userInfo]="userInfo" />
@@ -79,14 +79,14 @@
       </div>
       <div
         *ngIf="selectedTab === 'selectPrivacityUser'"
-        class="p-4 bg-white rounded-lg dark:bg-gray-800"
+        class="p-4 bg-white rounded-lg dark:bg-gray-700"
       >
         @if (userInfo) {
         <tyn-user-detail-privilege-page />
         }
       </div>
     </div>
-    <div class="col-span-4 p-10 bg-white rounded-lg dark:bg-gray-800 mt-20">
+    <div class="col-span-4 p-10 bg-white rounded-lg dark:bg-gray-700 mt-20">
       @if (userInfo) {
       <tyn-user-info-page [userInfo]="userInfo" />
       }
