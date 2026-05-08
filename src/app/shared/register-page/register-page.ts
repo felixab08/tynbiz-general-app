@@ -8,7 +8,9 @@ import {
 } from '@angular/forms';
 import { AuthService } from '@app/auth/services/auth.service';
 import { FormUtils } from '@app/utils/form.util';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MenuService } from '@app/auth/services/menu.service';
+import { IRegisterReq } from '@app/interfaces';
 
 @Component({
   selector: 'tyn-register-page',
@@ -18,6 +20,8 @@ import { RouterLink } from '@angular/router';
 export default class RegisterPage {
   private _fb = inject(FormBuilder);
   private _authService = inject(AuthService);
+  _menuService = inject(MenuService);
+  private _router = inject(Router);
 
   formUtils = FormUtils;
 
@@ -56,9 +60,14 @@ export default class RegisterPage {
     }
     console.log('Form submitted', this.myForm.value);
     this._authService.postRegisterBuyerUser(this.myForm.value).subscribe({
-      next: (response) => {
-        console.log('Registro exitoso', response);
+      next: (data: any) => {
+        this._authService.handleAuthSuccess(data.user, data.accessToken);
         this.myForm.reset();
+        const route = this._menuService.redirectLinkForRole();
+        this._router.navigate([route]);
+        setTimeout(() => {
+          location.reload();
+        }, 500);
       },
       error: (error) => {
         console.error('Error en el registro', error);

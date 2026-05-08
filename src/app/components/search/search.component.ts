@@ -3,6 +3,7 @@ import { Component, inject, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { categoryMock } from '@app/mock/category.mock';
 import { depatamentos } from '@app/mock/departamentos.mock';
+import { IUbigeo, UbigeoService } from '@app/services';
 
 @Component({
   selector: 'tyn-search',
@@ -11,19 +12,59 @@ import { depatamentos } from '@app/mock/departamentos.mock';
 })
 export class SearchComponent {
   theApartament = depatamentos;
+
+  departamentos = signal<string[]>(['']);
+  provincias = signal<string[]>(['']);
+  distritos = signal<IUbigeo[]>([]);
+  selectedDepartamento = signal<string>('');
+  selectedDistrito = signal<string>('');
+
   categorys = categoryMock;
   inputValue = '';
   valueSearch = output<string[]>();
+  valueGeographic = output<string>();
   isModalOpen = signal(false);
 
   arrSearchChips: string[] = [];
   arrCategory: string[] = ['Moda'];
 
   private _fb = inject(FormBuilder);
+  private _geographicSrv = inject(UbigeoService);
 
   myForm: FormGroup = this._fb.group({
     name: [''],
   });
+  constructor() {
+    this.getDepartamento();
+  }
+  getDepartamento() {
+    this._geographicSrv.getDepartamento().subscribe({
+      next: (resp) => {
+        this.departamentos.set(resp);
+      },
+    });
+  }
+
+  handlerDepartamento(event: any) {
+    this.selectedDepartamento.set(event.value);
+    this._geographicSrv.getProvincias(event.value).subscribe({
+      next: (resp) => {
+        this.provincias.set(resp);
+      },
+    });
+  }
+  handlerDistrito(event: any) {
+    this.selectedDistrito.set(event.value);
+  }
+  handlerProvincia(event: any) {
+    this._geographicSrv
+      .getDistrito(this.selectedDepartamento(), event.value)
+      .subscribe({
+        next: (resp) => {
+          this.distritos.set(resp);
+        },
+      });
+  }
 
   onSave() {
     if (this.myForm.invalid) {
@@ -49,10 +90,12 @@ export class SearchComponent {
 
   openModal() {
     this.isModalOpen.set(true);
+    this.valueGeographic.emit(this.selectedDistrito());
   }
 
   closeModal() {
     this.isModalOpen.set(false);
+    this.valueGeographic.emit('');
   }
 
   selectCategory(event: any) {

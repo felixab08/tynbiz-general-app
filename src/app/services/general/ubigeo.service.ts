@@ -3,35 +3,32 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
-type ubigeoResponse = {
-  id?: string;
-  ubigeo: string;
-  nombre: string;
-};
+export interface IUbigeo {
+  ubigeoId: string;
+  distrito: string;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class UbigeoService {
   private _http = inject(HttpClient);
 
-  getDepartamento(): Observable<ubigeoResponse> {
-    return this._http
-      .get<ubigeoResponse>(`${baseUrl}/api/ubigeo/departamentos`)
-      .pipe(tap((resp) => console.log(resp)));
+  getDepartamento(): Observable<string[]> {
+    return this._http.get<string[]>(`${baseUrl}/ubigeo/departamentos`);
   }
 
-  getProvincias(idDepartamento: string): Observable<ubigeoResponse> {
-    return this._http
-      .get<ubigeoResponse>(
-        `${baseUrl}/api/ubigeo/departamentos/${idDepartamento}/provincias`
-      )
-      .pipe(tap((resp) => console.log(resp)));
+  getProvincias(idDepartamento: string): Observable<string[]> {
+    return this._http.get<string[]>(
+      `${baseUrl}/ubigeo/provincias?departamento=${idDepartamento}`,
+    );
   }
-  getDistrito(idProvincia: string): Observable<ubigeoResponse> {
-    return this._http
-      .get<ubigeoResponse>(
-        `${baseUrl}/api/ubigeo/provincia/${idProvincia}/distritos`
-      )
-      .pipe(tap((resp) => console.log(resp)));
+
+  getDistrito(
+    idDepartamento: string,
+    idProvincia: string,
+  ): Observable<IUbigeo[]> {
+    return this._http.get<IUbigeo[]>(
+      `${baseUrl}/ubigeo/distritos?departamento=${idDepartamento}&provincia=${idProvincia}`,
+    );
   }
 }

@@ -96,9 +96,8 @@
       >
         <div class="contain-content">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-            Elije la categoría
+            Filtra tus creaciones
           </h3>
-          <p>Todas las categorías de tiendas virtuales</p>
         </div>
         <button
           type="button"
@@ -126,60 +125,72 @@
       </div>
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
-        <label
-          for="countries"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Departamento</label
-        >
-        <select
-          id="countries"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option selected>Selecciona...</option>
-          @for (dep of theApartament; track dep.id_ubigeo) {
-            <option value="{{ dep.id_ubigeo }}">{{ dep.nombre_ubigeo }}</option>
-          }
-        </select>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label
-              for="cities"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Provincia</label
-            >
-            <select
-              id="cities"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option selected>Selecciona...</option>
-              @for (dep of theApartament; track dep.id_ubigeo) {
-                <option value="{{ dep.id_ubigeo }}">
-                  {{ dep.nombre_ubigeo }}
-                </option>
+        <div class="mb-6">
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label
+                for="departaments"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Departamento *</label
+              >
+              @if (departamentos().length > 2) {
+                <select
+                  id="departaments"
+                  #departament
+                  (change)="handlerDepartamento($event.target)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option selected disabled>Seleccione</option>
+                  @for (dep of departamentos(); track $index) {
+                    <option [value]="dep">{{ dep }}</option>
+                  }
+                </select>
               }
-            </select>
-          </div>
-          <div>
-            <label
-              for="districts"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Distrito</label
-            >
-            <select
-              id="districts"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option selected>Selecciona...</option>
-              @for (dep of theApartament; track dep.id_ubigeo) {
-                <option value="{{ dep.id_ubigeo }}">
-                  {{ dep.nombre_ubigeo }}
-                </option>
+            </div>
+            <div>
+              <label
+                for="provincs"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Provincia *</label
+              >
+              @if (provincias().length > 2) {
+                <select
+                  id="provincs"
+                  #provincia
+                  (change)="handlerProvincia($event.target)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option selected disabled>Seleccione</option>
+                  @for (prov of provincias(); track $index) {
+                    <option [value]="prov">{{ prov }}</option>
+                  }
+                </select>
               }
-            </select>
+            </div>
+            <div>
+              <label
+                for="distrit"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Distrito *</label
+              >
+              @if (distritos().length) {
+                <select
+                  id="distrit"
+                  #distrit
+                  (change)="handlerDistrito($event.target)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option selected disabled>Seleccione</option>
+                  @for (dist of distritos(); track $index) {
+                    <option [value]="dist.ubigeoId">{{ dist.distrito }}</option>
+                  }
+                </select>
+              }
+            </div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-4">
+
+        <!-- <div class="grid grid-cols-2 gap-4">
           @for (category of categorys; track category.id) {
             <div
               class="grid grid-cols-12 border-2 bg-primary-200 rounded-xl w-full p-4"
@@ -197,18 +208,17 @@
               <i class="fa fa-house col-span-2 m-auto"></i>
             </div>
           }
-        </div>
+        </div> -->
       </div>
       <!-- Modal footer -->
-      <div
-        class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
-      >
+      <div class="flex justify-end mt-6 p-2">
         <button
           data-modal-hide="default-modal"
           type="button"
-          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-primary-300 hover:bg-primary-200 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          class="py-2.5 px-5 ms-3 mr-3 text-sm font-medium text-gray-900 focus:outline-none bg-orange-400 rounded-lg border border-orange-400 hover:bg-gray-200 hover:border-orange-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100"
+          (click)="closeModal()"
         >
-          Cancelar
+          Borrar filtro
         </button>
         <button
           data-modal-hide="default-modal"
@@ -216,7 +226,7 @@
           (click)="selectCategoryData()"
           class="button-primary"
         >
-          Aplicar
+          Aplicar filtro
         </button>
       </div>
     </div>

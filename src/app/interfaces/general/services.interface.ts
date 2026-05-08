@@ -11,6 +11,7 @@ export interface OptionsRequest {
   isActive? :      boolean // true / false
   isPublic? :      boolean // true / false
   searchTerm? :      string // buscar por nombre o descripcion
+  ubigeoId? :      string // buscar por nombre o descripcion
 
 }
 
