@@ -8,6 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ModalComponent {
   @Input() isOpen = false;
+  @Input() type: 'short' | 'long' = 'short';
   @Output() closeModal = new EventEmitter<void>();
 
   onClose() {

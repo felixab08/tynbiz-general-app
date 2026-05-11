@@ -11,10 +11,18 @@ import { FormUtils } from '@app/utils/form.util';
 import { Router, RouterLink } from '@angular/router';
 import { MenuService } from '@app/auth/services/menu.service';
 import { IRegisterReq } from '@app/interfaces';
+import { ModalComponent } from '../modal/modal.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'tyn-register-page',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    ModalComponent,
+    PdfViewerModule,
+  ],
   templateUrl: './register-page.html',
 })
 export default class RegisterPage {
@@ -22,6 +30,8 @@ export default class RegisterPage {
   private _authService = inject(AuthService);
   _menuService = inject(MenuService);
   private _router = inject(Router);
+  public isOpen: boolean = false;
+  pdfSrc = './assets/pdf/documento.pdf'; // Ruta local o URL
 
   formUtils = FormUtils;
 
@@ -73,5 +83,8 @@ export default class RegisterPage {
         console.error('Error en el registro', error);
       },
     });
+  }
+  closeModal() {
+    this.isOpen = false;
   }
 }

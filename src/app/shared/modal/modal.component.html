@@ -10,7 +10,7 @@
   <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm"></div>
 
   <!-- Contenido del modal -->
-  <div class="relative z-10 p-4 w-full max-w-2xl max-h-full">
+  <div class="relative z-10 p-4 w-full  max-h-full" [ngClass]="{'max-w-2xl': type === 'short' , 'max-w-6xl': type === 'long'}">
     <div class="relative bg-white rounded-lg shadow-xl dark:bg-gray-700">
       <!-- Header -->
       <div
