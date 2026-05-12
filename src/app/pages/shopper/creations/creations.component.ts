@@ -20,10 +20,12 @@ export default class CreationsComponent {
   _paginationService = inject(LinkParamService);
   _createCreation = inject(CreateCreation);
   ubigeoId = '';
+  keyword = '';
   creationResp: ICreationResp | null = null;
   cardCrea: Cardcreations[] = creationMock;
-  valueSearch(event: string[]) {
-    console.log(event);
+  valueSearch(event: string) {
+    this.keyword = event;
+    this.listCreation();
   }
 
   valueGeographic(event: string) {
@@ -37,10 +39,14 @@ export default class CreationsComponent {
 
   listCreation() {
     this._createCreation
-      .getCreationDiscovery({ page: 0, size: 100, ubigeoId: this.ubigeoId })
+      .getCreationDiscovery({
+        page: 0,
+        size: 100,
+        ubigeoId: this.ubigeoId,
+        keyword: this.keyword,
+      })
       .subscribe((res) => {
         this.creationResp = res;
-        console.log(res);
       });
   }
 

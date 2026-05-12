@@ -1,8 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, output, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  input,
+  linkedSignal,
+  output,
+  signal,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { categoryMock } from '@app/mock/category.mock';
-import { depatamentos } from '@app/mock/departamentos.mock';
 import { IUbigeo, UbigeoService } from '@app/services';
 
 @Component({
@@ -11,29 +17,22 @@ import { IUbigeo, UbigeoService } from '@app/services';
   templateUrl: './search.component.html',
 })
 export class SearchComponent {
-  theApartament = depatamentos;
-
   departamentos = signal<string[]>(['']);
   provincias = signal<string[]>(['']);
   distritos = signal<IUbigeo[]>([]);
   selectedDepartamento = signal<string>('');
   selectedDistrito = signal<string>('');
 
-  categorys = categoryMock;
-  inputValue = '';
-  valueSearch = output<string[]>();
+  valueSearch = output<string>();
   valueGeographic = output<string>();
   isModalOpen = signal(false);
 
-  arrSearchChips: string[] = [];
-  arrCategory: string[] = ['Moda'];
+  initialValue = input<string>('');
+  inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
 
   private _fb = inject(FormBuilder);
   private _geographicSrv = inject(UbigeoService);
 
-  myForm: FormGroup = this._fb.group({
-    name: [''],
-  });
   constructor() {
     this.getDepartamento();
   }
@@ -66,54 +65,29 @@ export class SearchComponent {
       });
   }
 
-  onSave() {
-    if (this.myForm.invalid) {
-      this.myForm.markAllAsTouched();
-      return;
-    }
-  }
-
-  addChips() {
-    if (this.myForm.value.name === null) return;
-    this.arrSearchChips.push(this.myForm.value.name);
-    this.valueSearch.emit(this.arrSearchChips);
-    this.myForm.reset();
-  }
-
-  removeChips(event: string) {
-    const index = this.arrSearchChips.indexOf(event);
-    if (index > -1) {
-      this.arrSearchChips.splice(index, 1);
-      this.valueSearch.emit(this.arrSearchChips);
-    }
-  }
+  debounceEffect = effect((onCleanup) => {
+    const value = this.inputValue();
+    const timeout = setTimeout(() => {
+      this.valueSearch.emit(value);
+    }, 500);
+    onCleanup(() => {
+      clearTimeout(timeout);
+    });
+  });
 
   openModal() {
     this.isModalOpen.set(true);
-    this.valueGeographic.emit(this.selectedDistrito());
   }
 
   closeModal() {
     this.isModalOpen.set(false);
-    this.valueGeographic.emit('');
+    this.valueGeographic.emit(this.selectedDistrito());
   }
-
-  selectCategory(event: any) {
-    this.categorys.forEach((category: any) => {
-      if (category.id === event.id) {
-        return (category.state = !category.state);
-      }
-      return;
-    });
-  }
-  selectCategoryData() {
-    this.arrSearchChips = [];
-    this.categorys.forEach((category: any) => {
-      if (category.state === true) {
-        this.arrSearchChips.push(category.nombre);
-      }
-    });
-    this.isModalOpen.set(false);
-    console.log('this.arrSearchChips:::::>', this.arrSearchChips);
+  cleanFilter() {
+    this.valueSearch.emit('');
+    this.selectedDepartamento.set('');
+    this.selectedDistrito.set('');
+    this.provincias.set(['']);
+    this.distritos.set([]);
   }
 }

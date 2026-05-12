@@ -12,7 +12,7 @@ export interface OptionsRequest {
   isPublic? :      boolean // true / false
   searchTerm? :      string // buscar por nombre o descripcion
   ubigeoId? :      string // buscar por nombre o descripcion
-
+  keyword? :      string // buscar por nombre o descripcion
 }
 
 export interface DataPaginationResponse {

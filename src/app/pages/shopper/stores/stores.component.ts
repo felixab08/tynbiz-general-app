@@ -13,7 +13,7 @@ import { CardStores } from '@app/interfaces/card.interface';
 })
 export default class StoresComponent {
   cardStores: CardStores[] = storeMock;
-  valueSearch(event: string[]) {
+  valueSearch(event: string) {
     console.log(event);
   }
 }

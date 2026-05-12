@@ -132,16 +132,16 @@
   }
 
   .tabla {
-    @apply w-full text-sm text-left rtl:text-right text-black rounded-md bg-white;
+    @apply w-full text-sm text-left rtl:text-right text-black rounded-md dark:text-gray-300;
   }
   .tabla thead{
-    @apply text-sm text-black border-b border-gray-300 bg-gray-100;
+    @apply text-sm text-black border-b border-gray-300 dark:text-gray-300;
   }
   .tabla thead tr th{
     @apply px-6 py-3;
   }
   .tabla tbody tr{
-    @apply border-b border-gray-300 hover:bg-gray-50;
+    @apply border-b border-gray-300 hover:bg-primary/50;
   }
   .tabla tbody tr td{
     @apply px-6 py-4;
