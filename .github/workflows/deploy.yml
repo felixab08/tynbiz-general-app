@@ -15,7 +15,8 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v4 #Configura el entorno de Node.js.
         with:
-          node-version: '19.8.0'
+          node-version: '18'
+          cache: 'npm'
 
       - name: Install packages #Instala las dependencias del proyecto usando npm i.
         run: npm i
