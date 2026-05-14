@@ -44,16 +44,14 @@ export class CreateCalendarModal {
 
   @ViewChild(Horaries) horariesComp!: Horaries;
   @ViewChild(SpecialDates) specialDatesComp!: SpecialDates;
+  @ViewChild(ServicesDurationHorary)
+  servicesDurationComp!: ServicesDurationHorary;
+
+  private readonly appointmentsStorageKey = 'calendarAppointments';
 
   selectedTab: 'horary' | 'specialDates' | 'appointmentDuration' = 'horary';
 
   form: FormGroup = this.fb.group({
-    description: [''],
-    slotDurationMinutes: [30],
-    status: ['ACTIVE'],
-    bookingWindowDays: [1],
-    bookingWindowType: ['CALENDAR_DAYS'],
-    maxAppointmentsPerDay: [10],
     daySchedules: this.fb.array([]),
     dateOverrides: this.fb.array([]),
   });
@@ -82,43 +80,51 @@ export class CreateCalendarModal {
     }
   }
 
-  private timeStringToObj(time: string) {
-    if (!time || time === '--:--') {
-      return { hour: 0, minute: 0, second: 0, nano: 0 };
-    }
-    const [hour, minute] = time.split(':').map(Number);
-    return { hour, minute, second: 0, nano: 0 };
+  private normalizeTime(time: any) {
+    return (!time || time === '--:--') ? null : time;
   }
 
-  private generateId(): number {
-    return Date.now() + Math.floor(Math.random() * 10000);
+  private removeAccents(text: string): string {
+    return text
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '');
   }
 
   private mapDaySchedules(data: any[]) {
     return data
       .filter((d: any) => d.status)
       .map((d: any) => ({
-        id: typeof d.id === 'number' && !isNaN(d.id) ? d.id : this.generateId(),
-        dayOfWeek: (d.dia || '').toUpperCase(),
-        morningStart: this.timeStringToObj(d.mornDesde),
-        morningEnd: this.timeStringToObj(d.mornHasta),
-        afternoonStart: this.timeStringToObj(d.aftDesde),
-        afternoonEnd: this.timeStringToObj(d.aftHasta),
+        dayOfWeek: this.removeAccents((d.dia || '').toUpperCase()),
+        morningStart: this.normalizeTime(d.mornDesde),
+        morningEnd: this.normalizeTime(d.mornHasta),
+        afternoonStart: this.normalizeTime(d.aftDesde),
+        afternoonEnd: this.normalizeTime(d.aftHasta),
         isWorkDay: d.status,
       }));
   }
 
   private mapDateOverrides(list: any[]) {
-    return list.map((d: any) => ({
-      id: typeof d.id === 'number' && !isNaN(d.id) ? d.id : this.generateId(),
-      overrideDate: d.overrideDate || '',
-      morningStart: this.timeStringToObj(d.mornDesde),
-      morningEnd: this.timeStringToObj(d.mornHasta),
-      afternoonStart: this.timeStringToObj(d.aftDesde),
-      afternoonEnd: this.timeStringToObj(d.aftHasta),
-      isDayOff: d.ifDayOff,
-      reason: d.nombre || '',
-    }));
+    return list.map((d: any) => {
+      const baseOverride: any = {
+        overrideDate: d.overrideDate || '',
+        isDayOff: d.ifDayOff,
+        reason: d.nombre || '',
+      };
+
+      // Si es un día cerrado, no incluir datos de horas
+      if (d.ifDayOff) {
+        return baseOverride;
+      }
+
+      // Si no es cerrado, incluir horarios (null si están vacíos)
+      return {
+        ...baseOverride,
+        morningStart: this.normalizeTime(d.mornDesde),
+        morningEnd: this.normalizeTime(d.mornHasta),
+        afternoonStart: this.normalizeTime(d.aftDesde),
+        afternoonEnd: this.normalizeTime(d.aftHasta),
+      };
+    });
   }
 
   onClose() {
@@ -128,6 +134,7 @@ export class CreateCalendarModal {
   onSubmit() {
     const horarios = this.horariesComp?.getData();
     const fechasEspeciales = this.specialDatesComp?.getData();
+    const citas = this.servicesDurationComp?.getData() || [];
 
     const daySchedules = this.mapDaySchedules(Object.values(horarios || {}));
     const dateOverrides = this.mapDateOverrides(
@@ -146,6 +153,10 @@ export class CreateCalendarModal {
 
     this.calendarService.putCalendarConfig(payload as ICalendar).subscribe({
       next: () => {
+        localStorage.setItem(
+          this.appointmentsStorageKey,
+          JSON.stringify(citas),
+        );
         this.save.emit(payload);
       },
       error: (err) => {

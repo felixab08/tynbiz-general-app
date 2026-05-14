@@ -23,10 +23,10 @@ export interface ICalendar {
 export interface DateOverride {
   id:             number;
   overrideDate:   Date;
-  morningStart:   TimeOfDay ;
-  morningEnd:     TimeOfDay ;
-  afternoonStart: TimeOfDay ;
-  afternoonEnd:   TimeOfDay ;
+  morningStart:   string ;
+  morningEnd:     string ;
+  afternoonStart: string ;
+  afternoonEnd:   string ;
   isDayOff:       boolean;
   reason:         string;
 }
@@ -34,18 +34,11 @@ export interface DateOverride {
 export interface DaySchedule {
   id:             number;
   dayOfWeek:      string;
-  morningStart:   TimeOfDay ;
-  morningEnd:     TimeOfDay ;
-  afternoonStart: TimeOfDay ;
-  afternoonEnd:   TimeOfDay ;
+  morningStart:   string ;
+  morningEnd:     string ;
+  afternoonStart: string ;
+  afternoonEnd:   string ;
   isWorkDay:      boolean;
-}
-
-export interface TimeOfDay  {
-  hour:   number;
-  minute: number;
-  second: number;
-  nano:   number;
 }
 
 export interface ICalendarConfig {

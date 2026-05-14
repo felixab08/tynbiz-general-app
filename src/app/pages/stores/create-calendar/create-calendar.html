@@ -16,8 +16,12 @@
     </p>
 
     <p class="mb-2 mt-6 text-center">Programe su calendario de atencion</p>
-    <button data-modal-hide="default-modal" type="button" (click)="isModalVisible.set(true)"
-      class="button-primary w-full font-semibold">
+    <button
+      data-modal-hide="default-modal"
+      type="button"
+      (click)="isModalVisible.set(true)"
+      class="button-primary w-full font-semibold"
+    >
       Programar mi calendario
     </button>
   </div>
@@ -30,10 +34,14 @@
           Todo las dudas de tus clientes seran atendidos utilizando la sala de
           tynbiz
         </p>
-        <div class="input-base flex items-center gap-2 border border-gray-300 rounded-lg mt-4">
+        <div
+          class="input-base flex items-center gap-2 border border-gray-300 rounded-lg mt-4"
+        >
           <div class="w-full flex justify-between">
             <h1 class="text-md font-bold">Tynbiz sala</h1>
-            <a class="inline-flex text-sm items-center text-primary hover:underline cursor-pointer">
+            <a
+              class="inline-flex text-sm items-center text-primary hover:underline cursor-pointer"
+            >
               Uso
             </a>
           </div>
@@ -44,81 +52,139 @@
       <h1 class="text-lg font-bold">Horario de atención</h1>
       <p class="mb-4">Asi veran tus clientes tu horario de atención.</p>
       <div class="flex gap-1 flex-wrap">
-        @if (myCalendarResource.value()?.daySchedules) {
-          @for (day of myCalendarResource.value()!.daySchedules; track day.id) {
-            <div class="flex-1 min-w-[150px] bg-primary-light rounded-lg shadow-sm border border-primary flex flex-col items-center p-2">
-              <p class="font-medium">{{ day.dayOfWeek }}</p>
-              @if (day.isWorkDay) {
-                @if (day.morningStart && day.morningEnd) {
-                  <div class="flex gap-2 items-center text-xs">
-                    <i class="fa-solid fa-sun text-amber-400"></i>
-                    <p class="text-sm text-gray-500">
-                      {{ day.morningStart | timeOfDay }} - {{ day.morningEnd | timeOfDay }}
-                    </p>
-                  </div>
-                }
-                @if (day.afternoonStart && day.afternoonEnd) {
-                  <div class="flex gap-2 items-center text-xs">
-                    <i class="fa-solid fa-moon text-primary"></i>
-                    <p class="text-sm text-gray-500">
-                      {{ day.afternoonStart | timeOfDay }} - {{ day.afternoonEnd | timeOfDay }}
-                    </p>
-                  </div>
-                }
-              } @else {
-                <p class="text-xs text-gray-500 font-semibold">Cerrado</p>
-              }
+        @for (day of getSortedDaySchedules(); track day.dayOfWeek) {
+        <div
+          class="flex-1 min-w-[100px] rounded-lg shadow-sm border flex flex-col items-center"
+          [ngClass]="{
+              ' border-green-300': day.isWorkDay,
+              ' border-red-300': !day.isWorkDay
+            }"
+        >
+          <div
+            class="w-full flex justify-center py-2 border-b rounded-t-lg"
+            [ngClass]="{
+              ' border-green-300 bg-green-50': day.isWorkDay,
+              ' border-red-300 bg-red-50': !day.isWorkDay
+            }"
+          >
+            <p
+              class="text-sm capitalize font-semibold"
+              [ngClass]="{'text-green-600': day.isWorkDay, 'text-red-600': !day.isWorkDay}"
+            >
+              {{ day.dayOfWeek | lowercase }}
+            </p>
+          </div>
+          <div>
+            @if (day.isWorkDay) { @if (day.morningStart && day.morningEnd) {
+            <div class="flex gap-1 items-center text-xs mt-2">
+              <i class="fa-solid fa-sun text-amber-400"></i>
+              <p class="text-xs text-gray-700">
+                {{ formatTimeToAmPm(day.morningStart) }} - {{
+                formatTimeToAmPm(day.morningEnd) }}
+              </p>
             </div>
-          }
+            } @if (day.afternoonStart && day.afternoonEnd) {
+            <div class="flex gap-1 items-center text-xs mt-1 mb-2">
+              <i class="fa-solid fa-moon text-primary w-3"></i>
+              <p class="text-xs text-gray-700">
+                {{ formatTimeToAmPm(day.afternoonStart) }} - {{
+                formatTimeToAmPm(day.afternoonEnd) }}
+              </p>
+            </div>
+            } @if (!day.morningStart && !day.morningEnd && !day.afternoonStart
+            && !day.afternoonEnd) {
+            <p class="text-xs text-gray-600 font-semibold mt-2 mb-2">
+              Por definir
+            </p>
+            } } @else {
+            <p class="text-xs text-red-600 font-semibold mt-2 mb-2">Cerrado</p>
+            }
+          </div>
+        </div>
         }
       </div>
     </div>
-    <div class="flex gap-4">
+    <div class="grid xl:grid-cols-2 gap-4">
       <div class="card-static">
         <h1 class="text-lg font-bold mb-3">Fechas especiales</h1>
-        <div class="relative rounded-md border border-gray-300 overflow-x-auto md:block hidden">
-          <div class="w-full text-sm text-left rtl:text-right text-body">
-            @if (myCalendarResource.value()?.dateOverrides && myCalendarResource.value()!.dateOverrides.length > 0) {
-              @for (dateOverride of myCalendarResource.value()!.dateOverrides; track dateOverride.id) {
-                <div class="bg-neutral-primary border-b border-gray-300 p-2.5 flex w-full justify-between items-center">
-                  <div scope="row" class=" font-medium">
-                    <p class="font-semibold">{{ dateOverride.overrideDate | date: 'dd-MM-yyyy' }}</p>
-                    <p class="font-normal text-gray-500">{{ dateOverride.reason || 'Sin descripción' }}</p>
+        <div
+          class="w-full text-sm text-left rtl:text-right text-body flex flex-col gap-2"
+        >
+          @if (myCalendarResource.value()?.dateOverrides &&
+          myCalendarResource.value()!.dateOverrides.length > 0) {
+            @for (dateOverride of myCalendarResource.value()!.dateOverrides; track dateOverride.id) {
+              <div
+                class="flex items-center gap-2.5 border-gray-300 rounded-lg p-2.5 border justify-between"
+              >
+                <div class="flex items-center gap-2">
+                  <div
+                    class="w-10 h-10 flex items-center justify-center rounded-full"
+                    [ngClass]="dateOverride.isDayOff ? 'bg-red-50 text-red-500':'bg-amber-50 text-amber-500' "
+                  >
+                    <i class="fa-regular fa-calendar"></i>
                   </div>
-                  <div>
-                    <span [ngClass]="dateOverride.isDayOff ? 'bg-red-500' : 'bg-green-500'" class="text-white text-sm font-medium px-2 py-1 rounded">
-                      {{ dateOverride.isDayOff ? 'Cerrado' : 'Horario especial' }}
-                    </span>
+                  <div class="font-medium text-heading">
+                    <div class="font-medium">
+                      {{ dateOverride.overrideDate | date: 'dd-MM-yyyy' }}
+                    </div>
+                    <div class="text-sm font-normal text-body text-gray-500">
+                      {{ dateOverride.reason || 'Sin descripción' }}
+                    </div>
                   </div>
                 </div>
-              }
-            } @else {
-              <div class="bg-neutral-primary border-b border-gray-300 p-2.5 text-center text-gray-500">
-                <p>No hay fechas especiales programadas</p>
+                <div>
+                  <span
+                    [ngClass]="dateOverride.isDayOff ? 'bg-red-500' : 'bg-amber-500'"
+                    class="text-white text-sm font-medium px-2 py-1 rounded"
+                  >
+                    {{ dateOverride.isDayOff ? 'Cerrado' : 'Horario especial' }}
+                  </span>
+                </div>
               </div>
             }
+          } @else {
+          <div
+            class="bg-neutral-primary border-b border-gray-300 p-2.5 text-center text-gray-500"
+          >
+            <p>No hay fechas especiales programadas</p>
           </div>
+          }
         </div>
       </div>
       <div class="card-static">
         <h1 class="text-lg font-bold mb-3">Citas</h1>
-        <div class="input-base flex items-center gap-2 border border-gray-300 rounded-lg">
-          <div class="w-full flex justify-between">
-            <h1 class="text-md font-bold">Personal shopper</h1>
-            <a class="inline-flex text-sm items-center text-primary">
-              30 min
-            </a>
+        @if (appointments().length > 0) {
+          <div class="flex flex-col gap-3">
+            @for (appointment of appointments(); track appointment.nombre + appointment.tiempo) {
+              <div
+                class="input-base flex items-center gap-2 border border-gray-300 rounded-lg"
+              >
+                <div class="w-full flex justify-between">
+                  <h1 class="text-md font-medium">{{ appointment.nombre }}</h1>
+                  <a class="inline-flex text-sm items-center text-primary">
+                    {{ appointment.tiempo }} min
+                  </a>
+                </div>
+              </div>
+            }
           </div>
-        </div>
+        } @else {
+          <div class="bg-neutral-primary border-b border-gray-300 p-2.5 text-center text-gray-500 rounded-lg">
+            <p>No hay citas guardadas</p>
+          </div>
+        }
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- copia del primero pero con horas en la mañan y en la tarde -->
 
 <!-- modal editar calendario -->
-<tyn-create-calendar-modal [visible]="isModalVisible()" [selectedCalendar]="myCalendarResource.value()"
-  (close)="onModalClose()" (save)="onModalSave()">
+<tyn-create-calendar-modal
+  [visible]="isModalVisible()"
+  [selectedCalendar]="myCalendarResource.value()"
+  (close)="onModalClose()"
+  (save)="onModalSave()"
+>
 </tyn-create-calendar-modal>
