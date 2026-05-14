@@ -101,7 +101,6 @@
   .mini-card-img.xs {
     @apply w-12 h-12 my-1  rounded-sm;
   }
-
   .card-presentation {
     @apply bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-600 dark:border-gray-600 p-4 md:p-6 transition-colors;
   }

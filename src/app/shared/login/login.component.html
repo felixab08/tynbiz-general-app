@@ -54,10 +54,10 @@
         <button
           type="button"
           (click)="changeTypeInput()"
-          class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-primary-600 dark:text-neutral-600 dark:focus:text-primary-500"
+          class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-primary dark:text-neutral-600 dark:focus:text-primary"
         >
           <svg
-            class="shrink-0 size-3.5"
+            class="shrink-0 size-3.5 dark:text-gray-100"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -108,7 +108,7 @@
           >Recuerdame</label
         >
       </div>
-      <a class="text-sm text-primary-700 hover:underline dark:text-primary-500"
+      <a class="text-sm text-primary hover:underline"
         >Olvidaste tu contraseña?</a
       >
     </div>
@@ -118,9 +118,9 @@
     >
       Iniciar sesión
     </button>
-    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-      Not registered?
-      <a class="text-primary-700 hover:underline dark:text-primary-500"
+    <div class="text-sm font-medium text-gray-500 dark:text-gray-300 pt-1">
+      No estas registrado?
+      <a class="text-primary hover:underline"
       (click)="closeModal()"
       routerLink="/shop/register"
         >Crear cuenta</a

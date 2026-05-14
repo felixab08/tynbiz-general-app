@@ -1,36 +1,43 @@
-import { Component, computed, input } from '@angular/core';
-import { CreationesStoreCardCreationPageComponent } from '../creationes-store-card-creation-page/creationes-store-card-creation-page.component';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { creationStore } from '@app/interfaces/card.interface';
+import { LinkParamService } from '@app/services';
+import { CreateCreation } from '@app/services/stores/create-creation.service';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'tyn-creation-store-table-creation-page',
-  imports: [CreationesStoreCardCreationPageComponent, CommonModule],
+  imports: [CommonModule],
   templateUrl: './creation-store-table-creation-page.component.html',
 })
 export class CreationStoreTableCreationPageComponent {
-  listCreation = input.required<creationStore[]>();
-  tipeTable = input<'published' | 'offers' | 'live'>('published');
+  tipeTable = input<'PUBLICADOS' | 'OFERTAS' | 'EN_VIVO'>('PUBLICADOS');
   Creation: any = true;
 
   openDropdownIndex: number | null = null;
 
+  _paginationService = inject(LinkParamService);
+  _createCreation = inject(CreateCreation);
+
+  usersResorce = rxResource({
+    request: () => ({
+      page: this._paginationService.currentPage() - 1,
+      size: this._paginationService.currentSize(),
+      tab: this.tipeTable(),
+    }),
+    loader: ({ request }) => {
+      return (
+        this._createCreation.getCreationStore({
+          page: request.page,
+          size: request.size,
+          tab: request.tab,
+        }) || {}
+      );
+    },
+  });
+
   toggleDropdown(creation: any) {
     this.Creation = creation;
-    this.openDropdownIndex = this.openDropdownIndex === creation.id ? null : creation.id;
+    this.openDropdownIndex =
+      this.openDropdownIndex === creation.id ? null : creation.id;
   }
-
-  selectedList = computed(() => {
-    const type = this.tipeTable();
-    const list = this.listCreation();
-    switch (type) {
-      case 'offers':
-        return list.filter(item => item.offer === true);
-      case 'live':
-        return list.filter(item => item.vivo === true);
-      case 'published':
-      default:
-        return list;
-    }
-  });
 }

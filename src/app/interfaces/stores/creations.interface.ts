@@ -60,3 +60,30 @@ export interface Store {
   logoUrl: string;
   url:     string;
 }
+
+
+export interface ICreationStoreRespo {
+  content:          ICreationStoreContent[];
+  page:             number;
+  size:             number;
+  totalElements:    number;
+  totalPages:       number;
+  first:            boolean;
+  last:             boolean;
+  hasNext:          boolean;
+  hasPrevious:      boolean;
+  numberOfElements: number;
+  empty:            boolean;
+}
+
+export interface ICreationStoreContent {
+  id:                number;
+  title:             string;
+  isOferta:          boolean;
+  isEnVivo:          boolean;
+  status:            string;
+  viewCount:         number;
+  availableDuration: null;
+  startDate:         null;
+  productImages:     string[];
+}

@@ -13,6 +13,7 @@ export interface OptionsRequest {
   searchTerm? :      string // buscar por nombre o descripcion
   ubigeoId? :      string // buscar por nombre o descripcion
   keyword? :      string // buscar por nombre o descripcion
+  tab? :      string // buscar por nombre o descripcion
 }
 
 export interface DataPaginationResponse {
