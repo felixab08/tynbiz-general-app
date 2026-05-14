@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { ICreateResq, ICreationResp, OptionsRequest } from '@app/interfaces';
+import {
+  ICreateResq,
+  ICreationResp,
+  ICreationStoreRespo,
+  OptionsRequest,
+} from '@app/interfaces';
 import { environment } from '@environments/environment.development';
 import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -44,6 +49,21 @@ export class CreateCreation {
     );
   }
 
+  getCreationStore(options: OptionsRequest): Observable<ICreationStoreRespo> {
+    const { page = 0, size = 20, tab = '' } = options;
+    // Construir params dinámicamente
+    const params: any = {
+      page,
+      size,
+    };
+    if (tab.length > 0) params.tab = tab;
+    return this._http.get<ICreationStoreRespo>(
+      `${baseUrl}/contents/creations`,
+      {
+        params,
+      },
+    );
+  }
   postRegisterCreations(creations: ICreateResq) {
     return this._http.post(`${baseUrl}/contents`, creations);
   }

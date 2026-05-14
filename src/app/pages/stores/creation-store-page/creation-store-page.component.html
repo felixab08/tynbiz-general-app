@@ -4,33 +4,38 @@
 <div class="mb-4">
   <ul class="tab" role="tablist">
     <li class="me-2" role="presentation">
-      <button (click)="selectedTab = 'published'" [ngClass]="
-                  selectedTab === 'published'
-                    ? 'tab-active'
-                    : 'tab-inactive'
-                " type="button" role="tab">
+      <button
+        (click)="selectedTab = 'PUBLICADOS'"
+        [ngClass]="selectedTab === 'PUBLICADOS' ? 'tab-active' : 'tab-inactive'"
+        type="button"
+        role="tab"
+      >
         Publicados
       </button>
     </li>
     <li class="me-2" role="presentation">
-      <button (click)="selectedTab = 'offers'" [ngClass]="
-                  selectedTab === 'offers'
-                    ? 'tab-active'
-                    : 'tab-inactive'
-                " type="button" role="tab">
+      <button
+        (click)="selectedTab = 'OFERTAS'"
+        [ngClass]="selectedTab === 'OFERTAS' ? 'tab-active' : 'tab-inactive'"
+        type="button"
+        role="tab"
+      >
         Ofertas
       </button>
     </li>
     <li class="me-2" role="presentation">
-      <button (click)="selectedTab = 'live'" [ngClass]="
-                  selectedTab === 'live'
-                    ? 'tab-active'
-                    : 'tab-inactive'
-                " type="button" role="tab">
+      <button
+        (click)="selectedTab = 'EN_VIVO'"
+        [ngClass]="selectedTab === 'EN_VIVO' ? 'tab-active' : 'tab-inactive'"
+        type="button"
+        role="tab"
+      >
         En vivo
       </button>
     </li>
   </ul>
 </div>
-<tyn-creation-store-table-creation-page [listCreation]="cardCrea"
-  [tipeTable]="selectedTab"></tyn-creation-store-table-creation-page>
+  <tyn-creation-store-table-creation-page
+    [tipeTable]="selectedTab"
+  ></tyn-creation-store-table-creation-page>
+
