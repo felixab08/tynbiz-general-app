@@ -1,4 +1,5 @@
-import { Component, signal, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, signal, ViewChild, AfterViewInit, input } from '@angular/core';
+import { DaySchedule } from '@app/interfaces';
 import { HoraryCreate } from '../horary-create/horary-create';
 
 @Component({
@@ -7,7 +8,7 @@ import { HoraryCreate } from '../horary-create/horary-create';
   templateUrl: './horaries.html',
 })
 export class Horaries implements AfterViewInit {
-  activeSchedule = signal<boolean>(true);
+  daySchedules = input<DaySchedule[] | undefined>();
   @ViewChild(HoraryCreate) horaryCreateComp!: HoraryCreate;
 
   getData() {

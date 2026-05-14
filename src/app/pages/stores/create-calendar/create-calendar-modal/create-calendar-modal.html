@@ -84,10 +84,13 @@
           </div>
           <div>
             <div [hidden]="selectedTab !== 'horary'">
-              <tyn-horaries #horariesComp />
+              <tyn-horaries
+                #horariesComp
+                [daySchedules]="selectedCalendar()?.daySchedules"
+              />
             </div>
             <div [hidden]="selectedTab !== 'specialDates'">
-              <tyn-special-dates #specialDatesComp />
+              <tyn-special-dates #specialDatesComp [dateOverrides]="selectedCalendar()?.dateOverrides" />
             </div>
             <div [hidden]="selectedTab !== 'appointmentDuration'">
               <tyn-services-duration-horary

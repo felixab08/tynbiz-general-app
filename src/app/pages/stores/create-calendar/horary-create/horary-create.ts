@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, input, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IHorary } from '@app/interfaces';
+import { DaySchedule } from '@app/interfaces';
 import { FormUtils } from '@app/utils/form.util';
-import { dataHours } from './horaries.database';
 
 @Component({
   selector: 'tyn-horary-create',
@@ -11,10 +10,11 @@ import { dataHours } from './horaries.database';
   templateUrl: './horary-create.html',
 })
 export class HoraryCreate {
-  horario: IHorary[] = dataHours;
-  selectHour = output<IHorary>();
+  daySchedules = input<DaySchedule[] | undefined>();
+  selectHour = output<DaySchedule[]>();
   private _fb = inject(FormBuilder);
   formUtils = FormUtils;
+  daySchedulesState: DaySchedule[] = [];
 
   myForm: FormGroup = this._fb.group({
     lunes: this._fb.group({
@@ -75,31 +75,27 @@ export class HoraryCreate {
     }),
   });
 
-  constructor() {
-    this.onEdit(this.horario);
+  private syncInputsEffect = effect(() => {
+    this.resetDayGroups();
+    this.onLoadDaySchedules(this.daySchedules() ?? []);
+  });
+
+  isDayActive(index: number): boolean {
+    const group = this.getDayGroup(this.keyForIndex(index));
+    return !!group?.get('status')?.value;
   }
 
-  onSave() {
-    if (this.myForm.invalid) {
-      this.myForm.markAllAsTouched();
-      return;
-    }
-    // console.log('Form submitted', this.myForm.value);
-    this.listWhitStatusActive(this.myForm.value);
+  getDayLabel(index: number): string {
+    const key = this.keyForIndex(index);
+    const group = this.getDayGroup(key);
+
+    return group?.get('dia')?.value || '';
   }
 
-  listWhitStatusActive(formValue: any) {
-    const activeDays = [];
-    for (const day in formValue) {
-      if (formValue[day].status) {
-        activeDays.push(formValue[day]);
-      }
-    }
-    console.log('Active days:', activeDays);
-  }
-
-  onEdit(horario: IHorary[] | undefined) {
+  onEdit(horario: DaySchedule[] | undefined) {
     if (!Array.isArray(horario)) return;
+
+    this.daySchedulesState = [...horario];
 
     // Rellena cada FormGroup (lunes..domingo) con los valores del array `horario`
     for (let i = 0; i < this.dayKeys.length; i++) {
@@ -115,14 +111,64 @@ export class HoraryCreate {
       }
 
       group.patchValue({
-        status: !!src.status,
-        dia: src.dia ?? group.get('dia')?.value,
-        mornDesde: src.mornDesde ?? '--:--',
-        mornHasta: src.mornHasta ?? '--:--',
-        aftDesde: src.aftDesde ?? '--:--',
-        aftHasta: src.aftHasta ?? '--:--',
+        status: !!src.isWorkDay,
+        dia: src.dayOfWeek ?? group.get('dia')?.value,
+        mornDesde: src.morningStart ?? '--:--',
+        mornHasta: src.morningEnd ?? '--:--',
+        aftDesde: src.afternoonStart ?? '--:--',
+        aftHasta: src.afternoonEnd ?? '--:--',
       });
     }
+  }
+
+  onLoadDaySchedules(daySchedules: DaySchedule[]) {
+    if (!Array.isArray(daySchedules) || daySchedules.length === 0) return;
+
+    for (const schedule of daySchedules) {
+      const key = this.keyForDayOfWeek(schedule.dayOfWeek);
+      const group = this.getDayGroup(key);
+
+      if (!group) continue;
+
+      group.patchValue({
+        status: !!schedule.isWorkDay,
+        dia: group.get('dia')?.value,
+        mornDesde: this.normalizeTimeForInput(schedule.morningStart),
+        mornHasta: this.normalizeTimeForInput(schedule.morningEnd),
+        aftDesde: this.normalizeTimeForInput(schedule.afternoonStart),
+        aftHasta: this.normalizeTimeForInput(schedule.afternoonEnd),
+      });
+
+      const index = this.keyToIndex(key);
+      if (index >= 0) {
+        this.daySchedulesState[index] = {
+          ...(this.daySchedulesState[index] || {}),
+          dayOfWeek: schedule.dayOfWeek,
+
+        } as DaySchedule;
+      }
+    }
+  }
+
+  private resetDayGroups() {
+    for (const key of this.dayKeys) {
+      const group = this.getDayGroup(key);
+      if (!group) continue;
+
+      group.patchValue({
+        status: false,
+        mornDesde: '--:--',
+        mornHasta: '--:--',
+        aftDesde: '--:--',
+        aftHasta: '--:--',
+      });
+    }
+  }
+
+  private normalizeTimeForInput(time: any): string {
+    if (!time) return '--:--';
+    if (typeof time === 'string') return time.slice(0, 5);
+    return '--:--';
   }
 
   resetMorng() {
@@ -169,12 +215,12 @@ export class HoraryCreate {
         }
       : { status: !!current.status, dia: current.dia };
 
-    if (!this.horario) this.horario = [];
-    // Conserva propiedades que pueda necesitar IHorary y sobrescribe con payload
-    this.horario[index] = {
-      ...(this.horario[index] || {}),
-      ...payload,
-    } as IHorary;
+      this.daySchedulesState[index] = {
+        ...(this.daySchedulesState[index] || {}),
+        ...payload,
+      } as DaySchedule;
+
+      this.selectHour.emit(current as DaySchedule[]);
   }
 
   // Devuelve el FormGroup de un día por su clave (lunes, martes, ...)
@@ -195,6 +241,35 @@ export class HoraryCreate {
 
   private keyForIndex(index: number) {
     return this.dayKeys[index] || 'lunes';
+  }
+
+  private keyForDayOfWeek(dayOfWeek: string): string {
+    const normalized = (dayOfWeek || '').trim().toUpperCase();
+
+    switch (normalized) {
+      case 'LUNES':
+        return 'lunes';
+      case 'MARTES':
+        return 'martes';
+      case 'MIERCOLES':
+      case 'MIÉRCOLES':
+        return 'miercoles';
+      case 'JUEVES':
+        return 'jueves';
+      case 'VIERNES':
+        return 'viernes';
+      case 'SABADO':
+      case 'SÁBADO':
+        return 'sabado';
+      case 'DOMINGO':
+        return 'domingo';
+      default:
+        return 'lunes';
+    }
+  }
+
+  private keyToIndex(key: string): number {
+    return this.dayKeys.indexOf(key);
   }
 
 }

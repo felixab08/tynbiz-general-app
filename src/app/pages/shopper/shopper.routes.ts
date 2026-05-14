@@ -27,7 +27,7 @@ export const shopperRoutes: Routes = [
       },
       {
         path: 'profile',
-        loadComponent: () => import('./profile.component/profile.component'),
+        loadComponent: () => import('./profile/profile.component'),
       },
       {
         path: 'register',
