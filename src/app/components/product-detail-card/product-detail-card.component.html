@@ -5,24 +5,24 @@
   </div>
   <div class=" content-details-product">
     @if (listProduct().sku) {
-      <p class="text-sm font-semibold text-black dark:text-gray-300 truncate max-w-[160px]">
+      <p class="text-sm font-semibold text-black dark:text-gray-300 truncate max-w-40">
         Código: {{ listProduct().sku }}
       </p>
     }
 
-    <p class="text-sm font-bold max-w-[160px] text-black dark:text-gray-300 truncate">
+    <p class="text-sm font-bold max-w-40 text-black dark:text-gray-300 truncate">
       {{ listProduct().name |  uppercase }}
     </p>
     <!-- @if (listProduct().description) {
       <p class="text-sm text-gray-600" [innerHTML]="listProduct().description"></p>
     } -->
     @if (listProduct().colors && listProduct().colors.length > 0) {
-      <p class="truncate max-w-[160px]">
+      <p class="truncate max-w-40">
         <span class="font-semibold text-black dark:text-gray-300"> Color:</span> {{ listProduct().colors.join(', ') }}
       </p>
     }
     @if (listProduct().sizes && listProduct().sizes.length > 0) {
-      <p class="truncate max-w-[160px]">
+      <p class="truncate max-w-40">
         <span class="font-semibold text-black dark:text-gray-300"> Talla:</span> {{ listProduct().sizes.join(', ') }}
       </p>
     }

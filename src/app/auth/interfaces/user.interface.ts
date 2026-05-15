@@ -8,6 +8,7 @@ export interface User {
   phone:         string;
   role:          string;
   status:        string;
+  storeId?:      number;
   emailVerified: boolean;
   lastLoginAt:   Date;
   createdAt:     Date;

@@ -24,3 +24,5 @@ export * from './stores/horary.interface';
 export * from './stores/creations.interface';
 export * from './stores/wordpress.interface';
 export * from './stores/calendar.interface';
+export * from './stores/invoices.interface';
+export * from './stores/stores.interface';

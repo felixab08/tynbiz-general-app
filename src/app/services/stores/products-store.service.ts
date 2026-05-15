@@ -3,7 +3,7 @@ import { IProductStoreResp, OptionsRequest } from '@app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { forkJoin, Observable, of, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
 
 @Injectable({

@@ -16,5 +16,9 @@ export * from './general/link-params.service';
 export * from './shopper/catalog.service';
 
 // *stores
+export * from './stores/invoices.service';
+export * from './stores/stores.service';
+
+// *utils
 export * from './alert.service';
 export * from './store.service';

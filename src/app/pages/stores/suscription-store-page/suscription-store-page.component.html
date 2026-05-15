@@ -4,29 +4,36 @@
 <div class="mb-4">
   <ul class="tab" role="tablist">
     <li class="md:me-2" role="presentation">
-      <button (click)="selectedTab = 'plans'" [ngClass]="
-            selectedTab === 'plans'
-              ? 'tab-active'
-              : 'tab-inactive'
-          " type="button" role="tab">
+      <button
+        (click)="selectedTab = 'plans'"
+        [ngClass]="selectedTab === 'plans' ? 'tab-active' : 'tab-inactive'"
+        type="button"
+        role="tab"
+      >
         Planes
       </button>
     </li>
     <li class="md:me-2" role="presentation">
-      <button (click)="selectedTab = 'paymentMethod'" [ngClass]="
-            selectedTab === 'paymentMethod'
-              ? 'tab-active'
-              : 'tab-inactive'
-          " type="button" role="tab">
+      <button
+        (click)="selectedTab = 'paymentMethod'"
+        [ngClass]="
+          selectedTab === 'paymentMethod' ? 'tab-active' : 'tab-inactive'
+        "
+        type="button"
+        role="tab"
+      >
         Metodo de pago
       </button>
     </li>
     <li class="md:me-2" role="presentation">
-      <button (click)="selectedTab = 'billingHistory'" [ngClass]="
-            selectedTab === 'billingHistory'
-              ? 'tab-active'
-              : 'tab-inactive'
-          " type="button" role="tab">
+      <button
+        (click)="selectedTab = 'billingHistory'"
+        [ngClass]="
+          selectedTab === 'billingHistory' ? 'tab-active' : 'tab-inactive'
+        "
+        type="button"
+        role="tab"
+      >
         Historial de facturacion
       </button>
     </li>
@@ -37,49 +44,76 @@
     <h4 class="text-lg font-semibold my-4">Detalles del plan</h4>
     <p>
       Gestiona o cambia la suscripción. Consulta nuestros
-      <a href="" class="font-medium text-fg-brand underline hover:no-underline text-primary">términos del
-        servicio</a>
+      <a
+        href=""
+        class="font-medium text-fg-brand underline hover:no-underline text-primary"
+        >términos del servicio</a
+      >
       y nuestra
-      <a href="" class="font-medium text-fg-brand underline hover:no-underline text-primary">política de
-        privacidad</a>
+      <a
+        href=""
+        class="font-medium text-fg-brand underline hover:no-underline text-primary"
+        >política de privacidad</a
+      >
     </p>
   </div>
-  <div class=" mb-6 md:flex justify-between card-static dark:bg-gray-700 dark:text-white">
+  <div
+    class="mb-6 md:flex justify-between card-static dark:bg-gray-700 dark:text-white"
+  >
     <div>
       <div class="">
         <h4 class="text-lg font-bold">Plan actual</h4>
         <p>Suscripción: Uso por sala</p>
         <p class="">
-          <span class="text-2xl font-bold"> USD 0.11 </span>/ Uso de sala por usuario
+          <span class="text-2xl font-bold"> USD 0.11 </span>/ Uso de sala por
+          usuario
         </p>
       </div>
       <div class="mt-8 md:mt-12">
         <h4 class="text-lg font-bold">Ciclo de facturación</h4>
         <p class="font-bold">
-          Mensual <span class="text-green-600 font-normal ml-2">Plan gratuito de 2 meses</span>
+          Mensual
+          <span class="text-green-600 font-normal ml-2"
+            >Plan gratuito de 2 meses</span
+          >
         </p>
         <p>Pagas por uso de sala cada 29 del mes</p>
       </div>
     </div>
     <div class="mt-8 md:mt-0">
-      <a (click)="openModal()" class="font-extrabold text-primary text-fg-brand hover:underline">Cambiar de
-        plan</a>
+      <a
+        (click)="openModal()"
+        class="font-extrabold text-primary text-fg-brand hover:underline hover:cursor-pointer"
+        >Cambiar de plan</a
+      >
     </div>
   </div>
-  <div class=" md:flex justify-between items-center card-static dark:bg-gray-700 dark:text-white">
-    <div>
-      <h4 class="text-lg font-bold">
-        Deuda total <span class="ml-2 font-normal">S/ 35.20</span>
-      </h4>
-      <p>Tu deuda es de 29 de agosto a 29 setiembre 2024</p>
-    </div>
-    <div class="mt-4 md:mt-0">
-      <button (click)="selectedTab = 'paymentMethod'" data-modal-hide="default-modal" type="button"
-        class="button-primary" fdprocessedid="mpjnov">
-        Escoger metodo de pago
-      </button>
-    </div>
-  </div>
+  @if (invoices() && invoices()!.length > 0) {
+    @for (item of invoices()!; track $index) {
+      <div
+        class="md:flex justify-between items-center card-static dark:bg-gray-700 dark:text-white"
+      >
+        <div>
+          <h4 class="text-lg font-bold">
+            Deuda total
+            <span class="ml-2 font-normal">S/.{{ item.totalAmount }}</span>
+          </h4>
+          <p>Tu deuda es de {{ item.issueDate| date }} a {{ item.dueDate| date }}</p>
+        </div>
+        <div class="mt-4 md:mt-0">
+          <button
+            (click)="selectedTab = 'paymentMethod'; invoicePay.set(item)"
+            data-modal-hide="default-modal"
+            type="button"
+            class="button-primary"
+            fdprocessedid="mpjnov"
+          >
+            Escoger metodo de pago
+          </button>
+        </div>
+      </div>
+    }
+  }
 </div>
 
 <div *ngIf="selectedTab === 'paymentMethod'">
@@ -87,85 +121,118 @@
     <h4 class="text-lg font-semibold my-4">Metodo de pago</h4>
     <p>Seleccione como quieres pagar a Tynbiz</p>
   </div>
-      <div class="dark:bg-gray-700 dark:text-white"><div class="relative overflow-x-auto shadow-md px-5 md:px-10 m-4">
-    <div
-      class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-black bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2">
-      <input id="bordered-radio-1" type="radio" value="" name="bordered-radio"
-        class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary  ring-offset-neutral-primary focus:ring-2">
-      <label for="bordered-radio-1" class="w-full select-none ml-4 text-lg font-semibold text-heading">PayPal
-      </label>
+  @if (invoicePay()) {
+    <div class="dark:bg-gray-700 dark:text-white">
+      <div class="relative overflow-x-auto shadow-md px-5 md:px-10 m-4">
+        <div
+        (click)="invoicePayMethod.set('Niubiz')"
+          class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-black bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2"
+        >
+          <input
+            id="bordered-radio-1"
+            type="radio"
+            value=""
+            name="bordered-radio"
+            class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary ring-offset-neutral-primary focus:ring-2"
+          />
+          <label
+            for="bordered-radio-1"
+            class="w-full select-none ml-4 text-lg font-semibold text-heading"
+            > Niubiz
+          </label>
+        </div>
+      </div>
+      <div>
+        @if (invoicePayMethod()) {
+          <button type="button" class="button-primary" fdprocessedid="mpjnov" (click)="paySuscription()">
+            Pagar suscripción
+          </button>
+        }
+      </div>
     </div>
-    <div
-      class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2">
-      <input id="bordered-radio-2" type="radio" value="" name="bordered-radio"
-        class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary  ring-offset-neutral-primary focus:ring-2">
-      <label for="bordered-radio-2" class="w-full select-none ml-4 text-lg font-semibold text-heading">Código QR Usando
-        tu billetera electrónica
-      </label>
-    </div>
-    <div
-      class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2">
-      <input id="bordered-radio-3" type="radio" value="" name="bordered-radio"
-        class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary ring-offset-neutral-primary focus:ring-2">
-      <label for="bordered-radio-3" class="w-full select-none ml-4 text-lg font-semibold text-heading">Yape
-      </label>
-    </div>
-    <div
-      class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2">
-      <input checked id="bordered-radio-4" type="radio" value="" name="bordered-radio"
-        class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary  ring-offset-neutral-primary focus:ring-2">
-      <label for="bordered-radio-4" class="w-full select-none ml-4 text-lg font-semibold text-heading">Depósito
-      </label>
-    </div>
-  </div>
-  <div>
-    <button type="button" class="button-primary" fdprocessedid="mpjnov">
-      Pagar suscripción
-    </button>
-  </div>
-</div>
+  }
+  <!--  -->
+  @else {
+    <p class="text-gray-500">No hay facturas seleccionadas para pagar</p>
+  }
 </div>
 
 <div *ngIf="selectedTab === 'billingHistory'">
   <h1>f</h1>
 </div>
 
-
 <!-- Modal -->
 @if (isModalOpen()) {
-<div class="fixed inset-0 bg-black opacity-50 z-40" (click)="closeModal()"></div>
+  <div
+    class="fixed inset-0 bg-black opacity-50 z-40"
+    (click)="closeModal()"
+  ></div>
 }
 <!-- Main modal -->
-<div id="default-modal" tabindex="-1" aria-hidden="true" [ngClass]="isModalOpen() ? 'block' : 'hidden'"
-  class="fixed inset-0 z-50 flex items-center justify-center">
-  <div class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow  overflow-hidden">
+<div
+  id="default-modal"
+  tabindex="-1"
+  aria-hidden="true"
+  [ngClass]="isModalOpen() ? 'block' : 'hidden'"
+  class="fixed inset-0 z-50 flex items-center justify-center"
+>
+  <div
+    class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow overflow-hidden"
+  >
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow-sm">
+    <div
+      class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 dark:text-white"
+    >
       <!-- Modal header -->
-      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-200">
-        <h3 class="text-xl font-semibold text-black">
+      <div
+        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200"
+      >
+        <h3 class="text-xl font-semibold text-black dark:text-white">
           Cambiar de plan
         </h3>
-        <button type="button" (click)="closeModal()"
+        <button
+          type="button"
+          (click)="closeModal()"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-black rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-          data-modal-hide="default-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          data-modal-hide="default-modal"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
       </div>
       <!-- Modal body -->
 
-      <div class="p-4 md:p-5 space-y-4 ">
+      <div class="p-4 md:p-5 space-y-4">
         <div class="">
-          <p class="text-black">Plan actual</p>
+          <p class="text-black dark:text-white">Plan actual</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <input checked type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer"
-              required />
-            <label for="hosting-small"
-              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light">
+            <input
+              checked
+              type="radio"
+              id="hosting-small"
+              name="hosting"
+              value="hosting-small"
+              class="hidden peer"
+              required
+            />
+            <label
+              for="hosting-small"
+              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
+            >
               <div class="block">
                 <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
                 <p class="w-full text-lg font-semibold">
@@ -175,15 +242,23 @@
               </div>
             </label>
           </div>
-          <p class="text-black">
+          <p class="text-black dark:text-white">
             Selecciona a que plan te quieres cambiar
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div>
-              <input type="radio" id="hosting-medium" name="hosting" value="hosting-medium" class="hidden peer"
-                required />
-              <label for="hosting-medium"
-                class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light">
+              <input
+                type="radio"
+                id="hosting-medium"
+                name="hosting"
+                value="hosting-medium"
+                class="hidden peer"
+                required
+              />
+              <label
+                for="hosting-medium"
+                class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
+              >
                 <div class="block">
                   <div class="w-full text-lg font-semibold">Mensual</div>
                   <p class="w-full text-lg font-semibold">
@@ -194,9 +269,17 @@
               </label>
             </div>
             <div>
-              <input type="radio" id="hosting-large" name="hosting" value="hosting-large" class="hidden peer" />
-              <label for="hosting-large"
-                class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light">
+              <input
+                type="radio"
+                id="hosting-large"
+                name="hosting"
+                value="hosting-large"
+                class="hidden peer"
+              />
+              <label
+                for="hosting-large"
+                class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
+              >
                 <div class="block">
                   <div class="w-full text-lg font-semibold">Anual</div>
                   <p class="w-full text-lg font-semibold">
@@ -207,13 +290,21 @@
               </label>
             </div>
           </div>
-          <div class="flex items-center justify-end p-4 md:p-5 rounded-b ">
-            <button type="button" (click)="closeModal()"
+          <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
+            <button
+              type="button"
+              (click)="closeModal()"
               class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100"
-              fdprocessedid="2u9qp">
-              Cancelar</button><button data-modal-hide="default-modal" type="button" (click)="openConfirModal()"
+              fdprocessedid="2u9qp"
+            >
+              Cancelar</button
+            ><button
+              data-modal-hide="default-modal"
+              type="button"
+              (click)="openConfirModal()"
               class="text-white bg-primary ml-4 hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              fdprocessedid="mpjnov">
+              fdprocessedid="mpjnov"
+            >
               Continuar
             </button>
           </div>
@@ -224,28 +315,53 @@
 </div>
 <!-- End Modal content -->
 
-
 <!-- Modal -->
 @if (isModalConfirOpen()) {
-<div class="fixed inset-0 bg-black opacity-50 z-40" (click)="closeConfirModal()"></div>
+  <div
+    class="fixed inset-0 bg-black opacity-50 z-40"
+    (click)="closeConfirModal()"
+  ></div>
 }
 <!-- Main modal -->
-<div id="default-modal" tabindex="-1" aria-hidden="true" [ngClass]="isModalConfirOpen() ? 'block' : 'hidden'"
-  class="fixed inset-0 z-50 flex items-center justify-center">
-  <div class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow overflow-hidden">
+<div
+  id="default-modal"
+  tabindex="-1"
+  aria-hidden="true"
+  [ngClass]="isModalConfirOpen() ? 'block' : 'hidden'"
+  class="fixed inset-0 z-50 flex items-center justify-center"
+>
+  <div
+    class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow overflow-hidden"
+  >
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow-sm">
       <!-- Modal header -->
-      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
+      <div
+        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200"
+      >
         <h3 class="text-xl font-semibold text-black">
           Confirmación de cambio de plan
         </h3>
-        <button type="button" (click)="closeConfirModal()"
+        <button
+          type="button"
+          (click)="closeConfirModal()"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-black rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-          data-modal-hide="default-modal">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          data-modal-hide="default-modal"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
@@ -254,12 +370,23 @@
 
       <div class="p-4 md:p-5 space-y-4">
         <div class="">
-          <p class="text-black">El cambio del plan se aplicará a partir del 28 de enero</p>
+          <p class="text-black">
+            El cambio del plan se aplicará a partir del 28 de enero
+          </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <input checked type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer"
-              required />
-            <label for="hosting-small"
-              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:text-gray-600 hover:bg-primary-200">
+            <input
+              checked
+              type="radio"
+              id="hosting-small"
+              name="hosting"
+              value="hosting-small"
+              class="hidden peer"
+              required
+            />
+            <label
+              for="hosting-small"
+              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:text-gray-600 hover:bg-primary-200"
+            >
               <div class="block">
                 <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
                 <p class="w-full text-lg font-semibold">
@@ -269,17 +396,23 @@
               </div>
             </label>
           </div>
-          <p class="text-black">
-            Ver terminos y condiciones
-          </p>
+          <p class="text-black">Ver terminos y condiciones</p>
 
           <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
-            <button type="button" (click)="closeConfirModal()"
+            <button
+              type="button"
+              (click)="closeConfirModal()"
               class="py-2.5 px-5 ms-3 text-sm font-medium text-black focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-200 hover:border-gray-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100"
-              fdprocessedid="2u9qp">
-              Cancelar</button><button data-modal-hide="default-modal" type="button" (click)="closeConfirModal()"
+              fdprocessedid="2u9qp"
+            >
+              Cancelar</button
+            ><button
+              data-modal-hide="default-modal"
+              type="button"
+              (click)="closeConfirModal()"
               class="text-white bg-primary ml-4 hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              fdprocessedid="mpjnov">
+              fdprocessedid="mpjnov"
+            >
               Confirmar cambio
             </button>
           </div>
