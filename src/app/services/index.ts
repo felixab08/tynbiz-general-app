@@ -18,6 +18,7 @@ export * from './shopper/catalog.service';
 // *stores
 export * from './stores/invoices.service';
 export * from './stores/stores.service';
+export * from './stores/mercado-pago.service';
 
 // *utils
 export * from './alert.service';

@@ -2,11 +2,15 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { LinkParamService, SuscriptionService } from '@app/services';
+import {
+  AlertService,
+  LinkParamService,
+  SuscriptionService,
+} from '@app/services';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { Router } from '@angular/router';
 import { FilterComponent } from '@app/components/filter/filter.component';
-import { ISuscription } from '@app/interfaces';
+import { IErrorGeneralResp, ISuscription } from '@app/interfaces';
 @Component({
   selector: 'tyn-request-service-page',
   imports: [CommonModule, FormsModule, PaginationComponent, FilterComponent],
@@ -17,7 +21,7 @@ export default class RequestServicePageComponent {
   isModalOpen = signal(false);
   selectedSolicDemo: ISuscription | null = null;
   selectedTab: string = 'verifyInformation';
-
+  private _alertService = inject(AlertService);
   // Filtros
   filterMenu = signal({
     searchShow: true,
@@ -79,8 +83,12 @@ export default class RequestServicePageComponent {
         this.selectedTab = 'verifyInformation';
         this.isModalOpen.set(true);
       },
-      error: (err) => {
-        console.error('Error fetching subscription by ID:', err);
+      error: (err: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          err.error.detail || 'Error al obtener la solicitud de servicio',
+          'error',
+        );
       },
     });
   }
@@ -97,7 +105,12 @@ export default class RequestServicePageComponent {
           this.closeModal();
           this.suscriptionResorce.reload();
         },
-        error: (err) => {
+        error: (err: IErrorGeneralResp) => {
+          this._alertService.getAlert(
+            'Error!!!',
+            err.error.detail || 'Error al enviar el enlace de incorporación',
+            'error',
+          );
           console.error('Error sending incorporation link:', err);
         },
       });

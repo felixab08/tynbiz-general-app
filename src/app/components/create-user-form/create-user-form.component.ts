@@ -12,6 +12,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { UsersService } from '@app/services/admin/users.service';
 import { AlertService } from '@app/services/alert.service';
 import { UserMapper } from '@app/mappers/admin/users.mapper';
+import { IErrorGeneralResp } from '@app/interfaces';
 
 @Component({
   selector: 'tyn-create-user-form',
@@ -48,15 +49,15 @@ export class CreateUserFormComponent {
           this._alertService.getAlert(
             'Usuario Creado',
             'Usuario creado satisfactoriamente',
-            'success'
+            'success',
           );
           this.formChange.emit(true);
         },
-        error: (error: any) => {
+        error: (error: IErrorGeneralResp) => {
           this._alertService.getAlert(
             'Error!!!',
-            'Error al registrar el usuario',
-            'error'
+            error.error.detail || 'Error al registrar el usuario',
+            'error',
           );
         },
       });
@@ -116,7 +117,7 @@ export class CreateUserFormComponent {
         validators: [
           this.formUtils.passIgualesValidator('password', 'passwordRepit'),
         ],
-      }
+      },
     );
   }
   rolesResorce = rxResource({

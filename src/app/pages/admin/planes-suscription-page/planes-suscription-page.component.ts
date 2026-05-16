@@ -6,11 +6,12 @@ import { PlanesSuscriptionFormModalPageComponent } from './planes-suscription-fo
 import { WarningModalComponent } from '@app/components/warning-modal/warning-modal.component';
 import { SuccessModalComponent } from '@app/components/success-modal/success-modal.component';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { LinkParamService, PlanesService } from '@app/services';
+import { AlertService, LinkParamService, PlanesService } from '@app/services';
 import { Router } from '@angular/router';
 import { FILTERISACTIVELIST } from '@app/constant';
 import { FilterComponent } from '@app/components/filter/filter.component';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
+import { IErrorGeneralResp } from '@app/interfaces';
 
 @Component({
   selector: 'tyn-planes-suscription-page',
@@ -41,7 +42,7 @@ export default class PlanesSuscriptionPageComponent {
   successType: 'success' | 'error' | 'warning' = 'success';
   _linkService = inject(LinkParamService);
   _router = inject(Router);
-
+  private _alertService = inject(AlertService);
   private _planesService = inject(PlanesService);
   // Filtros
   filterMenu = signal({
@@ -108,7 +109,7 @@ export default class PlanesSuscriptionPageComponent {
         this.successType = 'warning';
       } else {
         this.planList = this.planList.map((d) =>
-          d.id === this.selectedPlan.id ? { ...d, planState: 'activo' } : d
+          d.id === this.selectedPlan.id ? { ...d, planState: 'activo' } : d,
         );
         this.successType = 'success';
       }
@@ -118,7 +119,7 @@ export default class PlanesSuscriptionPageComponent {
         this.successType = 'error';
       } else {
         this.planList = this.planList.filter(
-          (d) => d.id !== this.selectedPlan.id
+          (d) => d.id !== this.selectedPlan.id,
         );
         this.successType = 'success';
       }
@@ -155,8 +156,13 @@ export default class PlanesSuscriptionPageComponent {
           console.log(resp);
           this.planesResorce.reload();
         },
-        error: (error: any) => {
+        error: (error: IErrorGeneralResp) => {
           console.log(error);
+          this._alertService.getAlert(
+            'Error!!!',
+            error.error.detail || 'Error al registrar el plan',
+            'error',
+          );
         },
       });
     }

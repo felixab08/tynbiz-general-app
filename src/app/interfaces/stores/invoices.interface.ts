@@ -67,3 +67,14 @@ export interface BillingAddress {
   postalCode:  string;
   countryCode: string;
 }
+
+
+export interface InvoicesPayResp {
+  sessionKey:        string;
+  purchaseNumber:    string;
+  paymentId:         number;
+  merchantId:        string;
+  amount:            number;
+  checkoutJsUrl:     string;
+  expirationMinutes: number;
+}

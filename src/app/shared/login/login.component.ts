@@ -11,6 +11,8 @@ import { StoreService } from '@app/services/store.service';
 import { FormUtils } from '@app/utils/form.util';
 import { Router, RouterLink } from '@angular/router';
 import { MenuService } from '@app/auth/services/menu.service';
+import { IErrorGeneralResp } from '@app/interfaces';
+import { AlertService } from '@app/services';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
   isModalOpen = signal(false);
   private _fb = inject(FormBuilder);
   lookIconIsPassword = signal(false);
-
+  private _alertService = inject(AlertService);
   formUtils = FormUtils;
   myForm: FormGroup = this._fb.group({
     user: ['', [Validators.required, Validators.minLength(3)]],
@@ -66,8 +68,12 @@ export class LoginComponent implements OnInit {
             }, 2000);
           }
         },
-        error: (error) => {
-          debugger;
+        error: (error: IErrorGeneralResp) => {
+          this._alertService.getAlert(
+            'Error!!!',
+            error.error.detail || 'Error al iniciar sesión',
+            'error',
+          );
           console.error('Login failed', error);
           this.myForm.setErrors({ loginFailed: true });
           this.hasError.set(true);

@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { CarouselProductsCreation } from '@app/components/carousel-products-creation/carousel-products-creation.component';
 import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
+import { IErrorGeneralResp } from '@app/interfaces';
 import { AlertService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
 import { FormUtils } from '@app/utils/form.util';
@@ -49,7 +50,6 @@ export default class CreateCreationStorePage {
       }
     });
     console.log(this._createCreation.products());
-
   }
 
   goToProducts() {
@@ -113,7 +113,12 @@ export default class CreateCreationStorePage {
         localStorage.removeItem('creation_creation');
         this.router.navigate(['/stores/products']);
       },
-      error: (err) => {
+      error: (err: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          err.error.detail || 'Error al registrar la creación',
+          'error',
+        );
         console.error('Error al registrar la creación:', err);
       },
     });

@@ -3,8 +3,12 @@ import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { LinkParamService, RequesDemoService } from '@app/services';
-import { RequestDemoContent } from '@app/interfaces';
+import {
+  AlertService,
+  LinkParamService,
+  RequesDemoService,
+} from '@app/services';
+import { IErrorGeneralResp, RequestDemoContent } from '@app/interfaces';
 import { FilterComponent } from '@app/components/filter/filter.component';
 import { Router } from '@angular/router';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
@@ -22,7 +26,7 @@ export default class RequestDemoPageComponent {
   isState = 'All';
   isModalOpen = signal(false);
   selectedSolicDemo: RequestDemoContent | null = null;
-
+  private _alertService = inject(AlertService);
   // Filtros
   filterMenu = signal({
     searchShow: true,
@@ -79,8 +83,12 @@ export default class RequestDemoPageComponent {
       next: (resp: any) => {
         this.selectedSolicDemo = resp;
       },
-      error: (error: any) => {
-        console.log(error);
+      error: (error: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          error.error.detail || 'Error al obtener el demo',
+          'error',
+        );
       },
     });
   }
@@ -93,8 +101,12 @@ export default class RequestDemoPageComponent {
           next: (resp: any) => {
             this.demoResorce.reload();
           },
-          error: (error: any) => {
-            console.log(error);
+          error: (error: IErrorGeneralResp) => {
+            this._alertService.getAlert(
+              'Error!!!',
+              error.error.detail || 'Error al actualizar el demo',
+              'error',
+            );
           },
         });
     }

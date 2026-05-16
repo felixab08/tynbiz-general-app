@@ -17,6 +17,7 @@ export * from './shopper/product-store.interface';
 //General Interfaces
 export * from './general/services.interface';
 export * from './general/register.interface';
+export * from './general/error.interface';
 
 //Store Interfaces
 export * from './stores/store-products.interface';
@@ -26,3 +27,4 @@ export * from './stores/wordpress.interface';
 export * from './stores/calendar.interface';
 export * from './stores/invoices.interface';
 export * from './stores/stores.interface';
+export * from './stores/mercado-pago.interface';

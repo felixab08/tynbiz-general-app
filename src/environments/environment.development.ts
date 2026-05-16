@@ -1,5 +1,5 @@
 export const environment = {
-    // baseUrl: 'http://localhost:8080/api/v1',
+  // baseUrl: 'http://localhost:8080/api/v1',
   baseUrl: 'https://tynby-plataform-production.up.railway.app/api/v1',
 
   // baseUrl: 'http://192.168.0.72:8080',
@@ -7,4 +7,7 @@ export const environment = {
   NEXT_PUBLIC_SHOPIFY_INSTALL_URL:
     'https://admin.shopify.com/oauth/install_custom_app?client_id=360cd7d6cc2074797e98b010aaeaf32d&no_redirect=true&signature=eyJleHBpcmVzX2F0IjoxNzc1NzUxNDU4LCJwZXJtYW5lbnRfZG9tYWluIjoidGVzdC1saXZlc2VsbC1jbGV2ZXIubXlzaG9waWZ5LmNvbSIsImNsaWVudF9pZCI6IjM2MGNkN2Q2Y2MyMDc0Nzk3ZTk4YjAxMGFhZWFmMzJkIiwicHVycG9zZSI6ImN1c3RvbV9hcHAiLCJtZXJjaGFudF9vcmdhbml6YXRpb25faWQiOjIwNzc1MzkyN30%3D--cb47b1c1c2b859d199cfaab1c7343221568598bd',
   JITSI_URL: 'https://tynbiz.vercel.app',
+  MERCADO_PAGO: 'https://www.mercadopago.com.pe/checkout/v1/redirect',
+  MERCADO_PAGO_SANDBOX:
+    'https://sandbox.mercadopago.com.pe/checkout/v1/redirect',
 };

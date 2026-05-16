@@ -98,7 +98,10 @@
             Deuda total
             <span class="ml-2 font-normal">S/.{{ item.totalAmount }}</span>
           </h4>
-          <p>Tu deuda es de {{ item.issueDate| date }} a {{ item.dueDate| date }}</p>
+          <p>
+            Tu deuda es de {{ item.issueDate | date }} a
+            {{ item.dueDate | date }}
+          </p>
         </div>
         <div class="mt-4 md:mt-0">
           <button
@@ -125,26 +128,50 @@
     <div class="dark:bg-gray-700 dark:text-white">
       <div class="relative overflow-x-auto shadow-md px-5 md:px-10 m-4">
         <div
-        (click)="invoicePayMethod.set('Niubiz')"
+          (click)="invoicePayMethod.set('Niubiz')"
           class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-black bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2"
         >
           <input
             id="bordered-radio-1"
             type="radio"
-            value=""
+            value="Niubiz"
             name="bordered-radio"
             class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary ring-offset-neutral-primary focus:ring-2"
           />
           <label
             for="bordered-radio-1"
             class="w-full select-none ml-4 text-lg font-semibold text-heading"
-            > Niubiz
+          >
+            Niubiz
+          </label>
+        </div>
+        <div
+          (click)="invoicePayMethod.set('MercadoPago')"
+          class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-black bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2"
+        >
+          <input
+            id="bordered-radio-1"
+            type="radio"
+            value="MercadoPago"
+            name="bordered-radio"
+            class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary ring-offset-neutral-primary focus:ring-2"
+          />
+          <label
+            for="bordered-radio-1"
+            class="w-full select-none ml-4 text-lg font-semibold text-heading"
+          >
+            Mercado Pago
           </label>
         </div>
       </div>
       <div>
         @if (invoicePayMethod()) {
-          <button type="button" class="button-primary" fdprocessedid="mpjnov" (click)="paySuscription()">
+          <button
+            type="button"
+            class="button-primary"
+            fdprocessedid="mpjnov"
+            (click)="paySuscription()"
+          >
             Pagar suscripción
           </button>
         }
@@ -421,3 +448,19 @@
     </div>
   </div>
 </div>
+
+@if (invoicesPayResp()) {
+  <script
+    [src]="invoicesPayResp().checkoutJsUrl"
+    [data-sessiontoken]="invoicesPayResp().sessionKey"
+    [data-merchantid]="invoicesPayResp().merchantId"
+    [data-purchasenumber]="invoicesPayResp().purchaseNumber"
+    [data-amount]="invoicesPayResp().amount.toFixed(2)"
+    [data-expirationminutes]="invoicesPayResp().expirationMinutes"
+    data-channel="web"
+    data-buttoncolor="#0047AB"
+    data-buttontext="Pagar"
+    data-complete="onNiubizComplete"
+    data-close="onNiubizClose"
+  ></script>
+}

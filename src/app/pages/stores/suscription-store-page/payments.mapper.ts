@@ -5,7 +5,7 @@ export class PaymentsMapper {
     invoice: InvoicesResp,
     store: IStoresResp,
     type = 'Niubiz',
-  ): InvoicesPayment {
+  ): InvoicesPayment | any {
     if (type === 'Niubiz') {
       return {
         invoiceId: invoice.id,
@@ -24,6 +24,11 @@ export class PaymentsMapper {
             countryCode: store.country,
           },
         },
+      };
+    }
+    if (type === 'MercadoPago') {
+      return {
+        invoiceId: invoice.id || invoice.invoiceNumber,
       };
     }
     return null as any;
