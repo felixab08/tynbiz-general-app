@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
+  IMeSuscriptionStore,
   ISuscription,
+  ISuscriptionEligibility,
   ISuscriptionResponse,
   OptionsRequest,
 } from '@app/interfaces';
@@ -24,7 +26,7 @@ export class SuscriptionService {
    * @return ISuscriptionResponse[]
    */
   getSuscriptionRequest(
-    options: OptionsRequest
+    options: OptionsRequest,
   ): Observable<ISuscriptionResponse> {
     const {
       page = 0,
@@ -50,7 +52,7 @@ export class SuscriptionService {
       `${baseUrl}/admin/subscription-requests`,
       {
         params,
-      }
+      },
     );
   }
   /**
@@ -60,7 +62,7 @@ export class SuscriptionService {
    */
   getSuscriptionById(id: number): Observable<ISuscription> {
     return this._http.get<ISuscription>(
-      `${baseUrl}/admin/subscription-requests/${id}`
+      `${baseUrl}/admin/subscription-requests/${id}`,
     );
   }
   /**
@@ -71,7 +73,19 @@ export class SuscriptionService {
   postSuscriptionIncoporateById(id: number): Observable<ISuscription> {
     return this._http.post<ISuscription>(
       `${baseUrl}/admin/subscription-requests/${id}/incorporate`,
-      id
+      id,
+    );
+  }
+
+  // Stores Part
+  getMeSuscriptionByStore(): Observable<IMeSuscriptionStore> {
+    return this._http.get<IMeSuscriptionStore>(
+      `${baseUrl}/subscriptions/me/current`,
+    );
+  }
+  getSuscriptionByEligilitiStore(): Observable<ISuscriptionEligibility> {
+    return this._http.get<ISuscriptionEligibility>(
+      `${baseUrl}/subscriptions/me/change-plan/eligibility`,
     );
   }
 }

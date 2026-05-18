@@ -57,37 +57,43 @@
       >
     </p>
   </div>
-  <div
-    class="mb-6 md:flex justify-between card-static dark:bg-gray-700 dark:text-white"
-  >
-    <div>
-      <div class="">
-        <h4 class="text-lg font-bold">Plan actual</h4>
-        <p>Suscripción: Uso por sala</p>
-        <p class="">
-          <span class="text-2xl font-bold"> USD 0.11 </span>/ Uso de sala por
-          usuario
-        </p>
+  @if (suscriptionStore()) {
+    <div
+      class="mb-6 md:flex justify-between card-static dark:bg-gray-700 dark:text-white"
+    >
+      <div>
+        <div class="">
+          <h4 class="text-lg font-bold">Plan actual</h4>
+          <p>Suscripción: {{ suscriptionStore()?.planName }}</p>
+          <p class="">
+            <span class="text-2xl font-bold">
+              {{ suscriptionStore()?.priceDisplay }}
+            </span>
+          </p>
+        </div>
+        <div class="mt-8 md:mt-12">
+          <h4 class="text-lg font-bold">Ciclo de facturación:</h4>
+          <p class="font-bold">
+            {{ suscriptionStore()?.billingCycleDisplay }}
+            <span class="text-green-600 font-normal ml-2">{{
+              suscriptionStore()?.daysRemaining
+            }}</span>
+          </p>
+          <p>
+            Pagas por uso de sala cada
+            {{ suscriptionStore()?.trialEndDate | date }}
+          </p>
+        </div>
       </div>
-      <div class="mt-8 md:mt-12">
-        <h4 class="text-lg font-bold">Ciclo de facturación</h4>
-        <p class="font-bold">
-          Mensual
-          <span class="text-green-600 font-normal ml-2"
-            >Plan gratuito de 2 meses</span
-          >
-        </p>
-        <p>Pagas por uso de sala cada 29 del mes</p>
+      <div class="mt-8 md:mt-0">
+        <a
+          (click)="openModalPlan()"
+          class="font-extrabold text-primary text-fg-brand hover:underline hover:cursor-pointer"
+          >Cambiar de plan</a
+        >
       </div>
     </div>
-    <div class="mt-8 md:mt-0">
-      <a
-        (click)="openModal()"
-        class="font-extrabold text-primary text-fg-brand hover:underline hover:cursor-pointer"
-        >Cambiar de plan</a
-      >
-    </div>
-  </div>
+  }
   @if (invoices() && invoices()!.length > 0) {
     @for (item of invoices()!; track $index) {
       <div
@@ -246,76 +252,71 @@
       <div class="p-4 md:p-5 space-y-4">
         <div class="">
           <p class="text-black dark:text-white">Plan actual</p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <input
-              checked
-              type="radio"
-              id="hosting-small"
-              name="hosting"
-              value="hosting-small"
-              class="hidden peer"
-              required
-            />
-            <label
-              for="hosting-small"
-              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
-            >
-              <div class="block">
-                <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
-                <p class="w-full text-lg font-semibold">
-                  USD 0.11
-                  <span class="font-normal">/ Uso sala por usuario</span>
-                </p>
-              </div>
-            </label>
-          </div>
+          @if (suscriptionStore()) {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 hover:cursor-not-allowed">
+              <input
+                checked
+                type="radio"
+                id="hosting-small"
+                name="hosting"
+                value="hosting-small"
+                class="hidden peer  hover:cursor-not-allowed"
+                disabled
+              />
+              <label
+                for="hosting-small"
+                class="  hover:cursor-not-allowed inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
+              >
+                <div class="block">
+                  <div class="w-full text-lg font-semibold">{{ suscriptionStore()?.planName }}</div>
+                  <p class="w-full text-lg font-semibold">
+                    {{suscriptionStore()?.priceDisplay}}
+                  </p>
+                </div>
+              </label>
+            </div>
+          }
           <p class="text-black dark:text-white">
             Selecciona a que plan te quieres cambiar
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <div>
-              <input
-                type="radio"
-                id="hosting-medium"
-                name="hosting"
-                value="hosting-medium"
-                class="hidden peer"
-                required
-              />
-              <label
-                for="hosting-medium"
-                class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
-              >
-                <div class="block">
-                  <div class="w-full text-lg font-semibold">Mensual</div>
-                  <p class="w-full text-lg font-semibold">
-                    USD 0.11
-                    <span class="font-normal">/ Mensual</span>
-                  </p>
+            @if (listSuscription() && listSuscription()?.allowedPlans) {
+              <!--  -->
+              @for (item of listSuscription()?.allowedPlans; track item.id) {
+                <div>
+                  <input
+                    type="radio"
+                    [id]="'hosting-' + item.id"
+                    name="hosting"
+                    [value]="'hosting-' + item.id"
+                    class="hidden peer"
+                    required
+                  />
+                  <label
+                    [for]="'hosting-' + item.id"
+                    class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
+                  >
+                    <div class="block">
+                      <div class="w-full text-lg font-semibold">
+                        {{ item.name }}
+                      </div>
+                      <p class="w-full text-lg font-semibold">
+                        {{ item.price }}
+                        <span class="font-normal"
+                          >/ {{ item.billingCycleDisplay }}</span
+                        >
+                      </p>
+                    </div>
+                  </label>
                 </div>
-              </label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="hosting-large"
-                name="hosting"
-                value="hosting-large"
-                class="hidden peer"
-              />
-              <label
-                for="hosting-large"
-                class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
-              >
-                <div class="block">
-                  <div class="w-full text-lg font-semibold">Anual</div>
-                  <p class="w-full text-lg font-semibold">
-                    USD 0.11
-                    <span class="font-normal">/ Anual</span>
-                  </p>
-                </div>
-              </label>
-            </div>
+              }
+            }
+            <!--  -->
+            @else {
+              <p class="text-gray-500">
+                No hay planes disponibles para cambiar
+              </p>
+            }
           </div>
           <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
             <button
@@ -361,18 +362,18 @@
     class="relative w-full max-w-3xl m-4 md:max-h-[90vh] bg-white rounded-lg shadow overflow-hidden"
   >
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow-sm">
+    <div class="relative bg-white dark:bg-gray-700 rounded-lg shadow-sm">
       <!-- Modal header -->
       <div
         class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200"
       >
-        <h3 class="text-xl font-semibold text-black">
+        <h3 class="text-xl font-semibold text-black dark:text-white">
           Confirmación de cambio de plan
         </h3>
         <button
           type="button"
           (click)="closeConfirModal()"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-black rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+          class="text-gray-500 bg-transparent hover:bg-gray-200 hover:text-black rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
           data-modal-hide="default-modal"
         >
           <svg
@@ -397,7 +398,7 @@
 
       <div class="p-4 md:p-5 space-y-4">
         <div class="">
-          <p class="text-black">
+          <p class="text-black dark:text-white">
             El cambio del plan se aplicará a partir del 28 de enero
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -412,7 +413,7 @@
             />
             <label
               for="hosting-small"
-              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:text-gray-600 hover:bg-primary-200"
+              class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:text-gray-600 hover:bg-primary-light"
             >
               <div class="block">
                 <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
@@ -423,7 +424,7 @@
               </div>
             </label>
           </div>
-          <p class="text-black">Ver terminos y condiciones</p>
+          <p class="text-black dark:text-white">Ver terminos y condiciones</p>
 
           <div class="flex items-center justify-end p-4 md:p-5 rounded-b">
             <button

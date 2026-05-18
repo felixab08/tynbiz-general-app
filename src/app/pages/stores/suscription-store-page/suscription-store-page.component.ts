@@ -6,12 +6,15 @@ import {
   MercadoPagoService,
   StoreService,
   StoresService,
+  SuscriptionService,
 } from '@app/services';
 import {
   IErrorGeneralResp,
+  IMeSuscriptionStore,
   InvoicesPayResp,
   InvoicesResp,
   IStoresResp,
+  ISuscriptionEligibility,
 } from '@app/interfaces';
 import { User } from '@app/auth/interfaces/user.interface';
 import { PaymentsMapper } from './payments.mapper';
@@ -31,10 +34,14 @@ export default class SuscriptionStorePageComponent {
   invoicePayMethod = signal<string | null>(null);
   infoStoreIntifraud = signal<IStoresResp | null>(null);
   invoicesPayResp = signal<InvoicesPayResp | null>(null);
-  private _invoicesService = inject(InvoicesService);
+  suscriptionStore = signal<IMeSuscriptionStore | null>(null);
+  listSuscription = signal<ISuscriptionEligibility | null>(null);
   private _storesService = inject(StoresService);
   private _mercadoPagoService = inject(MercadoPagoService);
   private _alertService = inject(AlertService);
+  private _suscriptionSrv = inject(SuscriptionService);
+  private _invoicesService = inject(InvoicesService);
+
   private storeService = inject(StoreService);
   private user: User | undefined;
 
@@ -47,6 +54,7 @@ export default class SuscriptionStorePageComponent {
     });
 
     this.getInvoicesMedhod();
+    this.getSuscriptionInvoices();
   }
 
   paySuscription() {
@@ -76,14 +84,11 @@ export default class SuscriptionStorePageComponent {
         this._mercadoPagoService.postMercadoPagoPayment(paymentData).subscribe({
           next: (response) => {
             console.log('Pago MercadoPago exitoso:', response);
-            response.initPoint;
             sessionStorage.setItem(
               'pendingPaymentId',
               String(response.paymentId),
             );
-            const roomName = `${this.invoicePay()!.id}`;
-            const url = `${environment.MERCADO_PAGO}?pref_id=${roomName}`;
-            window.open(url, '_blank');
+            window.open(response.checkoutUrl, '_blank');
             // Aquí puedes manejar la respuesta de MercadoPago según tus necesidades
           },
           error: (error: IErrorGeneralResp) => {
@@ -106,6 +111,21 @@ export default class SuscriptionStorePageComponent {
     });
   }
 
+  private getSuscriptionInvoices() {
+    this._suscriptionSrv.getMeSuscriptionByStore().subscribe({
+      next: (suscription) => {
+        this.suscriptionStore.set(suscription);
+      },
+    });
+  }
+  private getListSuscriptionInvoices() {
+    this._suscriptionSrv.getSuscriptionByEligilitiStore().subscribe({
+      next: (list) => {
+        this.listSuscription.set(list);
+      },
+    });
+  }
+
   private getInvoicesStore() {
     this._storesService.getStore(this.user?.storeId || 0).subscribe({
       next: (store) => {
@@ -115,7 +135,8 @@ export default class SuscriptionStorePageComponent {
     });
   }
 
-  openModal() {
+  openModalPlan() {
+    this.getListSuscriptionInvoices();
     this.isModalOpen.set(true);
   }
   closeModal() {
