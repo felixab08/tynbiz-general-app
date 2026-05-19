@@ -88,4 +88,11 @@ export class SuscriptionService {
       `${baseUrl}/subscriptions/me/change-plan/eligibility`,
     );
   }
+
+  putChangePlanStore(planId: number): Observable<void> {
+    return this._http.put<void>(
+      `${baseUrl}/subscriptions/${planId}/change-plan`,
+      null,
+    );
+  }
 }

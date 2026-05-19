@@ -9,6 +9,7 @@ import {
   SuscriptionService,
 } from '@app/services';
 import {
+  AllowedPlan,
   IErrorGeneralResp,
   IMeSuscriptionStore,
   InvoicesPayResp,
@@ -36,6 +37,7 @@ export default class SuscriptionStorePageComponent {
   invoicesPayResp = signal<InvoicesPayResp | null>(null);
   suscriptionStore = signal<IMeSuscriptionStore | null>(null);
   listSuscription = signal<ISuscriptionEligibility | null>(null);
+  selectSusctiptionChange = signal<AllowedPlan | null>(null);
   private _storesService = inject(StoresService);
   private _mercadoPagoService = inject(MercadoPagoService);
   private _alertService = inject(AlertService);
@@ -116,12 +118,27 @@ export default class SuscriptionStorePageComponent {
       next: (suscription) => {
         this.suscriptionStore.set(suscription);
       },
+      error: (error: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          error.error.detail || 'Error en obtener la suscripción',
+          'error',
+        );
+      },
     });
   }
+
   private getListSuscriptionInvoices() {
     this._suscriptionSrv.getSuscriptionByEligilitiStore().subscribe({
       next: (list) => {
         this.listSuscription.set(list);
+      },
+      error: (error: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          error.error.detail || 'Error en obtener la lista de suscripciones',
+          'error',
+        );
       },
     });
   }
@@ -131,6 +148,27 @@ export default class SuscriptionStorePageComponent {
       next: (store) => {
         console.log(store);
         this.infoStoreIntifraud.set(store);
+      },
+    });
+  }
+
+  changeSuscription(planSelected: AllowedPlan) {
+    console.log(planSelected);
+    this.selectSusctiptionChange.set(planSelected);
+  }
+
+  putChangePlanStore(planId: number) {
+    this._suscriptionSrv.putChangePlanStore(planId).subscribe({
+      next: () => {
+        console.log('Plan cambiado exitosamente');
+        this.closeConfirModal();
+      },
+      error: (error: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          error.error.detail || 'Error al cambiar el plan',
+          'error',
+        );
       },
     });
   }

@@ -1,33 +1,45 @@
 @if (listProduct()) {
-<div class="flex items-center">
-  <div class="mini-card-img md">
-    <img [src]="listProduct().imageUrl | notImage" alt="Jese Leos image" />
-  </div>
-  <div class=" content-details-product">
-    @if (listProduct().sku) {
-      <p class="text-sm font-semibold text-black dark:text-gray-300 truncate max-w-40">
-        Código: {{ listProduct().sku }}
-      </p>
-    }
+  <div class="flex items-center">
+    <div class="mini-card-img md">
+      <img [src]="listProduct().imageUrl | notImage" alt="Jese Leos image" />
+    </div>
+    <div class="content-details-product">
+      @if (listProduct().sku) {
+        <p
+          class="text-sm font-semibold text-black dark:text-gray-300 truncate max-w-40"
+        >
+          Código: {{ listProduct().sku }}
+        </p>
+      }
 
-    <p class="text-sm font-bold max-w-40 text-black dark:text-gray-300 truncate">
-      {{ listProduct().name |  uppercase }}
-    </p>
-    <!-- @if (listProduct().description) {
+      <p
+        class="text-sm font-bold max-w-40 text-black dark:text-gray-300 truncate"
+      >
+        {{ listProduct().name | uppercase }}
+      </p>
+      <!-- @if (listProduct().description) {
       <p class="text-sm text-gray-600" [innerHTML]="listProduct().description"></p>
     } -->
-    @if (listProduct().colors && listProduct().colors.length > 0) {
-      <p class="truncate max-w-40">
-        <span class="font-semibold text-black dark:text-gray-300"> Color:</span> {{ listProduct().colors.join(', ') }}
+      @if (listProduct().colors && listProduct().colors.length > 0) {
+        <span class="font-semibold"> Colores:</span>
+        @for (color of listProduct().colors; track color) {
+          <span
+            id="badge-dismiss-brand"
+            class="ml-1 inline-flex items-center bg-primary-light dark:bg-gray-600 border border-gray-500 text-xs font-medium ps-1.5 pe-0.5 py-0.5 rounded gap-1"
+          >
+            <span>{{color}}</span>
+        </span>
+      }
+      }
+      @if (listProduct().sizes && listProduct().sizes.length > 0) {
+        <p class="truncate max-w-40 text-black dark:text-gray-300">
+          <span class="font-semibold"> Talla:</span>
+          {{ listProduct().sizes.join(", ") }}
+        </p>
+      }
+      <p class="text-lg font-bold text-black dark:text-gray-300">
+        S/. {{ listProduct().originalPrice }}
       </p>
-    }
-    @if (listProduct().sizes && listProduct().sizes.length > 0) {
-      <p class="truncate max-w-40">
-        <span class="font-semibold text-black dark:text-gray-300"> Talla:</span> {{ listProduct().sizes.join(', ') }}
-      </p>
-    }
-    <p class="text-lg font-bold text-black dark:text-gray-300">
-      S/. {{ listProduct().originalPrice }}
-    </p>
+    </div>
   </div>
-</div>}
+}

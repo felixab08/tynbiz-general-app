@@ -100,9 +100,37 @@
         class="md:flex justify-between items-center card-static dark:bg-gray-700 dark:text-white"
       >
         <div>
-          <h4 class="text-lg font-bold">
+          <h4 class="text-lg font-bold flex">
             Deuda total
-            <span class="ml-2 font-normal">S/.{{ item.totalAmount }}</span>
+            <span class="ml-2 font-normal flex">
+              S/.{{ item.totalAmount }}
+              @if (item.statusDisplay === "Vencida") {
+                <span
+                  id="badge-avatar-dismiss-brand"
+                  class="inline-flex items-center border border-red-400 text-fg-brand-strong text-xs font-medium ps-1.5 pe-0.5 py-0.5 rounded gap-1 ml-2"
+                >
+                  Vencido
+
+                  <svg
+                    class="w-6 h-6 text-fg-brand text-red-500"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M18.122 17.645a7.185 7.185 0 0 1-2.656 2.495 7.06 7.06 0 0 1-3.52.853 6.617 6.617 0 0 1-3.306-.718 6.73 6.73 0 0 1-2.54-2.266c-2.672-4.57.287-8.846.887-9.668A4.448 4.448 0 0 0 8.07 6.31 4.49 4.49 0 0 0 7.997 4c1.284.965 6.43 3.258 5.525 10.631 1.496-1.136 2.7-3.046 2.846-6.216 1.43 1.061 3.985 5.462 1.754 9.23Z"
+                    />
+                  </svg>
+                </span>
+              }
+            </span>
           </h4>
           <p>
             Tu deuda es de {{ item.issueDate | date }} a
@@ -253,24 +281,28 @@
         <div class="">
           <p class="text-black dark:text-white">Plan actual</p>
           @if (suscriptionStore()) {
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 hover:cursor-not-allowed">
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 hover:cursor-not-allowed"
+            >
               <input
                 checked
                 type="radio"
                 id="hosting-small"
                 name="hosting"
                 value="hosting-small"
-                class="hidden peer  hover:cursor-not-allowed"
+                class="hidden peer hover:cursor-not-allowed"
                 disabled
               />
               <label
                 for="hosting-small"
-                class="  hover:cursor-not-allowed inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
+                class="hover:cursor-not-allowed inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary hover:text-gray-600 hover:bg-primary-light"
               >
                 <div class="block">
-                  <div class="w-full text-lg font-semibold">{{ suscriptionStore()?.planName }}</div>
+                  <div class="w-full text-lg font-semibold">
+                    {{ suscriptionStore()?.planName }}
+                  </div>
                   <p class="w-full text-lg font-semibold">
-                    {{suscriptionStore()?.priceDisplay}}
+                    {{ suscriptionStore()?.priceDisplay }}
                   </p>
                 </div>
               </label>
@@ -291,6 +323,7 @@
                     [value]="'hosting-' + item.id"
                     class="hidden peer"
                     required
+                    (change)="changeSuscription(item)"
                   />
                   <label
                     [for]="'hosting-' + item.id"
@@ -402,6 +435,7 @@
             El cambio del plan se aplicará a partir del 28 de enero
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            @if (selectSusctiptionChange()) {
             <input
               checked
               type="radio"
@@ -416,13 +450,14 @@
               class="inline-flex max-w-sm items-center mb-4 justify-between w-full p-5 text-black bg-white dark:bg-gray-600 dark:text-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:text-gray-600 hover:bg-primary-light"
             >
               <div class="block">
-                <div class="w-full text-lg font-semibold">Uso de tynbiz</div>
+                <div class="w-full text-lg font-semibold">{{selectSusctiptionChange()?.name}}</div>
                 <p class="w-full text-lg font-semibold">
-                  USD 0.11
-                  <span class="font-normal">/ Uso sala por usuario</span>
+                  {{ selectSusctiptionChange()?.price }} {{ selectSusctiptionChange()?.currency }}
+                  <span class="font-normal">{{ selectSusctiptionChange()?.description }}</span>
                 </p>
               </div>
             </label>
+          }
           </div>
           <p class="text-black dark:text-white">Ver terminos y condiciones</p>
 
@@ -437,7 +472,7 @@
             ><button
               data-modal-hide="default-modal"
               type="button"
-              (click)="closeConfirModal()"
+              (click)="putChangePlanStore(selectSusctiptionChange()?.id || 0)"
               class="text-white bg-primary ml-4 hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               fdprocessedid="mpjnov"
             >
