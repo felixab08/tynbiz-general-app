@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
 import { productMock } from '@app/mock/product.mock';
 import { LinkParamService } from '@app/services';
@@ -16,7 +15,6 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
 export class ProductsListPage {
   private _productsStoreService = inject(ProductsStoreService);
   _linkService = inject(LinkParamService);
-  productMock = productMock;
 
   // Filtros
   filterMenu = signal({
@@ -26,22 +24,9 @@ export class ProductsListPage {
     filterSelectList: [],
   });
 
-  productsResource = rxResource({
-    request: () => ({
-      page: this._linkService.currentPage() - 1,
-      size: this._linkService.currentSize(),
-      searchTerm: this._linkService.currentSearchTerm(),
-    }),
-    loader: ({ request }) => {
-      return (
-        this._productsStoreService.getProductsByStore({
-          page: request.page,
-          size: request.size,
-          searchTerm: request.searchTerm,
-        }) || {}
-      );
-    },
-  });
-
+  nextPagePrefet(nextPage: number | string) {
+    this._productsStoreService.prefetchIssue(nextPage);
+  }
+  productsResource = this._productsStoreService.ProductsByStoreQuery;
   constructor(public createCreation: CreateCreation) {}
 }

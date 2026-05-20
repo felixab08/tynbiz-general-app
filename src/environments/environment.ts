@@ -10,4 +10,6 @@ export const environment = {
   MERCADO_PAGO: 'https://www.mercadopago.com.pe/checkout/v1/redirect',
   MERCADO_PAGO_SANDBOX:
     'https://sandbox.mercadopago.com.pe/checkout/v1/redirect',
+
+  loadDevtools: false,
 };

@@ -16,6 +16,14 @@ import {
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { authInterceptor } from './auth/interceptor/auth.interceptor';
 import { isLoginInterceptor } from './auth/interceptor/token.interceptor';
+
+import {
+  provideTanStackQuery,
+  QueryClient,
+} from '@tanstack/angular-query-experimental';
+import { withDevtools } from '@tanstack/angular-query-experimental/devtools';
+import { environment } from '@environments/environment';
+
 registerLocaleData(localEs, 'es', 'es-ES');
 
 export const appConfig: ApplicationConfig = {
@@ -36,7 +44,11 @@ export const appConfig: ApplicationConfig = {
         // loggingInterceptor,
         isLoginInterceptor,
         authInterceptor,
-      ])
+      ]),
+    ),
+    provideTanStackQuery(
+      new QueryClient(),
+      withDevtools(() => ({ loadDevtools: environment.loadDevtools })),
     ),
   ],
 };

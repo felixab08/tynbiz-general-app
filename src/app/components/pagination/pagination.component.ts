@@ -5,6 +5,7 @@ import {
   inject,
   input,
   linkedSignal,
+  output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -34,6 +35,8 @@ export class PaginationComponent {
   activeSearchTerm = linkedSignal(this.currentSearchTerm);
 
   _router = inject(Router);
+
+  nextPageEvent = output<string | number>();
 
   getPagesList = computed(() => {
     return Array.from({ length: this.pages() }, (_, i) => i + 1);
@@ -82,7 +85,7 @@ export class PaginationComponent {
 
   // TODO: mirar cuando se tiene mas datos
   getSizeList = computed(() => {
-    const sizes = [5, 10, 25, 50];
+    const sizes = [5, 10, 25, 50, 100];
     return [
       5,
       ...sizes.filter((size) => this.totalElements() * 2 >= size && size !== 5),
@@ -141,5 +144,13 @@ export class PaginationComponent {
     }
 
     return params;
+  }
+
+  /**
+   * Esto es para prefetch de la pagina siguiente, se ejecuta al hacer hover en el boton de siguiente pagina, y se envia el numero de pagina a prefetchear
+   * @param numberPage
+   */
+  nextPagePrefet(numberPage: string | number) {
+    this.nextPageEvent.emit(numberPage);
   }
 }

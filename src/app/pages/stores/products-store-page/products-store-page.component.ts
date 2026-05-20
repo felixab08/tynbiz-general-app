@@ -5,6 +5,7 @@ import { ShopifyPage } from './shopify-page/shopify-page';
 import { WordpressPage } from './wordpress-page/wordpress-page';
 import { WordpressService } from '@app/services/stores/wordpress.service';
 import { ProductsListPage } from './products-list-page/products-list-page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tyn-products-store-page',
@@ -22,6 +23,7 @@ export default class ProductsStorePageComponent {
   statusHandleIsPending = signal(true);
   _wordpressService = inject(WordpressService);
   productsResource = signal<boolean>(false);
+  _route = inject(Router);
   constructor() {
     // Opcional: verificar estado al cargar la página
     this.checkStatus();
@@ -39,7 +41,8 @@ export default class ProductsStorePageComponent {
         }
       },
       error: () => {
-        alert('Error al obtener el estado de WordPress');
+        // alert('Error al obtener el estado de WordPress');
+        this._route.navigate(['/stores']);
       },
     });
   }

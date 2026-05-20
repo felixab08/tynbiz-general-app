@@ -4,10 +4,15 @@
     <select
       [(ngModel)]="activeSizeValue"
       (ngModelChange)="onSizeChange($event)"
+
       class="justify-center ml-2 block w-14 py-0 px-2 h-8 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-violet-900 focus:border-violet-900 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-violet-900 dark:focus:border-violet-900"
     >
       @for (option of getSizeList(); track $index) {
-        <option [value]="option">{{ option }}</option>
+          <option [value]="option">
+            <p >
+              {{ option }}
+            </p>
+          </option>
       }
     </select>
   </div>
@@ -22,6 +27,7 @@
             [class.pointer-events-none]="activePage() === 1"
             [class.opacity-50]="activePage() === 1"
             (click)="previousPage()"
+            (mouseenter)="nextPagePrefet(activePage() - 2)"
             ><i class="fa-solid fa-chevron-left"></i
           ></a>
         </li>
@@ -44,6 +50,7 @@
                 [routerLink]="[]"
                 [queryParams]="buildQueryParams(+item)"
                 (click)="activePage.set(+item)"
+                (mouseenter)="nextPagePrefet(+item - 1)"
               >
                 {{ item }}</a
               >
@@ -54,6 +61,7 @@
         }
         <li>
           <a
+            (mouseenter)="nextPagePrefet(activePage())"
             class="flex items-center justify-center px-2 h-6 md:px-3 md:h-8 leading-tight text-gray-400 bg-white border border-gray-300 rounded-e-lg hover:bg-primary/80 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:hover:bg-primary/70 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
             [routerLink]="[]"
             [queryParams]="buildQueryParams(activePage() + 1)"
