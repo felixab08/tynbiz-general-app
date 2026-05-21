@@ -6,6 +6,7 @@ import { WordpressPage } from './wordpress-page/wordpress-page';
 import { WordpressService } from '@app/services/stores/wordpress.service';
 import { ProductsListPage } from './products-list-page/products-list-page';
 import { Router } from '@angular/router';
+import { ProductsStoreService } from '@app/services/stores/products-store.service';
 
 @Component({
   selector: 'tyn-products-store-page',
@@ -24,9 +25,19 @@ export default class ProductsStorePageComponent {
   _wordpressService = inject(WordpressService);
   productsResource = signal<boolean>(false);
   _route = inject(Router);
+  private _productsStoreService = inject(ProductsStoreService);
+
+  productsResourceData = this._productsStoreService.ProductsByStoreQuery;
+
   constructor() {
     // Opcional: verificar estado al cargar la página
-    this.checkStatus();
+    if (
+      this.productsResourceData &&
+      this.productsResourceData.data()?.content &&
+      this.productsResourceData.data()?.content.length! === 0
+    ) {
+      this.checkStatus();
+    }
   }
 
   checkStatus(): void {

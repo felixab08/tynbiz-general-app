@@ -7,7 +7,7 @@
 </div>
 
 <div class="lg:grid lg:grid-cols-3 gap-4">
-  <div class="card-static mb-6">
+  <div class="card-static mb-6 dark:bg-gray-700 dark:text-white">
     <h1 class="text-lg font-semibold mb-2 text-center">Atención a clientes</h1>
     <p class="text-center">
       Atiende a tus clientes mediante la sala de Tynbiz, para ello su calendario
@@ -27,7 +27,7 @@
   </div>
   <div class="col-span-2 mb-6">
     <h1 class="text-lg font-bold mb-4">Detalles de atención</h1>
-    <div class="card-static mb-4">
+    <div class="card-static mb-4 dark:bg-gray-700 dark:text-white">
       <div>
         <h1 class="text-lg font-bold">Atencion en sala</h1>
         <p>
@@ -48,20 +48,20 @@
         </div>
       </div>
     </div>
-    <div class="card-static mb-4">
+    <div class="card-static mb-4 dark:bg-gray-700 dark:text-white">
       <h1 class="text-lg font-bold">Horario de atención</h1>
       <p class="mb-4">Asi veran tus clientes tu horario de atención.</p>
       <div class="flex gap-1 flex-wrap">
         @for (day of getSortedDaySchedules(); track day.dayOfWeek) {
         <div
-          class="flex-1 min-w-[100px] rounded-lg shadow-sm border flex flex-col items-center"
+          class="flex-1 min-w-25 rounded-lg shadow-sm border flex flex-col items-center"
           [ngClass]="{
               ' border-green-300': day.isWorkDay,
               ' border-red-300': !day.isWorkDay
             }"
         >
           <div
-            class="w-full flex justify-center py-2 border-b rounded-t-lg"
+            class="w-full flex justify-center py-2 border-b rounded-t-lg dark:bg-gray-700"
             [ngClass]="{
               ' border-green-300 bg-green-50': day.isWorkDay,
               ' border-red-300 bg-red-50': !day.isWorkDay
@@ -78,7 +78,7 @@
             @if (day.isWorkDay) { @if (day.morningStart && day.morningEnd) {
             <div class="flex gap-1 items-center text-xs mt-2">
               <i class="fa-solid fa-sun text-amber-400"></i>
-              <p class="text-xs text-gray-700">
+              <p class="text-xs text-gray-700 dark:text-gray-300">
                 {{ formatTimeToAmPm(day.morningStart) }} - {{
                 formatTimeToAmPm(day.morningEnd) }}
               </p>
@@ -86,7 +86,7 @@
             } @if (day.afternoonStart && day.afternoonEnd) {
             <div class="flex gap-1 items-center text-xs mt-1 mb-2">
               <i class="fa-solid fa-moon text-primary w-3"></i>
-              <p class="text-xs text-gray-700">
+              <p class="text-xs text-gray-700 dark:text-gray-300">
                 {{ formatTimeToAmPm(day.afternoonStart) }} - {{
                 formatTimeToAmPm(day.afternoonEnd) }}
               </p>
@@ -105,7 +105,7 @@
       </div>
     </div>
     <div class="grid xl:grid-cols-2 gap-4">
-      <div class="card-static">
+      <div class="card-static dark:bg-gray-700">
         <h1 class="text-lg font-bold mb-3">Fechas especiales</h1>
         <div
           class="w-full text-sm text-left rtl:text-right text-body flex flex-col gap-2"
@@ -119,7 +119,7 @@
                 <div class="flex items-center gap-2">
                   <div
                     class="w-10 h-10 flex items-center justify-center rounded-full"
-                    [ngClass]="dateOverride.isDayOff ? 'bg-red-50 text-red-500':'bg-amber-50 text-amber-500' "
+                    [ngClass]="dateOverride.isDayOff ? 'bg-red-50 dark:bg-gray-700 border border-red-300 text-red-500':'bg-amber-50 text-amber-500' "
                   >
                     <i class="fa-regular fa-calendar"></i>
                   </div>
@@ -151,7 +151,7 @@
           }
         </div>
       </div>
-      <div class="card-static">
+      <div class="card-static dark:bg-gray-700">
         <h1 class="text-lg font-bold mb-3">Citas</h1>
         @if (appointments().length > 0) {
           <div class="flex flex-col gap-3">

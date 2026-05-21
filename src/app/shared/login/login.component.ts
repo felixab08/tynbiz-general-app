@@ -74,7 +74,6 @@ export class LoginComponent implements OnInit {
             error.error.detail || 'Error al iniciar sesión',
             'error',
           );
-          console.error('Login failed', error);
           this.myForm.setErrors({ loginFailed: true });
           this.hasError.set(true);
           setTimeout(() => {

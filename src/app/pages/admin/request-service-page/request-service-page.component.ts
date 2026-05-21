@@ -101,7 +101,6 @@ export default class RequestServicePageComponent {
       .postSuscriptionIncoporateById(this.selectedSolicDemo.id)
       .subscribe({
         next: (resp) => {
-          console.log('Incorporation link sent successfully:', resp);
           this.closeModal();
           this.suscriptionResorce.reload();
         },
@@ -111,7 +110,6 @@ export default class RequestServicePageComponent {
             err.error.detail || 'Error al enviar el enlace de incorporación',
             'error',
           );
-          console.error('Error sending incorporation link:', err);
         },
       });
   }

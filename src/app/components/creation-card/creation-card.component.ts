@@ -22,13 +22,9 @@ export class CreationCardComponent {
   isModalOpen = signal(false);
   selectedcreations: ItemCreation | null = null;
   ngAfterViewInit(): void {
-    console.log(this.listCreation());
-
     initCarousels(); // inicializa el carrusel de Flowbite
   }
   openModal(creations: ItemCreation) {
-    console.log(creations);
-
     this.selectedcreations = creations;
     this.isModalOpen.set(true);
   }

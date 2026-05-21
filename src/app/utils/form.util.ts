@@ -360,8 +360,6 @@ export class FormUtils {
       if (!control.value.toString()) {
         return null;
       }
-      console.log(control);
-
       const isValid = FormUtils.validateDNI(control.value.toString());
       return isValid ? null : { dniPeruano: true };
     };

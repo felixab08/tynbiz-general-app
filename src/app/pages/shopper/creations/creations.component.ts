@@ -29,7 +29,6 @@ export default class CreationsComponent {
   }
 
   valueGeographic(event: string) {
-    console.log(event);
     this.ubigeoId = event;
     this.listCreation();
   }

@@ -19,7 +19,6 @@ import {
 } from '@app/interfaces';
 import { User } from '@app/auth/interfaces/user.interface';
 import { PaymentsMapper } from './payments.mapper';
-import { environment } from '@environments/environment';
 
 @Component({
   selector: 'tyn-suscription-store-page',
@@ -66,11 +65,9 @@ export default class SuscriptionStorePageComponent {
         this.infoStoreIntifraud()!,
         this.invoicePayMethod()!,
       );
-      console.log(paymentData);
       if (paymentData && this.invoicePayMethod() === 'Niubiz') {
         this._invoicesService.postInvoicePayment(paymentData).subscribe({
           next: (response) => {
-            console.log('Pago exitoso:', response);
             this.invoicesPayResp.set(response);
           },
           error: (error: IErrorGeneralResp) => {
@@ -85,7 +82,6 @@ export default class SuscriptionStorePageComponent {
       if (paymentData && this.invoicePayMethod() === 'MercadoPago') {
         this._mercadoPagoService.postMercadoPagoPayment(paymentData).subscribe({
           next: (response) => {
-            console.log('Pago MercadoPago exitoso:', response);
             sessionStorage.setItem(
               'pendingPaymentId',
               String(response.paymentId),
@@ -146,21 +142,18 @@ export default class SuscriptionStorePageComponent {
   private getInvoicesStore() {
     this._storesService.getStore(this.user?.storeId || 0).subscribe({
       next: (store) => {
-        console.log(store);
         this.infoStoreIntifraud.set(store);
       },
     });
   }
 
   changeSuscription(planSelected: AllowedPlan) {
-    console.log(planSelected);
     this.selectSusctiptionChange.set(planSelected);
   }
 
   putChangePlanStore(planId: number) {
     this._suscriptionSrv.putChangePlanStore(planId).subscribe({
       next: () => {
-        console.log('Plan cambiado exitosamente');
         this.closeConfirModal();
       },
       error: (error: IErrorGeneralResp) => {
