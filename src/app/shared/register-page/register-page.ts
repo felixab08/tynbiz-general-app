@@ -70,7 +70,6 @@ export default class RegisterPage {
       this.myForm.markAllAsTouched();
       return;
     }
-    console.log('Form submitted', this.myForm.value);
     this._authService.postRegisterBuyerUser(this.myForm.value).subscribe({
       next: (data: any) => {
         this._authService.handleAuthSuccess(data.user, data.accessToken);

@@ -8,7 +8,6 @@ import { storePlan } from '@app/mock/plan.mock';
   templateUrl: './billingHistory-page.component.html',
 })
 export default class BillingHistoryPageComponent {
-
   router = inject(Router);
   billingHistoryStore = [...storePlan];
   billingHistoryInfo: any;
@@ -16,12 +15,11 @@ export default class BillingHistoryPageComponent {
   queryParam = inject(ActivatedRoute).snapshot.params['id'];
 
   constructor() {
-    console.log('query:::::>', this.queryParam);
     this.searchUser();
   }
   searchUser(): void {
     this.billingHistoryInfo = this.billingHistoryStore.find(
-      (user) => user.id === Number(this.queryParam)
+      (user) => user.id === Number(this.queryParam),
     );
   }
   goBack() {
@@ -30,7 +28,7 @@ export default class BillingHistoryPageComponent {
   openDropdownIndex: number | null = null;
 
   toggleDropdown(plan: any) {
-
-    this.openDropdownIndex = this.openDropdownIndex === plan.id ? null : plan.id;
+    this.openDropdownIndex =
+      this.openDropdownIndex === plan.id ? null : plan.id;
   }
 }

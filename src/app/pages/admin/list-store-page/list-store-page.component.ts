@@ -102,7 +102,6 @@ export default class ListStorePageComponent {
       this.openDropdownIndex === plan.id ? null : plan.id;
   }
   currentStateOption(id: number, type: storeStatus): void {
-    console.log(id, type);
     if (type !== 'view') {
       this._storeManagementSrv.putStoreState(id, type).subscribe((response) => {
         console.log('Store state updated:', response);

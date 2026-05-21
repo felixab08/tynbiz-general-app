@@ -149,8 +149,6 @@ export class CreateCalendarModal {
       dateOverrides,
     };
 
-    console.log('Payload enviado a CalendarService:', payload);
-
     this.calendarService.putCalendarConfig(payload as ICalendar).subscribe({
       next: () => {
         localStorage.setItem(

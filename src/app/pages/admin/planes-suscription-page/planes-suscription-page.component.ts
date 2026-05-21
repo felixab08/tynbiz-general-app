@@ -150,10 +150,8 @@ export default class PlanesSuscriptionPageComponent {
 
   onSavePlan(planData: any) {
     if (this.modalMode === 'crear') {
-      console.log(planData);
       this._planesService.postPlanes(planData).subscribe({
         next: (resp: any) => {
-          console.log(resp);
           this.planesResorce.reload();
         },
         error: (error: IErrorGeneralResp) => {

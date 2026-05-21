@@ -34,7 +34,6 @@ export default class UserDetailPageComponent {
   queryParam = inject(ActivatedRoute).snapshot.params['id'];
 
   constructor() {
-    console.log('query:::::>', this.queryParam);
     this.searchUser();
   }
 
@@ -47,7 +46,7 @@ export default class UserDetailPageComponent {
 
   searchUser(): void {
     this.userInfo = this.userActions.find(
-      (user) => user.id === Number(this.queryParam)
+      (user) => user.id === Number(this.queryParam),
     );
   }
   goBack() {
