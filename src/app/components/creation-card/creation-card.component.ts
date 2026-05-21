@@ -7,6 +7,7 @@ import { CarouselProductsCreation } from '../carousel-products-creation/carousel
 import { ICreationContent, ItemCreation } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 import { environment } from '@environments/environment';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'tyn-creation-card',
   imports: [
@@ -14,6 +15,7 @@ import { environment } from '@environments/environment';
     ProductDetailCardComponent,
     CarouselProductsCreation,
     NotImagePipe,
+    RouterLink,
   ],
   templateUrl: './creation-card.component.html',
 })

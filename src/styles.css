@@ -130,7 +130,7 @@
   }
 
   .tab-inactive {
-    @apply inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300;
+    @apply inline-block p-2 border-b-2 border-primary rounded-t-lg dark:text-gray-400 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-100 ;
   }
 
   .tabla {

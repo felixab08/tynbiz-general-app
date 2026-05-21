@@ -8,11 +8,15 @@
     >
       <div class="flex items-center justify-between mb-4">
         <div>
-          <h5 class="text-m font-semibold text-gray-700 dark:text-gray-200 truncate">
+          <h5
+            class="text-m font-semibold text-gray-700 dark:text-gray-200 truncate"
+          >
             {{ listCreation.title }}
           </h5>
           <div class="flex items-center space-x-3 rtl:space-x-reverse">
-            <p class="text-sm font-semibold text-gray-600 dark:text-gray-300 truncate">
+            <p
+              class="text-sm font-semibold text-gray-600 dark:text-gray-300 truncate"
+            >
               <span
                 [ngClass]="{
                   'font-bold  text-red-500': listCreation.status == 'LIVE',
@@ -27,7 +31,9 @@
               listCreation.status == "SOLO_PUBLICACION"
             ) {
               <!-- TODO: Implement countdown timer -->
-              <p class="text-sm text-gray-600 dark:text-gray-300 truncate">0 dias</p>
+              <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+                0 dias
+              </p>
               <p class="text-sm text-gray-600 dark:text-gray-300 truncate">0</p>
             }
           </div>
@@ -54,7 +60,9 @@
             <!-- <img class="w-8 h-8 rounded-sm" [src]="listCreation?.store?.logoStore" alt="Default avatar" /> -->
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 truncate">
+            <p
+              class="text-sm font-semibold text-gray-700 dark:text-gray-200 truncate"
+            >
               {{ listCreation?.store?.name }}
               @if (listCreation?.contentType == "OFERTAS") {
                 <span
@@ -98,7 +106,9 @@
 >
   <div class="relative w-full max-w-lg max-h-full my-4">
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 dark:text-white">
+    <div
+      class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700 dark:text-white"
+    >
       <!-- Modal header -->
       <div class="flex items-center justify-between p-4 md:p-5 rounded-t">
         <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
@@ -130,7 +140,9 @@
       </div>
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
-        <p class="text-base leading-relaxed text-gray-600 dark:text-gray-300">Tienda</p>
+        <p class="text-base leading-relaxed text-gray-600 dark:text-gray-300">
+          Tienda
+        </p>
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3 rtl:space-x-reverse">
             <div class="shrink-0">
@@ -141,7 +153,9 @@
               />
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 truncate">
+              <p
+                class="text-sm font-semibold text-gray-700 dark:text-gray-200 truncate"
+              >
                 {{ selectedcreations?.store?.name }}
                 @if (selectedcreations?.contentType == "OFERTAS") {
                   <span
@@ -177,13 +191,15 @@
               type="button"
               class="button-primary"
               (click)="createJitsi()"
-              >
+            >
               Unirse a sala
             </button>
           </a>
         </div>
 
-        <p class="text-base leading-relaxed text-gray-600 dark:text-gray-300">Usuarios</p>
+        <p class="text-base leading-relaxed text-gray-600 dark:text-gray-300">
+          Usuarios
+        </p>
         <div class="flex -space-x-4 rtl:space-x-reverse">
           <img
             class="w-10 h-10 border-2 border-white rounded-full"
@@ -206,7 +222,9 @@
             >+5</a
           >
         </div>
-        <p class="text-base leading-relaxed text-gray-600 dark:text-gray-300">Productos</p>
+        <p class="text-base leading-relaxed text-gray-600 dark:text-gray-300">
+          Productos
+        </p>
         @if (selectedcreations && selectedcreations.products) {
           <!--  -->
           @for (
@@ -221,6 +239,8 @@
                 <div class="ms-3 text-sm font-normal">
                   <a
                     class="inline-flex text-sm items-center text-primary font-bold hover:underline hover:cursor-pointer"
+                    [href]="listProduct.productUrl"
+                    target="_blank"
                   >
                     Ver detalle
                   </a>
@@ -229,20 +249,23 @@
               <div
                 class="items-center rtl:space-x-reverse justify-center grid grid-cols-2 gap-2"
               >
-                <button
-                  data-modal-hide="top-right-modal"
-                  type="button w-full"
-                  class="button-primary"
+                <a
+                  type="button"
+                  rel="noopener noreferrer"
+                  class="button-primary text-center"
+                  [href]="listProduct.productUrl"
+                  target="_blank"
                 >
                   Comprar
-                </button>
-                <button
+                </a>
+                <!-- !TODO: Implementar agregar al carrito -->
+                <!-- <button
                   data-modal-hide="top-right-modal"
                   type="button w-full"
                   class="button-secondary"
                 >
                   Agregar al carrito
-                </button>
+                </button> -->
               </div>
             </div>
           }

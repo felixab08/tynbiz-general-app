@@ -1,234 +1,234 @@
-<div class="dark:bg-gray-700 dark:text-white"><div class="card-static">
-  <div class="mb-6">
-    <h1 class="text-lg font-bold">Fechas especiales</h1>
-    <p>
-      Defina las fechas especiales para las que desea establecer un horario
-      diferente
-    </p>
-    <div [formGroup]="form">
-      <div formArrayName="fechasEspeciales">
-        @if (fechasEspeciales.length === 0) {
-        <div class="mt-4">
-          <button
-            type="button"
-            class="text-white bg-primary hover:bg-primary-dark focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            (click)="agregarFechaEspecial()"
+<div class="dark:bg-gray-700 dark:text-white">
+  <div class="card-static dark:bg-gray-700 dark:text-white">
+    <div class="mb-6">
+      <h1 class="text-lg font-bold">Fechas especiales</h1>
+      <p>
+        Defina las fechas especiales para las que desea establecer un horario
+        diferente
+      </p>
+      <div [formGroup]="form">
+        <div formArrayName="fechasEspeciales">
+          @if (fechasEspeciales.length === 0) {
+          <div class="mt-4">
+            <button
+              type="button"
+              class="text-white bg-primary hover:bg-primary-dark focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              (click)="agregarFechaEspecial()"
+            >
+              + Agregar fecha especial
+            </button>
+          </div>
+          } @else { @for (fecha of fechasEspeciales.controls; track fecha; let i
+          = $index) {
+          <div
+            class="md:flex gap-4 mt-4 items-center border-t border-gray-300 pt-4"
+            [formGroupName]="i"
           >
-            + Agregar fecha especial
-          </button>
-        </div>
-        } @else {
-        @for (fecha of fechasEspeciales.controls; track fecha; let i = $index) {
-        <div
-          class="md:flex gap-4 mt-4 items-center border-t border-gray-300 pt-4"
-          [formGroupName]="i"
-        >
-          <div class="w-full">
-            <div class="md:flex gap-4 mb-4 items-center">
-              <input
-                type="date"
-                placeholder="fecha especial"
-                class="bg-gray-50 mb-2 md:mb-0 input-base border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2"
-                formControlName="overrideDate"
-              />
-              <input
-                type="text"
-                class="input-base mb-2 md:mb-0"
-                placeholder="Ej: Navidad"
-                formControlName="nombre"
-              />
-              <div class="max-w-sm">
-                <select
-                  class="rounded-lg border p-2.5 pr-12 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                  formControlName="ifDayOff"
-                >
-                  <option [ngValue]="true">Cerrado</option>
-                  <option [ngValue]="false">Horario extendido</option>
-                </select>
+            <div class="w-full">
+              <div class="md:flex gap-4 mb-4 items-center">
+                <input
+                  type="date"
+                  placeholder="fecha especial"
+                  class="bg-gray-50 mb-2 md:mb-0 input-base border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2"
+                  formControlName="overrideDate"
+                />
+                <input
+                  type="text"
+                  class="input-base mb-2 md:mb-0"
+                  placeholder="Ej: Navidad"
+                  formControlName="nombre"
+                />
+                <div class="max-w-sm">
+                  <select
+                    class="rounded-lg border p-2.5 pr-12 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary"
+                    formControlName="ifDayOff"
+                  >
+                    <option [ngValue]="true">Cerrado</option>
+                    <option [ngValue]="false">Horario extendido</option>
+                  </select>
+                </div>
               </div>
+
+              @if (fecha.get('ifDayOff')?.value === false) {
+              <div class="md:flex md:gap-8">
+                <!-- en mañana -->
+                <div class="mb-4 md:mb-0">
+                  <div class="flex gap-2 items-center">
+                    <i class="fa-solid fa-sun text-amber-500"></i>
+                    <p>mañana</p>
+                  </div>
+                  <div class="flex col-span-2 gap-2 items-center">
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+                      >
+                        <svg
+                          class="w-4 h-4 text-body"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="time"
+                        id="from-horario-manana"
+                        class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+                        min="08:00"
+                        max="12:00"
+                        value="08:00"
+                        required
+                        formControlName="mornDesde"
+                      />
+                    </div>
+                    <p>a</p>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+                      >
+                        <svg
+                          class="w-4 h-4 text-body"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="time"
+                        id="to-horario-manana"
+                        class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+                        min="08:00"
+                        max="12:00"
+                        value="12:00"
+                        required
+                        formControlName="mornHasta"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- en la tarde -->
+                <div class="mb-4 md:mb-0">
+                  <div class="flex gap-2 items-center">
+                    <i class="fa-solid fa-moon text-primary"></i>
+                    <p>tarde</p>
+                  </div>
+                  <div class="flex col-span-2 gap-2 items-center">
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+                      >
+                        <svg
+                          class="w-4 h-4 text-body"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="time"
+                        id="from-horario-tarde"
+                        class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+                        min="12:00"
+                        max="24:00"
+                        value="12:00"
+                        required
+                        formControlName="aftDesde"
+                      />
+                    </div>
+                    <p>a</p>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+                      >
+                        <svg
+                          class="w-4 h-4 text-body"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="time"
+                        id="to-horario-tarde"
+                        class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+                        min="12:00"
+                        max="24:00"
+                        value="12:00"
+                        required
+                        formControlName="aftHasta"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
             </div>
 
-            @if (fecha.get('ifDayOff')?.value === false) {
-            <div class="md:flex md:gap-8">
-              <!-- en mañana -->
-              <div class="mb-4 md:mb-0">
-                <div class="flex gap-2 items-center">
-                  <i class="fa-solid fa-sun text-amber-500"></i>
-                  <p>mañana</p>
-                </div>
-                <div class="flex col-span-2 gap-2 items-center">
-                  <div class="relative">
-                    <div
-                      class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-                    >
-                      <svg
-                        class="w-4 h-4 text-body"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="time"
-                      id="from-horario-manana"
-                      class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-                      min="08:00"
-                      max="12:00"
-                      value="08:00"
-                      required
-                      formControlName="mornDesde"
-                    />
-                  </div>
-                  <p>a</p>
-                  <div class="relative">
-                    <div
-                      class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-                    >
-                      <svg
-                        class="w-4 h-4 text-body"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="time"
-                      id="to-horario-manana"
-                      class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-                      min="08:00"
-                      max="12:00"
-                      value="12:00"
-                      required
-                      formControlName="mornHasta"
-                    />
-                  </div>
-                </div>
-              </div>
-              <!-- en la tarde -->
-              <div class="mb-4 md:mb-0">
-                <div class="flex gap-2 items-center">
-                  <i class="fa-solid fa-moon text-primary"></i>
-                  <p>tarde</p>
-                </div>
-                <div class="flex col-span-2 gap-2 items-center">
-                  <div class="relative">
-                    <div
-                      class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-                    >
-                      <svg
-                        class="w-4 h-4 text-body"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="time"
-                      id="from-horario-tarde"
-                      class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-                      min="12:00"
-                      max="24:00"
-                      value="12:00"
-                      required
-                      formControlName="aftDesde"
-                    />
-                  </div>
-                  <p>a</p>
-                  <div class="relative">
-                    <div
-                      class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
-                    >
-                      <svg
-                        class="w-4 h-4 text-body"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="time"
-                      id="to-horario-tarde"
-                      class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
-                      min="12:00"
-                      max="24:00"
-                      value="12:00"
-                      required
-                      formControlName="aftHasta"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            @if (fechasEspeciales.length > 1) {
+
+            <button
+              type="button"
+              class="text-white bg-gray-700 hover:bg-gray-900 focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              (click)="eliminarFechaEspecial(i)"
+            >
+              -
+            </button>
+            } @if (i === fechasEspeciales.length - 1) {
+            <button
+              type="button"
+              class="text-white bg-primary hover:bg-primary-dark ml-4 md:ml-0 focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              (click)="agregarFechaEspecial()"
+            >
+              +
+            </button>
             }
           </div>
-
-          @if (fechasEspeciales.length > 1) {
-
-          <button
-            type="button"
-            class="text-white bg-gray-700 hover:bg-gray-900 focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            (click)="eliminarFechaEspecial(i)"
-          >
-            -
-          </button>
-          }
-          @if (i === fechasEspeciales.length - 1) {
-          <button
-            type="button"
-            class="text-white bg-primary hover:bg-primary-dark ml-4 md:ml-0 focus:ring-4 cursor-pointer focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            (click)="agregarFechaEspecial()"
-          >
-            +
-          </button>
-          }
+          } }
         </div>
-        }
-        }
       </div>
     </div>
   </div>
-</div></div>
+</div>

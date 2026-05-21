@@ -19,7 +19,6 @@ import {
 } from '@app/interfaces';
 import { User } from '@app/auth/interfaces/user.interface';
 import { PaymentsMapper } from './payments.mapper';
-import { environment } from '@environments/environment';
 
 @Component({
   selector: 'tyn-suscription-store-page',
