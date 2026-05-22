@@ -9,7 +9,7 @@ import {
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
-type storeStatus = 'suspend' | 'activate' | 'cancel' | 'complete-onboarding';
+type storeStatus = 'SUSPENDED' | 'ACTIVE' | 'CANCELLED' | 'PENDING';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +23,7 @@ export class StoreManagementService {
    * @returns Observable con la respuesta de la lista de tiendas
    */
   getAllStoresSeach(
-    options: OptionsRequest
+    options: OptionsRequest,
   ): Observable<IStoreManagementSearch> {
     const {
       page = 0,
@@ -63,14 +63,14 @@ export class StoreManagementService {
    */
   putStoreState(
     id: number,
-    status: storeStatus
+    status: storeStatus,
   ): Observable<StoreSeachContent> {
     return this._http
-      .put<StoreSeachContent>(`${baseUrl}/stores/${id}/${status}`, { id })
+      .patch<StoreSeachContent>(`${baseUrl}/stores/${id}/status`, { status })
       .pipe(
         tap((resp: any) => {
           this.updateStoreListCache(resp);
-        })
+        }),
       );
   }
 
@@ -83,7 +83,7 @@ export class StoreManagementService {
     this._userListCache.forEach((userResponse) => {
       userResponse.content = userResponse.content.some((u) => u.id === storeId)
         ? (userResponse.content = userResponse.content.map((currentUser) =>
-            currentUser.id === storeId ? store : currentUser
+            currentUser.id === storeId ? store : currentUser,
           ))
         : [store, ...userResponse.content];
     });

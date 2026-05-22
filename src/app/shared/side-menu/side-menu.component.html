@@ -78,7 +78,7 @@
           <li>
             <button
               type="button"
-              class="flex items-center w-full p-2 text-base text-black transition duration-75 rounded-lg group hover:bg-secondary hover:text-primary-dark"
+              class="flex items-center w-full p-2 text-base text-black dark:text-gray-300 transition duration-75 rounded-lg group hover:bg-secondary hover:text-primary-dark"
               [attr.aria-controls]="menu.id"
               [attr.data-collapse-toggle]="menu.id"
             >
@@ -110,6 +110,7 @@
                       [routerLink]="item.route"
                       routerLinkActive
                       #rlaChild="routerLinkActive"
+                      [routerLinkActiveOptions]="{ exact: true }"
                       class="flex items-center p-2 rounded-lg transition-colors"
                       [ngClass]="{
                         'bg-primary text-white font-bold': rlaChild.isActive,
@@ -125,9 +126,6 @@
         }
       }
     </ul>
-
-
-
     @if (this.user?.role?.includes("STORE_OWNER")) {
       <div
         id="dropdown-cta"
@@ -163,89 +161,6 @@
     }
   </div>
 </aside>
-
-@if (
-  this.user?.role !== "STORE_OWNER" &&
-  this.user?.role !== "ADMIN" &&
-  this.user?.role !== "SUPER-ADMIN"
-) {
-  <nav
-    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600 sm:hidden transition-colors"
-  >
-    <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
-      <a
-        routerLink="/shop/home"
-        type="button"
-        routerLinkActive
-        #rla2="routerLinkActive"
-        class="inline-flex flex-col items-center justify-center px-3 group"
-        [ngClass]="{
-          'text-primary font-bold': rla2.isActive,
-          'text-gray-800 dark:text-gray-200': !rla2.isActive
-        }"
-      >
-        <i class="fa-solid fa-house mb-2"></i>
-        <span class="text-sm text-body group-hover:text-fg-brand">Inicio</span>
-      </a>
-      <a
-        routerLink="/shop/creations"
-        type="button"
-        routerLinkActive
-        #rla3="routerLinkActive"
-        class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
-        [ngClass]="{
-          'text-primary font-bold': rla3.isActive,
-          'text-gray-800 dark:text-gray-200': !rla3.isActive
-        }"
-      >
-        <i class="fa-solid fa-user-group mb-2"></i>
-        <span class="text-sm text-body group-hover:text-fg-brand">Para ti</span>
-      </a>
-      <a
-        routerLink="/shop/offer"
-        type="button"
-        routerLinkActive
-        #rla4="routerLinkActive"
-        class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
-        [ngClass]="{
-          'text-primary font-bold': rla4.isActive,
-          'text-gray-800 dark:text-gray-200': !rla4.isActive
-        }"
-      >
-        <i class="fa-solid fa-bag-shopping mb-2"></i>
-        <span class="text-sm text-body group-hover:text-fg-brand">Ofertas</span>
-      </a>
-      <a
-        routerLink="/shop/stores"
-        type="button"
-        routerLinkActive
-        #rla5="routerLinkActive"
-        class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
-        [ngClass]="{
-          'text-primary font-bold': rla5.isActive,
-          'text-gray-800 dark:text-gray-200': !rla5.isActive
-        }"
-      >
-        <i class="fa-solid fa-store mb-2"></i>
-        <span class="text-sm text-body group-hover:text-fg-brand">Tiendas</span>
-      </a>
-      <a
-        routerLink="/shop/profile"
-        type="button"
-        routerLinkActive
-        #rla6="routerLinkActive"
-        class="inline-flex flex-col items-center justify-center px-3 hover:bg-neutral-secondary-medium group"
-        [ngClass]="{
-          'text-primary font-bold': rla6.isActive,
-          'text-gray-800 dark:text-gray-200': !rla6.isActive
-        }"
-      >
-        <i class="fa-solid fa-user mb-2"></i>
-        <span class="text-sm text-body group-hover:text-fg-brand">Perfil</span>
-      </a>
-    </div>
-  </nav>
-}
 
 <div class="p-0 sm:ml-64 pb-16 sm:pb-0 dark:bg-gray-700 dark:text-white">
   <router-outlet />
