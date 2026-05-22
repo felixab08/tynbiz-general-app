@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { resquestDemoListMock } from '@app/mock/resquet-demo-list.mock';
 import { SimpleCardComponent } from '../../../components/simple-card/simple-card.component';
-import { LinkParamService, StoreManagementService } from '@app/services';
+import {
+  AlertService,
+  LinkParamService,
+  StoreManagementService,
+} from '@app/services';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { PaginationComponent } from '@app/components/pagination/pagination.component';
 import { FilterComponent } from '@app/components/filter/filter.component';
 import { FILTERSELECTLIST, ISREPORTSTORE } from '@app/constant';
-type storeStatus =
-  | 'suspend'
-  | 'activate'
-  | 'cancel'
-  | 'complete-onboarding'
-  | 'view';
+import { IErrorGeneralResp } from '@app/interfaces';
+type storeStatus = 'SUSPENDED' | 'ACTIVE' | 'CANCELLED' | 'PENDING' | 'view';
 
 @Component({
   selector: 'tyn-list-store-page',
@@ -30,6 +29,8 @@ type storeStatus =
 export default class ListStorePageComponent {
   private _storeManagementSrv = inject(StoreManagementService);
   _linkService = inject(LinkParamService);
+  private _alertService = inject(AlertService);
+
   _router = inject(Router);
   selectedPlanList: any = true;
   openDropdownIndex: number | null = null;
@@ -46,24 +47,19 @@ export default class ListStorePageComponent {
 
   listStatus = [
     {
-      id: 'Ver tienda',
-      value: 'view',
-      status: 'All',
-    },
-    {
       id: 'Suspender',
-      value: 'suspend',
-      status: 'Suspendido',
+      value: 'SUSPENDED',
+      status: 'SUSPENDED',
     },
     {
       id: 'Cancelar',
-      value: 'cancel',
-      status: 'Cancelado',
+      value: 'CANCELLED',
+      status: 'CANCELLED',
     },
     {
       id: 'Activar',
-      value: 'activate',
-      status: 'Activo',
+      value: 'ACTIVE',
+      status: 'ACTIVE',
     },
   ] as any;
 
@@ -103,8 +99,21 @@ export default class ListStorePageComponent {
   }
   currentStateOption(id: number, type: storeStatus): void {
     if (type !== 'view') {
-      this._storeManagementSrv.putStoreState(id, type).subscribe((response) => {
-        console.log('Store state updated:', response);
+      this._storeManagementSrv.putStoreState(id, type).subscribe({
+        next: (resp) => {
+          this._alertService.getAlert(
+            'Bien!!!',
+            'Estado de la tienda actualizado correctamente.',
+            'success',
+          );
+        },
+        error: (err: IErrorGeneralResp) => {
+          this._alertService.getAlert(
+            'Error!!!',
+            err.error.detail || 'Error al actualizar el estado de la tienda',
+            'error',
+          );
+        },
       });
       this.openDropdownIndex = null;
     }

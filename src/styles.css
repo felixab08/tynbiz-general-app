@@ -126,11 +126,11 @@
   }
 
   .tab-active {
-    @apply inline-block p-2 text-primary font-semibold border-b-2 border-primary rounded-t-lg;
+    @apply inline-block p-2 text-primary font-semibold border-b border-primary rounded-lg;
   }
 
   .tab-inactive {
-    @apply inline-block p-2 border-b-2 border-primary rounded-t-lg dark:text-gray-400 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-100 ;
+    @apply inline-block p-2 border-b border-transparent rounded-lg dark:text-gray-400 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-100 ;
   }
 
   .tabla {
