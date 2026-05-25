@@ -1,17 +1,19 @@
 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 z-40">
-  @for (listCreation of listCreation().items; track listCreation.id) {
+  @for (creation of listCreation().items; track creation.id) {
     <a
-      class="block card"
+      class="block card dark:bg-gray-700 dark:text-gray-200"
       data-modal-target="top-right-modal"
       data-modal-toggle="top-right-modal"
-      (click)="openModal(listCreation)"
     >
-      <div class="flex items-center justify-between mb-4">
+      <div
+        class="flex items-center justify-between mb-4 cursor-pointer"
+        (click)="openModal(creation)"
+      >
         <div>
           <h5
             class="text-m font-semibold text-gray-700 dark:text-gray-200 truncate"
           >
-            {{ listCreation.title }}
+            {{ creation.title }}
           </h5>
           <div class="flex items-center space-x-3 rtl:space-x-reverse">
             <p
@@ -19,16 +21,15 @@
             >
               <span
                 [ngClass]="{
-                  'font-bold  text-red-500': listCreation.status == 'LIVE',
-                  'font-bold': listCreation.status === 'SOLO_PUBLICACION',
+                  'font-bold  text-red-500': creation.status == 'LIVE',
+                  'font-bold': creation.status === 'SOLO_PUBLICACION',
                 }"
               >
-                {{ listCreation.status }}
+                {{ creation.status }}
               </span>
             </p>
             @if (
-              listCreation.status == "LIVE" ||
-              listCreation.status == "SOLO_PUBLICACION"
+              creation.status == "LIVE" || creation.status == "SOLO_PUBLICACION"
             ) {
               <!-- TODO: Implement countdown timer -->
               <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
@@ -47,24 +48,29 @@
           <a
             class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-primary border-2 border-white rounded-full hover:bg-gray-600"
             href="#"
-            >+{{ listCreation.metrics.viewerCount }}</a
+            >+{{ creation.metrics.viewerCount }}</a
           >
         </div>
       </div>
       <tyn-carousel-products-creation
-        [listProduct]="listCreation.products"
+        (click)="openModal(creation)"
+        [listProduct]="creation.products"
       ></tyn-carousel-products-creation>
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3 rtl:space-x-reverse">
           <div class="shrink-0">
-            <!-- <img class="w-8 h-8 rounded-sm" [src]="listCreation?.store?.logoStore" alt="Default avatar" /> -->
+            <img
+              class="w-8 h-8 rounded-sm"
+              [src]="creation?.store?.logoUrl | notImage"
+              alt="Default avatar"
+            />
           </div>
           <div class="flex-1 min-w-0">
             <p
               class="text-sm font-semibold text-gray-700 dark:text-gray-200 truncate"
             >
-              {{ listCreation?.store?.name }}
-              @if (listCreation?.contentType == "OFERTAS") {
+              {{ creation?.store?.name }}
+              @if (creation?.contentType == "OFERTAS") {
                 <span
                   class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
                 >
@@ -74,15 +80,17 @@
             </p>
             <!-- [TODO] : link de la tienda -->
             <a
-              class="inline-flex text-sm items-center text-primary hover:underline"
+              class="inline-flex text-sm items-center text-primary hover:underline hover:cursor-pointer"
+              [href]="creation?.store?.url"
+              target="_blank"
             >
-              <!-- {{ listCreation?.store?.sitioStore }} -->
+              {{ creation?.store?.url }}
             </a>
           </div>
         </div>
         <div>
           <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
-            <!-- {{ listCreation.numVistas }} vistas -->
+            <!-- {{ creation.numVistas }} vistas -->
           </p>
         </div>
       </div>
@@ -258,7 +266,7 @@
                 >
                   Comprar
                 </a>
-                <!-- !TODO: Implementar agregar al carrito -->
+                <!-- ? Implementar agregar al carrito -->
                 <!-- <button
                   data-modal-hide="top-right-modal"
                   type="button w-full"
