@@ -10,6 +10,7 @@ export * from './admin/store-management.interface';
 export * from './admin/suscription.interface';
 export * from './admin/users.interface';
 export * from './general/error.interface';
+export * from './general/pdf.interface';
 export * from './general/register.interface';
 export * from './general/services.interface';
 export * from './shopper/catalog.interface';

@@ -1,49 +1,44 @@
-import { Component, inject } from '@angular/core';
-import { FileDocumentsService } from '@app/services';
+import { Component, inject, input, signal } from '@angular/core';
+import { AlertService, FileDocumentsService } from '@app/services';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { Pdfupload } from '@app/components';
+import { NgClass } from '@angular/common';
+import { IFilesResp } from '@app/interfaces';
 
 @Component({
   selector: 'tyn-politic-page',
-  imports: [PdfViewerModule],
+  imports: [PdfViewerModule, Pdfupload, NgClass],
   templateUrl: './politic-page.component.html',
 })
 export default class PoliticPageComponent {
   private _fileDocSrv = inject(FileDocumentsService);
+  private _alert = inject(AlertService);
+  filesResp = signal<IFilesResp[]>([]);
   pdfSrc = './assets/pdf/documento.pdf'; // Ruta local o URL
   pdfSrcView = true; // Ruta local o URL
-
+  selectedTab: 'Términos de servicio' | 'Políticas de privacidad' =
+    'Políticas de privacidad';
   constructor() {
     this.getFileDocuments();
   }
 
-  handleFileSelect = async (
-    event: Event,
-    type: 'PRIVACY_POLICY' | 'TERMS_OF_SERVICE',
-  ) => {
-    const target = event.target as HTMLInputElement;
-    const file = target.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      this._fileDocSrv.postFileDocuments(file, type).subscribe({
-        next: (data) => {
-          console.log('data', data);
-        },
-        error: (error) => {
-          console.log('error', error);
-        },
-      });
-    } else {
-      alert('Por favor selecciona un archivo PDF.');
-      target.value = '';
-    }
-  };
-
   getFileDocuments() {
     this._fileDocSrv.getFileDocuments().subscribe({
       next: (data) => {
-        console.log('data', data);
+        this.filesResp.set(data);
+        console.log(this.filesResp());
+        this._alert.getAlert(
+          'Success',
+          'Políticas obtenidas correctamente',
+          'success',
+        );
       },
       error: (error) => {
-        console.log('error', error);
+        this._alert.getAlert(
+          'Error!!!',
+          error.error.detail || 'Error al obtener las políticas',
+          'error',
+        );
       },
     });
   }

@@ -1,4 +1,4 @@
-<h3 class="font-bold py-3">Términos de servicio</h3>
+<h3 class="font-bold py-3">{{titlePolitic()}}</h3>
 
 <label class="inline-flex items-center cursor-pointer p-2">
   <svg
@@ -102,7 +102,7 @@
           id="dropzone-file"
           type="file"
           class="hidden"
-          (change)="handleFileSelect($event, 'TERMS_OF_SERVICE')"
+          (change)="handleFileSelect($event)"
         />
       </label>
     </div>

@@ -11,161 +11,57 @@
     tiendas virtuales. Estas políticas respaldarán a los usuarios que usan la
     plataforma tynbiz y a las tiendas
   </p>
-
-  <h3 class="font-bold py-3">Términos de servicio</h3>
-
-  <label class="inline-flex items-center cursor-pointer p-2">
-    <svg
-      class="shrink-0 size-3.5 dark:text-gray-100"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-      <path
-        d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-      ></path>
-      <path
-        d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-      ></path>
-      <line x1="2" x2="22" y1="2" y2="22"></line>
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-      <circle cx="12" cy="12" r="3"></circle>
-    </svg>
-    <input
-      type="checkbox"
-      value=""
-      class="sr-only peer"
-      (change)="pdfSrcView = !pdfSrcView"
-    />
-    <div
-      class="relative mx-3 w-9 h-5 bg-primary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-0.5 after:inset-s-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"
-    ></div>
-    <svg
-      class="shrink-0 size-3.5 dark:text-gray-100"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-      <path
-        d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-      ></path>
-      <path
-        d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-      ></path>
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-      <circle cx="12" cy="12" r="3"></circle>
-    </svg>
-  </label>
-
-  <div>
-    @if (pdfSrcView) {
-      <pdf-viewer
-        [src]="pdfSrc"
-        [render-text]="true"
-        class="h-200 border rounded-lg"
-      >
-      </pdf-viewer>
-    } @else {
-      <div
-        class="flex items-center justify-center bg-neutral-secondary-soft h-100 w-full border rounded-lg text-fg-brand-strong text-xs font-medium rounded-base mx-auto"
-      >
-        <div class="flex items-center justify-center w-full px-10">
-          <label
-            for="dropzone-file"
-            class="flex flex-col items-center justify-center w-full h-64 bg-neutral-secondary-medium border border-dashed rounded-lg-strong rounded-base cursor-pointer hover:bg-neutral-tertiary-medium"
-          >
-            <div
-              class="flex flex-col items-center justify-center text-body pt-5 pb-6"
-            >
-              <svg
-                class="w-8 h-8 mb-4"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"
-                />
-              </svg>
-              <p class="mb-2 text-sm">
-                <span class="font-semibold">Haz clic para subir</span> o
-                arrastra y suelta.
-              </p>
-              <p class="text-xs">PDF</p>
-            </div>
-            <input
-              id="dropzone-file"
-              type="file"
-              class="hidden"
-              (change)="handleFileSelect($event, 'TERMS_OF_SERVICE')"
-            />
-          </label>
-        </div>
-      </div>
-    }
-  </div>
-
-  <h3 class="font-bold py-3">Políticas de privacidad</h3>
-  <div
-    class="flex items-center justify-center bg-neutral-secondary-soft h-100 w-full border rounded-lg text-fg-brand-strong text-xs font-medium rounded-base mx-auto"
-  >
-    <div class="flex items-center justify-center w-full px-10">
-      <label
-        for="dropzone-file"
-        class="flex flex-col items-center justify-center w-full h-64 bg-neutral-secondary-medium border border-dashed rounded-lg-strong rounded-base cursor-pointer hover:bg-neutral-tertiary-medium"
-      >
-        <div
-          class="flex flex-col items-center justify-center text-body pt-5 pb-6"
+  <div class="mb-4">
+    <ul class="tab" role="tablist">
+      <li class="md:me-2" role="documents">
+        <button
+          (click)="selectedTab = 'Políticas de privacidad'"
+          [ngClass]="
+            selectedTab === 'Políticas de privacidad'
+              ? 'tab-active'
+              : 'tab-inactive'
+          "
+          type="button"
+          role="tab"
         >
-          <svg
-            class="w-8 h-8 mb-4"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"
-            />
-          </svg>
-          <p class="mb-2 text-sm">
-            <span class="font-semibold">Haz clic para subir</span> o arrastra y
-            suelta.
-          </p>
-          <p class="text-xs">PDF</p>
-        </div>
-        <input
-          id="dropzone-file"
-          type="file"
-          class="hidden"
-          (change)="handleFileSelect($event, 'PRIVACY_POLICY')"
-        />
-      </label>
-    </div>
+          Políticas de privacidad
+        </button>
+      </li>
+      <li class="md:me-2" role="documents">
+        <button
+          (click)="selectedTab = 'Términos de servicio'"
+          [ngClass]="
+            selectedTab === 'Términos de servicio'
+              ? 'tab-active'
+              : 'tab-inactive'
+          "
+          type="button"
+          role="tab"
+        >
+          Términos de servicio
+        </button>
+      </li>
+    </ul>
   </div>
+
+  @if (
+    selectedTab === "Términos de servicio" &&
+    filesResp()[1].currentVersion.publicUrl
+  ) {
+    <tyn-pdfupload
+      [titlePolitic]="'Términos de servicio'"
+      [pdfSrc]="filesResp()[1].currentVersion.publicUrl"
+      [typeDoc]="'TERMS_OF_SERVICE'"
+    />
+  }
+  @if (
+    selectedTab === "Políticas de privacidad" &&
+    filesResp()[0].currentVersion.publicUrl
+  ) {
+    <tyn-pdfupload
+      [titlePolitic]="'Políticas de privacidad'"
+      [pdfSrc]="filesResp()[0].currentVersion.publicUrl"
+      [typeDoc]="'PRIVACY_POLICY'"
+    />
+  }
 </div>

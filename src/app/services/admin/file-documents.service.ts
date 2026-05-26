@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { IFilesResp } from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -20,7 +21,7 @@ export class FileDocumentsService {
       formData,
     );
   }
-  getFileDocuments() {
-    return this._http.get(`${baseUrl}/admin/legal-documents`);
+  getFileDocuments(): Observable<IFilesResp[]> {
+    return this._http.get<IFilesResp[]>(`${baseUrl}/admin/legal-documents`);
   }
 }
