@@ -28,3 +28,8 @@ export interface DataPaginationResponse {
   numberOfElements: number;
   empty:            boolean;
 }
+
+export interface SelectedOption {
+  value: string;
+  label: string;
+}

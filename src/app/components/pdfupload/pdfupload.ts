@@ -1,20 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FileDocumentsService } from '@app/services';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @Component({
-  selector: 'tyn-politic-page',
+  selector: 'tyn-pdfupload',
   imports: [PdfViewerModule],
-  templateUrl: './politic-page.component.html',
+  templateUrl: './pdfupload.html',
 })
-export default class PoliticPageComponent {
+export class Pdfupload {
   private _fileDocSrv = inject(FileDocumentsService);
-  pdfSrc = './assets/pdf/documento.pdf'; // Ruta local o URL
-  pdfSrcView = true; // Ruta local o URL
 
-  constructor() {
-    this.getFileDocuments();
-  }
+  pdfSrc = input('./assets/pdf/documento.pdf'); // Ruta local o URL
+  typeDoc = input<'PRIVACY_POLICY' | 'TERMS_OF_SERVICE'>('PRIVACY_POLICY');
+  pdfSrcView = true; // Ruta local o URL
 
   handleFileSelect = async (
     event: Event,
@@ -36,15 +34,4 @@ export default class PoliticPageComponent {
       target.value = '';
     }
   };
-
-  getFileDocuments() {
-    this._fileDocSrv.getFileDocuments().subscribe({
-      next: (data) => {
-        console.log('data', data);
-      },
-      error: (error) => {
-        console.log('error', error);
-      },
-    });
-  }
 }

@@ -8,8 +8,14 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IUbigeo, UbigeoService } from '@app/services';
+import { ReactiveFormsModule } from '@angular/forms';
+import { IErrorGeneralResp, SelectedOption } from '@app/interfaces';
+import {
+  AlertService,
+  CategoryService,
+  IUbigeo,
+  UbigeoService,
+} from '@app/services';
 
 @Component({
   selector: 'tyn-search',
@@ -17,6 +23,7 @@ import { IUbigeo, UbigeoService } from '@app/services';
   templateUrl: './search.component.html',
 })
 export class SearchComponent {
+  listCategories = signal<SelectedOption[] | null>(null);
   departamentos = signal<string[]>(['']);
   provincias = signal<string[]>(['']);
   distritos = signal<IUbigeo[]>([]);
@@ -30,16 +37,43 @@ export class SearchComponent {
   initialValue = input<string>('');
   inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
 
-  private _fb = inject(FormBuilder);
+  private _categoryService = inject(CategoryService);
+  private _alertService = inject(AlertService);
   private _geographicSrv = inject(UbigeoService);
 
   constructor() {
+    this.getCategories();
     this.getDepartamento();
   }
+
+  getCategories() {
+    this._categoryService.getCategoryByStore().subscribe({
+      next: (resp) => {
+        console.log(resp);
+
+        this.listCategories.set(resp);
+      },
+      error: (err: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          err.error.detail || 'Error, comuniquese con los respomsables.',
+          'error',
+        );
+      },
+    });
+  }
+
   getDepartamento() {
     this._geographicSrv.getDepartamento().subscribe({
       next: (resp) => {
         this.departamentos.set(resp);
+      },
+      error: (err: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          err.error.detail || 'Error, comuniquese con los respomsables.',
+          'error',
+        );
       },
     });
   }

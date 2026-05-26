@@ -6,7 +6,7 @@
       data-modal-toggle="top-right-modal"
     >
       <div
-        class="flex items-center justify-between mb-4 cursor-pointer"
+        class="flex items-center justify-between mb-4 cursor-pointer group relative"
         (click)="openModal(creation)"
       >
         <div>
@@ -51,6 +51,16 @@
             >+{{ creation.metrics.viewerCount }}</a
           >
         </div>
+                <!-- Tooltip element -->
+        <span
+          class="absolute bottom-full mb-2 hidden group-hover:flex bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap"
+        >
+          Entrar a la creación
+          <!-- Tooltip Arrow -->
+          <span
+            class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800"
+          ></span>
+        </span>
       </div>
       <tyn-carousel-products-creation
         (click)="openModal(creation)"
