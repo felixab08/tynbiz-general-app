@@ -33,7 +33,7 @@ export class CreationCardComponent {
   }
   createJitsi() {
     const roomName = `${this.selectedcreations?.id}`;
-    const url = `${environment.JITSI_URL}/${roomName}`;
+    const url = `${environment.baseUrl}/jitsi/token/${roomName}`;
     window.open(url, '_blank');
   }
 }

@@ -1,30 +1,26 @@
-// Admin Interfaces
+export * from './alert.interface';
+export * from './card.interface';
+export * from './admin/action-audit.interface';
 export * from './admin/actions-user';
-export * from './admin/roles.interface';
-export * from './admin/users.interface';
 export * from './admin/planes.interface';
 export * from './admin/producto.interface';
 export * from './admin/request-demo.interface';
+export * from './admin/roles.interface';
 export * from './admin/store-management.interface';
 export * from './admin/suscription.interface';
-export * from './admin/action-audit.interface';
-
-
-// Shopper Interfaces
+export * from './admin/users.interface';
+export * from './general/error.interface';
+export * from './general/pdf.interface';
+export * from './general/register.interface';
+export * from './general/services.interface';
 export * from './shopper/catalog.interface';
 export * from './shopper/product-store.interface';
-
-//General Interfaces
-export * from './general/services.interface';
-export * from './general/register.interface';
-export * from './general/error.interface';
-
-//Store Interfaces
-export * from './stores/store-products.interface';
-export * from './stores/horary.interface';
-export * from './stores/creations.interface';
-export * from './stores/wordpress.interface';
 export * from './stores/calendar.interface';
+export * from './stores/creations.interface';
+export * from './stores/horary.interface';
 export * from './stores/invoices.interface';
-export * from './stores/stores.interface';
+export * from './stores/jitsi.interface';
 export * from './stores/mercado-pago.interface';
+export * from './stores/store-products.interface';
+export * from './stores/stores.interface';
+export * from './stores/wordpress.interface';

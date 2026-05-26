@@ -3,15 +3,65 @@
 >
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
-      Panel de Control
+      Gestión de políticas
     </h1>
   </div>
-  <label class="block mb-2.5 text-sm font-medium text-heading" for="file_input"
-    >Upload file</label
-  >
-  <input
-    class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body"
-    id="file_input"
-    type="file"
-  />
+  <p>
+    Las políticas se crearán para la plataforma principal y para todas las
+    tiendas virtuales. Estas políticas respaldarán a los usuarios que usan la
+    plataforma tynbiz y a las tiendas
+  </p>
+  <div class="mb-4">
+    <ul class="tab" role="tablist">
+      <li class="md:me-2" role="documents">
+        <button
+          (click)="selectedTab = 'Políticas de privacidad'"
+          [ngClass]="
+            selectedTab === 'Políticas de privacidad'
+              ? 'tab-active'
+              : 'tab-inactive'
+          "
+          type="button"
+          role="tab"
+        >
+          Políticas de privacidad
+        </button>
+      </li>
+      <li class="md:me-2" role="documents">
+        <button
+          (click)="selectedTab = 'Términos de servicio'"
+          [ngClass]="
+            selectedTab === 'Términos de servicio'
+              ? 'tab-active'
+              : 'tab-inactive'
+          "
+          type="button"
+          role="tab"
+        >
+          Términos de servicio
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  @if (
+    selectedTab === "Términos de servicio" &&
+    filesResp()[1].currentVersion.publicUrl
+  ) {
+    <tyn-pdfupload
+      [titlePolitic]="'Términos de servicio'"
+      [pdfSrc]="filesResp()[1].currentVersion.publicUrl"
+      [typeDoc]="'TERMS_OF_SERVICE'"
+    />
+  }
+  @if (
+    selectedTab === "Políticas de privacidad" &&
+    filesResp()[0].currentVersion.publicUrl
+  ) {
+    <tyn-pdfupload
+      [titlePolitic]="'Políticas de privacidad'"
+      [pdfSrc]="filesResp()[0].currentVersion.publicUrl"
+      [typeDoc]="'PRIVACY_POLICY'"
+    />
+  }
 </div>

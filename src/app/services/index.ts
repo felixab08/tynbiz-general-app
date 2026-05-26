@@ -1,25 +1,25 @@
-// *admin services
-export * from './admin/users.service';
-export * from './admin/roles.service';
-export * from './admin/actions-user.service';
-export * from './admin/planes.service';
-export * from './admin/reques-demo.service';
-export * from './admin/store-management.service';
-export * from './admin/suscription.service';
-export * from './admin/action-audit.service';
-
-// *general services
-export * from './general/ubigeo.service';
-export * from './general/link-params.service';
-
-// *shopper services
-export * from './shopper/catalog.service';
-
-// *stores
-export * from './stores/invoices.service';
-export * from './stores/stores.service';
-export * from './stores/mercado-pago.service';
-
-// *utils
 export * from './alert.service';
 export * from './store.service';
+export * from './admin/action-audit.service';
+export * from './admin/actions-user.service';
+export * from './admin/file-documents.service';
+export * from './admin/planes.service';
+export * from './admin/producto.service';
+export * from './admin/reques-demo.service';
+export * from './admin/roles.service';
+export * from './admin/store-management.service';
+export * from './admin/suscription.service';
+export * from './admin/users.service';
+export * from './general/link-params.service';
+export * from './general/ubigeo.service';
+export * from './shopper/catalog.service';
+export * from './stores/calendar.service';
+export * from './stores/category.service';
+export * from './stores/create-creation.service';
+export * from './stores/invoices.service';
+export * from './stores/jitsi.service';
+export * from './stores/mercado-pago.service';
+export * from './stores/products-store.service';
+export * from './stores/shopify.service';
+export * from './stores/stores.service';
+export * from './stores/wordpress.service';

@@ -151,25 +151,18 @@
           </div>
         </div>
 
-        <!-- <div class="grid grid-cols-2 gap-4">
-          @for (category of categorys; track category.id) {
+        <div class="grid grid-cols-2 gap-4">
+          @for (category of listCategories(); track category.value) {
             <div
               class="grid grid-cols-12 border-2 bg-primary-200 rounded-xl w-full p-4"
-              [ngClass]="{
-                'border-primary-800 dark:border-gray-500':
-                  category.state === true,
-                'border-primary-200': category.state === false,
-              }"
-              (click)="selectCategory(category)"
             >
               <div class="col-span-10">
-                <p class="text-base font-semibold">{{ category.nombre }}</p>
-                <p class="text-2xs">{{ category.cant }} tiendas</p>
+                <p class="text-base font-semibold">{{ category.label }}</p>
               </div>
               <i class="fa fa-house col-span-2 m-auto"></i>
             </div>
           }
-        </div> -->
+        </div>
       </div>
       <!-- Modal footer -->
       <div class="flex justify-end mt-6 p-2">
