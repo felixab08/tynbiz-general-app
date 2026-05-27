@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,10 +10,15 @@ import { AuthService } from '@app/auth/services/auth.service';
 import { FormUtils } from '@app/utils/form.util';
 import { Router, RouterLink } from '@angular/router';
 import { MenuService } from '@app/auth/services/menu.service';
-import { IErrorGeneralResp, IErrorResp, IRegisterReq } from '@app/interfaces';
+import {
+  IErrorGeneralResp,
+  IErrorResp,
+  IGeneralPDF,
+  IRegisterReq,
+} from '@app/interfaces';
 import { ModalComponent } from '../modal/modal.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { AlertService } from '@app/services';
+import { AlertService, FileDocumentsService } from '@app/services';
 
 @Component({
   selector: 'tyn-register-page',
@@ -32,7 +37,8 @@ export default class RegisterPage {
   _menuService = inject(MenuService);
   private _router = inject(Router);
   public isOpen: boolean = false;
-  pdfSrc = './assets/pdf/documento.pdf'; // Ruta local o URL
+  private _fileDocSrv = inject(FileDocumentsService);
+  filesResp = signal<IGeneralPDF[] | null>(null); // Ruta local o URL
   private _alertService = inject(AlertService);
 
   formUtils = FormUtils;
@@ -64,6 +70,21 @@ export default class RegisterPage {
       ],
     ],
   });
+
+  getFileDocumentsByClient() {
+    this._fileDocSrv.getFileDocumentsByClient().subscribe({
+      next: (data) => {
+        this.filesResp.set(data);
+      },
+      error: (error) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          error.error.detail || 'Error al obtener los documentos',
+          'error',
+        );
+      },
+    });
+  }
 
   onSave() {
     if (this.myForm.invalid) {

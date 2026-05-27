@@ -24,3 +24,13 @@ export interface Version {
     published:      boolean;
     draft:          boolean;
 }
+
+export interface IGeneralPDF {
+  type:           string;
+  name:           string;
+  currentVersion: CurrentVersion;
+}
+
+export interface CurrentVersion {
+  publicUrl: string;
+}

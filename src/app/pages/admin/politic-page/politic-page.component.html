@@ -46,21 +46,21 @@
 
   @if (
     selectedTab === "Términos de servicio" &&
-    filesResp()[1]?.currentVersion?.publicUrl
+    filesResp()
   ) {
     <tyn-pdfupload
       [titlePolitic]="'Términos de servicio'"
-      [pdfSrc]="filesResp()[1]?.currentVersion?.publicUrl || ''"
+      [pdfSrc]="filesResp()![1].currentVersion.publicUrl || ''"
       [typeDoc]="'TERMS_OF_SERVICE'"
     />
   }
   @if (
     selectedTab === "Políticas de privacidad" &&
-    filesResp()[0]?.currentVersion?.publicUrl
+    filesResp()
   ) {
     <tyn-pdfupload
       [titlePolitic]="'Políticas de privacidad'"
-      [pdfSrc]="filesResp()[0]?.currentVersion?.publicUrl || ''"
+      [pdfSrc]="filesResp()![0].currentVersion.publicUrl || ''"
       [typeDoc]="'PRIVACY_POLICY'"
     />
   }

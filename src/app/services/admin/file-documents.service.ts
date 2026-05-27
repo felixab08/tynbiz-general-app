@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IFilesResp } from '@app/interfaces';
+import { IFilesResp, IGeneralPDF } from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -21,7 +21,21 @@ export class FileDocumentsService {
       formData,
     );
   }
+  /**
+   * Metodo que permite obtener todos los archivos que han sido subidos a la plataforma
+   * User: ADMIN
+   * @returns Observable con un array de IFilesResp
+   */
   getFileDocuments(): Observable<IFilesResp[]> {
     return this._http.get<IFilesResp[]>(`${baseUrl}/admin/legal-documents`);
+  }
+
+  /**
+   * Metodo que permite obtener todos los archivos que han sido subidos a la plataforma
+   * User: PUBLIC
+   * @returns Observable con un array de IFilesResp
+   */
+  getFileDocumentsByClient(): Observable<IGeneralPDF[]> {
+    return this._http.get<IGeneralPDF[]>(`${baseUrl}/public/legal-documents`);
   }
 }

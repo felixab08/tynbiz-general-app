@@ -216,7 +216,7 @@
             for="checkbox-remember"
             class="ms-2 text-sm font-medium text-heading"
             >Acepto los terminos y condiciones
-            <a (click)="isOpen = true" class="ms-1 text-sm font-medium text-brand-soft hover:underline text-blue-700">
+            <a (click)="isOpen = true; getFileDocumentsByClient()" class="ms-1 text-sm font-medium text-brand-soft hover:underline text-blue-700">
               Ver términos y condiciones
             </a>
             </label
@@ -240,10 +240,12 @@
 </div>
 
 <app-modal [isOpen]="isOpen" (closeModal)="closeModal()" type="long">
+  @if(filesResp()){
   <pdf-viewer
-    [src]="pdfSrc"
+    [src]="filesResp()![0].currentVersion.publicUrl || ''"
     [render-text]="true"
     style="display: block; height: 60vh"
   >
   </pdf-viewer>
+  }
 </app-modal>

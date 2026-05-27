@@ -13,7 +13,7 @@ import { IFilesResp } from '@app/interfaces';
 export default class PoliticPageComponent {
   private _fileDocSrv = inject(FileDocumentsService);
   private _alert = inject(AlertService);
-  filesResp = signal<IFilesResp[]>([]);
+  filesResp = signal<IFilesResp[] | null>(null);
   pdfSrc = './assets/pdf/documento.pdf'; // Ruta local o URL
   pdfSrcView = true; // Ruta local o URL
   selectedTab: 'Términos de servicio' | 'Políticas de privacidad' =
