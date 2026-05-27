@@ -19,15 +19,17 @@ import {
 } from '@app/interfaces';
 import { User } from '@app/auth/interfaces/user.interface';
 import { PaymentsMapper } from './payments.mapper';
+import { ConditionModal } from '@app/components/condition-modal/condition-modal';
 
 @Component({
   selector: 'tyn-suscription-store-page',
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule, DatePipe, ConditionModal],
   templateUrl: './suscription-store-page.component.html',
 })
 export default class SuscriptionStorePageComponent {
   selectedTab: 'plans' | 'paymentMethod' | 'billingHistory' = 'plans';
   isModalOpen = signal(false);
+  public isOpenConditional: boolean = false;
   isModalConfirOpen = signal(false);
   invoices = signal<InvoicesResp[] | null>(null);
   invoicePay = signal<InvoicesResp | null>(null);
@@ -179,5 +181,9 @@ export default class SuscriptionStorePageComponent {
   }
   closeConfirModal() {
     this.isModalConfirOpen.set(false);
+  }
+
+  closeModalConditional(event: boolean) {
+    this.isOpenConditional = event;
   }
 }

@@ -1,6 +1,7 @@
 export * from './alert/alert.component';
 export * from './carousel-products-creation/carousel-products-creation.component';
 export * from './change-password/change-password.component';
+export * from './condition-modal/condition-modal';
 export * from './chart-grafic/chart-grafic.component';
 export * from './create-user-form/create-user-form.component';
 export * from './creation-card/creation-card.component';

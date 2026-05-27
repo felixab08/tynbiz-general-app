@@ -45,13 +45,13 @@
     <p>
       Gestiona o cambia la suscripción. Consulta nuestros
       <a
-        href=""
+        (click)="isOpenConditional=true"
         class="font-medium text-fg-brand underline hover:no-underline text-primary"
         >términos del servicio</a
       >
       y nuestra
       <a
-        href=""
+        (click)="isOpenConditional=true"
         class="font-medium text-fg-brand underline hover:no-underline text-primary"
         >política de privacidad</a
       >
@@ -184,14 +184,14 @@
           class="inline-flex max-w-xl items-center mb-4 justify-between w-full p-3 text-black bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:border-primary hover:border-2"
         >
           <input
-            id="bordered-radio-1"
+            id="bordered-radio-2"
             type="radio"
             value="MercadoPago"
             name="bordered-radio"
             class="w-4 h-4 text-primary bg-neutral-secondary-medium border-default-medium rounded-full focus:ring-primary ring-offset-neutral-primary focus:ring-2"
           />
           <label
-            for="bordered-radio-1"
+            for="bordered-radio-2"
             class="w-full select-none ml-4 text-lg font-semibold text-heading"
           >
             Mercado Pago
@@ -500,3 +500,8 @@
     data-close="onNiubizClose"
   ></script>
 }
+<tyn-condition-modal
+  [typePolitic]="'terminos_servicio'"
+  [isOpen]="isOpenConditional"
+  (onOpen)="closeModalConditional($event)"
+/>

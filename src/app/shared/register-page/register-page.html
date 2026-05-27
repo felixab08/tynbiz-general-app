@@ -239,13 +239,8 @@
   </form>
 </div>
 
-<app-modal [isOpen]="isOpen" (closeModal)="closeModal()" type="long">
-  @if(filesResp()){
-  <pdf-viewer
-    [src]="filesResp()![0].currentVersion.publicUrl || ''"
-    [render-text]="true"
-    style="display: block; height: 60vh"
-  >
-  </pdf-viewer>
-  }
-</app-modal>
+<tyn-condition-modal
+  [isOpen]="isOpen"
+  [typePolitic]="'terminos_servicio'"
+  (onOpen)="closeModal($event)"
+/>
