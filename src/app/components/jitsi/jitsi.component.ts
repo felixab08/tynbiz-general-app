@@ -14,14 +14,14 @@ import { AlertService, JitsiService } from '@app/services';
 import { environment } from '@environments/environment';
 
 @Component({
-  selector: 'tyn-jitsi',
+  selector: 'tyn-jitsi-component',
   imports: [],
   templateUrl: './jitsi.component.html',
   styles: [
     `
       .jitsi-container {
         width: 100%;
-        height: 100%;
+        height: 1000px;
         min-height: 600px;
         border: 0;
       }
