@@ -6,6 +6,10 @@ export const shopperRoutes: Routes = [
     loadComponent: () => import('./shopper.component'),
     children: [
       {
+        path: 'jitsi/:idContenido',
+        loadComponent: () => import('./jitsi/jitsi.page'),
+      },
+      {
         path: 'home',
         loadComponent: () => import('./home/home.component'),
       },

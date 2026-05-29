@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Cardcreations } from '@app/interfaces/card.interface';
 import { CommonModule } from '@angular/common';
 import { initCarousels } from 'flowbite';
@@ -7,6 +7,7 @@ import { CarouselProductsCreation } from '../carousel-products-creation/carousel
 import { ICreationContent, ItemCreation } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 import { environment } from '@environments/environment';
+import { Router } from '@angular/router';
 @Component({
   selector: 'tyn-creation-card',
   imports: [
@@ -21,6 +22,7 @@ export class CreationCardComponent {
   listCreation = input.required<ICreationContent>();
   isModalOpen = signal(false);
   selectedcreations: ItemCreation | null = null;
+  _router = inject(Router);
   ngAfterViewInit(): void {
     initCarousels(); // inicializa el carrusel de Flowbite
   }
@@ -32,8 +34,9 @@ export class CreationCardComponent {
     this.isModalOpen.set(false);
   }
   createJitsi() {
-    const roomName = `${this.selectedcreations?.id}`;
-    const url = `${environment.baseUrl}/jitsi/token/${roomName}`;
-    window.open(url, '_blank');
+    this._router.navigate([`/shop/jitsi/${this.listCreation().items[0].id}`]);
+    // const roomName = `${this.selectedcreations?.id}`;
+    // const url = `${environment.baseUrl}/jitsi/token/${roomName}`;
+    // window.open(url, '_blank');
   }
 }
