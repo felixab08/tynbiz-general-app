@@ -21,6 +21,7 @@ export default class CreationsComponent {
   _createCreation = inject(CreateCreation);
   ubigeoId = '';
   keyword = '';
+  categoryId = '';
   creationResp: ICreationResp | null = null;
   cardCrea: Cardcreations[] = creationMock;
   valueSearch(event: string) {
@@ -43,10 +44,15 @@ export default class CreationsComponent {
         size: 100,
         ubigeoId: this.ubigeoId,
         keyword: this.keyword,
+        storeCategory: this.categoryId,
       })
       .subscribe((res) => {
         this.creationResp = res;
       });
+  }
+  valueCategory(event: string) {
+    this.categoryId = event;
+    this.listCreation();
   }
 
   // offertResorce = rxResource({
