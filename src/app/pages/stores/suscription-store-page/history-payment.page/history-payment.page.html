@@ -1,0 +1,28 @@
+@if (invoices() && invoices()!.length > 0) {
+<!--  -->
+@for (item of invoices()!; track $index) {
+<div
+  class="md:flex justify-between items-center card-static dark:bg-gray-700 dark:text-white"
+>
+  <div>
+    <h4 class="text-lg font-bold grid grid-cols-5 gap-4">
+      <span class="col-span-3"> Tipo </span>
+      <span class="ml-2 font-normal col-span-2">: {{item.statusDisplay}} </span>
+    </h4>
+    <h4 class="text-lg font-bold grid grid-cols-5 gap-4">
+      <span class="col-span-3"> subtotal </span>
+      <span class="ml-2 font-normal col-span-2">: {{item.subtotal}} </span>
+    </h4>
+    <h4 class="text-lg font-bold grid grid-cols-5 gap-4">
+      <span class="col-span-3"> Impuesto </span>
+      <span class="ml-2 font-normal col-span-2">: {{item.taxAmount}} </span>
+    </h4>
+    <h4 class="text-lg font-bold grid grid-cols-5 gap-4">
+      <span class="col-span-3"> Total </span>
+      <span class="ml-2 font-normal col-span-2"
+        >: {{item.currency}}. {{item.totalAmount}}
+      </span>
+    </h4>
+  </div>
+</div>
+} }
