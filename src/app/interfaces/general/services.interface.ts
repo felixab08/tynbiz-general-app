@@ -14,6 +14,7 @@ export interface OptionsRequest {
   ubigeoId? :      string // buscar por nombre o descripcion
   keyword? :      string // buscar por nombre o descripcion
   tab? :      string // buscar por nombre o descripcion
+  storeCategory? :      string // buscar por nombre o descripcion
 }
 
 export interface DataPaginationResponse {

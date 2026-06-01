@@ -35,7 +35,13 @@ export class CreateCreation {
     options: OptionsRequest,
     type: TYPE_CREATION = 'ALL',
   ): Observable<ICreationResp> {
-    const { page = 0, size = 20, ubigeoId = '', keyword = '' } = options;
+    const {
+      page = 0,
+      size = 20,
+      ubigeoId = '',
+      keyword = '',
+      storeCategory = '',
+    } = options;
     // Construir params dinámicamente
     const params: any = {
       page,
@@ -43,6 +49,7 @@ export class CreateCreation {
     };
     if (ubigeoId.length > 0) params.ubigeoId = ubigeoId;
     if (keyword.length > 0) params.keyword = keyword;
+    if (storeCategory !== '') params.storeCategory = storeCategory;    
     return this._http.get<ICreationResp>(
       `${baseUrl}/public/contents/discovery?type=${type}`,
       { params },
