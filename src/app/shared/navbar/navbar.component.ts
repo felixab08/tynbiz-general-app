@@ -5,6 +5,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { User } from '@app/auth/interfaces/user.interface';
+import { creationStoreMock } from '@app/mock/creationsStore.mock';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent {
   public isLogin: boolean = false;
   _authService = inject(AuthService);
   public user: User | undefined;
+  public creations = creationStoreMock;
 
   constructor() {
     let user = localStorage.getItem('user');
@@ -37,4 +39,5 @@ export class NavbarComponent {
   closeModal() {
     this.storeService.isLoginSubject.next(false);
   }
+
 }
