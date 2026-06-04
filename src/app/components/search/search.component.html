@@ -6,7 +6,7 @@
   >
   <div class="relative">
     <div
-      class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+      class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none"
     ></div>
     <div class="flex">
       <input
@@ -86,85 +86,113 @@
       </div>
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
-        <div>
-          @if (listCategories()) {
-            <select
-              id="category"
-              #category
-              (change)="handlerCategory($event.target)"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        <form class="max-w-md mx-auto mt-8 space-y-6">
+          <!-- Contenedor Fieldset -->
+          <fieldset
+            class="border border-slate-300 rounded-xl p-6 shadow-sm transition-all duration-200 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+          >
+            <!-- Título Legend -->
+            <legend
+              class="text-sm font-semibold text-gray-700 dark:text-white px-2"
             >
-              <option selected disabled>Seleccione</option>
-              @for (category of listCategories(); track $index) {
-                <option [value]="category.value">{{ category.label }}</option>
-              }
-            </select>
-          }
-        </div>
-        <div class="mb-6">
-          <div class="grid grid-cols-3 gap-4">
+              Busqueda por categoría
+            </legend>
             <div>
-              <label
-                for="departaments"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Departamento *</label
-              >
-              @if (departamentos().length > 2) {
+              @if (listCategories()) {
                 <select
-                  id="departaments"
-                  #departament
-                  (change)="handlerDepartamento($event.target)"
+                  id="category"
+                  #category
+                  (change)="handlerCategory($event.target)"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected disabled>Seleccione</option>
-                  @for (dep of departamentos(); track $index) {
-                    <option [value]="dep">{{ dep }}</option>
+                  <option selected disabled>Seleccione categoría</option>
+                  @for (category of listCategories(); track $index) {
+                    <option [value]="category.value">
+                      {{ category.label }}
+                    </option>
                   }
                 </select>
               }
             </div>
+          </fieldset>
+          <!-- Contenedor Fieldset -->
+          <fieldset
+            class="border border-slate-300 rounded-xl p-6 shadow-sm transition-all duration-200 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+          >
+            <!-- Título Legend -->
+            <legend
+              class="text-sm font-semibold text-gray-700 dark:text-white px-2"
+            >
+              Busqueda por ubicación
+            </legend>
             <div>
-              <label
-                for="provincs"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Provincia *</label
-              >
-              @if (provincias().length > 2) {
-                <select
-                  id="provincs"
-                  #provincia
-                  (change)="handlerProvincia($event.target)"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option selected disabled>Seleccione</option>
-                  @for (prov of provincias(); track $index) {
-                    <option [value]="prov">{{ prov }}</option>
+              <div class="grid grid-cols-1 gap-4">
+                <div>
+                  <label
+                    for="departaments"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Departamento</label
+                  >
+                  @if (departamentos().length > 2) {
+                    <select
+                      id="departaments"
+                      #departament
+                      (change)="handlerDepartamento($event.target)"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option selected disabled>Seleccione departamento</option>
+                      @for (dep of departamentos(); track $index) {
+                        <option [value]="dep">{{ dep }}</option>
+                      }
+                    </select>
                   }
-                </select>
-              }
-            </div>
-            <div>
-              <label
-                for="distrit"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Distrito *</label
-              >
-              @if (distritos().length) {
-                <select
-                  id="distrit"
-                  #distrit
-                  (change)="handlerDistrito($event.target)"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option selected disabled>Seleccione</option>
-                  @for (dist of distritos(); track $index) {
-                    <option [value]="dist.ubigeoId">{{ dist.distrito }}</option>
+                </div>
+                <div>
+                  @if (provincias().length > 2) {
+                    <label
+                      for="provincs"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >Provincia *</label
+                    >
+                    <select
+                      id="provincs"
+                      #provincia
+                      (change)="handlerProvincia($event.target)"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option selected disabled>Seleccione provincia</option>
+                      @for (prov of provincias(); track $index) {
+                        <option [value]="prov">{{ prov }}</option>
+                      }
+                    </select>
                   }
-                </select>
-              }
+                </div>
+                <div>
+                  @if (distritos().length) {
+                    <label
+                      for="distrit"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >Distrito *</label
+                    >
+                    <select
+                      id="distrit"
+                      #distrit
+                      (change)="handlerDistrito($event.target)"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option selected disabled>Seleccione distrito</option>
+                      @for (dist of distritos(); track $index) {
+                        <option [value]="dist.ubigeoId">
+                          {{ dist.distrito }}
+                        </option>
+                      }
+                    </select>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </fieldset>
+        </form>
       </div>
       <!-- Modal footer -->
       <div class="flex justify-end mt-6 p-2">
