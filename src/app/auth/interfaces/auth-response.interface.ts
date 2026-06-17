@@ -8,3 +8,9 @@ export interface AuthResponse {
   expiresIn:    number;
   user:         User;
 }
+
+export interface IRefreshToken {
+  accessToken: string;
+  tokenType:   string;
+  expiresIn:   number;
+}

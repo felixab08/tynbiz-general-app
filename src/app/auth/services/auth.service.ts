@@ -3,7 +3,10 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { AuthResponse } from '../interfaces/auth-response.interface';
+import {
+  AuthResponse,
+  IRefreshToken,
+} from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
 import { StoreService } from '@app/services/store.service';
 import { Router } from '@angular/router';
@@ -81,6 +84,12 @@ export class AuthService {
         }),
         catchError((error: any) => this.handleAuthError(error)),
       );
+  }
+
+  refreshTokenUser(refreshToken: string): Observable<IRefreshToken> {
+    return this.http.post<IRefreshToken>(`${baseUrl}/auth/refresh`, {
+      refreshToken: refreshToken,
+    });
   }
 
   //searhUserById(id: number): Observable<boolean> {
