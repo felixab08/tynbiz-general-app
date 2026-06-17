@@ -32,6 +32,7 @@ export class SearchComponent {
 
   valueSearch = output<string>();
   valueGeographic = output<string>();
+  valueCategory = output<string>();
   isModalOpen = signal(false);
 
   initialValue = input<string>('');
@@ -98,7 +99,9 @@ export class SearchComponent {
         },
       });
   }
-
+  handlerCategory(event: any) {
+    this.valueCategory.emit(event.value);
+  }
   debounceEffect = effect((onCleanup) => {
     const value = this.inputValue();
     const timeout = setTimeout(() => {

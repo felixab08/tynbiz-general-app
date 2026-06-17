@@ -15,8 +15,10 @@ const baseUrl = environment.baseUrl;
 export class InvoicesService {
   private _http = inject(HttpClient);
 
-  getInvoicesByStore(): Observable<InvoicesResp[]> {
-    return this._http.get<InvoicesResp[]>(`${baseUrl}/invoices/my`);
+  getInvoicesByStore(status: string): Observable<InvoicesResp[]> {
+    return this._http.get<InvoicesResp[]>(
+      `${baseUrl}/invoices/my?status=${status}`,
+    );
   }
 
   postInvoicePayment(pagoDate: InvoicesPayment): Observable<InvoicesPayResp> {

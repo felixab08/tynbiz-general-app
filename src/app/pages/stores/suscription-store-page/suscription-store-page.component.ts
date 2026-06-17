@@ -20,10 +20,11 @@ import {
 import { User } from '@app/auth/interfaces/user.interface';
 import { PaymentsMapper } from './payments.mapper';
 import { ConditionModal } from '@app/components/condition-modal/condition-modal';
+import { HistoryPaymentPage } from './history-payment.page/history-payment.page';
 
 @Component({
   selector: 'tyn-suscription-store-page',
-  imports: [CommonModule, DatePipe, ConditionModal],
+  imports: [CommonModule, DatePipe, ConditionModal, HistoryPaymentPage],
   templateUrl: './suscription-store-page.component.html',
 })
 export default class SuscriptionStorePageComponent {
@@ -104,7 +105,7 @@ export default class SuscriptionStorePageComponent {
   }
 
   private getInvoicesMedhod() {
-    this._invoicesService.getInvoicesByStore().subscribe({
+    this._invoicesService.getInvoicesByStore('SENT,OVERDUE').subscribe({
       next: (invoices) => {
         this.invoices.set(invoices);
       },
