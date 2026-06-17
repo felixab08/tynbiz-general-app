@@ -18,7 +18,7 @@ import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AlertComponent } from '@app/components/alert/alert.component';
 import { AlertService } from '@app/services/alert.service';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { MenuService } from '@app/auth/services/menu.service';
 
 @Component({
@@ -29,17 +29,20 @@ import { MenuService } from '@app/auth/services/menu.service';
     RouterLink,
     AlertComponent,
     RouterLinkActive,
+    AsyncPipe,
     NgClass,
   ],
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {
+  public storeService = inject(StoreService);
   _authService = inject(AuthService);
   _menuService = inject(MenuService);
   _alertService = inject(AlertService);
   _router = inject(Router);
   menuItemsAll: any[] = [];
   routerState = '/shop/home';
+  user$ = this.storeService.user.asObservable();
 
   @ViewChild('drawerToggle', { static: true })
   drawerToggle!: ElementRef<HTMLButtonElement>;
@@ -49,7 +52,6 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
 
   private _observer!: MutationObserver;
 
-  public storeService = inject(StoreService);
   public user: User | undefined;
   typeRole = [
     { id: 1, type: 'PAY_PER_USE', name: 'Pago por uso' },
@@ -68,6 +70,10 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
       }
     });
     localStorage.setItem('typeRole', JSON.stringify(this.typeRole[0]));
+  }
+
+  openLoginModal() {
+    this.storeService.isLoginSubject.next(true);
   }
 
   ngAfterViewInit(): void {
