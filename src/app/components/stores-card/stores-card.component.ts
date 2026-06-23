@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { IPublicStore } from '@app/interfaces';
 import { CardStores } from '@app/interfaces/card.interface';
 
 @Component({
@@ -7,5 +8,5 @@ import { CardStores } from '@app/interfaces/card.interface';
   templateUrl: './stores-card.component.html',
 })
 export class StoresCardComponent {
-  listStores = input.required<CardStores[]>();
+  listStores = input.required<IPublicStore>();
 }

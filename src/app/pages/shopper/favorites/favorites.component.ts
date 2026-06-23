@@ -7,7 +7,7 @@ import { CardStores } from '@app/interfaces/card.interface';
 
 @Component({
   selector: 'tyn-favorites',
-  imports: [StoresCardComponent, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './favorites.component.html',
 })
 export default class FavoritesComponent {

@@ -4,5 +4,7 @@
 </div></div>
 <tyn-search (valueSearch)="valueSearch($event)" />
 <div class="mt-6">
-  <tyn-stores-card [listStores]="cardStores"></tyn-stores-card>
+  @if(storeResorce.hasValue()) {
+    <tyn-stores-card [listStores]="storeResorce.value() || []"></tyn-stores-card>
+  }
 </div>
