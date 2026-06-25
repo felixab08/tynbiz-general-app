@@ -10,19 +10,23 @@
     <!-- Contenido -->
     <div class="pt-8 flex flex-col space-y-2 rtl:space-x-reverse">
       <p class="text-m font-bold mb-0 text-dark truncate">{{stores.businessName}}</p>
-      <a href="#" class="inline-flex font-medium items-center text-primary hover:underline">
+      <a class="inline-flex font-medium items-center text-primary hover:underline"
+      [href]="stores.website" target="_blank" rel="noopener noreferrer"
+      >
         {{stores.website}}
       </a>
     </div>
     <div class="pt-2 flex items-center space-x-3 rtl:space-x-reverse">
-      <a href="#"
-        class="w-10 h-10 bg-gray-100 text-dark hover:bg-gray-300 rounded-full flex items-center justify-center">
+      <a
+        class="w-10 h-10 bg-gray-100 text-dark hover:bg-gray-300 rounded-full flex items-center justify-center"
+        (click)="addStoreFavorite(stores.id)"
+        >
         <i class="fa-solid fa-heart-circle-plus"></i>
       </a>
-      <a href="#"
+      <!-- <a
         class="w-10 h-10 bg-gray-100 text-dark hover:bg-gray-300 rounded-full flex items-center justify-center">
         <i class="fa-solid fa-thumbtack"></i>
-      </a>
+      </a> -->
     </div>
   </div>
   }

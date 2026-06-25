@@ -9,4 +9,8 @@ import { CardStores } from '@app/interfaces/card.interface';
 })
 export class StoresCardComponent {
   listStores = input.required<IPublicStore>();
+
+  addStoreFavorite(storeId: number) {
+    console.log(storeId);
+  }
 }
