@@ -3,5 +3,7 @@
   <p>Estas son tus tiendas favoritas cuando realizas tus compras en Tynbiz</p>
 </div></div>
 <div class="mt-6">
-  <!-- <tyn-stores-card [listStores]="cardStores"></tyn-stores-card> -->
+  @if(storefavoritesResorce.hasValue()) {
+  <tyn-stores-card [listStores]="storefavoritesResorce.value() || []"></tyn-stores-card>
+  }
 </div>

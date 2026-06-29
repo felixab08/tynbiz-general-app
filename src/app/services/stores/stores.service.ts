@@ -20,11 +20,21 @@ export class StoresService {
     return this._http.get<IPublicStore>(`${baseUrl}/public/stores`, { params });
   }
 
-  getFavoriteStore(): Observable<IStoresResp> {
-    return this._http.get<IStoresResp>(`${baseUrl}/me/favorite-stores`);
+  getFavoriteStore(options: OptionsRequest): Observable<IPublicStore> {
+    const { page = 0, size = 20 } = options;
+    const params: any = { page, size };
+    return this._http.get<IPublicStore>(`${baseUrl}/me/favorite-stores`, {
+      params,
+    });
   }
 
   postAddFavoriteStore(storeId: any): Observable<any> {
-    return this._http.post<any>(`${baseUrl}/me/favorite-stores`, { storeId });
+    return this._http.post<any>(`${baseUrl}/me/favorite-stores/${storeId}`, {
+      storeId,
+    });
+  }
+
+  deleteAddFavoriteStore(storeId: any): Observable<any> {
+    return this._http.delete<any>(`${baseUrl}/me/favorite-stores/${storeId}`);
   }
 }

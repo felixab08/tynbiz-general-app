@@ -1,33 +1,49 @@
 <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-
   @for (stores of listStores().content; track stores.id) {
-  <div
-    class="relative mt-10 max-w-sm card-static ">
-    <!-- Imagen sobresaliente -->
-    <div class="sm items-center flex justify-center absolute -top-10 left-8 transform mini-card-img">
-      <img class="w-12 h-12 rounded-lg" [src]="stores.logo" alt="">
-    </div>
-    <!-- Contenido -->
-    <div class="pt-8 flex flex-col space-y-2 rtl:space-x-reverse">
-      <p class="text-m font-bold mb-0 text-dark truncate">{{stores.businessName}}</p>
-      <a class="inline-flex font-medium items-center text-primary hover:underline"
-      [href]="stores.website" target="_blank" rel="noopener noreferrer"
+    <div class="relative mt-10 max-w-sm card-static card-presentation">
+      <!-- Imagen sobresaliente -->
+      <div
+        class="sm items-center flex justify-center absolute -top-10 left-8 transform mini-card-img"
       >
-        {{stores.website}}
-      </a>
-    </div>
-    <div class="pt-2 flex items-center space-x-3 rtl:space-x-reverse">
-      <a
-        class="w-10 h-10 bg-gray-100 text-dark hover:bg-gray-300 rounded-full flex items-center justify-center"
-        (click)="addStoreFavorite(stores.id)"
+        <img class="w-12 h-12 rounded-lg" [src]="stores.logo" alt="" />
+      </div>
+      <!-- Contenido -->
+      <div class="pt-8 flex flex-col space-y-2 rtl:space-x-reverse">
+        <p class="text-m font-bold mb-0 text-dark  truncate">
+          {{ stores.businessName }}
+        </p>
+        <a
+          class="inline-flex font-medium items-center text-primary hover:underline"
+          [href]="stores.website"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-        <i class="fa-solid fa-heart-circle-plus"></i>
-      </a>
-      <!-- <a
+          {{ stores.website }}
+        </a>
+      </div>
+      @if(user?.role ==='CLIENT'){
+      <div class="pt-2 flex items-center space-x-3 rtl:space-x-reverse">
+        @if (stores.isFavorite) {
+          <a
+            class="w-10 h-10 bg-gray-100 dark:bg-gray-600 text-dark dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full flex items-center justify-center text-red-400"
+            (click)="deleteStoreFavorite(stores.id)"
+          >
+            <i class="fa-solid fa-heart"></i>
+          </a>
+        } @else {
+          <a
+            class="w-10 h-10 bg-gray-100 dark:bg-gray-600 text-dark dark:text-white hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full flex items-center justify-center"
+            (click)="addStoreFavorite(stores.id)"
+          >
+            <i class="fa-solid fa-heart-circle-plus"></i>
+          </a>
+        }
+        <!-- <a
         class="w-10 h-10 bg-gray-100 text-dark hover:bg-gray-300 rounded-full flex items-center justify-center">
         <i class="fa-solid fa-thumbtack"></i>
       </a> -->
+      </div>
+    }
     </div>
-  </div>
   }
 </div>

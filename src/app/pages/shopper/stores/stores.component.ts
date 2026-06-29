@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import { StoresCardComponent } from '@app/components/stores-card/stores-card.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { storeMock } from '@app/mock/store.mock';
 import { SearchComponent } from '@app/components/search/search.component';
-import { CardStores } from '@app/interfaces/card.interface';
 import { LinkParamService, StoresService } from '@app/services';
 import { rxResource } from '@angular/core/rxjs-interop';
 
@@ -14,14 +12,16 @@ import { rxResource } from '@angular/core/rxjs-interop';
   templateUrl: './stores.component.html',
 })
 export default class StoresComponent {
-  cardStores: CardStores[] = storeMock;
   _paginationService = inject(LinkParamService);
   _storesService = inject(StoresService);
 
   valueSearch(event: string) {
     console.log(event);
   }
-
+  isFavoriteChange(event: { storeId: number; isFavorite: boolean }) {
+    console.log(event);
+    this.storeResorce.reload();
+  }
   storeResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,
