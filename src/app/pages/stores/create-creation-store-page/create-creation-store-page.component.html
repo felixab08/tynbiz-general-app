@@ -85,7 +85,7 @@
       <div class="card-presentation">
         <button
           (click)="backToProducts()"
-          class="mb-4 text-sm text-gray-600 hover:underline dark:text-gray-200"
+          class="mb-4 text-sm text-gray-600 hover:underline dark:text-gray-200 cursor-pointer hover:text-primary"
         >
           ← Volver
         </button>
@@ -111,6 +111,7 @@
               id="title"
               formControlName="title"
               placeholder="Nombre de la creación"
+              spellcheck="true"
               class="input-base"
               [ngClass]="{
                 'input-error': formUtils.isValiedField(
