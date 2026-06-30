@@ -34,9 +34,9 @@ export class CreationCardComponent {
     this.isModalOpen.set(false);
   }
   createJitsi() {
-    this._router.navigate([`/shop/jitsi/${this.listCreation().items[0].id}`]);
-    // const roomName = `${this.selectedcreations?.id}`;
-    // const url = `${environment.baseUrl}/jitsi/token/${roomName}`;
-    // window.open(url, '_blank');
+    // this._router.navigate([`/shop/jitsi/${this.listCreation().items[0].id}`]);
+    const roomId = `${this.selectedcreations?.id}`;
+    const url = `${environment.JITSI_ROOM_URL}/room?contentId=${roomId}`;
+    window.open(url, '_blank');
   }
 }
