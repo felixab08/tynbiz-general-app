@@ -11,6 +11,7 @@ export * from './admin/store-management.service';
 export * from './admin/suscription.service';
 export * from './admin/users.service';
 export * from './general/link-params.service';
+export * from './general/profile.service';
 export * from './general/ubigeo.service';
 export * from './shopper/catalog.service';
 export * from './stores/calendar.service';

@@ -1,172 +1,242 @@
-<div class="dark:bg-gray-700 dark:text-white"><div class=" rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
-  @if (user()) {
-  <form class="mt-5" autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()">
-    <div class="mb-6 card-static">
-      <h1 class="text-xl font-bold mb-6">Información básica</h1>
-      <!-- name -->
-      <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
-          <label for="name" class="block mb-2 text-sm font-medium" [ngClass]="{
-          ' text-red-700': formUtils.isValiedField(
-            myForm,
-            'name'
-          )
-        }">Nombre</label>
-          <input type="text" id="name" formControlName="name"
-            class="input-base" [placeholder]="user()?.firstName" [ngClass]="{
-          'input-error':
-            formUtils.isValiedField(myForm, 'name')
-        }" />
-          @if(formUtils.isValiedField(myForm,'name')){
-          <p class="mt-2 text-sm text-red-600 ">
-            <span class="font-medium">{{
-              formUtils.getFieldError(myForm, "name")
-              }}</span>
-          </p>
+<div class="dark:bg-gray-700 dark:text-white">
+  <div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
+    @if (user()) {
+      <form
+        class="mt-5"
+        autocomplete="off"
+        [formGroup]="myForm"
+        (ngSubmit)="onSave()"
+      >
+        <div class="mb-6 card-static">
+          <h1 class="text-xl font-bold mb-6">Información básica</h1>
+          <!-- name -->
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium"
+                [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'firstName'),
+                }"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="input-base"
+                [placeholder]="user()?.firstName"
+                [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'firstName'),
+                }"
+              />
+              @if (formUtils.isValiedField(myForm, "firstName")) {
+                <p class="mt-2 text-sm text-red-600">
+                  <span class="font-medium">{{
+                    formUtils.getFieldError(myForm, "firstName")
+                  }}</span>
+                </p>
+              }
+            </div>
+            <!-- last_name -->
+            <div>
+              <label
+                for="lastName"
+                class="block mb-2 text-sm font-medium"
+                [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'lastName'),
+                }"
+                >Apellidos</label
+              >
+              <input
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="input-base"
+                [placeholder]="user()?.lastName"
+                [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'lastName'),
+                }"
+              />
+              @if (formUtils.isValiedField(myForm, "lastName")) {
+                <p class="mt-2 text-sm text-red-600">
+                  <span class="font-medium">{{
+                    formUtils.getFieldError(myForm, "lastName")
+                  }}</span>
+                </p>
+              }
+            </div>
+          </div>
+          @if (
+            user()?.role !== "SUPER_ADMIN" &&
+            user()?.role !== "ADMIN" &&
+            user()?.role !== "STORE_OWNER"
+          ) {
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+              <div>
+                <label
+                  for="gender"
+                  class="block mb-2 text-sm font-medium text-black"
+                  >Genero</label
+                >
+                <select id="gender" class="input-base" formControlName="gender">
+                  <option selected disabled>Seleccione</option>
+                  <option value="MALE">Masculino</option>
+                  <option value="FEMALE">Femenino</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  for="email"
+                  class="block mb-2 text-sm font-medium"
+                  [ngClass]="{
+                    ' text-red-700': formUtils.isValiedField(myForm, 'email'),
+                  }"
+                  >Correo electronico</label
+                >
+                <input
+                  type="text"
+                  id="email"
+                  formControlName="email"
+                  class="input-base"
+                  [ngClass]="{
+                    'input-error': formUtils.isValiedField(myForm, 'email'),
+                  }"
+                />
+                @if (formUtils.isValiedField(myForm, "email")) {
+                  <p class="mt-2 text-sm text-red-600">
+                    <span class="font-medium">{{
+                      formUtils.getFieldError(myForm, "email")
+                    }}</span>
+                  </p>
+                }
+              </div>
+            </div>
           }
-        </div>
-        <!-- last_name -->
-        <div>
-          <label for="lastName" class="block mb-2 text-sm font-medium" [ngClass]="{
-          ' text-red-700': formUtils.isValiedField(
-            myForm,
-            'lastName'
-          )
-        }">Apellidos</label>
-          <input type="text" id="lastName" formControlName="lastName"
-            class="input-base" [placeholder]="user()?.lastName" [ngClass]="{
-          'input-error':
-            formUtils.isValiedField(myForm, 'lastName')
-        }" />
-          @if(formUtils.isValiedField(myForm,'lastName')){
-          <p class="mt-2 text-sm text-red-600 ">
-            <span class="font-medium">{{
-              formUtils.getFieldError(myForm, "lastName")
-              }}</span>
-          </p>
-          }
-        </div>
-      </div>
-      @if (user()?.role !== 'SUPER_ADMIN'  && user()?.role !== 'ADMIN' && user()?.role !== 'STORE_OWNER' ) {
-      <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
-          <label for="gender" class="block mb-2 text-sm font-medium text-black">Genero</label>
-          <select id="gender"
-            class="input-base">
-            <option selected>Seleccione</option>
-            <option value="US">Masculino</option>
-            <option value="CA">Femenino</option>
-          </select>
-        </div>
-        <div>
-          <label for="email" class="block mb-2 text-sm font-medium" [ngClass]="{
-          ' text-red-700': formUtils.isValiedField(
-            myForm,
-            'email'
-          )
-        }">Correo electronico</label>
-          <input type="text" id="email" formControlName="email"
-            class="input-base" [ngClass]="{
-          'input-error':
-            formUtils.isValiedField(myForm, 'email')
-        }" />
-          @if(formUtils.isValiedField(myForm,'email')){
-          <p class="mt-2 text-sm text-red-600 ">
-            <span class="font-medium">{{
-              formUtils.getFieldError(myForm, "email")
-              }}</span>
-          </p>
-          }
-        </div>
-      </div>}
 
-      <div class="grid gap-6 mb-6 md:grid-cols-2">
-        @if (user()?.role !== 'SUPER_ADMIN' && user()?.role !== 'ADMIN') {
-        <div>
-          <label for="dni" class="block mb-2 text-sm font-medium" [ngClass]="{
-          ' text-red-700': formUtils.isValiedField(
-            myForm,
-            'dni'
-          )
-        }">DNI</label>
-          <input type="text" id="dni" formControlName="dni"
-            class="input-base" [ngClass]="{
-          'input-error':
-            formUtils.isValiedField(myForm, 'dni')
-        }" />
-          @if(formUtils.isValiedField(myForm,'dni')){
-          <p class="mt-2 text-sm text-red-600 ">
-            <span class="font-medium">{{
-              formUtils.getFieldError(myForm, "dni")
-              }}</span>
-          </p>
-          }
-        </div>}
-        @if (user()?.role !== 'SUPER_ADMIN' && user()?.role !== 'ADMIN' &&  user()?.role !== 'STORE_OWNER') {
-        <div>
-          <label for="phone" class="block mb-2 text-sm font-medium" [ngClass]="{
-          ' text-red-700': formUtils.isValiedField(
-            myForm,
-            'phone'
-          )
-        }">N° celular</label>
-          <input type="text" id="phone" formControlName="phone"
-            class="input-base" [ngClass]="{
-          'input-error':
-            formUtils.isValiedField(myForm, 'phone')
-        }" />
-          @if(formUtils.isValiedField(myForm,'phone')){
-          <p class="mt-2 text-sm text-red-600 ">
-            <span class="font-medium">{{
-              formUtils.getFieldError(myForm, "phone")
-              }}</span>
-          </p>
-          }
-        </div>}
-      </div>
-      @if (user()?.role !== 'SUPER_ADMIN' && user()?.role !== 'ADMIN' && user()?.role !== 'STORE_OWNER') {
-      <div class="mb-6">
-        <label for="birthdate" class="block mb-2 text-sm font-medium" [ngClass]="{
-        ' text-red-700': formUtils.isValiedField(
-          myForm,
-          'birthdate'
-        )
-      }">Fecha de nacimiento</label>
-        <input type="date" id="birthdate" formControlName="birthdate"
-          class="input-base" [ngClass]="{
-        'input-error':
-          formUtils.isValiedField(myForm, 'birthdate')
-      }" />
-        @if(formUtils.isValiedField(myForm,'birthdate')){
-        <p class="mt-2 text-sm text-red-600 ">
-          <span class="font-medium">{{
-            formUtils.getFieldError(myForm, "birthdate")
-            }}</span>
-        </p>
-        }
-      </div>}
-      <div class="mb-2">
-        <h4 class="text-lg font-semibold mt-4">Foto </h4>
-        <h4 class="text-sm font-normal mb-4">Carga una foto a tu perfil de tu cuenta</h4>
-        <div class="md:flex items-center gap-6 justify-between">
-          <div class="flex items-center justify-center w-20 h-20 rounded-full mb-6">
-            <img src="./assets/img/log-4.jpg" class="rounded-full" alt="">
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
+            @if (user()?.role !== "SUPER_ADMIN" && user()?.role !== "ADMIN") {
+              <div>
+                <label
+                  for="documentNumber"
+                  class="block mb-2 text-sm font-medium"
+                  [ngClass]="{
+                    ' text-red-700': formUtils.isValiedField(myForm, 'documentNumber'),
+                  }"
+                  >DNI</label
+                >
+                <input
+                  type="text"
+                  id="documentNumber"
+                  formControlName="documentNumber"
+                  class="input-base"
+                  [ngClass]="{
+                    'input-error': formUtils.isValiedField(myForm, 'documentNumber'),
+                  }"
+                />
+                @if (formUtils.isValiedField(myForm, "documentNumber")) {
+                  <p class="mt-2 text-sm text-red-600">
+                    <span class="font-medium">{{
+                      formUtils.getFieldError(myForm, "documentNumber")
+                    }}</span>
+                  </p>
+                }
+              </div>
+            }
+            @if (
+              user()?.role !== "SUPER_ADMIN" &&
+              user()?.role !== "ADMIN" &&
+              user()?.role !== "STORE_OWNER"
+            ) {
+              <div>
+                <label
+                  for="phone"
+                  class="block mb-2 text-sm font-medium"
+                  [ngClass]="{
+                    ' text-red-700': formUtils.isValiedField(myForm, 'phone'),
+                  }"
+                  >N° celular</label
+                >
+                <input
+                  type="text"
+                  id="phone"
+                  formControlName="phone"
+                  class="input-base"
+                  [ngClass]="{
+                    'input-error': formUtils.isValiedField(myForm, 'phone'),
+                  }"
+                />
+                @if (formUtils.isValiedField(myForm, "phone")) {
+                  <p class="mt-2 text-sm text-red-600">
+                    <span class="font-medium">{{
+                      formUtils.getFieldError(myForm, "phone")
+                    }}</span>
+                  </p>
+                }
+              </div>
+            }
           </div>
-          <div class="flex gap-3">
-            <button type="button"
-              class="button-secondary">
-              Eliminar foto
-            </button>
-            <label
-              class="button-primary">
-              Agregar foto
-              <input type="file" class="hidden" />
-            </label>
+          @if (
+            user()?.role !== "SUPER_ADMIN" &&
+            user()?.role !== "ADMIN" &&
+            user()?.role !== "STORE_OWNER"
+          ) {
+            <div class="mb-6">
+              <label
+                for="birthDate"
+                class="block mb-2 text-sm font-medium"
+                [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'birthDate'),
+                }"
+                >Fecha de nacimiento</label
+              >
+              <input
+                type="date"
+                id="birthDate"
+                formControlName="birthDate"
+                class="input-base"
+                [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'birthDate'),
+                }"
+              />
+              @if (formUtils.isValiedField(myForm, "birthDate")) {
+                <p class="mt-2 text-sm text-red-600">
+                  <span class="font-medium">{{
+                    formUtils.getFieldError(myForm, "birthDate")
+                  }}</span>
+                </p>
+              }
+            </div>
+          }
+          <div class="mb-2">
+            <h4 class="text-lg font-semibold mt-4">Foto</h4>
+            <h4 class="text-sm font-normal mb-4">
+              Carga una foto a tu perfil de tu cuenta
+            </h4>
+            <div class="md:flex items-center gap-6 justify-between">
+              <div
+                class="flex items-center justify-center w-20 h-20 rounded-full mb-6"
+              >
+                <img [src]="urlImage | notImage" class="rounded-full" alt="" />
+              </div>
+              <div class="flex gap-3">
+                <button type="button" class="button-secondary">
+                  Eliminar foto
+                </button>
+                <label class="button-primary">
+                  Agregar foto
+                  <input
+                    type="file"
+                    class="hidden"
+                    (change)="changeAvatarFile($event)"
+                  />
+                </label>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="mb-6 card-static">
+        <!-- TODO: Agregar configuracion de cuenta, idioma y zona horaria -->
+        <!-- <div class="mb-6 card-static">
       <h1 class="text-xl font-bold mb-6">Configuración de la cuenta</h1>
       <div class="grid gap-6 mb-2 md:grid-cols-2">
         <div>
@@ -189,18 +259,19 @@
         </div>
       </div>
 
-    </div>
+    </div> -->
 
-    <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
-      <button type="button"
-        class="button-secondary me-3">
-        Cancelar
-      </button>
-      <button data-modal-hide="default-modal" type="button"
-        class="button-primary">
-        Guardar
-      </button>
-    </div>
-  </form>}
-
-</div></div>
+        <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+          <button type="button" class="button-secondary me-3">Cancelar</button>
+          <button
+            data-modal-hide="default-modal"
+            type="submit"
+            class="button-primary"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

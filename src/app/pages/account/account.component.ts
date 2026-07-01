@@ -17,7 +17,6 @@ export default class AccountComponent {
   constructor() {
     this.storeService.user.subscribe((user) => {
       this.user = user;
-      console.log('User in AccountComponent:', this.user);
     });
   }
 }
