@@ -1,3 +1,5 @@
+import { DataPaginationResponse } from "../general/services.interface";
+
 export interface IStoresResp {
   id:                  number;
   businessName:        string;
@@ -25,3 +27,24 @@ export interface IStoresResp {
 }
 
 
+export interface IPublicStore extends DataPaginationResponse{
+  content:          ContentPublicStore[];
+}
+
+export interface ContentPublicStore {
+  id:                  number;
+  businessName:        string;
+  tradeName:           string;
+  displayName:         string;
+  email:               string;
+  city:                null;
+  country:             string;
+  status:              null;
+  onboardingCompleted: boolean;
+  industry:            null;
+  website:             string;
+  isFavorite:          boolean;
+  totalFavorites:      number;
+  logo:                string;
+  createdAt:           Date;
+}

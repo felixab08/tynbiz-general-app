@@ -50,8 +50,6 @@ export class SearchComponent {
   getCategories() {
     this._categoryService.getCategoryByStore().subscribe({
       next: (resp) => {
-        console.log(resp);
-
         this.listCategories.set(resp);
       },
       error: (err: IErrorGeneralResp) => {
@@ -85,6 +83,13 @@ export class SearchComponent {
       next: (resp) => {
         this.provincias.set(resp);
       },
+      error: (err: IErrorGeneralResp) => {
+        this._alertService.getAlert(
+          'Error!!!',
+          err.error.detail || 'Error, comuniquese con los respomsables.',
+          'error',
+        );
+      },
     });
   }
   handlerDistrito(event: any) {
@@ -96,6 +101,13 @@ export class SearchComponent {
       .subscribe({
         next: (resp) => {
           this.distritos.set(resp);
+        },
+        error: (err: IErrorGeneralResp) => {
+          this._alertService.getAlert(
+            'Error!!!',
+            err.error.detail || 'Error, comuniquese con los respomsables.',
+            'error',
+          );
         },
       });
   }

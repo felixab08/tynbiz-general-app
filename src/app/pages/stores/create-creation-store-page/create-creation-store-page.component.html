@@ -44,7 +44,7 @@
         >
           Tus productos para crear contenido
         </p>
-        <div class="overflow-auto h-[600px]">
+        <div class="overflow-auto h-150">
           @for (product of _createCreation.products(); track product.id) {
             <div
               class="w-full flex justify-between p-4 border rounded-lg mb-6 border-gray-300"
@@ -85,7 +85,7 @@
       <div class="card-presentation">
         <button
           (click)="backToProducts()"
-          class="mb-4 text-sm text-gray-600 hover:underline dark:text-gray-200"
+          class="mb-4 text-sm text-gray-600 hover:underline dark:text-gray-200 cursor-pointer hover:text-primary"
         >
           ← Volver
         </button>
@@ -111,6 +111,7 @@
               id="title"
               formControlName="title"
               placeholder="Nombre de la creación"
+              spellcheck="true"
               class="input-base"
               [ngClass]="{
                 'input-error': formUtils.isValiedField(
@@ -182,7 +183,7 @@
               class="input-base"
             >
               <option value="" selected disabled>Seleccione</option>
-              <option value="SOLO_PUBLICACION ">Solo publicación</option>
+              <option value="SOLO_PUBLICACION">Solo publicación</option>
               <option value="EN_VIVO">Publicación en vivo</option>
             </select>
             @if (
@@ -214,7 +215,7 @@
                   (change)="toggleSchedule()"
                 />
                 <div
-                  class="relative w-9 h-5 bg-gray-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
+                  class="relative w-9 h-5 bg-gray-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:inset-s-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
                 ></div>
               </label>
             </div>
@@ -234,7 +235,7 @@
               >
               <div class="relative">
                 <div
-                  class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+                  class="absolute inset-y-0 inset-e-0 top-0 flex items-center pe-3.5 pointer-events-none"
                 >
                   <i class="fa-solid fa-calendar"></i>
                 </div>
@@ -267,7 +268,7 @@
               >
               <div class="relative">
                 <div
-                  class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none"
+                  class="absolute inset-y-0 inset-e-0 top-0 flex items-center pe-3.5 pointer-events-none"
                 >
                   <i class="fa-solid fa-clock"></i>
                 </div>

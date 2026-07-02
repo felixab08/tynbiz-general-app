@@ -26,9 +26,7 @@ type CreationStep = 'products' | 'details';
 })
 export default class CreateCreationStorePage {
   step = signal<CreationStep>('products');
-  publicationType = signal<'SOLO_PUBLICACION ' | 'EN_VIVO'>(
-    'SOLO_PUBLICACION ',
-  );
+  publicationType = signal<'SOLO_PUBLICACION' | 'EN_VIVO'>('SOLO_PUBLICACION');
   scheduleEnabled = signal(false);
   _createCreation = inject(CreateCreation);
   _alertService = inject(AlertService);
@@ -64,10 +62,10 @@ export default class CreateCreationStorePage {
     this.step.set('products');
   }
   onPublicationChange(value: string) {
-    this.publicationType.set(value as 'SOLO_PUBLICACION ' | 'EN_VIVO');
+    this.publicationType.set(value as 'SOLO_PUBLICACION' | 'EN_VIVO');
 
     // resetear toggle y fecha/hora si cambia a "solo"
-    if (value === 'SOLO_PUBLICACION ') {
+    if (value === 'SOLO_PUBLICACION') {
       this.scheduleEnabled.set(false);
     }
   }
