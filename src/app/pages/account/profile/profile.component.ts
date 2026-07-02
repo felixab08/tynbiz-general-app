@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { User } from '@app/auth/interfaces/user.interface';
-import { IProfile, IProfileAvatar } from '@app/interfaces';
+import { IProfile, IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
 import { AlertService, ProfileService } from '@app/services';
 import { FormUtils } from '@app/utils/form.util';
@@ -76,19 +76,55 @@ export class ProfileComponent {
     console.log('Selected file:', file);
     if (file) {
       const avatar: IProfileAvatar = {
+        // url: URL.createObjectURL(file),
         fileName: file.name,
         contentType: file.type,
         uploadType: 'AVATAR',
       };
+      console.log(avatar);
       this._profileService.postUserProfileAvatar(avatar).subscribe({
         next: (profile) => {
           console.log('Avatar updated', profile);
+          if (file) {
+            const reader = new FileReader();
+
+            // Lee el archivo como una matriz de bytes (ArrayBuffer)
+            reader.readAsArrayBuffer(file);
+
+            reader.onload = () => {
+              // El resultado es el binario crudo
+              const binaryData = reader.result as ArrayBuffer;
+              this.updateAvatarInCloudinary(profile, binaryData);
+            };
+          }
         },
         error: (error) => {
           console.error('Error updating avatar', error);
         },
       });
     }
+  }
+
+  updateAvatarInCloudinary(resp: IRespProfileAvatar, avatarBinary: any) {
+    this._profileService
+      .putUpdateImagenInCloudinary(resp.uploadUrl, avatarBinary)
+      .subscribe({
+        next: (response) => {
+          this.putUpdateUserProfileAvatar(resp.publicUrl);
+        },
+        error: (error) => {
+          console.error('Error updating avatar in Cloudinary', error);
+        },
+      });
+  }
+
+  putUpdateUserProfileAvatar(avatarUrl: string) {
+    this._profileService.putUpdateUserProfileAvatar(avatarUrl).subscribe({
+      next: (updatedProfile) => {},
+      error: (error) => {
+        console.error('Error updating user profile avatar', error);
+      },
+    });
   }
 
   onSave() {

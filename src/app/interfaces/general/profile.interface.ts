@@ -21,4 +21,9 @@ export interface IProfileAvatar {
   fileName:    string;
   contentType: string;
   uploadType:  string;
+  url?:        string;
+}
+export interface IRespProfileAvatar {
+  uploadUrl: string;
+  publicUrl: string;
 }
