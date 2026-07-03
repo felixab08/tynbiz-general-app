@@ -87,7 +87,7 @@ export class ProfileComponent {
           console.log('Avatar updated', profile);
           if (file) {
             // Enviar el File directamente al servicio (no es necesario FileReader)
-            this.updateAvatarInCloudinary(profile, file);
+            this.uploadAvatarToStorage(profile, file);
           }
         },
         error: (error) => {
@@ -97,20 +97,22 @@ export class ProfileComponent {
     }
   }
 
-  updateAvatarInCloudinary(resp: IRespProfileAvatar, file: File | Blob) {
-    this._profileService.putUpdateImagenInCloudinary(resp.uploadUrl, file).subscribe({
+  uploadAvatarToStorage(resp: IRespProfileAvatar, file: File | Blob) {
+    this._profileService.uploadImageToStorage(resp.uploadUrl, file).subscribe({
       next: (response) => {
         this.putUpdateUserProfileAvatar(resp.publicUrl);
       },
       error: (error) => {
-        console.error('Error updating avatar in Cloudinary', error);
+        console.error('Error uploading avatar to storage', error);
       },
     });
   }
 
   putUpdateUserProfileAvatar(avatarUrl: string) {
     this._profileService.putUpdateUserProfileAvatar(avatarUrl).subscribe({
-      next: (updatedProfile) => {},
+      next: (updatedProfile) => {
+        this.urlImage = updatedProfile.avatarUrl || avatarUrl;
+      },
       error: (error) => {
         console.error('Error updating user profile avatar', error);
       },

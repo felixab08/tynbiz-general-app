@@ -27,12 +27,11 @@ export class ProfileService {
       avatar,
     );
   }
-  putUpdateImagenInCloudinary(
+  uploadImageToStorage(
     uploadUrl: string,
     file: File | Blob,
   ): Observable<any> {
-    let contentType = (file as any)?.type || 'application/octet-stream';
-    if (contentType === 'image/jpg') contentType = 'image/jpeg';
+    const contentType = (file as any)?.type || 'application/octet-stream';
     const headers = new HttpHeaders({ 'Content-Type': contentType });
     console.log(headers);
 
