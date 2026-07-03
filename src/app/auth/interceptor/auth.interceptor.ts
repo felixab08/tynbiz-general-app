@@ -10,8 +10,8 @@ export function authInterceptor(
   const authService = inject(AuthService);
   const authToken = authService.token();
 
-  // If there is no token, forward the original request (do not send 'Bearer null').
-  if (!authToken) {
+  // If there is no token, or if the request is going to Cloudflare R2 (external), do not send 'Bearer' token.
+  if (!authToken || req.url.includes('cloudflarestorage.com')) {
     return next(req);
   }
 
