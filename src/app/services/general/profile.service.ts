@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IProfile, IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { environment } from '@environments/environment';
@@ -29,9 +29,17 @@ export class ProfileService {
   }
   putUpdateImagenInCloudinary(
     uploadUrl: string,
-    avatarBinary: any,
-  ): Observable<IRespProfileAvatar> {
-    return this._http.put<IRespProfileAvatar>(uploadUrl, avatarBinary);
+    file: File | Blob,
+  ): Observable<any> {
+    let contentType = (file as any)?.type || 'application/octet-stream';
+    if (contentType === 'image/jpg') contentType = 'image/jpeg';
+    const headers = new HttpHeaders({ 'Content-Type': contentType });
+    console.log(headers);
+
+    return this._http.put(uploadUrl, file, {
+      headers,
+      responseType: 'text' as 'json',
+    });
   }
 
   putUpdateUserProfileAvatar(publicUrl: string): Observable<IProfile> {
@@ -39,4 +47,12 @@ export class ProfileService {
       avatarUrl: publicUrl,
     });
   }
+
+  // const workerUrl = 'https://<tu-worker>.workers.dev/upload-proxy-worker'
+  // const presigned = '<uploadUrl from backend>'
+  // await fetch(`${workerUrl}?uploadUrl=${encodeURIComponent(presigned)}`, {
+  //   method: 'PUT',
+  //   headers: { 'Content-Type': file.type },
+  //   body: file
+  // })
 }

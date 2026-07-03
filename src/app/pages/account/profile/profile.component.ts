@@ -86,16 +86,8 @@ export class ProfileComponent {
         next: (profile) => {
           console.log('Avatar updated', profile);
           if (file) {
-            const reader = new FileReader();
-
-            // Lee el archivo como una matriz de bytes (ArrayBuffer)
-            reader.readAsArrayBuffer(file);
-
-            reader.onload = () => {
-              // El resultado es el binario crudo
-              const binaryData = reader.result as ArrayBuffer;
-              this.updateAvatarInCloudinary(profile, binaryData);
-            };
+            // Enviar el File directamente al servicio (no es necesario FileReader)
+            this.updateAvatarInCloudinary(profile, file);
           }
         },
         error: (error) => {
@@ -105,17 +97,15 @@ export class ProfileComponent {
     }
   }
 
-  updateAvatarInCloudinary(resp: IRespProfileAvatar, avatarBinary: any) {
-    this._profileService
-      .putUpdateImagenInCloudinary(resp.uploadUrl, avatarBinary)
-      .subscribe({
-        next: (response) => {
-          this.putUpdateUserProfileAvatar(resp.publicUrl);
-        },
-        error: (error) => {
-          console.error('Error updating avatar in Cloudinary', error);
-        },
-      });
+  updateAvatarInCloudinary(resp: IRespProfileAvatar, file: File | Blob) {
+    this._profileService.putUpdateImagenInCloudinary(resp.uploadUrl, file).subscribe({
+      next: (response) => {
+        this.putUpdateUserProfileAvatar(resp.publicUrl);
+      },
+      error: (error) => {
+        console.error('Error updating avatar in Cloudinary', error);
+      },
+    });
   }
 
   putUpdateUserProfileAvatar(avatarUrl: string) {
