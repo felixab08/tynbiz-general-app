@@ -6,10 +6,11 @@ import { LoginComponent } from '../login/login.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { creationStoreMock } from '@app/mock/creationsStore.mock';
+import { NotImagePipe } from '@app/pipes';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, ModalComponent, LoginComponent],
+  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
@@ -39,5 +40,4 @@ export class NavbarComponent {
   closeModal() {
     this.storeService.isLoginSubject.next(false);
   }
-
 }

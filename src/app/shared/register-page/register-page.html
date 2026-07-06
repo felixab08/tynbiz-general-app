@@ -1,4 +1,4 @@
-<div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto ">
+<div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
   <form
     class="mt-5"
     autocomplete="off"
@@ -77,9 +77,9 @@
             >Genero</label
           >
           <select id="gender" class="input-base" formControlName="gender">
-            <option selected>Seleccione</option>
-            <option value="MASCULINO">Masculino</option>
-            <option value="FEMENINO">Femenino</option>
+            <option selected disabled>Seleccione</option>
+            <option value="MALE">Masculino</option>
+            <option value="FEMALE">Femenino</option>
           </select>
         </div>
         <div>
@@ -216,11 +216,13 @@
             for="checkbox-remember"
             class="ms-2 text-sm font-medium text-heading"
             >Acepto los terminos y condiciones
-            <a (click)="isOpen = true; getFileDocumentsByClient()" class="ms-1 text-sm font-medium text-brand-soft hover:underline text-blue-700">
+            <a
+              (click)="isOpen = true; getFileDocumentsByClient()"
+              class="ms-1 text-sm font-medium text-brand-soft hover:underline text-blue-700"
+            >
               Ver términos y condiciones
             </a>
-            </label
-          >
+          </label>
         </div>
       </div>
     </div>

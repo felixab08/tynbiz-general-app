@@ -12,4 +12,6 @@ export interface User {
   emailVerified: boolean;
   lastLoginAt:   Date;
   createdAt:     Date;
+  avatarUrl?:    string;
+  photoUrl?:     string;
 }

@@ -44,23 +44,17 @@
     </ul>
   </div>
 
-  @if (
-    selectedTab === "Términos de servicio" &&
-    filesResp()
-  ) {
+  @if (selectedTab === "Términos de servicio") {
     <tyn-pdfupload
       [titlePolitic]="'Términos de servicio'"
-      [pdfSrc]="filesResp()![1].currentVersion.publicUrl || ''"
+      [filesResp]="filesResp()"
       [typeDoc]="'TERMS_OF_SERVICE'"
     />
   }
-  @if (
-    selectedTab === "Políticas de privacidad" &&
-    filesResp()
-  ) {
+  @if (selectedTab === "Políticas de privacidad") {
     <tyn-pdfupload
       [titlePolitic]="'Políticas de privacidad'"
-      [pdfSrc]="filesResp()![0].currentVersion.publicUrl || ''"
+      [filesResp]="filesResp()"
       [typeDoc]="'PRIVACY_POLICY'"
     />
   }

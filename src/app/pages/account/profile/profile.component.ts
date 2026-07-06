@@ -9,7 +9,7 @@ import {
 import { User } from '@app/auth/interfaces/user.interface';
 import { IProfile, IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
-import { AlertService, ProfileService } from '@app/services';
+import { AlertService, ProfileService, StoreService } from '@app/services';
 import { FormUtils } from '@app/utils/form.util';
 
 @Component({
@@ -22,6 +22,8 @@ export class ProfileComponent {
   user = input.required<User | undefined>();
   _profileService = inject(ProfileService);
   _alertService = inject(AlertService);
+  private storeService = inject(StoreService);
+
   urlImage = './assets/img/log-4.jpg';
   ngOnInit() {
     this._profileService.getUserProfile().subscribe({
@@ -51,8 +53,8 @@ export class ProfileComponent {
       '',
       [Validators.required, Validators.pattern(FormUtils.emailPattern)],
     ],
-    documentNumber: ['', [Validators.required]],
-    documentType: ['DNI'],
+    // documentNumber: [''],
+    // documentType: ['DNI'],
     phone: [
       ,
       [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
@@ -110,8 +112,11 @@ export class ProfileComponent {
 
   putUpdateUserProfileAvatar(avatarUrl: string) {
     this._profileService.putUpdateUserProfileAvatar(avatarUrl).subscribe({
-      next: (updatedProfile) => {
+      next: (updatedProfile: any) => {
         this.urlImage = updatedProfile.avatarUrl || avatarUrl;
+        this.storeService.user.next(updatedProfile as User);
+
+        console.log('User profile avatar updated', updatedProfile);
       },
       error: (error) => {
         console.error('Error updating user profile avatar', error);
@@ -128,8 +133,10 @@ export class ProfileComponent {
     const profile: IProfile = this.myForm.value;
     profile.documentType = 'DNI'; // Set the documentType to 'DNI' before sending the request
     this._profileService.patchUserProfile(profile).subscribe({
-      next: (updatedProfile) => {
+      next: (updatedProfile: any) => {
         console.log('Profile updated', updatedProfile);
+        this.storeService.user.next(updatedProfile as User);
+
         this._alertService.getAlert(
           'Success',
           'Profile updated successfully',

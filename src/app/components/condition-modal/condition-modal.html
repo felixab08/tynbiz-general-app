@@ -1,5 +1,5 @@
 <app-modal [isOpen]="isOpen" (closeModal)="closeModal()" type="long">
-  @if(filesResp()){
+  @if(filesResp() || filesResp() !== []){
   <pdf-viewer
     [src]="filesResp()![codePolitic].currentVersion.publicUrl || ''"
     [render-text]="true"
