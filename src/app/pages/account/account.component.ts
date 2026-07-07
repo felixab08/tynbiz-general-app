@@ -1,13 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { ProfileComponent } from './profile/profile.component';
-import { SecurityPrivacityComponent } from './security-privacity/security-privacity.component';
 import { CommonModule } from '@angular/common';
 import { User } from '@app/auth/interfaces/user.interface';
 import { StoreService } from '@app/services';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileStoreComponent } from './profile-store/profile-store';
+import { SecurityPrivacityComponent } from './security-privacity/security-privacity.component';
 
 @Component({
   selector: 'tyn-account',
-  imports: [ProfileComponent, SecurityPrivacityComponent, CommonModule],
+  imports: [
+    ProfileComponent,
+    ProfileStoreComponent,
+    SecurityPrivacityComponent,
+    CommonModule,
+  ],
   templateUrl: './account.component.html',
 })
 export default class AccountComponent {
@@ -17,6 +23,7 @@ export default class AccountComponent {
   constructor() {
     this.storeService.user.subscribe((user) => {
       this.user = user;
+      console.log(user);
     });
   }
 }

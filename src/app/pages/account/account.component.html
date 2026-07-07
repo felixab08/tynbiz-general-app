@@ -1,43 +1,65 @@
-<div class="dark:bg-gray-700 dark:text-white"><div class="body-primary">
-  <div class="body-secondary max-w-7xl m-auto">
-  <div class="mb-6">
-    <h1 class="text-2xl font-semibold">Mi cuenta</h1>
-  </div>
-  <div class="mb-4">
-    <ul
-      class="tab"
-      role="tablist"
-    >
-      <li class="md:me-2" role="presentation">
-        <button (click)="selectedTab = 'selectProfile'" [ngClass]="
-            selectedTab === 'selectProfile'
-              ? 'tab-active'
-              : 'tab-inactive'
-          " type="button" role="tab">
-          Perfil general
-        </button>
-      </li>
-      <li class="md:me-2" role="presentation">
-        <button (click)="selectedTab = 'selectPrivacity'" [ngClass]="
-            selectedTab === 'selectPrivacity'
-              ? 'tab-active'
-              : 'tab-inactive'
-          " type="button" role="tab">
-          Seguridad y privacidad
-        </button>
-      </li>
-    </ul>
-  </div>
+<div class="dark:bg-gray-700 dark:text-white">
+  <div class="body-primary">
+    <div class="body-secondary max-w-7xl m-auto">
+      <div class="mb-6">
+        <h1 class="text-2xl font-semibold">Mi cuenta</h1>
+      </div>
+      <div class="mb-4">
+        <ul class="tab" role="tablist">
+          <li class="md:me-2" role="presentation">
+            <button
+              (click)="selectedTab = 'selectProfile'"
+              [ngClass]="
+                selectedTab === 'selectProfile' ? 'tab-active' : 'tab-inactive'
+              "
+              type="button"
+              role="tab"
+            >
+              Perfil general
+            </button>
+          </li>
+          @if (user?.role === "STORE_OWNER") {
+            <li class="md:me-2" role="presentation">
+              <button
+                (click)="selectedTab = 'selectProfileStore'"
+                [ngClass]="
+                  selectedTab === 'selectProfileStore'
+                    ? 'tab-active'
+                    : 'tab-inactive'
+                "
+                type="button"
+                role="tab"
+              >
+                Perfil de la tienda
+              </button>
+            </li>
+          }
+          <li class="md:me-2" role="presentation">
+            <button
+              (click)="selectedTab = 'selectPrivacity'"
+              [ngClass]="
+                selectedTab === 'selectPrivacity'
+                  ? 'tab-active'
+                  : 'tab-inactive'
+              "
+              type="button"
+              role="tab"
+            >
+              Seguridad y privacidad
+            </button>
+          </li>
+        </ul>
+      </div>
 
-  <div
-    *ngIf="selectedTab === 'selectProfile'"
-  >
-    <tyn-profile [user]="user"></tyn-profile>
+      <div *ngIf="selectedTab === 'selectProfile'">
+        <tyn-profile [user]="user"></tyn-profile>
+      </div>
+      <div *ngIf="selectedTab === 'selectProfileStore'">
+        <tyn-profile-store />
+      </div>
+      <div *ngIf="selectedTab === 'selectPrivacity'">
+        <tyn-security-privacity />
+      </div>
+    </div>
   </div>
-  <div
-    *ngIf="selectedTab === 'selectPrivacity'"
-  >
-    <tyn-security-privacity />
-  </div>
-  </div>
-</div></div>
+</div>

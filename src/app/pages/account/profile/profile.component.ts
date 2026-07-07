@@ -24,7 +24,6 @@ export class ProfileComponent {
   _profileService = inject(ProfileService);
   _alertService = inject(AlertService);
   private storeService = inject(StoreService);
-  _router = inject(Router);
   urlImage = './assets/img/log-4.jpg';
   ngOnInit() {
     this._profileService.getUserProfile().subscribe({
@@ -40,7 +39,6 @@ export class ProfileComponent {
           error.error?.detail || 'Error fetching user profile',
           'error',
         );
-        // this._router.navigate(['/']);
       },
     });
   }

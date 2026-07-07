@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { IUserStore } from '@app/auth/interfaces/user.interface';
 import { IProfile, IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { environment } from '@environments/environment';
-import { Observable, of, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
 
 @Injectable({
@@ -14,9 +15,15 @@ export class ProfileService {
   getUserProfile(): Observable<IProfile> {
     return this._http.get<IProfile>(`${baseUrl}/users/me`);
   }
+  getUserStoreProfile(): Observable<IUserStore> {
+    return this._http.get<IUserStore>(`${baseUrl}/stores/me`);
+  }
 
   patchUserProfile(profile: IProfile): Observable<IProfile> {
     return this._http.patch<IProfile>(`${baseUrl}/users/me`, profile);
+  }
+  patchUserStoreProfile(profile: IUserStore): Observable<IUserStore> {
+    return this._http.patch<IUserStore>(`${baseUrl}/stores/me`, profile);
   }
 
   postUserProfileAvatar(
@@ -27,10 +34,7 @@ export class ProfileService {
       avatar,
     );
   }
-  uploadImageToStorage(
-    uploadUrl: string,
-    file: File | Blob,
-  ): Observable<any> {
+  uploadImageToStorage(uploadUrl: string, file: File | Blob): Observable<any> {
     const contentType = (file as any)?.type || 'application/octet-stream';
     const headers = new HttpHeaders({ 'Content-Type': contentType });
     console.log(headers);

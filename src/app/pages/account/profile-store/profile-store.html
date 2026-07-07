@@ -1,0 +1,163 @@
+<div class="dark:bg-gray-700 dark:text-white">
+  <div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
+    @if (userStore()) {
+    <form
+      class="mt-5"
+      autocomplete="off"
+      [formGroup]="myForm"
+      (ngSubmit)="onSave()"
+    >
+      <div class="mb-6 card-static">
+        <h1 class="text-xl font-bold mb-6">Información básica</h1>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div>
+            <!-- businessName -->
+            <label
+              for="businessName"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'businessName'),
+                }"
+              >Nombre del negocio</label
+            >
+            <input
+              type="text"
+              id="businessName"
+              formControlName="businessName"
+              class="input-base"
+              [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'businessName'),
+                }"
+            />
+            @if (formUtils.isValiedField(myForm, "businessName")) {
+            <p class="mt-2 text-sm text-red-600">
+              <span class="font-medium"
+                >{{ formUtils.getFieldError(myForm, "businessName") }}</span
+              >
+            </p>
+            }
+          </div>
+          <div>
+            <!-- tradeName -->
+            <label
+              for="tradeName"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'tradeName'),
+                }"
+              >Nombre Comercial</label
+            >
+            <input
+              type="text"
+              id="tradeName"
+              formControlName="tradeName"
+              class="input-base"
+              [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'tradeName'),
+                }"
+            />
+            @if (formUtils.isValiedField(myForm, "tradeName")) {
+            <p class="mt-2 text-sm text-red-600">
+              <span class="font-medium"
+                >{{ formUtils.getFieldError(myForm, "tradeName") }}</span
+              >
+            </p>
+            }
+          </div>
+          <div>
+            <!-- displayName -->
+            <label
+              for="displayName"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'displayName'),
+                }"
+              >Nombre Comercial</label
+            >
+            <input
+              type="text"
+              id="displayName"
+              formControlName="displayName"
+              class="input-base"
+              [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'displayName'),
+                }"
+            />
+            @if (formUtils.isValiedField(myForm, "displayName")) {
+            <p class="mt-2 text-sm text-red-600">
+              <span class="font-medium"
+                >{{ formUtils.getFieldError(myForm, "displayName") }}</span
+              >
+            </p>
+            }
+          </div>
+          <div>
+            <!-- storeUrl -->
+            <label
+              for="storeUrl"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'storeUrl'),
+                }"
+              >Nombre Comercial</label
+            >
+            <input
+              type="text"
+              id="storeUrl"
+              formControlName="storeUrl"
+              class="input-base"
+              [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'storeUrl'),
+                }"
+            />
+            @if (formUtils.isValiedField(myForm, "storeUrl")) {
+            <p class="mt-2 text-sm text-red-600">
+              <span class="font-medium"
+                >{{ formUtils.getFieldError(myForm, "storeUrl") }}</span
+              >
+            </p>
+            }
+          </div>
+          <div>
+            <!-- address -->
+            <label
+              for="address"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'address'),
+                }"
+              >Dirección</label
+            >
+            <input
+              type="text"
+              id="address"
+              formControlName="address"
+              class="input-base"
+              [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'address'),
+                }"
+            />
+            @if (formUtils.isValiedField(myForm, "address")) {
+            <p class="mt-2 text-sm text-red-600">
+              <span class="font-medium"
+                >{{ formUtils.getFieldError(myForm, "address") }}</span
+              >
+            </p>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+        <button type="button" class="button-secondary me-3">Cancelar</button>
+        <button
+          data-modal-hide="default-modal"
+          type="submit"
+          class="button-primary"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+    }
+  </div>
+</div>
