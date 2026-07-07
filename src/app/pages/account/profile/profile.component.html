@@ -67,52 +67,46 @@
               }
             </div>
           </div>
-          @if (
-            user()?.role !== "SUPER_ADMIN" &&
-            user()?.role !== "ADMIN" &&
-            user()?.role !== "STORE_OWNER"
-          ) {
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
-              <div>
-                <label
-                  for="gender"
-                  class="block mb-2 text-sm font-medium text-black"
-                  >Genero</label
-                >
-                <select id="gender" class="input-base" formControlName="gender">
-                  <option selected disabled>Seleccione</option>
-                  <option value="MALE">Masculino</option>
-                  <option value="FEMALE">Femenino</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  for="email"
-                  class="block mb-2 text-sm font-medium"
-                  [ngClass]="{
-                    ' text-red-700': formUtils.isValiedField(myForm, 'email'),
-                  }"
-                  >Correo electronico</label
-                >
-                <input
-                  type="text"
-                  id="email"
-                  formControlName="email"
-                  class="input-base"
-                  [ngClass]="{
-                    'input-error': formUtils.isValiedField(myForm, 'email'),
-                  }"
-                />
-                @if (formUtils.isValiedField(myForm, "email")) {
-                  <p class="mt-2 text-sm text-red-600">
-                    <span class="font-medium">{{
-                      formUtils.getFieldError(myForm, "email")
-                    }}</span>
-                  </p>
-                }
-              </div>
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+              <label
+                for="gender"
+                class="block mb-2 text-sm font-medium text-black"
+                >Genero</label
+              >
+              <select id="gender" class="input-base" formControlName="gender">
+                <option value="" selected disabled>Seleccione</option>
+                <option value="MALE">Masculino</option>
+                <option value="FEMALE">Femenino</option>
+              </select>
             </div>
-          }
+            <div class="mb-6">
+              <label
+                for="birthDate"
+                class="block mb-2 text-sm font-medium"
+                [ngClass]="{
+                  ' text-red-700': formUtils.isValiedField(myForm, 'birthDate'),
+                }"
+                >Fecha de nacimiento</label
+              >
+              <input
+                type="date"
+                id="birthDate"
+                formControlName="birthDate"
+                class="input-base"
+                [ngClass]="{
+                  'input-error': formUtils.isValiedField(myForm, 'birthDate'),
+                }"
+              />
+              @if (formUtils.isValiedField(myForm, "birthDate")) {
+                <p class="mt-2 text-sm text-red-600">
+                  <span class="font-medium">{{
+                    formUtils.getFieldError(myForm, "birthDate")
+                  }}</span>
+                </p>
+              }
+            </div>
+          </div>
 
           <!-- <div class="grid gap-6 mb-6 md:grid-cols-2">
             @if (user()?.role !== "SUPER_ADMIN" && user()?.role !== "ADMIN") {
@@ -184,38 +178,7 @@
               </div>
             }
           </div> -->
-          @if (
-            user()?.role !== "SUPER_ADMIN" &&
-            user()?.role !== "ADMIN" &&
-            user()?.role !== "STORE_OWNER"
-          ) {
-            <div class="mb-6">
-              <label
-                for="birthDate"
-                class="block mb-2 text-sm font-medium"
-                [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(myForm, 'birthDate'),
-                }"
-                >Fecha de nacimiento</label
-              >
-              <input
-                type="date"
-                id="birthDate"
-                formControlName="birthDate"
-                class="input-base"
-                [ngClass]="{
-                  'input-error': formUtils.isValiedField(myForm, 'birthDate'),
-                }"
-              />
-              @if (formUtils.isValiedField(myForm, "birthDate")) {
-                <p class="mt-2 text-sm text-red-600">
-                  <span class="font-medium">{{
-                    formUtils.getFieldError(myForm, "birthDate")
-                  }}</span>
-                </p>
-              }
-            </div>
-          }
+
           <div class="mb-2">
             <h4 class="text-lg font-semibold mt-4">Foto</h4>
             <h4 class="text-sm font-normal mb-4">

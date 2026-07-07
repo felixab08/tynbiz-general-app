@@ -49,12 +49,6 @@ export class ProfileComponent {
     firstName: ['', [Validators.required, Validators.minLength(2)]],
     lastName: ['', [Validators.required, Validators.minLength(2)]],
     gender: ['', [Validators.required]],
-    email: [
-      '',
-      [Validators.required, Validators.pattern(FormUtils.emailPattern)],
-    ],
-    // documentNumber: [''],
-    // documentType: ['DNI'],
     phone: [
       ,
       [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
