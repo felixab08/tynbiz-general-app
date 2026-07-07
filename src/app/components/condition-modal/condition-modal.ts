@@ -5,7 +5,6 @@ import {
   input,
   Input,
   output,
-  Output,
   signal,
 } from '@angular/core';
 import { IGeneralPDF } from '@app/interfaces';

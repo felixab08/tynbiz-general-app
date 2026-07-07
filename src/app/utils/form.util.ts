@@ -373,6 +373,11 @@ export class FormUtils {
       : null;
   }
 
+  /**
+   * @param cant Cantidad de números permitidos
+   * @param name Nombre que irá en la descripción que devolverá
+   * @returns ValidatorFn
+   */
   static validateCantNumber(cant: number, name: string): ValidatorFn {
     if (!Number.isInteger(cant) || cant <= 0) {
       return (_: AbstractControl): ValidationErrors | null => null;

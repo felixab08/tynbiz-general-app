@@ -36,35 +36,49 @@ export default class RegisterPage {
   filesResp = signal<IGeneralPDF[] | null>(null); // Ruta local o URL
   private _alertService = inject(AlertService);
 
+  lookIconIsPassword = signal(false);
+  lookIconIsPasswordConfirm = signal(false);
+
   formUtils = FormUtils;
 
-  myForm: FormGroup = this._fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName: ['', [Validators.required, Validators.minLength(2)]],
-    gender: ['', [Validators.required]],
-    email: [
-      '',
-      [Validators.required, Validators.pattern(FormUtils.emailPattern)],
-    ],
-    // dni: ['', [Validators.required]],
-    phone: [
-      ,
-      [
-        Validators.required,
-        Validators.minLength(9),
-        Validators.maxLength(9),
-        FormUtils.validateCantNumber(9, 'Teléfono'),
+  myForm: FormGroup = this._fb.group(
+    {
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      gender: ['', [Validators.required]],
+      email: [
+        '',
+        [Validators.required, Validators.pattern(FormUtils.emailPattern)],
       ],
-    ],
-    birthDate: [
-      '',
-      [
-        Validators.required,
-        FormUtils.dataMaxToday(),
-        FormUtils.edadMinimaValidator(18),
+      dni: ['', [Validators.required, FormUtils.validateCantNumber(8, 'DNI')]],
+      documentType: ['DNI'],
+      phone: [
+        ,
+        [
+          Validators.required,
+          Validators.minLength(9),
+          Validators.maxLength(9),
+          FormUtils.validateCantNumber(9, 'Teléfono'),
+        ],
       ],
-    ],
-  });
+      birthDate: [
+        '',
+        [
+          Validators.required,
+          FormUtils.dataMaxToday(),
+          FormUtils.edadMinimaValidator(18),
+        ],
+      ],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      passwordRepit: ['', [Validators.required, Validators.minLength(8)]],
+    },
+    {
+      validators: this.formUtils.passIgualesValidator(
+        'password',
+        'passwordRepit',
+      ),
+    },
+  );
 
   getFileDocumentsByClient() {
     this._fileDocSrv.getFileDocumentsByClient().subscribe({
@@ -86,7 +100,9 @@ export default class RegisterPage {
       this.myForm.markAllAsTouched();
       return;
     }
-    this._authService.postRegisterBuyerUser(this.myForm.value).subscribe({
+    let formData = this.myForm.value;
+    delete formData.passwordRepit;
+    this._authService.postRegisterBuyerUser(formData).subscribe({
       next: (data: any) => {
         this._authService.handleAuthSuccess(data.user, data.accessToken);
         this.myForm.reset();
@@ -107,5 +123,11 @@ export default class RegisterPage {
   }
   closeModal(event: boolean) {
     this.isOpen = event;
+  }
+  changeTypeInput() {
+    this.lookIconIsPassword.update((value) => !value);
+  }
+  changeTypeInputConfirm() {
+    this.lookIconIsPasswordConfirm.update((value) => !value);
   }
 }

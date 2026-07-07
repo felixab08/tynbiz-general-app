@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { IProfile, IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
@@ -23,7 +24,7 @@ export class ProfileComponent {
   _profileService = inject(ProfileService);
   _alertService = inject(AlertService);
   private storeService = inject(StoreService);
-
+  _router = inject(Router);
   urlImage = './assets/img/log-4.jpg';
   ngOnInit() {
     this._profileService.getUserProfile().subscribe({
@@ -36,9 +37,10 @@ export class ProfileComponent {
         console.error('Error fetching user profile', error);
         this._alertService.getAlert(
           'Error',
-          'Error fetching user profile',
+          error.error?.detail || 'Error fetching user profile',
           'error',
         );
+        // this._router.navigate(['/']);
       },
     });
   }
