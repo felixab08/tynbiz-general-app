@@ -1,8 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@app/auth/services/auth.service';
+import { MenuService } from '@app/auth/services/menu.service';
+import { VerificationService } from '@app/services/general/verification.service';
 
 @Component({
   selector: 'tyn-verification',
   imports: [],
   templateUrl: './verification.html',
 })
-export class Verification {}
+export class Verification {
+  private readonly route = inject(ActivatedRoute);
+  readonly token = signal<string | null>(null);
+  private readonly _verificationSrv = inject(VerificationService);
+  private _router = inject(Router);
+  private _authService = inject(AuthService);
+  _menuService = inject(MenuService);
+
+  constructor() {
+    this.token.set(this.route.snapshot.queryParamMap.get('token'));
+  }
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.verifyEmail();
+  }
+
+  verifyEmail() {
+    const tokenValue = this.token();
+    if (tokenValue) {
+      this._verificationSrv.postPlanes(tokenValue).subscribe({
+        next: (response: any) => {
+          console.log('Verification successful:', response);
+          this._authService.handleAuthSuccess(
+            response.user,
+            response.accessToken,
+          );
+          const route = this._menuService.redirectLinkForRole();
+          this._router.navigate([route]);
+          setTimeout(() => {
+            location.reload();
+          }, 500);
+        },
+        error: (error) => {
+          console.error('Verification failed:', error);
+        },
+      });
+    } else {
+      console.error('No token provided for verification.');
+    }
+  }
+}

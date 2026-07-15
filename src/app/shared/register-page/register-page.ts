@@ -112,6 +112,11 @@ export default class RegisterPage {
         // setTimeout(() => {
         //   location.reload();
         // }, 500);
+        this._alertService.getAlert(
+          'Registro exitoso',
+          'Se ha enviado un correo de verificación a su email.',
+          'success',
+        );
       },
       error: (error: IErrorGeneralResp) => {
         this._alertService.getAlert(

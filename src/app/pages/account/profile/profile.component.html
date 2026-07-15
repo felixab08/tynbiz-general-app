@@ -26,6 +26,8 @@
                 formControlName="firstName"
                 class="input-base"
                 [placeholder]="user()?.firstName"
+                [disabled]="true"
+                aria-label="disabled input"
                 [ngClass]="{
                   'input-error': formUtils.isValiedField(myForm, 'firstName'),
                 }"
