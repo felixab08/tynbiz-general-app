@@ -7,6 +7,7 @@ import { AuthService } from '@app/auth/services/auth.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { creationStoreMock } from '@app/mock/creationsStore.mock';
 import { NotImagePipe } from '@app/pipes';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,7 @@ export class NavbarComponent {
   _authService = inject(AuthService);
   public user: User | undefined;
   public creations = creationStoreMock;
+  environment = environment;
 
   constructor() {
     let user = localStorage.getItem('user');
@@ -39,5 +41,10 @@ export class NavbarComponent {
 
   closeModal() {
     this.storeService.isLoginSubject.next(false);
+  }
+
+  requestDemo() {
+    const url = `${environment.REQUEST_DEMO_URL}`;
+    window.open(url, '_blank');
   }
 }

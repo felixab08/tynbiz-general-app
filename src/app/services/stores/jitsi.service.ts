@@ -14,4 +14,8 @@ export class JitsiService {
   getJitsiStatus(idContenido: number): Observable<IJitsiResp> {
     return this._http.get<IJitsiResp>(`${baseUrl}/jitsi/token/${idContenido}`);
   }
+
+  getNotificacionWS(): Observable<any> {
+    return this._http.get<any>(`${baseUrl}/notificacionWS/unread`);
+  }
 }

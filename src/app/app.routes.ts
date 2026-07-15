@@ -26,6 +26,11 @@ export const routes: Routes = [
       import('./pages/stores/stores.routes').then((m) => m.storesRoutes),
   },
   {
+    path: 'auth/verify-email',
+    loadComponent: () =>
+      import('./shared/verification/verification').then((m) => m.Verification),
+  },
+  {
     path: '',
     redirectTo: 'shop',
     pathMatch: 'full',

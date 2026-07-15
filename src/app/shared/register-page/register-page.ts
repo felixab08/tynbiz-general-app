@@ -50,7 +50,7 @@ export default class RegisterPage {
         '',
         [Validators.required, Validators.pattern(FormUtils.emailPattern)],
       ],
-      dni: ['', [Validators.required, FormUtils.validateCantNumber(8, 'DNI')]],
+      dni: ['', FormUtils.validateCantNumber(8, 'DNI')],
       documentType: ['DNI'],
       phone: [
         ,
@@ -104,13 +104,14 @@ export default class RegisterPage {
     delete formData.passwordRepit;
     this._authService.postRegisterBuyerUser(formData).subscribe({
       next: (data: any) => {
-        this._authService.handleAuthSuccess(data.user, data.accessToken);
-        this.myForm.reset();
-        const route = this._menuService.redirectLinkForRole();
-        this._router.navigate([route]);
-        setTimeout(() => {
-          location.reload();
-        }, 500);
+        // TODO: solo mostrar mensaje con verificacion de correo y redirigir a login
+        // this._authService.handleAuthSuccess(data.user, data.accessToken);
+        // this.myForm.reset();
+        // const route = this._menuService.redirectLinkForRole();
+        // this._router.navigate([route]);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 500);
       },
       error: (error: IErrorGeneralResp) => {
         this._alertService.getAlert(

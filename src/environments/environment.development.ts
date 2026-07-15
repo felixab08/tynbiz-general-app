@@ -12,4 +12,5 @@ export const environment = {
     'https://sandbox.mercadopago.com.pe/checkout/v1/redirect',
   CLOUDINARY_URL: 'cloudflarestorage.com',
   loadDevtools: true,
+  REQUEST_DEMO_URL: 'https://felixab08.github.io/tynbiz-app',
 };

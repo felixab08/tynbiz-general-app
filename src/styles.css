@@ -82,11 +82,11 @@
   }
 
   .card-static {
-    @apply w-full md:p-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200;
+    @apply w-full md:p-6 p-4 bg-gray-200 rounded-lg shadow-sm border border-gray-200 dark:bg-gray-700 dark:border-gray-600;
   }
 
   .card-store {
-    @apply w-full md:p-4 bg-gray-200 rounded-lg shadow-sm border border-gray-300 p-2;
+    @apply w-full md:p-4 bg-gray-200 rounded-lg shadow-sm border border-gray-300 p-2 dark:bg-gray-700 dark:border-gray-600;
   }
 
   .mini-card-img {

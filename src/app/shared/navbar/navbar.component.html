@@ -2,7 +2,7 @@
   <div class="max-w-xl mx-auto gap-2 md:gap-6 flex flex-wrap">
     @if (!user) {
       <div class="flex-wrap justify-end md:block hidden">
-        <button type="button" class="button-primary me-2">
+        <button type="button" class="button-primary me-2" (click)="requestDemo()">
           Solicitar Tynbiz
         </button>
         <button (click)="openModal()" type="button" class="button-secondary">
@@ -52,7 +52,7 @@
         }
         @if (user.role === "CLIENT") {
           <div>
-            <button type="button" class="button-primary me-2">
+            <button type="button" class="button-primary me-2" (click)="requestDemo()">
               Solicitar Tynbiz
             </button>
           </div>
