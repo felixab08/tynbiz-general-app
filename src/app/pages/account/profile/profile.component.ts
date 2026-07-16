@@ -1,12 +1,11 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { IProfile, IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
@@ -25,12 +24,15 @@ export class ProfileComponent {
   _alertService = inject(AlertService);
   private storeService = inject(StoreService);
   urlImage = './assets/img/log-4.jpg';
+  profile = signal<IProfile | null>(null);
+
   ngOnInit() {
     this._profileService.getUserProfile().subscribe({
       next: (profile) => {
         console.log(profile);
         this.urlImage = profile.avatarUrl || '';
         this.onEditForm(profile);
+        this.profile.set(profile);
       },
       error: (error) => {
         console.error('Error fetching user profile', error);

@@ -1,7 +1,27 @@
 <div class="dark:bg-gray-700 dark:text-white">
   <div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
-    @if (user()) {
-      <form
+    <h1 class="text-2xl font-bold mb-6 text-center">Perfil</h1>
+    @if (profile()) {
+      <div class="mb-6">
+        <h2 class="font-bold">Nombre:</h2>
+        <p>{{ profile()?.firstName }} {{ profile()?.fullName }}</p>
+      </div>
+      <div class="mb-6">
+        <h2 class="font-bold">Correo electrónico:</h2>
+        <p>{{ profile()?.email }}</p>
+      </div>
+      <div class="mb-6">
+        <h2 class="font-bold">Teléfono:</h2>
+        <p>{{ profile()?.phone }}</p>
+      </div>
+      @if(profile()?.documentNumber) {
+      <div class="mb-6">
+          <h2 class="font-bold">Número de documento:</h2>
+          <p>{{ profile()?.documentNumber }}</p>
+        </div>
+      }
+
+      <!-- <form
         class="mt-5"
         autocomplete="off"
         [formGroup]="myForm"
@@ -9,7 +29,6 @@
       >
         <div class="mb-6 card-static">
           <h1 class="text-xl font-bold mb-6">Información básica</h1>
-          <!-- name -->
           <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label
@@ -40,7 +59,6 @@
                 </p>
               }
             </div>
-            <!-- last_name -->
             <div>
               <label
                 for="lastName"
@@ -109,82 +127,11 @@
               }
             </div>
           </div>
-
-          <!-- <div class="grid gap-6 mb-6 md:grid-cols-2">
-            @if (user()?.role !== "SUPER_ADMIN" && user()?.role !== "ADMIN") {
-              <div>
-                <label
-                  for="documentNumber"
-                  class="block mb-2 text-sm font-medium"
-                  [ngClass]="{
-                    ' text-red-700': formUtils.isValiedField(
-                      myForm,
-                      'documentNumber'
-                    ),
-                  }"
-                  >DNI</label
-                >
-                <input
-                  disabled
-                  readonly
-                  type="text"
-                  id="documentNumber"
-                  formControlName="documentNumber"
-                  class="input-base"
-                  [ngClass]="{
-                    'input-error': formUtils.isValiedField(
-                      myForm,
-                      'documentNumber'
-                    ),
-                  }"
-                />
-                @if (formUtils.isValiedField(myForm, "documentNumber")) {
-                  <p class="mt-2 text-sm text-red-600">
-                    <span class="font-medium">{{
-                      formUtils.getFieldError(myForm, "documentNumber")
-                    }}</span>
-                  </p>
-                }
-              </div>
-            }
-            @if (
-              user()?.role !== "SUPER_ADMIN" &&
-              user()?.role !== "ADMIN" &&
-              user()?.role !== "STORE_OWNER"
-            ) {
-              <div>
-                <label
-                  for="phone"
-                  class="block mb-2 text-sm font-medium"
-                  [ngClass]="{
-                    ' text-red-700': formUtils.isValiedField(myForm, 'phone'),
-                  }"
-                  >N° celular</label
-                >
-                <input
-                  type="text"
-                  id="phone"
-                  formControlName="phone"
-                  class="input-base"
-                  [ngClass]="{
-                    'input-error': formUtils.isValiedField(myForm, 'phone'),
-                  }"
-                />
-                @if (formUtils.isValiedField(myForm, "phone")) {
-                  <p class="mt-2 text-sm text-red-600">
-                    <span class="font-medium">{{
-                      formUtils.getFieldError(myForm, "phone")
-                    }}</span>
-                  </p>
-                }
-              </div>
-            }
-          </div> -->
-
+           -->
           <div class="mb-2">
             <h4 class="text-lg font-semibold mt-4">Foto</h4>
             <h4 class="text-sm font-normal mb-4">
-              Carga una foto a tu perfil de tu cuenta
+              Carga una foto a tu perfil de tu cuenta 350x350px, formato JPG o PNG, tamaño máximo 2MB.
             </h4>
             <div class="md:flex items-center gap-6 justify-between">
               <div
@@ -193,9 +140,6 @@
                 <img [src]="urlImage | notImage" class="rounded-full" alt="" />
               </div>
               <div class="flex gap-3">
-                <!-- <button type="button" class="button-secondary">
-                  Eliminar foto
-                </button> -->
                 <label class="button-primary">
                   Agregar foto
                   <input
@@ -208,33 +152,8 @@
               </div>
             </div>
           </div>
+<!--
         </div>
-        <!-- TODO: Agregar configuracion de cuenta, idioma y zona horaria -->
-        <!-- <div class="mb-6 card-static">
-      <h1 class="text-xl font-bold mb-6">Configuración de la cuenta</h1>
-      <div class="grid gap-6 mb-2 md:grid-cols-2">
-        <div>
-          <label for="language" class="block mb-2 text-sm font-medium text-black">Idioma</label>
-          <select id="language"
-            class=" input-base">
-
-            <option value="ES">Español</option>
-            <option value="EN">Ingles</option>
-          </select>
-        </div>
-        <div>
-          <label for="timezone" class="block mb-2 text-sm font-medium text-black">Zona horaria</label>
-          <select id="timezone"
-            class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5">
-
-            <option value="US">GTM-5</option>
-            <option value="CA">GTM-6</option>
-          </select>
-        </div>
-      </div>
-
-    </div> -->
-
         <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
           <button type="button" class="button-secondary me-3">Cancelar</button>
           <button
@@ -245,7 +164,7 @@
             Guardar
           </button>
         </div>
-      </form>
+      </form> -->
     }
   </div>
 </div>
