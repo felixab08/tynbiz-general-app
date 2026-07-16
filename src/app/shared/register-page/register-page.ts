@@ -50,16 +50,11 @@ export default class RegisterPage {
         '',
         [Validators.required, Validators.pattern(FormUtils.emailPattern)],
       ],
-      dni: ['', FormUtils.validateCantNumber(8, 'DNI')],
+      documentNumber: ['', FormUtils.validateCantNumber(8, 'DNI')],
       documentType: ['DNI'],
       phone: [
-        ,
-        [
-          Validators.required,
-          Validators.minLength(9),
-          Validators.maxLength(9),
-          FormUtils.validateCantNumber(9, 'Teléfono'),
-        ],
+        '',
+        [Validators.required, FormUtils.validateCantNumber(9, 'Teléfono')],
       ],
       birthDate: [
         '',
@@ -101,17 +96,13 @@ export default class RegisterPage {
       return;
     }
     let formData = this.myForm.value;
+    if (formData.documentNumber.length < 2) {
+      delete formData.documentType;
+      delete formData.documentNumber;
+    }
     delete formData.passwordRepit;
     this._authService.postRegisterBuyerUser(formData).subscribe({
       next: (data: any) => {
-        // TODO: solo mostrar mensaje con verificacion de correo y redirigir a login
-        // this._authService.handleAuthSuccess(data.user, data.accessToken);
-        // this.myForm.reset();
-        // const route = this._menuService.redirectLinkForRole();
-        // this._router.navigate([route]);
-        // setTimeout(() => {
-        //   location.reload();
-        // }, 500);
         this._alertService.getAlert(
           'Registro exitoso',
           'Se ha enviado un correo de verificación a su email.',
