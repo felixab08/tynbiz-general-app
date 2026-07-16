@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AuthService } from '@app/auth/services/auth.service';
-import { MenuService } from '@app/auth/services/menu.service';
 import { VerificationService } from '@app/services/general/verification.service';
 
 @Component({
@@ -14,9 +13,7 @@ export class Verification {
   private readonly route = inject(ActivatedRoute);
   readonly token = signal<string | null>(null);
   private readonly _verificationSrv = inject(VerificationService);
-  private _router = inject(Router);
   private _authService = inject(AuthService);
-  _menuService = inject(MenuService);
   user = signal<User | null>(null);
 
   constructor() {
@@ -39,8 +36,6 @@ export class Verification {
             response.user,
             response.accessToken,
           );
-          const route = this._menuService.redirectLinkForRole();
-          this._router.navigate([route]);
           setTimeout(() => {
             location.reload();
           }, 500);
