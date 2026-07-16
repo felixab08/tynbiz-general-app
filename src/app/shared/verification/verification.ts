@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '@app/auth/interfaces/user.interface';
 import { AuthService } from '@app/auth/services/auth.service';
 import { MenuService } from '@app/auth/services/menu.service';
 import { VerificationService } from '@app/services/general/verification.service';
@@ -16,6 +17,7 @@ export class Verification {
   private _router = inject(Router);
   private _authService = inject(AuthService);
   _menuService = inject(MenuService);
+  user = signal<User | null>(null);
 
   constructor() {
     this.token.set(this.route.snapshot.queryParamMap.get('token'));
@@ -32,6 +34,7 @@ export class Verification {
       this._verificationSrv.postPlanes(tokenValue).subscribe({
         next: (response: any) => {
           console.log('Verification successful:', response);
+          this.user.set(response.user);
           this._authService.handleAuthSuccess(
             response.user,
             response.accessToken,
