@@ -66,7 +66,9 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   openLoginModal() {
-    this.storeService.isLoginSubject.next(true);
+    if (!this.user) {
+      this.storeService.isLoginSubject.next(true);
+    }
   }
 
   ngAfterViewInit(): void {

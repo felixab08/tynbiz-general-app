@@ -36,6 +36,7 @@ export class SearchComponent {
   isModalOpen = signal(false);
 
   initialValue = input<string>('');
+  titleValue = input<string>('Filtra tus creaciones');
   inputValue = linkedSignal<string>(() => this.initialValue() ?? '');
 
   private _categoryService = inject(CategoryService);
