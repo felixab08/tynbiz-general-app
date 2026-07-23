@@ -7,11 +7,11 @@ import { LoginComponent } from '@app/shared/login/login.component';
 import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
-  selector: 'tyn-profile',
+  selector: 'tyn-profile-store',
   imports: [LoginComponent, ModalComponent, RouterLink],
   templateUrl: './profile.component.html',
 })
-export default class ProfileComponent {
+export default class ProfileStoreComponent {
   public storeService = inject(StoreService);
   public isLogin: boolean = false;
   public user: User | undefined;

@@ -20,6 +20,8 @@ import { AlertComponent } from '@app/components/alert/alert.component';
 import { AlertService } from '@app/services/alert.service';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { MenuService } from '@app/auth/services/menu.service';
+import { ModalComponent } from '../modal/modal.component';
+import { CreateInteraction } from '../create-interaction/create-interaction';
 
 @Component({
   selector: 'app-side-menu',
@@ -31,6 +33,8 @@ import { MenuService } from '@app/auth/services/menu.service';
     RouterLinkActive,
     AsyncPipe,
     NgClass,
+    ModalComponent,
+    CreateInteraction,
   ],
   templateUrl: './side-menu.component.html',
 })
@@ -50,6 +54,8 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   @ViewChild('logoSidebar', { static: true })
   logoSidebar!: ElementRef<HTMLElement>;
 
+  public isOpen: boolean = false;
+
   private _observer!: MutationObserver;
 
   public user: User | undefined;
@@ -68,6 +74,8 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   openLoginModal() {
     if (!this.user) {
       this.storeService.isLoginSubject.next(true);
+    } else {
+      this.isOpen = true;
     }
   }
 
@@ -103,5 +111,8 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
     } catch (e) {
       // ignore
     }
+  }
+  closeModal() {
+    this.isOpen = false;
   }
 }

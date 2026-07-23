@@ -110,6 +110,12 @@ export class FormUtils {
       return valid ? null : { dataMaxToday: true };
     };
   }
+  /**
+   * dateMinToday()
+   * Valida que la fecha seleccionada no sea menor a la fecha actual
+   * @returns
+   */
+
   static dateMinToday(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {

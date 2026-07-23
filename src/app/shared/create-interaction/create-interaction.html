@@ -1,0 +1,107 @@
+<div class="p-2 md:p-5">
+  <h4 class="font-bold text-2xl text-center">Crear interacción en vivo</h4>
+  <p>Seleccione la fecha y hora para crear una interacción posterior</p>
+</div>
+<form
+  class="p-5 md:p-10"
+  autocomplete="off"
+  [formGroup]="myForm"
+  (ngSubmit)="onSave()"
+>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="mb-3">
+      <p class="text-sm text-gray-500 dark:text-gray-400 font-bold">Detalle</p>
+      <span class="text-sm text-gray-500 dark:text-gray-400">
+        La privacidad de tu interacción
+      </span>
+    </div>
+    <div>
+      <label for="typelife" class="block mb-2 text-sm font-medium">Tipo</label>
+      <select id="typelife" class="input-base" formControlName="typelife">
+        <option value="" selected disabled>Seleccione</option>
+        <option value="MALE">Privado</option>
+        <option value="FEMALE">Publico</option>
+      </select>
+    </div>
+
+    <div>
+      <label
+        for="date"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Fecha</label
+      >
+      <input
+        type="date"
+        id="date"
+        formControlName="date"
+        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
+        [ngClass]="{
+          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+            formUtils.isValiedField(myForm, 'date')
+        }"
+      />
+      @if(formUtils.isValiedField(myForm,'date')){
+      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+        <span class="font-medium"
+          >{{ formUtils.getFieldError(myForm, "date") }}</span
+        >
+      </p>
+      }
+    </div>
+    <div>
+      <label
+        for="time"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Hora</label
+      >
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 inset-e-0 top-0 flex items-center pe-3.5 pointer-events-none"
+        >
+          <svg
+            class="w-4 h-4 text-body"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </div>
+        <input
+          type="time"
+          id="time"
+          formControlName="time"
+          class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body text-black dark:text-white bg-gray-200 dark:bg-gray-700"
+          min="08:00"
+          max="12:00"
+          value="12:00"
+          required
+        />
+      </div>
+      @if(formUtils.isValiedField(myForm,'time')){
+      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+        <span class="font-medium"
+          >{{ formUtils.getFieldError(myForm, "time") }}</span
+        >
+      </p>
+      }
+    </div>
+    <div class="flex justify-center mt-5">
+      <button
+        type="submit"
+        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark"
+      >
+        Crear interacción
+      </button>
+    </div>
+  </div>
+</form>

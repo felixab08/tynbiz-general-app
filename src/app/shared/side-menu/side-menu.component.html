@@ -270,3 +270,7 @@
 @if (_alertService.isAlert()) {
   <tyn-alert [alertMenu]="_alertService.alertMenu()"> </tyn-alert>
 }
+
+<app-modal [isOpen]="isOpen" (closeModal)="closeModal()">
+  <tyn-create-interaction></tyn-create-interaction>
+</app-modal>
