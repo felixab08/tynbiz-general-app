@@ -7,26 +7,30 @@
     <h4 class="text-lg font-semibold my-4">Carga logo de la tienda virtual</h4>
     <div class="mb-10">
       <!-- Logo upload -->
-      <div class="flex items-center gap-6 mb-8 justify-between">
-
-        <!-- Preview logo -->
-        <div class="flex items-center justify-center w-20 h-20 rounded-l">
-          <img src="./assets/img/log-4.jpg" class="rounded-xl" alt="">
-        </div>
-
-        <!-- Buttons -->
-        <div class="flex gap-3">
-          <button type="button" class="button-secondary">
-            Eliminar foto
-          </button>
-
-          <label class="button-secondary">
-            Agregar foto
-            <input type="file" class="hidden" />
-          </label>
-        </div>
-
-      </div>
+          <div class="mb-2">
+            <h4 class="text-lg font-semibold mt-4">Logo</h4>
+            <h4 class="text-sm font-normal mb-4">
+              Carga tu logo de tu tienda 350x350px, formato JPG o PNG, tamaño máximo 2MB.
+            </h4>
+            <div class="md:flex items-center gap-6 justify-between">
+              <div
+                class="flex items-center justify-center w-20 h-20 rounded-full mb-6 object-cover"
+              >
+                <img [src]="urlImage() | notImage" class="rounded-full" alt="" />
+              </div>
+              <div class="flex gap-3">
+                <label class="button-primary">
+                  Agregar foto
+                  <input
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                    (change)="changeAvatarFile($event)"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
 
     </div>
     <div class="mb-5">

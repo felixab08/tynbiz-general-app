@@ -16,7 +16,7 @@
         (keyup.enter)="valueSearch.emit(txtSearch.value)"
         (keyup)="inputValue.set(txtSearch.value)"
         [value]="inputValue()"
-        class="block py-2.5 px-0 w-full mr-2 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer"
+        class="block py-2.5 px-0 w-full mr-2 text-sm text-gray-900 bg-transparent  rounded-xl pl-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand shadow placeholder:text-body dark:placeholder:text-white"
         placeholder="Buscar... "
         autofocus="true"
       />
@@ -106,6 +106,7 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option selected disabled>Seleccione categoría</option>
+                  <option value="">Todas las categorías</option>
                   @for (category of listCategories(); track $index) {
                     <option [value]="category.value">
                       {{ category.label }}
@@ -141,6 +142,7 @@
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     >
                       <option selected disabled>Seleccione departamento</option>
+                      <option value="">Todos los departamentos</option>
                       @for (dep of departamentos(); track $index) {
                         <option [value]="dep">{{ dep }}</option>
                       }
@@ -161,6 +163,7 @@
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     >
                       <option selected disabled>Seleccione provincia</option>
+                      <option value="">Todas las provincias</option>
                       @for (prov of provincias(); track $index) {
                         <option [value]="prov">{{ prov }}</option>
                       }
@@ -181,6 +184,7 @@
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     >
                       <option selected disabled>Seleccione distrito</option>
+                      <option value="">Todos los distritos</option>
                       @for (dist of distritos(); track $index) {
                         <option [value]="dist.ubigeoId">
                           {{ dist.distrito }}
