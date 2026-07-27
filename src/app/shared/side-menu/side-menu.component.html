@@ -1,5 +1,6 @@
 <header
-  class="sticky top-0 left-0 right-0 z-20 sm:ml-64 items-center justify-between h-14.75 px-4 py-2 bg-white dark:bg-gray-700 border-b border-gray-300 dark:border-gray-600 shadow-sm transition-colors"
+  class="sticky top-0 left-0 right-0 z-20 sm:ml-64 items-center justify-between h-14.75 px-4 py-2 transition-colors"
+  [ngClass]="{'bg-white dark:bg-gray-700 border-b border-gray-300 dark:border-gray-600 shadow-sm ': isScrolled || this.user?.role === 'ADMIN' || this.user?.role === 'SUPER-ADMIN' }"
 >
   <div class="flex items-center justify-between w-full h-full miax-w-7xl">
     <div class="flex">
@@ -44,7 +45,7 @@
   class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 block"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-white dark:bg-gray-700 transition-colors">
+  <div class="h-full px-3 py-4 overflow-y-auto rounded-br-lg bg-white dark:bg-gray-800 transition-colors">
     <a
       class="flex items-center justify-center ps-2.5 mb-5"
       [routerLink]="routerState"
@@ -187,7 +188,7 @@
   this.user?.role !== "SUPER-ADMIN"
 ) {
   <nav
-    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-700 border-t border-gray-300 dark:border-gray-600 sm:hidden transition-colors"
+    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-00 border-t border-gray-300 dark:border-gray-600 sm:hidden transition-colors"
   >
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
       <a

@@ -5,6 +5,7 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
+  HostListener,
 } from '@angular/core';
 import {
   Router,
@@ -55,6 +56,7 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   logoSidebar!: ElementRef<HTMLElement>;
 
   public isOpen: boolean = false;
+  public isScrolled: boolean = false;
 
   private _observer!: MutationObserver;
 
@@ -77,6 +79,11 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
     } else {
       this.isOpen = true;
     }
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    this.isScrolled = window.scrollY > 0;
   }
 
   ngAfterViewInit(): void {
