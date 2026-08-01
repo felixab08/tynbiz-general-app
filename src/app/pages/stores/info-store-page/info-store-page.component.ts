@@ -22,10 +22,7 @@ export default class InfoStorePageComponent {
   formUtils = FormUtils;
 
   myForm: FormGroup = this._fb.group({
-    businessName: [''],
-    tradeName: [''],
-    displayName: [''],
-    storeUrl: [''],
+    phone: [''],
     address: [''],
   });
   ngOnInit() {
@@ -53,10 +50,7 @@ export default class InfoStorePageComponent {
 
   onEditForm(profile: IUserStore) {
     this.myForm.patchValue({
-      businessName: profile.businessName,
-      tradeName: profile.tradeName,
-      displayName: profile.displayName,
-      storeUrl: profile.storeUrl,
+      phone: profile.phone,
       address: profile.address,
     });
   }

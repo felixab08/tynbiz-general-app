@@ -1,110 +1,120 @@
-<div class="dark:bg-gray-700 dark:text-white"><div class="mb-6 text-gray-900 ">
-  <h1 class="text-2xl font-semibold">Información de tienda</h1>
-</div></div>
-<div class="p-4 md:p-8 bg-white rounded-lg relative shadow-lg border border-gray-300 overflow-x-auto max-w-2xl">
-  <form class="mx-auto">
-    <h4 class="text-lg font-semibold mb-4">Datos tienda online</h4>
-    <h4 class="text-lg font-semibold my-4">Carga logo de la tienda virtual</h4>
-    <div class="mb-10">
-      <!-- Logo upload -->
-          <div class="mb-2">
-            <h4 class="text-lg font-semibold mt-4">Logo</h4>
-            <h4 class="text-sm font-normal mb-4">
-              Carga tu logo de tu tienda 350x350px, formato JPG o PNG, tamaño máximo 2MB.
-            </h4>
-            <div class="md:flex items-center gap-6 justify-between">
-              <div
-                class="flex items-center justify-center w-20 h-20 rounded-full mb-6 object-cover"
-              >
-                <img [src]="urlImage() | notImage" class="rounded-full" alt="" />
-              </div>
-              <div class="flex gap-3">
-                <label class="button-primary">
-                  Agregar foto
-                  <input
-                    type="file"
-                    class="hidden"
-                    accept="image/*"
-                    (change)="changeAvatarFile($event)"
-                  />
-                </label>
-              </div>
+<div class="dark:bg-gray-700 dark:text-white">
+  <div class="mb-6 text-gray-900 *:dark:text-white">
+    <h1 class="text-2xl font-semibold">Información de tienda</h1>
+  </div>
+</div>
+<div
+  class="p-4 md:p-8 bg-white dark:bg-gray-600 rounded-lg relative shadow-lg border border-gray-300 overflow-x-auto max-w-2xl"
+>
+  @if (userStore()) {
+    <form
+      class="mt-5"
+      autocomplete="off"
+      [formGroup]="myForm"
+      (ngSubmit)="onSave()"
+    >
+      <h4 class="text-lg font-semibold mb-4">Datos tienda online</h4>
+      <h4 class="text-lg font-semibold my-4">
+        Carga logo de la tienda virtual
+      </h4>
+      <div class="mb-10">
+        <!-- Logo upload -->
+        <div class="mb-2">
+          <h4 class="text-lg font-semibold mt-4">Logo</h4>
+          <h4 class="text-sm font-normal mb-4">
+            Carga tu logo de tu tienda 350x350px, formato JPG o PNG, tamaño
+            máximo 2MB.
+          </h4>
+          <div class="md:flex items-center gap-6 justify-between">
+            <div
+              class="flex items-center justify-center w-20 h-20 rounded-full mb-6 object-cover"
+            >
+              <img [src]="urlImage() | notImage" class="rounded-full" alt="" />
+            </div>
+            <div class="flex gap-3">
+              <label class="button-primary">
+                Agregar foto
+                <input
+                  type="file"
+                  class="hidden"
+                  accept="image/*"
+                  (change)="changeAvatarFile($event)"
+                />
+              </label>
             </div>
           </div>
-
-    </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la empresa
-        online</label>
-      <input type="text" class="md:mb-6 input-base" />
-    </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la tienda
-        online</label>
-      <input type="text" class="md:mb-6 input-base" />
-    </div>
-    <div class="mb-5">
-      <label for="number" class="block mb-2 text-sm font-medium text-gray-900">RUC</label>
-      <input type="text" class="mb-6 input-base" />
-    </div>
-    <div class="mb-5">
-      <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Enlace
-        tienda</label>
-      <input type="text" class="mb-5 input-base" />
-    </div>
-    <div class="mb-5">
-      <div class="grid md:grid-cols-3 gap-4">
-        <div>
-          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Departamento</label>
-          <select id="countries" class="input-base">
-            <option selected></option>
-          </select>
         </div>
-        <div>
-          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Provincia</label>
-          <select id="countries" class="input-base">
-            <option selected></option>
-          </select>
-        </div>
-        <div>
-          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Distrito</label>
-          <select id="countries" class="input-base">
-            <option selected></option>
-          </select>
+        <!--Fin Logo upload -->
+      </div>
+      <div class="mb-6 card-static">
+        <h1 class="text-xl font-bold mb-6">Información de tienda</h1>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div>
+            <!-- phone -->
+            <label
+              for="phone"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                ' text-red-700': formUtils.isValiedField(myForm, 'phone'),
+              }"
+              >Teléfono</label
+            >
+            <input
+              type="text"
+              id="phone"
+              formControlName="phone"
+              class="input-base"
+              [ngClass]="{
+                'input-error': formUtils.isValiedField(myForm, 'phone'),
+              }"
+            />
+            @if (formUtils.isValiedField(myForm, "phone")) {
+              <p class="mt-2 text-sm text-red-600">
+                <span class="font-medium">{{
+                  formUtils.getFieldError(myForm, "phone")
+                }}</span>
+              </p>
+            }
+          </div>
+          <div>
+            <!-- address -->
+            <label
+              for="address"
+              class="block mb-2 text-sm font-medium"
+              [ngClass]="{
+                ' text-red-700': formUtils.isValiedField(myForm, 'address'),
+              }"
+              >Dirección</label
+            >
+            <input
+              type="text"
+              id="address"
+              formControlName="address"
+              class="input-base"
+              [ngClass]="{
+                'input-error': formUtils.isValiedField(myForm, 'address'),
+              }"
+            />
+            @if (formUtils.isValiedField(myForm, "address")) {
+              <p class="mt-2 text-sm text-red-600">
+                <span class="font-medium">{{
+                  formUtils.getFieldError(myForm, "address")
+                }}</span>
+              </p>
+            }
+          </div>
         </div>
       </div>
-    </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Direccion</label>
-      <input type="text" class="md:mb-6 input-base" />
-    </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Categoria de la tienda
-        online</label>
-      <select id="countries"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 ">
-        <option selected></option>
-      </select>
-    </div>
-    <div class="mb-5">
-      <input type="text" class="md:mb-6 input-base" />
-    </div>
-    <div class="mb-5">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Correo</label>
-      <input type="text" class="mb-6 input-base" />
-    </div>
-    <div class="mb-5">
-      <label for="number" class="block mb-2 text-sm font-medium text-gray-900">Numero de
-        telefono</label>
-      <input type="text" class="mb-6 input-base" />
-    </div>
-  </form>
-  <div class="flex items-center justify-end rounded-b">
-    <button type="button" class="button-secondary me-3">
-      Cancelar
-    </button>
-    <button data-modal-hide="default-modal" type="button" class="button-primary">
-      Guardar
-    </button>
-  </div>
+      <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+        <button type="button" class="button-secondary me-3">Cancelar</button>
+        <button
+          data-modal-hide="default-modal"
+          type="submit"
+          class="button-primary"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  }
 </div>

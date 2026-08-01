@@ -18,22 +18,6 @@
               Perfil general
             </button>
           </li>
-          @if (user?.role === "STORE_OWNER") {
-            <li class="md:me-2" role="presentation">
-              <button
-                (click)="selectedTab = 'selectProfileStore'"
-                [ngClass]="
-                  selectedTab === 'selectProfileStore'
-                    ? 'tab-active'
-                    : 'tab-inactive'
-                "
-                type="button"
-                role="tab"
-              >
-                Perfil de la tienda
-              </button>
-            </li>
-          }
           <li class="md:me-2" role="presentation">
             <button
               (click)="selectedTab = 'selectPrivacity'"
@@ -53,9 +37,6 @@
 
       <div *ngIf="selectedTab === 'selectProfile'">
         <tyn-profile [user]="user"></tyn-profile>
-      </div>
-      <div *ngIf="selectedTab === 'selectProfileStore'">
-        <tyn-profile-store />
       </div>
       <div *ngIf="selectedTab === 'selectPrivacity'">
         <tyn-security-privacity />
