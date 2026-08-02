@@ -26,13 +26,13 @@ export class Pdfupload {
       this.filesResp()!.length > 0 &&
       this.typeDoc() === 'TERMS_OF_SERVICE'
     ) {
-      this.pdfSrc = this.filesResp()![1].currentVersion.publicUrl;
+      this.pdfSrc = this.filesResp()![0].currentVersion.publicUrl;
     } else if (
       this.filesResp() &&
       this.filesResp()!.length > 0 &&
       this.typeDoc() === 'PRIVACY_POLICY'
     ) {
-      this.pdfSrc = this.filesResp()![0].currentVersion.publicUrl;
+      this.pdfSrc = this.filesResp()![1].currentVersion.publicUrl;
     }
   }
 
@@ -51,7 +51,6 @@ export class Pdfupload {
         },
         error: (error) => {
           console.log(error);
-
           this._alert.getAlert(
             'Error!!!',
             error.error.detail || 'Error al subir el archivo',

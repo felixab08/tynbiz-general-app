@@ -66,13 +66,13 @@ export class SuscriptionService {
     );
   }
   /**
-   * @description Incorporar suscripción por ID
+   * @description Aprobar suscripción por ID
    * @param id
    * @returns Observable<ISuscription>
    */
   postSuscriptionIncoporateById(id: number): Observable<ISuscription> {
     return this._http.post<ISuscription>(
-      `${baseUrl}/admin/subscription-requests/${id}/incorporate`,
+      `${baseUrl}/admin/subscription-requests/${id}/approvals`,
       id,
     );
   }
