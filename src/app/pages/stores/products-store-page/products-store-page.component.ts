@@ -31,9 +31,12 @@ export default class ProductsStorePageComponent {
 
   ngOnInit() {
     // Opcional: verificar estado al cargar la página
+    console.log(this.productsResourceData.data());
+
     if (
-      !this.productsResourceData.data() &&
-      !this.productsResourceData.data()?.content
+      (!this.productsResourceData.data() &&
+        !this.productsResourceData.data()?.content) ||
+      this.productsResourceData.data()!.content.length === 0
     ) {
       this.checkStatus();
     }

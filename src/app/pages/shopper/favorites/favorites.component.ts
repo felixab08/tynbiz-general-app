@@ -16,10 +16,6 @@ export default class FavoritesComponent {
   _paginationService = inject(LinkParamService);
   _storesService = inject(StoresService);
 
-  valueSearch(event: string) {
-    console.log(event);
-  }
-
   storefavoritesResorce = rxResource({
     request: () => ({
       page: this._paginationService.currentPage() - 1,

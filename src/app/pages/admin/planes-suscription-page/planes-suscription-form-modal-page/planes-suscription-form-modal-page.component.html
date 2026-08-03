@@ -3,12 +3,12 @@
     <div class="fixed inset-0 bg-black opacity-50 z-40"></div>
     <div class="fixed inset-0 z-50 flex items-center justify-center">
       <div class="relative p-4 w-full max-w-4xl max-h-full">
-        <div class="relative bg-white rounded-lg shadow-sm">
+        <div class="relative bg-white dark:bg-gray-600 rounded-lg shadow-sm">
           <!-- Header -->
           <div
-            class="flex items-center justify-between p-4 mb-4 border-b rounded-t  border-gray-200"
+            class="flex items-center justify-between p-4 mb-4 border-b rounded-t border-gray-200"
           >
-            <h3 class="text-xl font-semibold text-gray-900">
+            <h3 class="text-xl font-semibold dark:text-white">
               {{
                 selectedPlan
                   ? "Editar plan de suscripción"
@@ -18,7 +18,7 @@
             <button
               type="button"
               (click)="onClose()"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover: rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
               data-modal-hide="default-modal"
             >
               <svg
@@ -47,10 +47,12 @@
                     <div class="mb-5">
                       <label
                         for="name"
-                        class="block mb-2 text-sm font-bold text-gray-900"
+                        class="block mb-2 text-sm font-bold"
                         [ngClass]="{
-                          ' text-red-700':
-                            formUtils.isValiedField(myForm, 'name'),
+                          ' text-red-700': formUtils.isValiedField(
+                            myForm,
+                            'name'
+                          ),
                         }"
                       >
                         Nombre del plan suscripción
@@ -77,10 +79,12 @@
                     <div class="mb-5">
                       <label
                         for="description"
-                        class="block mb-2 text-sm font-bold text-gray-900"
+                        class="block mb-2 text-sm font-bold"
                         [ngClass]="{
-                          ' text-red-700':
-                            formUtils.isValiedField(myForm, 'description'),
+                          ' text-red-700': formUtils.isValiedField(
+                            myForm,
+                            'description'
+                          ),
                         }"
                         >Descripción</label
                       >
@@ -107,10 +111,12 @@
                     <div class="mb-5">
                       <label
                         for="billingCycle"
-                        class="block mb-2 text-sm font-bold text-gray-900"
+                        class="block mb-2 text-sm font-bold"
                         [ngClass]="{
-                          ' text-red-700':
-                            formUtils.isValiedField(myForm, 'billingCycle'),
+                          ' text-red-700': formUtils.isValiedField(
+                            myForm,
+                            'billingCycle'
+                          ),
                         }"
                         >Tipo de plan</label
                       >
@@ -123,11 +129,10 @@
                             value="TYNBIZ_USE"
                             name="billingCycle"
                             class="focus:ring-2"
-
                           />
                           <label
                             for="pay-per-use"
-                            class="ms-2 text-sm font-medium text-gray-900"
+                            class="ms-2 text-sm font-medium"
                             >Uso de Tynbiz</label
                           >
                         </div>
@@ -139,11 +144,8 @@
                             value="MONTHLY"
                             name="billingCycle"
                             class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 focus:ring-2"
-
                           />
-                          <label
-                            for="monthly"
-                            class="ms-2 text-sm font-medium text-gray-900"
+                          <label for="monthly" class="ms-2 text-sm font-medium"
                             >Mensual</label
                           >
                         </div>
@@ -156,9 +158,7 @@
                             name="billingCycle"
                             class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500 focus:ring-2"
                           />
-                          <label
-                            for="anual"
-                            class="ms-2 text-sm font-medium text-gray-900"
+                          <label for="anual" class="ms-2 text-sm font-medium"
                             >Anual</label
                           >
                         </div>
@@ -174,13 +174,11 @@
                       <div class="mb-5">
                         <label
                           for="message"
-                          class="block mb-2 text-sm font-medium text-gray-900"
+                          class="block mb-2 text-sm font-medium"
                           >Comisión por usuario (cuando usa sala de
                           tynbiz)</label
                         >
-                        <p
-                          class="text-sm font-normal text-gray-900"
-                        >
+                        <p class="text-sm font-normal">
                           cuando el usuario usa sala de tynbiz con los productos
                           de tienda,por el tiempo que pasa en sala, a la dueña
                           de tienda se va cobrar
@@ -190,10 +188,12 @@
                             <div class="">
                               <label
                                 for="currency"
-                                class="block mb-2 text-sm font-normal text-gray-900"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 [ngClass]="{
-                                  ' text-red-700':
-                                    formUtils.isValiedField(myForm, 'currency'),
+                                  ' text-red-700': formUtils.isValiedField(
+                                    myForm,
+                                    'currency'
+                                  ),
                                 }"
                                 >Moneda</label
                               >
@@ -201,7 +201,7 @@
                                 id="currency"
                                 formControlName="currency"
                                 name="coin"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 [ngClass]="{
                                   'input-error': formUtils.isValiedField(
                                     myForm,
@@ -209,6 +209,10 @@
                                   ),
                                 }"
                               >
+                                <option selected disabled>
+                                  Seleccione departamento
+                                </option>
+
                                 <option value="SOL" selected>S/.</option>
                                 <option value="USD">USD</option>
                               </select>
@@ -216,10 +220,12 @@
                             <div>
                               <label
                                 for="price"
-                                class="block mb-2 text-sm font-normal text-gray-900"
+                                class="block mb-2 text-sm font-normal"
                                 [ngClass]="{
-                                  ' text-red-700':
-                                    formUtils.isValiedField(myForm, 'price'),
+                                  ' text-red-700': formUtils.isValiedField(
+                                    myForm,
+                                    'price'
+                                  ),
                                 }"
                               >
                                 Monto
@@ -242,7 +248,7 @@
                           <div>
                             <label
                               for="time-in-room"
-                              class="block mb-2 text-sm font-normal text-gray-900"
+                              class="block mb-2 text-sm font-normal"
                               [ngClass]="{
                                 ' text-red-700':
                                   formUtils.isValiedField(myForm, 'time') ||
@@ -258,9 +264,12 @@
                                   id="time"
                                   formControlName="time"
                                   class="input-base"
-                                     [ngClass]="{
-              'input-error': formUtils.isValiedField(myForm, 'time'),
-            }"
+                                  [ngClass]="{
+                                    'input-error': formUtils.isValiedField(
+                                      myForm,
+                                      'time'
+                                    ),
+                                  }"
                                 />
                               </div>
                               <div class="">
@@ -269,9 +278,12 @@
                                   formControlName="unitTime"
                                   name="unitTime"
                                   class="input-base"
-                                     [ngClass]="{
-              'input-error': formUtils.isValiedField(myForm, 'unitTime'),
-            }"
+                                  [ngClass]="{
+                                    'input-error': formUtils.isValiedField(
+                                      myForm,
+                                      'unitTime'
+                                    ),
+                                  }"
                                 >
                                   <option>Seg.</option>
                                   <option selected>Min.</option>
@@ -286,17 +298,19 @@
                       <div class="mb-5">
                         <label
                           for="message"
-                          class="block mb-2 text-sm font-bold text-gray-900"
+                          class="block mb-2 text-sm font-bold"
                           >Precio plan</label
                         >
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div class="">
+                          <div>
                             <label
                               for="message"
-                              class="block mb-2 text-sm font-normal text-gray-900"
+                              class="block mb-2 text-sm font-normal"
                               [ngClass]="{
-                                ' text-red-700':
-                                  formUtils.isValiedField(myForm, 'currency'),
+                                ' text-red-700': formUtils.isValiedField(
+                                  myForm,
+                                  'currency'
+                                ),
                               }"
                               >Moneda</label
                             >
@@ -304,11 +318,12 @@
                               id="currency"
                               formControlName="currency"
                               name="coin"
-                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                 [ngClass]="{
-              'input-error': formUtils.isValiedField(myForm, 'currency'),
-            }"
+                              class="input-base"
+
                             >
+                              <option selected disabled>
+                                Seleccione moneda
+                              </option>
                               <option value="SOL" selected>S/.</option>
                               <option value="USD">USD</option>
                             </select>
@@ -316,10 +331,12 @@
                           <div>
                             <label
                               for="base-input"
-                              class="block mb-2 text-sm font-normal text-gray-900"
+                              class="block mb-2 text-sm font-normal"
                               [ngClass]="{
-                                ' text-red-700':
-                                  formUtils.isValiedField(myForm, 'price'),
+                                ' text-red-700': formUtils.isValiedField(
+                                  myForm,
+                                  'price'
+                                ),
                               }"
                             >
                               Monto
@@ -344,10 +361,12 @@
                     <div class="mb-5">
                       <label
                         for="message"
-                        class="block mb-2 text-sm font-bold text-gray-900"
+                        class="block mb-2 text-sm font-bold"
                         [ngClass]="{
-                          ' text-red-700':
-                            formUtils.isValiedField(myForm, 'isActive'),
+                          ' text-red-700': formUtils.isValiedField(
+                            myForm,
+                            'isActive'
+                          ),
                         }"
                         >Estado</label
                       >
@@ -356,10 +375,16 @@
                         formControlName="isActive"
                         name="estado"
                         class="input-base"
-                           [ngClass]="{
-              'input-error': formUtils.isValiedField(myForm, 'isActive'),
-            }"
+                        [ngClass]="{
+                          'input-error': formUtils.isValiedField(
+                            myForm,
+                            'isActive'
+                          ),
+                        }"
                       >
+                      <option selected disabled>
+                                Seleccione estado
+                              </option>
                         <option value="true" selected>Activo</option>
                         <option value="false">Inactivo</option>
                       </select>
@@ -368,8 +393,10 @@
                       <label
                         class="inline-flex items-center cursor-pointer"
                         [ngClass]="{
-                          ' text-red-700':
-                            formUtils.isValiedField(myForm, 'hasPromotion'),
+                          ' text-red-700': formUtils.isValiedField(
+                            myForm,
+                            'hasPromotion'
+                          ),
                         }"
                       >
                         <input
@@ -381,16 +408,16 @@
                           name="Offer"
                           value="isOffer"
                           class="sr-only peer"
-                             [ngClass]="{
-              'input-error': formUtils.isValiedField(myForm, 'hasPromotion'),
-            }"
+                          [ngClass]="{
+                            'input-error': formUtils.isValiedField(
+                              myForm,
+                              'hasPromotion'
+                            ),
+                          }"
                         />
-                        <span
-                          class="text-sm mr-3 font-bold text-gray-900"
-                          >Promoción</span
-                        >
+                        <span class="text-sm mr-3 font-bold">Promoción</span>
                         <div
-                          class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 "
+                          class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:inset-s-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"
                         ></div>
                       </label>
                     </div>
@@ -399,20 +426,19 @@
                         <div>
                           <label
                             for="discountPercentage"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            class="block mb-2 text-sm font-medium"
                             [ngClass]="{
-                              ' text-red-700':
-                                formUtils.isValiedField(
-                                  myForm,
-                                  'discountPercentage'
-                                ),
+                              ' text-red-700': formUtils.isValiedField(
+                                myForm,
+                                'discountPercentage'
+                              ),
                             }"
                           >
                             Descuento
                           </label>
                           <div class="relative mb-6">
                             <div
-                              class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                              class="absolute inset-y-0 inset-s-0 flex items-center ps-3.5 pointer-events-none"
                             >
                               %
                             </div>
@@ -434,10 +460,12 @@
                         <div>
                           <label
                             for="promoDays"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            class="block mb-2 text-sm font-medium"
                             [ngClass]="{
-                              ' text-red-700':
-                                formUtils.isValiedField(myForm, 'promoDays'),
+                              ' text-red-700': formUtils.isValiedField(
+                                myForm,
+                                'promoDays'
+                              ),
                             }"
                           >
                             Dias
@@ -467,30 +495,22 @@
                     tiendas.
                   </p>
                   <div
-                    class="max-w-sm m-5 p-6 bg-white border text-center border-gray-200 rounded-lg shadow-sm"
+                    class="max-w-sm m-5 p-6 bg-white dark:bg-gray-600 border text-center border-gray-200 rounded-lg shadow-sm"
                   >
-                    <h5
-                      class="mb-2 text-xl font-bold tracking-tight text-gray-900"
-                    >
+                    <h5 class="mb-2 text-xl font-bold tracking-tight">
                       {{ namePlan() }}
                     </h5>
-                    <p
-                      class="mb-3 text-sm font-normal text-gray-700"
-                    >
+                    <p class="mb-3 text-sm font-normal">
                       {{ descriptionPlan() }}
                     </p>
-                    <p
-                      class="mb-3 text-sm font-normal text-gray-700"
-                    >
+                    <p class="mb-3 text-sm font-normal">
                       @if (selectedTypePlan() === "uso de tynbiz") {
                         Comision normal
                       } @else {
                         El pago {{ selectedTypePlan() }} normal
                       }
                     </p>
-                    <p
-                      class="w-full text-lg font-semibold text-gray-900"
-                    >
+                    <p class="w-full text-lg font-semibold">
                       {{ coin() }} {{ price() }}
                       <span class="font-normal">
                         @switch (selectedTypePlan()) {
@@ -514,7 +534,7 @@
                 <button
                   type="button"
                   (click)="onClose()"
-                  class="py-2.5 px-5 ms-3 mr-3 text-sm font-medium text-gray-900 focus:outline-none bg-orange-400 rounded-lg border border-orange-400 hover:bg-gray-200 hover:border-orange-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                  class="py-2.5 px-5 ms-3 mr-3 text-sm font-medium focus:outline-none bg-orange-400 rounded-lg border border-orange-400 hover:bg-gray-200 hover:border-orange-300 hover:text-gray-600 focus:z-10 focus:ring-4 focus:ring-gray-100"
                 >
                   Cancelar
                 </button>
