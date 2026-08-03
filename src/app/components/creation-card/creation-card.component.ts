@@ -8,6 +8,7 @@ import { ICreationContent, ItemCreation } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
+import { StoreService } from '@app/services';
 @Component({
   selector: 'tyn-creation-card',
   imports: [
@@ -23,11 +24,20 @@ export class CreationCardComponent {
   isModalOpen = signal(false);
   selectedcreations: ItemCreation | null = null;
   _router = inject(Router);
+  private _storeService = inject(StoreService);
+  refreshToken: string | null = null;
+
   ngAfterViewInit(): void {
     initCarousels(); // inicializa el carrusel de Flowbite
+    this._storeService.refreshTokenSubject.subscribe((refreshToken) => {
+      this.refreshToken = refreshToken;
+      console.log(this.refreshToken);
+    });
   }
   openModal(creations: ItemCreation) {
     this.selectedcreations = creations;
+    console.log(this.selectedcreations);
+
     this.isModalOpen.set(true);
   }
   closeModal() {
@@ -35,8 +45,8 @@ export class CreationCardComponent {
   }
   createJitsi() {
     // this._router.navigate([`/shop/jitsi/${this.listCreation().items[0].id}`]);
-    const roomId = `${this.selectedcreations?.id}`;
-    const url = `${environment.JITSI_ROOM_URL}/room?contentId=${roomId}`;
+    const url =
+      `${this.selectedcreations?.videoRoomUrl}` + `?code=${this.refreshToken}`;
     window.open(url, '_blank');
   }
 }

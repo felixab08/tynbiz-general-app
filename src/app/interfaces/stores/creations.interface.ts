@@ -24,6 +24,8 @@ export interface ItemCreation {
   metrics:       Metrics;
   products:      any[];
   scheduledInfo: string;
+  videoRoomName: string;
+  videoRoomUrl: string;
 }
 
 export interface ICreationResp extends DataPaginationResponse{

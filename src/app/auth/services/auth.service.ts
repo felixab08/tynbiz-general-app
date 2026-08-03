@@ -50,6 +50,7 @@ export class AuthService {
   private initializeAuthState() {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
+    const storedRefreshToken = localStorage.getItem('refreshToken');
 
     if (storedToken && storedUser) {
       try {
@@ -58,6 +59,7 @@ export class AuthService {
         this._token.set(storedToken);
         this._authStatus.set('authenticated');
         this.storeService.user.next(user);
+        this.storeService.refreshTokenSubject.next(storedRefreshToken);
       } catch (error) {
         console.error('Error restaurando usuario del localStorage:', error);
         this.logout();
@@ -77,7 +79,7 @@ export class AuthService {
         map((data) => {
           if (data) {
             console.log('User found:', data);
-            return this.handleAuthSuccess(data.user, data.accessToken);
+            return this.handleAuthSuccess(data.user, data.accessToken, data.refreshToken);
           } else {
             throw new Error('User not found');
           }
@@ -101,6 +103,7 @@ export class AuthService {
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
     const userJson = localStorage.getItem('user');
+    const refreshToken = localStorage.getItem('refreshToken');
 
     if (!token || !userJson) {
       this.logout();
@@ -109,7 +112,7 @@ export class AuthService {
 
     try {
       const user = JSON.parse(userJson) as User;
-      this.handleAuthSuccess(user, token);
+      this.handleAuthSuccess(user, token as string, refreshToken as string);
       return of(true);
     } catch (error) {
       console.error('Error al restaurar usuario:', error);
@@ -130,10 +133,10 @@ export class AuthService {
     this.logout();
     setTimeout(() => {
       location.reload();
-    }, 500);
+    }, 5000);
   }
 
-  public handleAuthSuccess(user: User, token: string) {
+  public handleAuthSuccess(user: User, token: string, refreshToken: string) {
     this._user.set(user);
 
     this.storeService.user.next(this._user() as User);
@@ -142,6 +145,7 @@ export class AuthService {
 
     localStorage.setItem('user', JSON.stringify(this._user() as User));
     localStorage.setItem('token', token);
+    localStorage.setItem('refreshToken', refreshToken);
 
     return true;
   }

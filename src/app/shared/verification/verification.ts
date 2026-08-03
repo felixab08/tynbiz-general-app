@@ -35,6 +35,7 @@ export class Verification {
           this._authService.handleAuthSuccess(
             response.user,
             response.accessToken,
+            response.refreshToken,
           );
           setTimeout(() => {
             location.reload();
