@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IJitsiResp } from '@app/interfaces/stores/jitsi.interface';
+import {
+  IJitsiResp,
+  INotificationResp,
+} from '@app/interfaces/stores/jitsi.interface';
 import { environment } from '@environments/environment.development';
 import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -15,7 +18,9 @@ export class JitsiService {
     return this._http.get<IJitsiResp>(`${baseUrl}/jitsi/token/${idContenido}`);
   }
 
-  getNotificacionWS(): Observable<any> {
-    return this._http.get<any>(`${baseUrl}/notificacionWS/unread`);
+  getNotificacionWS(): Observable<INotificationResp[]> {
+    return this._http.get<INotificationResp[]>(
+      `${baseUrl}/notificacionWS/unread`,
+    );
   }
 }

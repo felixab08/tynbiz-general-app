@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { StoreService } from '@app/services/store.service';
 import { ModalComponent } from '../modal/modal.component';
@@ -8,18 +13,22 @@ import { User } from '@app/auth/interfaces/user.interface';
 import { creationStoreMock } from '@app/mock/creationsStore.mock';
 import { NotImagePipe } from '@app/pipes';
 import { environment } from '@environments/environment';
+import { JitsiService } from '@app/services';
+import { INotificationResp } from '@app/interfaces';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe],
+  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe, DatePipe],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
   public storeService = inject(StoreService);
   public isLogin: boolean = false;
   _authService = inject(AuthService);
+  _jitsiService = inject(JitsiService);
   public user: User | undefined;
-  public creations = creationStoreMock;
+  public creations = signal<INotificationResp[]>([]);
   environment = environment;
 
   constructor() {
@@ -33,6 +42,7 @@ export class NavbarComponent {
     this.storeService.user.subscribe((user) => {
       this.user = user;
     });
+    this.notificationSrv();
   }
 
   openModal() {
@@ -46,5 +56,13 @@ export class NavbarComponent {
   requestDemo() {
     const url = `${environment.REQUEST_DEMO_URL}`;
     window.open(url, '_blank');
+  }
+
+  notificationSrv() {
+    this._jitsiService.getNotificacionWS().subscribe((notifications) => {
+      // Handle notifications
+      console.log(notifications);
+      this.creations.set(notifications);
+    });
   }
 }
