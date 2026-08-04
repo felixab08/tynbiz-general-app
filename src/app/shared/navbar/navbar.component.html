@@ -2,7 +2,11 @@
   <div class="max-w-xl mx-auto gap-2 md:gap-6 flex flex-wrap">
     @if (!user) {
       <div class="flex-wrap justify-end md:block hidden">
-        <button type="button" class="button-primary me-2" (click)="requestDemo()">
+        <button
+          type="button"
+          class="button-primary me-2"
+          (click)="requestDemo()"
+        >
           Solicitar Tynbiz
         </button>
         <button (click)="openModal()" type="button" class="button-secondary">
@@ -52,7 +56,11 @@
         }
         @if (user.role === "CLIENT") {
           <div>
-            <button type="button" class="button-primary me-2" (click)="requestDemo()">
+            <button
+              type="button"
+              class="button-primary me-2"
+              (click)="requestDemo()"
+            >
               Solicitar Tynbiz
             </button>
           </div>
@@ -66,7 +74,8 @@
                 <i class="fa-regular fa-envelope text-gray-800"></i>
                 <span
                   class="top-0 left-2 absolute w-3.5 h-3.5 bg-red-600 text-white rounded-full font-normal text-xs flex items-center justify-center"
-                  > {{ creations().length }}</span
+                >
+                  {{ creations().length }}</span
                 >
               </div>
             </button>
@@ -138,7 +147,7 @@
 <!-- Dropdown menu -->
 <div
   id="dropdownNotification"
-  class="w-full max-w-sm bg-w rounded-base shadow z-50 hidden overflow-y-auto max-h-[80vh] my-4 text-base list-none bg-white  divide-gray-100 rounded-lg dark:bg-gray-700 dark:divide-gray-600 p-4"
+  class="w-full max-w-sm bg-w rounded-base shadow z-50 hidden overflow-y-auto max-h-[80vh] my-4 text-base list-none bg-white divide-gray-100 rounded-lg dark:bg-gray-700 dark:divide-gray-600 p-4"
   aria-labelledby="dropdownNotificationButton"
 >
   <div
@@ -173,13 +182,15 @@
               class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-primary-dark rounded-full"
             >
               <img
-                      [src]="creation.content.store.logoUrl| notImage"
-                      alt="Producto"
-                      class="h-10 object-contain"
-                    />
+                [src]="creation.content.store.logoUrl | notImage"
+                alt="Producto"
+                class="h-10 object-contain"
+              />
             </div>
             <div class="text-sm">
-              <div class="font-semibold text-heading">{{ creation.userEmail }}</div>
+              <div class="font-semibold text-heading">
+                {{ creation.userEmail }}
+              </div>
             </div>
           </div>
           <div>
@@ -195,16 +206,20 @@
             <div class="flex items-center space-x-2.5">
               <div class="text-sm ml-2">
                 <div class="font-semibold text-heading">
-                  {{ creation.content.endDate | date: "dd/MM/yyyy" }} - {{
-                    creation.content.endDate | date: "HH:mm"
-                  }}
+                  {{ creation.content.endDate | date: "dd/MM/yyyy" }} -
+                  {{ creation.content.endDate | date: "HH:mm" }}
                 </div>
               </div>
             </div>
 
-            <div class="bg-white border dark:bg-gray-600 border-gray-300 rounded-lg p-1.5">
+            <div
+              class="bg-white border dark:bg-gray-600 border-gray-300 rounded-lg p-1.5"
+            >
               <div class="grid grid-cols-2 gap-1 w-32">
-                @for (item of creation.content.products.slice(0, 3); track item.id) {
+                @for (
+                  item of creation.content.products.slice(0, 3);
+                  track item.id
+                ) {
                   <div
                     class="w-14 m-0.5 h-14 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden"
                   >

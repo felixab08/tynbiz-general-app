@@ -133,7 +133,7 @@ export class AuthService {
     this.logout();
     setTimeout(() => {
       location.reload();
-    }, 5000);
+    }, 500);
   }
 
   public handleAuthSuccess(user: User, token: string, refreshToken: string) {
