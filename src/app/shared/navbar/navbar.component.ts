@@ -41,7 +41,6 @@ export class NavbarComponent {
 
     this.storeService.user.subscribe((user) => {
       this.user = user;
-      console.log(user);
       if (user && user.role === 'CLIENT') {
         setTimeout(() => {
           this.notificationSrv();

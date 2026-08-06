@@ -6,6 +6,7 @@ import {
 } from '@app/interfaces/stores/jitsi.interface';
 import { environment } from '@environments/environment.development';
 import { Observable } from 'rxjs';
+
 const baseUrl = environment.baseUrl;
 
 @Injectable({
