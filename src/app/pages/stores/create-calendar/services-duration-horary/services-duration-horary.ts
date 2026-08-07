@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -14,6 +14,7 @@ interface AppointmentItem {
 @Component({
   selector: 'tyn-services-duration-horary',
   imports: [ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './services-duration-horary.html',
 })
 export class ServicesDurationHorary implements OnInit {

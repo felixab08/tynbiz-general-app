@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'tyn-success-modal',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './success-modal.component.html',
 })
 export class SuccessModalComponent {

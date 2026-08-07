@@ -71,7 +71,7 @@
           <div class="shrink-0">
             <img
               class="w-8 h-8 rounded-sm"
-              [src]="creation?.store?.logoUrl | notImage"
+              [src]="$safeNavigationMigration(creation?.store?.logoUrl) | notImage"
               alt="Default avatar"
             />
           </div>
@@ -91,7 +91,7 @@
             <!-- [TODO] : link de la tienda -->
             <a
               class="inline-flex text-sm items-center text-primary hover:underline hover:cursor-pointer"
-              [href]="creation?.store?.url"
+              [href]="$safeNavigationMigration(creation?.store?.url)"
               target="_blank"
             >
               {{ creation?.store?.url }}
@@ -166,7 +166,7 @@
             <div class="shrink-0">
               <img
                 class="w-8 h-8 rounded-sm"
-                [src]="selectedcreations?.store?.logoUrl | notImage"
+                [src]="$safeNavigationMigration(selectedcreations?.store?.logoUrl) | notImage"
                 alt="Default avatar"
               />
             </div>

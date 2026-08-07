@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,6 +10,7 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-change-password',
   imports: [ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './change-password.component.html',
 })
 export class ChangePasswordComponent {

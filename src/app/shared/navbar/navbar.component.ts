@@ -20,6 +20,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe, DatePipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {

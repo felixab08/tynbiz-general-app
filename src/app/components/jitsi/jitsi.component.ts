@@ -8,6 +8,7 @@ import {
   effect,
   OnInit,
   OnDestroy,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { IErrorGeneralResp, IJitsiResp } from '@app/interfaces';
 import { AlertService, JitsiService } from '@app/services';
@@ -17,6 +18,7 @@ import { environment } from '@environments/environment';
   selector: 'tyn-jitsi-component',
   imports: [],
   templateUrl: './jitsi.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       .jitsi-container {

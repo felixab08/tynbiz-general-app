@@ -1,10 +1,11 @@
-import { Component, signal, ViewChild, AfterViewInit, input } from '@angular/core';
+import { Component, signal, ViewChild, AfterViewInit, input, ChangeDetectionStrategy } from '@angular/core';
 import { DaySchedule } from '@app/interfaces';
 import { HoraryCreate } from '../horary-create/horary-create';
 
 @Component({
   selector: 'tyn-horaries',
   imports: [HoraryCreate],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './horaries.html',
 })
 export class Horaries implements AfterViewInit {

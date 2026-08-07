@@ -86,15 +86,15 @@
             <div [hidden]="selectedTab !== 'horary'">
               <tyn-horaries
                 #horariesComp
-                [daySchedules]="selectedCalendar()?.daySchedules"
+                [daySchedules]="$safeNavigationMigration(selectedCalendar()?.daySchedules)"
               />
             </div>
             <div [hidden]="selectedTab !== 'specialDates'">
-              <tyn-special-dates #specialDatesComp [dateOverrides]="selectedCalendar()?.dateOverrides" />
+              <tyn-special-dates #specialDatesComp [dateOverrides]="$safeNavigationMigration(selectedCalendar()?.dateOverrides)" />
             </div>
             <div [hidden]="selectedTab !== 'appointmentDuration'">
               <tyn-services-duration-horary
-                [appointmentDuration]="selectedCalendar()?.allowedSlotDurations"
+                [appointmentDuration]="$safeNavigationMigration(selectedCalendar()?.allowedSlotDurations)"
               />
             </div>
           </div>

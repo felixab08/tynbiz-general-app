@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { actionsMockUser } from '@app/mock/actions.mock';
 import { sessionsMockUser } from '@app/mock/sessions.mock';
 
 @Component({
   selector: 'tyn-user-detail-actions-page',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './user-detail-actions-page.component.html',
 })
 export class UserDetailActionsPageComponent {

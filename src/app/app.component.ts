@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 
@@ -6,6 +6,7 @@ import { SideMenuComponent } from './shared/side-menu/side-menu.component';
   selector: 'app-root',
   imports: [SideMenuComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
@@ -8,6 +8,7 @@ import { SolesPipe } from '@app/pipes/soles.pipe';
 @Component({
   selector: 'tyn-client-store-page',
   imports: [CommonModule, FormsModule, DatePipe, SolesPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './client-store-page.component.html',
 })
 export default class ClientStorePageComponent {

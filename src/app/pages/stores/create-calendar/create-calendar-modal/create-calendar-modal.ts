@@ -6,6 +6,7 @@ import {
   effect,
   ViewChild,
   inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   FormBuilder,
@@ -30,6 +31,7 @@ import { SpecialDates } from '../special-dates/special-dates';
     ServicesDurationHorary,
     SpecialDates,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-calendar-modal.html',
 })
 export class CreateCalendarModal {

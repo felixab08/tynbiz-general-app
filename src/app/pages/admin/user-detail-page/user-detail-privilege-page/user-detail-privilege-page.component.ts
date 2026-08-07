@@ -1,9 +1,10 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { menuAdminMock } from '@app/auth/data/menu.data';
 
 @Component({
   selector: 'tyn-user-detail-privilege-page',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './user-detail-privilege-page.component.html',
 })
 export class UserDetailPrivilegePageComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AuthService } from '@app/auth/services/auth.service';
@@ -7,6 +7,7 @@ import { VerificationService } from '@app/services/general/verification.service'
 @Component({
   selector: 'tyn-verification',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './verification.html',
 })
 export class Verification {

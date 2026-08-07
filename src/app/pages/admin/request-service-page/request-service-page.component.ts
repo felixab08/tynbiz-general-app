@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -14,6 +14,7 @@ import { IErrorGeneralResp, ISuscription } from '@app/interfaces';
 @Component({
   selector: 'tyn-request-service-page',
   imports: [CommonModule, FormsModule, PaginationComponent, FilterComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './request-service-page.component.html',
 })
 export default class RequestServicePageComponent {

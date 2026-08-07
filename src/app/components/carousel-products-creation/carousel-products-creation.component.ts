@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { IProduct, ProductCreation } from '@app/interfaces';
 import { Product } from '@app/interfaces/card.interface';
 import { initCarousels } from 'flowbite';
@@ -7,6 +7,7 @@ import { initCarousels } from 'flowbite';
 @Component({
   selector: 'tyn-carousel-products-creation',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './carousel-products-creation.component.html',
 })
 export class CarouselProductsCreation {

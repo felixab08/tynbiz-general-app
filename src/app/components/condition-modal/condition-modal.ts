@@ -6,6 +6,7 @@ import {
   Input,
   output,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { IGeneralPDF } from '@app/interfaces';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -15,6 +16,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
   selector: 'tyn-condition-modal',
   imports: [ModalComponent, PdfViewerModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './condition-modal.html',
 })
 export class ConditionModal {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   generalMock,
   registerMock,
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'tyn-statistic-page',
   imports: [ChartGraficComponent, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './statistic-page.component.html',
 })
 export default class StatisticPageComponent {

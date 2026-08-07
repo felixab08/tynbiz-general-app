@@ -178,7 +178,7 @@
 <!-- Modal de advertencia -->
 <tyn-warning-modal
   [visible]="modalVisible"
-  [itemName]="selectedPlan?.planName"
+  [itemName]="$safeNavigationMigration(selectedPlan?.planName)"
   [actionLabel]="currentAction === 'eliminar' ? 'Eliminar' : 'Activar'"
   [actionType]="currentAction"
   (confirm)="confirmAction()"

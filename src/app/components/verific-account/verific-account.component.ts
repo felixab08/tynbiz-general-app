@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,6 +11,7 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-verific-account',
   imports: [ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './verific-account.component.html',
 })
 export class VerificAccountComponent {

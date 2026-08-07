@@ -234,7 +234,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo?.businessName"
+                  [value]="$safeNavigationMigration(selectedSolicDemo?.businessName)"
                   disabled
                 />
               </div>
@@ -249,7 +249,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo?.storeUrl"
+                  [value]="$safeNavigationMigration(selectedSolicDemo?.storeUrl)"
                   disabled
                 />
               </div>
@@ -318,7 +318,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo?.address"
+                  [value]="$safeNavigationMigration(selectedSolicDemo?.address)"
                   disabled
                 />
               </div>
@@ -333,7 +333,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo?.businessEmail"
+                  [value]="$safeNavigationMigration(selectedSolicDemo?.businessEmail)"
                   disabled
                 />
               </div>
@@ -384,7 +384,7 @@
                 id="disabled-input"
                 aria-label="disabled input"
                 class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                [value]="selectedSolicDemo?.businessPhone"
+                [value]="$safeNavigationMigration(selectedSolicDemo?.businessPhone)"
                 disabled
               />
             </div>
@@ -404,9 +404,9 @@
                   aria-label="disabled input"
                   class="md:mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   [value]="
-                    selectedSolicDemo?.firstName +
+                    $safeNavigationMigration(selectedSolicDemo?.firstName) +
                     ' ' +
-                    selectedSolicDemo?.lastName
+                    $safeNavigationMigration(selectedSolicDemo?.lastName)
                   "
                   disabled
                 />
@@ -422,7 +422,7 @@
                   id="disabled-input"
                   aria-label="disabled input"
                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  [value]="selectedSolicDemo?.documentNumber"
+                  [value]="$safeNavigationMigration(selectedSolicDemo?.documentNumber)"
                   disabled
                 />
               </div>

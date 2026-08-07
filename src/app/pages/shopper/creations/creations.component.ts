@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Cardcreations } from '@app/interfaces/card.interface';
 import { creationMock } from '@app/mock/creations.mock';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,7 @@ import { ICreationResp } from '@app/interfaces';
 @Component({
   selector: 'tyn-creations',
   imports: [CreationCardComponent, FormsModule, CommonModule, SearchComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './creations.component.html',
 })
 export default class CreationsComponent {

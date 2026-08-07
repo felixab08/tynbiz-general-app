@@ -2,6 +2,7 @@ import {
   Component,
   inject,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +24,7 @@ interface CalendarAppointment {
     ReactiveFormsModule,
     CreateCalendarModal,
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-calendar.html',
 })
 export default class CreateCalendar {

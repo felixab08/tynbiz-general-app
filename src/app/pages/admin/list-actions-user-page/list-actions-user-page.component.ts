@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'tyn-list-actions-user-page',
   imports: [CommonModule, FormsModule, PaginationComponent, FilterComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './list-actions-user-page.component.html',
 })
 export default class ListActionsUserPageComponent {

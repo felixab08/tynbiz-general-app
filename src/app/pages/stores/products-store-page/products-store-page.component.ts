@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ShopifyPage } from './shopify-page/shopify-page';
@@ -18,6 +18,7 @@ import { ProductsStoreService } from '@app/services/stores/products-store.servic
     WordpressPage,
     ProductsListPage,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './products-store-page.component.html',
 })
 export default class ProductsStorePageComponent {

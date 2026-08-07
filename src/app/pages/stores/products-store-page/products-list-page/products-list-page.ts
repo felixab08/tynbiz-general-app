@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
 import { productMock } from '@app/mock/product.mock';
 import { LinkParamService } from '@app/services';
@@ -10,6 +10,7 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
 @Component({
   selector: 'tyn-products-list-page',
   imports: [ProductDetailCardComponent, FilterComponent, PaginationComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './products-list-page.html',
 })
 export class ProductsListPage {

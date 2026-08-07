@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import {
   IProduct,
   IProductStoreResp,
@@ -12,6 +12,7 @@ import { NotImagePipe } from '@app/pipes/not-image.pipe';
 @Component({
   selector: 'tyn-product-detail-card',
   imports: [NotImagePipe, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './product-detail-card.component.html',
 })
 export class ProductDetailCardComponent {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AuthService } from '@app/auth/services/auth.service';
@@ -9,6 +9,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
   selector: 'tyn-profile-store',
   imports: [LoginComponent, ModalComponent, RouterLink],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './profile.component.html',
 })
 export default class ProfileStoreComponent {

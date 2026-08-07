@@ -86,7 +86,7 @@
             {{ item.usuario.confirmacionDosPasos ? "Activado" : "Inactivo" }}
           </span>
         </td> -->
-        <td class="px-6 py-4">{{ item?.createdAt | date : "medium" }}</td>
+        <td class="px-6 py-4">{{ $safeNavigationMigration(item?.createdAt) | date : "medium" }}</td>
         <td class="px-6 py-4 text-center">
           <div class="relative inline-block">
             <!-- Icono de tres puntos (puedes usar un ícono o texto) -->

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +17,7 @@ import { IErrorGeneralResp } from '@app/interfaces';
 @Component({
   selector: 'tyn-create-user-form',
   imports: [ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-user-form.component.html',
 })
 export class CreateUserFormComponent {

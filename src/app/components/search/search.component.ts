@@ -7,6 +7,7 @@ import {
   linkedSignal,
   output,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IErrorGeneralResp, SelectedOption } from '@app/interfaces';
@@ -20,6 +21,7 @@ import {
 @Component({
   selector: 'tyn-search',
   imports: [ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './search.component.html',
 })
 export class SearchComponent {

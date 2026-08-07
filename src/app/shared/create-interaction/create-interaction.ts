@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { FormUtils } from '@app/utils/form.util';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import {
 @Component({
   selector: 'tyn-create-interaction',
   imports: [ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-interaction.html',
 })
 export class CreateInteraction {

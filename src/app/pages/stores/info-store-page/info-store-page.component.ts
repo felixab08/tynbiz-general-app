@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IUserStore } from '@app/auth/interfaces/user.interface';
 import { IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
@@ -10,6 +10,7 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-info-store-page',
   imports: [NotImagePipe, ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './info-store-page.component.html',
 })
 export default class InfoStorePageComponent {

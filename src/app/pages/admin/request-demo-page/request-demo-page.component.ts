@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import { PaginationComponent } from '@app/components/pagination/pagination.compo
 @Component({
   selector: 'tyn-request-demo-page',
   imports: [FormsModule, CommonModule, FilterComponent, PaginationComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './request-demo-page.component.html',
 })
 export default class RequestDemoPageComponent {

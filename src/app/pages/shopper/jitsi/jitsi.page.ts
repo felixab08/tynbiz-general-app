@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JitsiComponent } from '@app/components';
 
 @Component({
   selector: 'tyn-jitsi.page',
   imports: [JitsiComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './jitsi.page.html',
 })
 export default class JitsiPage {

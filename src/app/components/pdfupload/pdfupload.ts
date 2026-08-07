@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { IFilesResp } from '@app/interfaces';
 import { AlertService, FileDocumentsService } from '@app/services';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -6,6 +6,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 @Component({
   selector: 'tyn-pdfupload',
   imports: [PdfViewerModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pdfupload.html',
 })
 export class Pdfupload {

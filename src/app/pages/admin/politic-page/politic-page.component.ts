@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { AlertService, FileDocumentsService } from '@app/services';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { Pdfupload } from '@app/components';
@@ -8,6 +8,7 @@ import { IFilesResp } from '@app/interfaces';
 @Component({
   selector: 'tyn-politic-page',
   imports: [PdfViewerModule, Pdfupload, NgClass],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './politic-page.component.html',
 })
 export default class PoliticPageComponent {

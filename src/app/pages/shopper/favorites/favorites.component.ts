@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { StoresCardComponent } from '@app/components/stores-card/stores-card.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,6 +10,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'tyn-favorites',
   imports: [FormsModule, CommonModule, StoresCardComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './favorites.component.html',
 })
 export default class FavoritesComponent {

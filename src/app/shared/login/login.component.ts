@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +18,7 @@ import { AlertService } from '@app/services';
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   providers: [AuthService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {

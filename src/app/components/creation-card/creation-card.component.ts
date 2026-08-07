@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Cardcreations } from '@app/interfaces/card.interface';
 import { CommonModule } from '@angular/common';
 import { initCarousels } from 'flowbite';
@@ -17,6 +17,7 @@ import { StoreService } from '@app/services';
     CarouselProductsCreation,
     NotImagePipe,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './creation-card.component.html',
 })
 export class CreationCardComponent {

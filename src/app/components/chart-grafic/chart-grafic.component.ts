@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   SimpleChanges,
   OnChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { colorUtil } from '@app/utils/color.util';
@@ -13,6 +14,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'tyn-chart-grafic',
   imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './chart-grafic.component.html',
 })
 export class ChartGraficComponent implements AfterViewInit, OnChanges {

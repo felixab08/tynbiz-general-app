@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, inject, linkedSignal, signal } from '@angular/core';
+import { Component, inject, linkedSignal, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
@@ -25,6 +25,7 @@ import { LinkParamService } from '@app/services';
     PaginationComponent,
     FilterComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './list-user-admin-page.component.html',
 })
 export default class ListUserAdminPageComponent {

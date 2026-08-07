@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '@app/auth/interfaces/user.interface';
 import { IPublicStore } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
@@ -7,6 +7,7 @@ import { AlertService, StoreService, StoresService } from '@app/services';
 @Component({
   selector: 'tyn-stores-card',
   imports: [NotImagePipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './stores-card.component.html',
 })
 export class StoresCardComponent {

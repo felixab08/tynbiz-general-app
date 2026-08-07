@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { environment } from '@environments/environment';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'tyn-shopify-page',
   imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './shopify-page.html',
 })
 export class ShopifyPage implements OnInit, OnDestroy {

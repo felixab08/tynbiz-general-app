@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '@app/auth/interfaces/user.interface';
 import { StoreService } from '@app/services';
@@ -8,6 +8,7 @@ import { SecurityPrivacityComponent } from './security-privacity/security-privac
 @Component({
   selector: 'tyn-account',
   imports: [ProfileComponent, SecurityPrivacityComponent, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './account.component.html',
 })
 export default class AccountComponent {

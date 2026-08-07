@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SimpleCardComponent } from '../../../components/simple-card/simple-card.component';
 import {
@@ -24,6 +24,7 @@ type storeStatus = 'SUSPENDED' | 'ACTIVE' | 'CANCELLED' | 'PENDING' | 'view';
     PaginationComponent,
     FilterComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './list-store-page.component.html',
 })
 export default class ListStorePageComponent {

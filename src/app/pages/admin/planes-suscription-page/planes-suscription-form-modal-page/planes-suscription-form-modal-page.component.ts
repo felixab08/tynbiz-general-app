@@ -7,6 +7,7 @@ import {
   Output,
   signal,
   SimpleChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormUtils } from '@app/utils/form.util';
@@ -14,6 +15,7 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-planes-suscription-form-modal-page',
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './planes-suscription-form-modal-page.component.html',
 })
 export class PlanesSuscriptionFormModalPageComponent {

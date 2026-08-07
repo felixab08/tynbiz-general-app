@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { UserDetailPrivilegePageComponent } from '../../user-detail-page/user-detail-privilege-page/user-detail-privilege-page.component';
 import {
   FormBuilder,
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     CommonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './form-new-role-page.component.html',
 })
 export class FormNewRolePageComponent {

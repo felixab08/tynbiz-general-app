@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<tyn-warning-modal [visible]="modalVisible" [itemName]="selectedMethod?.title"
+<tyn-warning-modal [visible]="modalVisible" [itemName]="$safeNavigationMigration(selectedMethod?.title)"
   [actionLabel]="currentAction === 'activar' ? 'Activar' : 'Desactivar'" [actionType]="currentAction"
   (confirm)="confirmAction()" (cancel)="closeModalWar()">
 </tyn-warning-modal>

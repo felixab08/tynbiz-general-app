@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   AlertService,
@@ -25,6 +25,7 @@ import { HistoryPaymentPage } from './history-payment.page/history-payment.page'
 @Component({
   selector: 'tyn-suscription-store-page',
   imports: [CommonModule, DatePipe, ConditionModal, HistoryPaymentPage],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './suscription-store-page.component.html',
 })
 export default class SuscriptionStorePageComponent {

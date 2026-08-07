@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   OnDestroy,
   HostListener,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   Router,
@@ -37,6 +38,7 @@ import { CreateInteraction } from '../create-interaction/create-interaction';
     ModalComponent,
     CreateInteraction,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {

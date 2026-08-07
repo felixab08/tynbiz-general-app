@@ -81,7 +81,7 @@
           </p>
           <p>
             Pagas por uso de sala cada
-            {{ suscriptionStore()?.trialEndDate | date }}
+            {{ $safeNavigationMigration(suscriptionStore()?.trialEndDate) | date }}
           </p>
         </div>
       </div>

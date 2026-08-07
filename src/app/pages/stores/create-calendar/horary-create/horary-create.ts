@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DaySchedule } from '@app/interfaces';
 import { FormUtils } from '@app/utils/form.util';
@@ -7,6 +7,7 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-horary-create',
   imports: [ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './horary-create.html',
 })
 export class HoraryCreate {

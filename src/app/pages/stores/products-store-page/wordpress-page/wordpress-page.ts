@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconnectWordpress } from '@app/interfaces';
 import { WordpressService } from '@app/services/stores/wordpress.service';
@@ -6,6 +6,7 @@ import { WordpressService } from '@app/services/stores/wordpress.service';
 @Component({
   selector: 'tyn-wordpress-page',
   imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './wordpress-page.html',
 })
 export class WordpressPage {

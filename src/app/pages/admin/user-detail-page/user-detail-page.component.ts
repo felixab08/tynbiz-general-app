@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, linkedSignal } from '@angular/core';
+import { Component, inject, linkedSignal, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userActionsMock } from '@app/mock/rol.mock';
 import { UserDetailActionsPageComponent } from './user-detail-actions-page/user-detail-actions-page.component';
@@ -20,6 +20,7 @@ import { UsersService } from '@app/services/admin/users.service';
     UserDetailSecurityPageComponent,
     UserInfoPageComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './user-detail-page.component.html',
 })
 export default class UserDetailPageComponent {

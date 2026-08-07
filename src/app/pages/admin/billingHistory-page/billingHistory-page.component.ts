@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { storePlan } from '@app/mock/plan.mock';
 
 @Component({
   selector: 'tyn-billing-history-page',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './billingHistory-page.component.html',
 })
 export default class BillingHistoryPageComponent {

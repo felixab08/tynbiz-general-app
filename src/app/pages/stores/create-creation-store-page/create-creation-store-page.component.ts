@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,6 +22,7 @@ type CreationStep = 'products' | 'details';
     ReactiveFormsModule,
     CommonModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-creation-store-page.component.html',
 })
 export default class CreateCreationStorePage {

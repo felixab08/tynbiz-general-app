@@ -6,6 +6,7 @@ import {
   input,
   linkedSignal,
   output,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-pagination',
   imports: [NgClass, RouterLink, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pagination.component.html',
 })
 export class PaginationComponent {

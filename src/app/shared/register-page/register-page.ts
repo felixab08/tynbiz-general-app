@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -24,6 +24,7 @@ import { ConditionModal } from '@app/components';
     PdfViewerModule,
     ConditionModal,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './register-page.html',
 })
 export default class RegisterPage {

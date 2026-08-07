@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { plan } from '@app/mock/plan.mock';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -25,6 +25,7 @@ import { IErrorGeneralResp } from '@app/interfaces';
     FilterComponent,
     PaginationComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './planes-suscription-page.component.html',
 })
 export default class PlanesSuscriptionPageComponent {

@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { InvoicesResp } from '@app/interfaces';
 import { InvoicesService } from '@app/services';
 
 @Component({
   selector: 'tyn-history-payment',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './history-payment.page.html',
 })
 export class HistoryPaymentPage {

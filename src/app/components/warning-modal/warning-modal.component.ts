@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, Input, output, Output, signal } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'tyn-warning-modal',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './warning-modal.component.html',
 })
 export class WarningModalComponent {

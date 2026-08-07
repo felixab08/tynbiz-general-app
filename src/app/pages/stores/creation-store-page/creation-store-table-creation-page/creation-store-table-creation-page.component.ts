@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinkParamService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
@@ -7,6 +7,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'tyn-creation-store-table-creation-page',
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './creation-store-table-creation-page.component.html',
 })
 export class CreationStoreTableCreationPageComponent {

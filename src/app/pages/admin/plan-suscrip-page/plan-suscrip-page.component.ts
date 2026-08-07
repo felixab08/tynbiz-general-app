@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { storePlan } from '@app/mock/plan.mock';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'tyn-plan-suscrip-page',
   imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './plan-suscrip-page.component.html',
 })
 export default class PlanSuscripPageComponent {

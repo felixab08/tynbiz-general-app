@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { isReportStore } from '@app/mock/revenue.mock';
 import {
@@ -11,6 +11,7 @@ import { SolesPipe } from '@app/pipes/soles.pipe';
 @Component({
   selector: 'tyn-panel-page',
   imports: [DatePipe, SolesPipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './panel-page.component.html',
 })
 export default class PanelPageComponent {

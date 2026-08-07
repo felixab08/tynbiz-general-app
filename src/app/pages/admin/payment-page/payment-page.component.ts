@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { SimpleCardComponent } from '@app/components/simple-card/simple-card.component';
 import { SuccessModalComponent } from '@app/components/success-modal/success-modal.component';
 import { WarningModalComponent } from '@app/components/warning-modal/warning-modal.component';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'tyn-payment-page',
   imports: [CommonModule, WarningModalComponent, SimpleCardComponent, SuccessModalComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './payment-page.component.html',
 })
 export default class PaymentPageComponent {

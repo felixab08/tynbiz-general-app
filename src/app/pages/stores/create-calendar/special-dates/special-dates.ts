@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, input, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, input, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DateOverride } from '@app/interfaces';
 @Component({
   selector: 'tyn-special-dates',
   templateUrl: './special-dates.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule, CommonModule, ],
 })
 export class SpecialDates {

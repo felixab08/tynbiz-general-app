@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { InfoCardComponent } from '@app/components/info-card/info-card.component';
 import { CardInfo } from '@app/interfaces/card.interface';
 
 @Component({
   selector: 'tyn-home',
   imports: [InfoCardComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './home.component.html',
 })
 export default class HomeComponent {

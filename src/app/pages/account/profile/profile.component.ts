@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,6 +15,7 @@ import { FormUtils } from '@app/utils/form.util';
 @Component({
   selector: 'tyn-profile',
   imports: [ReactiveFormsModule, CommonModule, NotImagePipe],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent {
