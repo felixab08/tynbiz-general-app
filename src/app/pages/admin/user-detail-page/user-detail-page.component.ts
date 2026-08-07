@@ -39,9 +39,9 @@ export default class UserDetailPageComponent {
   }
 
   userResorce = rxResource({
-    request: () => ({ code: this.queryParam }),
-    loader: ({ request }) => {
-      return this._usersService.getUserById(request.code) || {};
+    params: () => ({ code: this.queryParam }),
+    stream: ({ params }) => {
+      return this._usersService.getUserById(params.code) || {};
     },
   });
 

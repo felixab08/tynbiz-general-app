@@ -37,21 +37,21 @@ export default class ListActionsUserPageComponent {
   endDate: string = '';
 
   userActionsResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       searchTerm: this._linkService.currentSearchTerm(),
       startDate: this._linkService.currentDateInitialFilter(),
       endDate: this._linkService.currentDateEndFilter(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._actionAuditService.getActionAudit({
-          page: request.page,
-          size: request.size,
-          searchTerm: request.searchTerm,
-          startDate: request.startDate,
-          endDate: request.endDate,
+          page: params.page,
+          size: params.size,
+          searchTerm: params.searchTerm,
+          startDate: params.startDate,
+          endDate: params.endDate,
         }) || {}
       );
     },

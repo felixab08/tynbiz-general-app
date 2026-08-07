@@ -20,17 +20,17 @@ export class CreationStoreTableCreationPageComponent {
   _createCreation = inject(CreateCreation);
 
   usersResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       tab: this.tipeTable(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._createCreation.getCreationStore({
-          page: request.page,
-          size: request.size,
-          tab: request.tab,
+          page: params.page,
+          size: params.size,
+          tab: params.tab,
         }) || {}
       );
     },

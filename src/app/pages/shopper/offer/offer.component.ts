@@ -21,16 +21,16 @@ export default class OfferComponent {
     this.cardOffer = creationMock.filter((item) => item.offer === true);
   }
   offertResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._createCreation.getCreationDiscovery(
           {
-            page: request.page,
-            size: request.size,
+            page: params.page,
+            size: params.size,
           },
           'OFERTAS',
         ) || {}

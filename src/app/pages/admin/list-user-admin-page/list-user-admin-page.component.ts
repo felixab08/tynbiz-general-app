@@ -63,21 +63,21 @@ export default class ListUserAdminPageComponent {
   isDateEndFilter = signal('');
 
   usersResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
       status: this.isSelectedFilter(),
       startDate: this.isDateStartFilter(),
       endDate: this.isDateEndFilter(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._usersService.getUsers({
-          page: request.page,
-          size: request.size,
-          status: request.status,
-          startDate: request.startDate,
-          endDate: request.endDate,
+          page: params.page,
+          size: params.size,
+          status: params.status,
+          startDate: params.startDate,
+          endDate: params.endDate,
         }) || {}
       );
     },

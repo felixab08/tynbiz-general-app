@@ -36,15 +36,15 @@ export default class ListRolePageComponent {
   isModalOpen = signal(false);
 
   rolesResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._rolesService.getRoles({
-          page: request.page,
-          size: request.size,
+          page: params.page,
+          size: params.size,
         }) || {}
       );
     },

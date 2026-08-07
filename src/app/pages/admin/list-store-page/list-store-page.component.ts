@@ -65,7 +65,7 @@ export default class ListStorePageComponent {
   ] as any;
 
   storeResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._linkService.currentPage() - 1,
       size: this._linkService.currentSize(),
       status: this._linkService.currentStatus(),
@@ -73,15 +73,15 @@ export default class ListStorePageComponent {
       startDate: this._linkService.currentDateInitialFilter(),
       endDate: this._linkService.currentDateEndFilter(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._storeManagementSrv.getAllStoresSeach({
-          page: request.page,
-          size: request.size,
-          searchTerm: request.searchTerm,
-          status: request.status,
-          startDate: request.startDate,
-          endDate: request.endDate,
+          page: params.page,
+          size: params.size,
+          searchTerm: params.searchTerm,
+          status: params.status,
+          startDate: params.startDate,
+          endDate: params.endDate,
         }) || {}
       );
     },

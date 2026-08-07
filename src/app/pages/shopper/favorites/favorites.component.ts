@@ -18,15 +18,15 @@ export default class FavoritesComponent {
   _storesService = inject(StoresService);
 
   storefavoritesResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: this._paginationService.currentPage() - 1,
       size: this._paginationService.currentSize(),
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._storesService.getFavoriteStore({
-          page: request.page,
-          size: request.size,
+          page: params.page,
+          size: params.size,
         }) || {}
       );
     },

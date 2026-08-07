@@ -122,15 +122,15 @@ export class CreateUserFormComponent {
     );
   }
   rolesResorce = rxResource({
-    request: () => ({
+    params: () => ({
       page: 0,
       size: 100,
     }),
-    loader: ({ request }) => {
+    stream: ({ params }) => {
       return (
         this._rolesService.getRoles({
-          page: request.page,
-          size: request.size,
+          page: params.page,
+          size: params.size,
         }) || {}
       );
     },

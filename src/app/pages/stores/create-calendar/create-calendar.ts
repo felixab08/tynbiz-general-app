@@ -19,11 +19,7 @@ interface CalendarAppointment {
   selector: 'tyn-create-calendar',
   standalone: true,
 
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    CreateCalendarModal,
-],
+  imports: [CommonModule, ReactiveFormsModule, CreateCalendarModal],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-calendar.html',
 })
@@ -41,8 +37,8 @@ export default class CreateCalendar {
   });
 
   myCalendarResource = rxResource({
-    request: () => this.refreshTrigger(),
-    loader: () => this.myCalendar.getCalendarConfig() || {},
+    params: () => this.refreshTrigger(),
+    stream: () => this.myCalendar.getCalendarConfig() || {},
   });
 
   ngOnInit(): void {
@@ -66,7 +62,7 @@ export default class CreateCalendar {
     });
   }
 
- formatTimeToAmPm(time: string | null | undefined): string {
+  formatTimeToAmPm(time: string | null | undefined): string {
     if (!time || time === '--:--') return '';
 
     const [hoursStr, minutesStr] = (time || '').split(':');
@@ -77,36 +73,48 @@ export default class CreateCalendar {
   }
 
   getSortedDaySchedules() {
-    const daysOrder = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'];
+    const daysOrder = [
+      'LUNES',
+      'MARTES',
+      'MIERCOLES',
+      'JUEVES',
+      'VIERNES',
+      'SABADO',
+      'DOMINGO',
+    ];
     const daySchedules = this.myCalendarResource.value()?.daySchedules || [];
     const scheduleMap = new Map(
-      daySchedules.map(day => [day.dayOfWeek, day])
+      daySchedules.map((day) => [day.dayOfWeek, day]),
     );
 
-    return daysOrder.map(day => {
-      return scheduleMap.get(day) || {
-        dayOfWeek: day,
-        isWorkDay: false,
-        morningStart: null,
-        morningEnd: null,
-        afternoonStart: null,
-        afternoonEnd: null,
-      };
+    return daysOrder.map((day) => {
+      return (
+        scheduleMap.get(day) || {
+          dayOfWeek: day,
+          isWorkDay: false,
+          morningStart: null,
+          morningEnd: null,
+          afternoonStart: null,
+          afternoonEnd: null,
+        }
+      );
     });
   }
 
- onModalClose() {
+  onModalClose() {
     this.isModalVisible.set(false);
   }
 
   onModalSave() {
     this.isModalVisible.set(false);
     this.loadAppointmentsFromStorage();
-    this.refreshTrigger.update(val => val + 1);
+    this.refreshTrigger.update((val) => val + 1);
   }
 
   private loadAppointmentsFromStorage() {
-    const storedAppointments = localStorage.getItem(this.appointmentsStorageKey);
+    const storedAppointments = localStorage.getItem(
+      this.appointmentsStorageKey,
+    );
 
     if (!storedAppointments) {
       this.appointments.set([]);
@@ -114,12 +122,16 @@ export default class CreateCalendar {
     }
 
     try {
-      const parsedAppointments = JSON.parse(storedAppointments) as CalendarAppointment[];
-      this.appointments.set(Array.isArray(parsedAppointments) ? parsedAppointments : []);
+      const parsedAppointments = JSON.parse(
+        storedAppointments,
+      ) as CalendarAppointment[];
+      this.appointments.set(
+        Array.isArray(parsedAppointments) ? parsedAppointments : [],
+      );
     } catch (error) {
       console.error('Error al leer citas guardadas', error);
       this.appointments.set([]);
     }
   }
-  }
+}
 
