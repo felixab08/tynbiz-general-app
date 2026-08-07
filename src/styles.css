@@ -58,11 +58,11 @@
   .table {}
 
   .button-primary {
-    @apply px-5 py-2.5 text-sm cursor-pointer font-medium text-white focus:outline-none bg-primary rounded-lg border border-primary hover:bg-primary-light hover:text-primary focus-within:outline-none focus:ring-4 focus:ring-primary-light;
+    @apply px-5 py-2.5 text-sm cursor-pointer font-medium text-white focus:outline-none bg-primary rounded border border-primary hover:bg-primary-light hover:text-primary focus-within:outline-none focus:ring-4 focus:ring-primary-light;
   }
 
   .button-secondary {
-    @apply py-2.5 px-5 md:ms-3 text-sm cursor-pointer font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-400 hover:bg-gray-200 hover:text-gray-600 focus-within:outline-none focus:ring-4 focus:ring-gray-100;
+    @apply py-2.5 px-5 md:ms-3 text-sm cursor-pointer font-medium text-gray-900 focus:outline-none bg-white rounded border border-gray-400 hover:bg-gray-200 hover:text-gray-600 focus-within:outline-none focus:ring-4 focus:ring-gray-100;
   }
 
   .button-disabled {
