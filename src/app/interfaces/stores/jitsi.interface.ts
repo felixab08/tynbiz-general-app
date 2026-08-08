@@ -9,12 +9,12 @@ export interface INotificationResp {
   userId:         number;
   userEmail:      string;
   title:          string;
-  content:        Content;
+  content:        ContentNotification;
   message:        string;
   isRead:         boolean;
 }
 
-export interface Content {
+export interface ContentNotification {
   type?:               string;
   hostName?:           string;
   roomId?:             number;
@@ -36,9 +36,9 @@ export interface Content {
   updatedAt?:          Date | string;
   updatedBy?:          number;
   visibility?:         string;
-  description?:        string | null;
+  description?:        string;
   isScheduled?:        boolean;
-  observacion?:        string | null;
+  observacion?:        string;
   productCount?:       number;
   contentDetail?:      string;
   videoRoomName?:      string;
@@ -50,11 +50,11 @@ export interface Content {
 export interface ProductMessage {
   id:                  number;
   name:                string;
-  imageUrl?:           string | null;
-  mainImageUrl?:       string | null;
+  imageUrl:           string;
+  mainImageUrl:       string;
   sku?:                string;
-  badge?:              string | null;
-  brand?:              string | null;
+  badge?:              string;
+  brand?:              string;
   sizes?:              string[];
   stock?:              number;
   colors?:             string[];
