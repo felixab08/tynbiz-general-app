@@ -31,6 +31,13 @@ export class JitsiService {
     );
   }
 
+  markNotificationAsRead(id: number): Observable<boolean> {
+    return this._http.put<boolean>(
+      `${baseUrl}/notificacionWS/mark-read/${id}`,
+      {},
+    );
+  }
+
   /**
    * Conecta con el servidor WebSocket/STOMP para recibir notificaciones en tiempo real.
    * Basado en la implementación de SockJS y STOMP.js.
@@ -47,15 +54,19 @@ export class JitsiService {
       console.log('WebSocket: La conexión ya se encuentra activa.');
       return;
     }
-    console.log(token);
-    const wsUrl = `${baseUrl}/ws-notifications`;
+
+    // Obtener la raíz del host (removiendo /api/v1 si está presente)
+    const rootUrl = baseUrl.replace(/\/api\/v1\/?$/, '');
+    const wsUrl = `${rootUrl}/ws-notifications`;
+    console.log('WebSocket conectando a:', wsUrl);
+
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(wsUrl),
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
-      debug: () => {
-        // Deshabilitar logs de depuración (equivalente a stompClient.debug = null)
+      debug: (msg: string) => {
+        console.debug('[STOMP]:', msg);
       },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
