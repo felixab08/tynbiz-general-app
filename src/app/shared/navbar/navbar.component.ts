@@ -13,7 +13,7 @@ import { User } from '@app/auth/interfaces/user.interface';
 import { creationStoreMock } from '@app/mock/creationsStore.mock';
 import { NotImagePipe } from '@app/pipes';
 import { environment } from '@environments/environment';
-import { JitsiService } from '@app/services';
+import { AlertService, JitsiService } from '@app/services';
 import { INotificationResp } from '@app/interfaces';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -29,6 +29,7 @@ export class NavbarComponent {
   public isLogin: boolean = false;
   _authService = inject(AuthService);
   _jitsiService = inject(JitsiService);
+  _alertSrv = inject(AlertService);
   public user: User | undefined;
   public creations = signal<INotificationResp[]>([]);
   environment = environment;
@@ -48,7 +49,7 @@ export class NavbarComponent {
         setTimeout(() => {
           this.notificationSrv();
           this._jitsiService.connectWebSocket();
-        }, 500);
+        }, 1500);
       }
     });
 
@@ -59,7 +60,17 @@ export class NavbarComponent {
           'Nueva notificación recibida en NavbarComponent:',
           notification,
         );
-        this.creations.update((creations) => [notification, ...creations.filter(n => n.notificationId !== notification.notificationId)]);
+        this._alertSrv.addAlert({
+          title: notification.title || 'Nueva notificación',
+          message: notification.message || '',
+          type: 'info',
+        });
+        this.creations.update((creations) => [
+          notification,
+          ...creations.filter(
+            (n) => n.notificationId !== notification.notificationId,
+          ),
+        ]);
       },
     );
   }
@@ -91,14 +102,19 @@ export class NavbarComponent {
 
   goToRoom(notification: INotificationResp) {
     if (notification.notificationId) {
-      this._jitsiService.markNotificationAsRead(notification.notificationId).subscribe({
-        next: () => {
-          this.creations.update((list) =>
-            list.filter((n) => n.notificationId !== notification.notificationId),
-          );
-        },
-        error: (err) => console.error('Error al marcar notificación como leída:', err),
-      });
+      this._jitsiService
+        .markNotificationAsRead(notification.notificationId)
+        .subscribe({
+          next: () => {
+            this.creations.update((list) =>
+              list.filter(
+                (n) => n.notificationId !== notification.notificationId,
+              ),
+            );
+          },
+          error: (err) =>
+            console.error('Error al marcar notificación como leída:', err),
+        });
     }
 
     const videoUrl = notification.content?.videoRoomUrl;
@@ -112,14 +128,19 @@ export class NavbarComponent {
       event.stopPropagation();
     }
     if (notification.notificationId) {
-      this._jitsiService.markNotificationAsRead(notification.notificationId).subscribe({
-        next: () => {
-          this.creations.update((list) =>
-            list.filter((n) => n.notificationId !== notification.notificationId),
-          );
-        },
-        error: (err) => console.error('Error al marcar notificación como leída:', err),
-      });
+      this._jitsiService
+        .markNotificationAsRead(notification.notificationId)
+        .subscribe({
+          next: () => {
+            this.creations.update((list) =>
+              list.filter(
+                (n) => n.notificationId !== notification.notificationId,
+              ),
+            );
+          },
+          error: (err) =>
+            console.error('Error al marcar notificación como leída:', err),
+        });
     }
   }
 

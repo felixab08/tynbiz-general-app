@@ -183,19 +183,19 @@
             <div
               class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-primary-dark rounded-full text-white font-bold text-sm"
             >
-              @if (creation.content?.store?.logoUrl) {
+              @if (creation.content && creation.content.store?.logoUrl) {
                 <img
                   [src]="creation.content.store!.logoUrl! | notImage"
                   alt="Store"
                   class="h-10 w-10 object-contain rounded-full"
                 />
               } @else {
-                <span>{{ (creation.content?.hostName || creation.userEmail || 'T')[0].toUpperCase() }}</span>
+                <span>{{ (creation.content.hostName || creation.userEmail || 'T')[0].toUpperCase() }}</span>
               }
             </div>
             <div class="text-sm">
               <div class="font-semibold text-heading dark:text-white">
-                {{ creation.content?.hostName || creation.userEmail }}
+                {{ creation.content.hostName || creation.userEmail }}
               </div>
               <div class="text-xs text-gray-500 dark:text-gray-300">
                 {{ creation.message || 'Te ha invitado a una sala' }}
@@ -212,7 +212,7 @@
             </button>
           </div>
         </div>
-        @if (creation.content?.products && creation.content.products!.length > 0) {
+        @if (creation.content && creation.content.products && creation.content.products.length > 0) {
           <div>
             <div
               class="flex items-center justify-between mt-3 bg-gray-100 dark:bg-gray-700 rounded-lg p-2"
