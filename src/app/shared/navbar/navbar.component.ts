@@ -16,6 +16,7 @@ import { environment } from '@environments/environment';
 import { JitsiService } from '@app/services';
 import { INotificationResp } from '@app/interfaces';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -31,6 +32,7 @@ export class NavbarComponent {
   public user: User | undefined;
   public creations = signal<INotificationResp[]>([]);
   environment = environment;
+  private notifySub?: Subscription;
 
   constructor() {
     let user = localStorage.getItem('user');
@@ -45,9 +47,21 @@ export class NavbarComponent {
       if (user && user.role === 'CLIENT') {
         setTimeout(() => {
           this.notificationSrv();
+          this._jitsiService.connectWebSocket();
         }, 1000);
       }
     });
+
+    // Suscribirse a las notificaciones en tiempo real
+    this.notifySub = this._jitsiService.notification$.subscribe(
+      (notification) => {
+        console.log(
+          'Nueva notificación recibida en NavbarComponent:',
+          notification,
+        );
+        this.creations.update((creations) => [...creations, notification]);
+      },
+    );
   }
 
   openModal() {
@@ -69,5 +83,10 @@ export class NavbarComponent {
       console.log(notifications);
       this.creations.set(notifications);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.notifySub?.unsubscribe();
+    this._jitsiService.disconnectWebSocket();
   }
 }
