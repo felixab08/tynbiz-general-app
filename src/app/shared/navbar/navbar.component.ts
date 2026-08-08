@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe, DatePipe],
+  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './navbar.component.html',
 })
@@ -44,11 +44,11 @@ export class NavbarComponent {
 
     this.storeService.user.subscribe((user) => {
       this.user = user;
-      if (user && user.role === 'CLIENT') {
+      if (user) {
         setTimeout(() => {
           this.notificationSrv();
           this._jitsiService.connectWebSocket();
-        }, 1000);
+        }, 500);
       }
     });
 
@@ -59,7 +59,7 @@ export class NavbarComponent {
           'Nueva notificación recibida en NavbarComponent:',
           notification,
         );
-        this.creations.update((creations) => [...creations, notification]);
+        this.creations.update((creations) => [notification, ...creations.filter(n => n.notificationId !== notification.notificationId)]);
       },
     );
   }
@@ -78,11 +78,49 @@ export class NavbarComponent {
   }
 
   notificationSrv() {
-    this._jitsiService.getNotificacionWS().subscribe((notifications) => {
-      // Handle notifications
-      console.log(notifications);
-      this.creations.set(notifications);
+    this._jitsiService.getNotificacionWS().subscribe({
+      next: (notifications) => {
+        console.log('Notificaciones no leídas obtenidas:', notifications);
+        this.creations.set(notifications || []);
+      },
+      error: (err) => {
+        console.error('Error al obtener notificaciones no leídas:', err);
+      },
     });
+  }
+
+  goToRoom(notification: INotificationResp) {
+    if (notification.notificationId) {
+      this._jitsiService.markNotificationAsRead(notification.notificationId).subscribe({
+        next: () => {
+          this.creations.update((list) =>
+            list.filter((n) => n.notificationId !== notification.notificationId),
+          );
+        },
+        error: (err) => console.error('Error al marcar notificación como leída:', err),
+      });
+    }
+
+    const videoUrl = notification.content?.videoRoomUrl;
+    if (videoUrl) {
+      window.open(videoUrl, '_blank');
+    }
+  }
+
+  markAsRead(notification: INotificationResp, event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
+    if (notification.notificationId) {
+      this._jitsiService.markNotificationAsRead(notification.notificationId).subscribe({
+        next: () => {
+          this.creations.update((list) =>
+            list.filter((n) => n.notificationId !== notification.notificationId),
+          );
+        },
+        error: (err) => console.error('Error al marcar notificación como leída:', err),
+      });
+    }
   }
 
   ngOnDestroy(): void {
