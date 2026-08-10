@@ -103,7 +103,7 @@ export class NavbarComponent {
   goToRoom(notification: INotificationResp) {
     if (notification.notificationId) {
       this._jitsiService
-        .markNotificationAsRead(notification.notificationId)
+        .putMarkNotificationAsRead(notification.notificationId)
         .subscribe({
           next: () => {
             this.creations.update((list) =>
@@ -129,7 +129,7 @@ export class NavbarComponent {
     }
     if (notification.notificationId) {
       this._jitsiService
-        .markNotificationAsRead(notification.notificationId)
+        .putMarkNotificationAsRead(notification.notificationId)
         .subscribe({
           next: () => {
             this.creations.update((list) =>

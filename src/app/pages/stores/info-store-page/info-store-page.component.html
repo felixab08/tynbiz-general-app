@@ -7,6 +7,34 @@
   class="p-4 md:p-8 bg-white dark:bg-gray-600 rounded-lg relative shadow-lg border border-gray-300 overflow-x-auto max-w-2xl"
 >
   @if (userStore()) {
+    <div class="mb-6">
+      <h2 class="font-bold">Nombre empresa:</h2>
+      <p>{{ userStore()?.businessName }}</p>
+    </div>
+    <div class="mb-6">
+      <h2 class="font-bold">RUC:</h2>
+      <p>{{ userStore()?.ruc }}</p>
+    </div>
+    <div class="mb-6">
+      <h2 class="font-bold">Enlace:</h2>
+      <p>{{ userStore()?.storeUrl }}</p>
+    </div>
+    <div class="mb-6">
+      <h2 class="font-bold">Ubicación:</h2>
+      <p>{{ userStore()?.fullAddress }}</p>
+    </div>
+    @if(userStore()?.category) {
+    <div class="mb-6">
+      <h2 class="font-bold">Categoría:</h2>
+      <p>{{ userStore()?.category }}</p>
+    </div>
+    }
+    @if(userStore()?.plan) {
+    <div class="mb-6">
+      <h2 class="font-bold">Plan:</h2>
+      <p>{{ userStore()?.category }}</p>
+    </div>
+    }
     <form
       class="mt-5"
       autocomplete="off"

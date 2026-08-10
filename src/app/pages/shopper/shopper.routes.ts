@@ -34,6 +34,10 @@ export const shopperRoutes: Routes = [
         loadComponent: () => import('./profile/profile.component'),
       },
       {
+        path: 'your-creation',
+        loadComponent: () => import('./yourcreation/yourcreation'),
+      },
+      {
         path: 'register',
         loadComponent: () =>
           import('./../../shared/register-page/register-page'),

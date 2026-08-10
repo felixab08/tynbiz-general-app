@@ -31,7 +31,7 @@ export class JitsiService {
     );
   }
 
-  markNotificationAsRead(id: number): Observable<boolean> {
+  putMarkNotificationAsRead(id: number): Observable<boolean> {
     return this._http.put<boolean>(
       `${baseUrl}/notificacionWS/mark-read/${id}`,
       {},

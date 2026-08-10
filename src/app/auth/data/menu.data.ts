@@ -34,7 +34,7 @@ export const menuItemsMock = [
     id: '15esy1212bvas',
     name: 'Tu creación',
     icon: 'fa-solid fa-boxes-packing', //
-    route: '/shop/contact',
+    route: '/shop/your-creation',
     role: 'moderator',
   },
 ];

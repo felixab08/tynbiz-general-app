@@ -8,12 +8,12 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url('../public/assets/fonts/montserrat/montserrat-alternates-medium.ttf');
+  src: url("../public/assets/fonts/montserrat/montserrat-alternates-medium.ttf");
 }
 
 @font-face {
   font-family: "Lato";
-  src: url('../public/assets/fonts/lato/Lato-Regular.ttf');
+  src: url("../public/assets/fonts/lato/Lato-Regular.ttf");
 }
 /* TODO: revisar esta linea en angular.json -> "deployUrl": "/tynbiz-general-app/" */
 @theme {
@@ -26,7 +26,7 @@
 
   --animate-fadeIn: fadeIn 0.5s ease-in-out;
 
-  --color-primary: #5E63B6;
+  --color-primary: #5e63b6;
   /* morado */
   --color-primary-light: #edeeff;
   /* morado super claro */
@@ -34,7 +34,7 @@
   /* morado oscuro */
   --color-secondary: #dedeff;
   /* morado claro */
-  --color-secondary-dark: #BCBEDF;
+  --color-secondary-dark: #bcbedf;
   /* morado medio */
 
   @keyframes fadeIn {
@@ -55,7 +55,8 @@
 }
 
 @layer components {
-  .table {}
+  .table {
+  }
 
   .button-primary {
     @apply px-5 py-2.5 text-sm cursor-pointer font-medium text-white focus:outline-none bg-primary rounded border border-primary hover:bg-primary-light hover:text-primary focus-within:outline-none focus:ring-4 focus:ring-primary-light;
@@ -112,7 +113,7 @@
   .mini-card-img.sm {
     @apply w-18 h-18 my-2  rounded-lg;
   }
-   .body-tbz {
+  .body-tbz {
     @apply relative overflow-x-auto sm:rounded-lg px-4 lg:px-10 py-12 md:m-4;
   }
   .body-primary {
@@ -132,29 +133,35 @@
   }
 
   .tab-inactive {
-    @apply inline-block p-2 border-b border-transparent rounded-lg dark:text-gray-400 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-100 ;
+    @apply inline-block p-2 border-b border-transparent rounded-lg dark:text-gray-400 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-100;
   }
 
   .tabla {
     @apply w-full text-sm text-left rtl:text-right text-black rounded-md dark:text-gray-300;
   }
-  .tabla thead{
+  .tabla thead {
     @apply text-sm text-black border-b border-gray-300 dark:text-gray-300;
   }
-  .tabla thead tr th{
+  .tabla thead tr th {
     @apply px-6 py-3;
   }
-  .tabla tbody tr{
+  .tabla tbody tr {
     @apply border-b border-gray-300 hover:bg-primary/50;
   }
-  .tabla tbody tr td{
+  .tabla tbody tr td {
     @apply px-6 py-4;
   }
-  .content-details-product{
+  .content-details-product {
     @apply md:ms-3 text-sm font-normal ms-2 text-start;
   }
-  .content-details-product p{
+  .content-details-product p {
     @apply text-sm font-normal  text-black;
   }
 
 }
+@media (min-width: 974px) and (max-width: 974px) and (min-height: 630px) and (max-height: 630px) {
+  aside#logo-sidebar {
+      overflow-y: scroll;
+      max-height: 500px;
+    }
+  }
