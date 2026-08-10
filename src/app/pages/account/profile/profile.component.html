@@ -20,8 +20,20 @@
           <p>{{ profile()?.documentNumber }}</p>
         </div>
       }
+      @if(profile()?.birthDate) {
+      <div class="mb-6">
+          <h2 class="font-bold">Fecha de nacimiento:</h2>
+          <p>{{ profile()?.birthDate | date }}</p>
+        </div>
+      }
+      @if(profile()?.gender) {
+      <div class="mb-6">
+          <h2 class="font-bold">Género:</h2>
+          <p>{{ 'MALE' === profile()?.gender ? 'Masculino' : 'Femenino' }}</p>
+        </div>
+      }
 
-      <!-- <form
+      <form
         class="mt-5"
         autocomplete="off"
         [formGroup]="myForm"
@@ -32,102 +44,61 @@
           <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label
-                for="name"
+                for="documentNumber"
                 class="block mb-2 text-sm font-medium"
                 [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(myForm, 'firstName'),
+                  ' text-red-700': formUtils.isValiedField(myForm, 'documentNumber'),
                 }"
-                >Nombre</label
+                >DNI</label
               >
               <input
-                type="text"
-                id="firstName"
-                formControlName="firstName"
+                type="number"
+                id="documentNumber"
+                formControlName="documentNumber"
                 class="input-base"
-                [placeholder]="user()?.firstName"
                 [disabled]="true"
                 aria-label="disabled input"
                 [ngClass]="{
-                  'input-error': formUtils.isValiedField(myForm, 'firstName'),
+                  'input-error': formUtils.isValiedField(myForm, 'documentNumber'),
                 }"
               />
-              @if (formUtils.isValiedField(myForm, "firstName")) {
+              @if (formUtils.isValiedField(myForm, "documentNumber")) {
                 <p class="mt-2 text-sm text-red-600">
                   <span class="font-medium">{{
-                    formUtils.getFieldError(myForm, "firstName")
+                    formUtils.getFieldError(myForm, "documentNumber")
                   }}</span>
                 </p>
               }
             </div>
             <div>
               <label
-                for="lastName"
+                for="phone"
                 class="block mb-2 text-sm font-medium"
                 [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(myForm, 'lastName'),
+                  ' text-red-700': formUtils.isValiedField(myForm, 'phone'),
                 }"
-                >Apellidos</label
+                >Teléfono</label
               >
               <input
-                type="text"
-                id="lastName"
-                formControlName="lastName"
+                type="number"
+                id="phone"
+                formControlName="phone"
                 class="input-base"
-                [placeholder]="user()?.lastName"
+                [placeholder]="user()?.phone"
                 [ngClass]="{
-                  'input-error': formUtils.isValiedField(myForm, 'lastName'),
+                  'input-error': formUtils.isValiedField(myForm, 'phone'),
                 }"
               />
-              @if (formUtils.isValiedField(myForm, "lastName")) {
+              @if (formUtils.isValiedField(myForm, "phone")) {
                 <p class="mt-2 text-sm text-red-600">
                   <span class="font-medium">{{
-                    formUtils.getFieldError(myForm, "lastName")
+                    formUtils.getFieldError(myForm, "phone")
                   }}</span>
                 </p>
               }
             </div>
           </div>
-          <div class="grid gap-6 mb-6 md:grid-cols-2">
-            <div>
-              <label
-                for="gender"
-                class="block mb-2 text-sm font-medium"
-                >Género</label
-              >
-              <select id="gender" class="input-base" formControlName="gender">
-                <option value="" selected disabled>Seleccione</option>
-                <option value="MALE">Masculino</option>
-                <option value="FEMALE">Femenino</option>
-              </select>
-            </div>
-            <div class="mb-6">
-              <label
-                for="birthDate"
-                class="block mb-2 text-sm font-medium"
-                [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(myForm, 'birthDate'),
-                }"
-                >Fecha de nacimiento</label
-              >
-              <input
-                type="date"
-                id="birthDate"
-                formControlName="birthDate"
-                class="input-base"
-                [ngClass]="{
-                  'input-error': formUtils.isValiedField(myForm, 'birthDate'),
-                }"
-              />
-              @if (formUtils.isValiedField(myForm, "birthDate")) {
-                <p class="mt-2 text-sm text-red-600">
-                  <span class="font-medium">{{
-                    formUtils.getFieldError(myForm, "birthDate")
-                  }}</span>
-                </p>
-              }
-            </div>
-          </div>
-           -->
+
           <div class="mb-2">
             <h4 class="text-lg font-semibold mt-4">Foto</h4>
             <h4 class="text-sm font-normal mb-4">
@@ -152,7 +123,7 @@
               </div>
             </div>
           </div>
-<!--
+
         </div>
         <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
           <button type="button" class="button-secondary me-3">Cancelar</button>
@@ -164,7 +135,7 @@
             Guardar
           </button>
         </div>
-      </form> -->
+      </form>
     }
   </div>
 </div>

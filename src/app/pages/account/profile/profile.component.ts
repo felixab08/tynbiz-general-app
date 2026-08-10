@@ -49,21 +49,8 @@ export class ProfileComponent {
   formUtils = FormUtils;
 
   myForm: FormGroup = this._fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName: ['', [Validators.required, Validators.minLength(2)]],
-    gender: ['', [Validators.required]],
-    phone: [
-      ,
-      [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
-    ],
-    birthDate: [
-      '',
-      [
-        Validators.required,
-        FormUtils.dataMaxToday(),
-        FormUtils.edadMinimaValidator(18),
-      ],
-    ],
+    documentNumber: ['', [FormUtils.validateCantNumber(8, 'DNI')]],
+    phone: ['', [FormUtils.validateCantNumber(9, 'Teléfono')]],
   });
 
   onEditForm(profile: IProfile) {
@@ -126,9 +113,12 @@ export class ProfileComponent {
       this.myForm.markAllAsTouched();
       return;
     }
-    console.log('Form submitted', this.myForm.value);
     const profile: IProfile = this.myForm.value;
-    profile.documentType = 'DNI'; // Set the documentType to 'DNI' before sending the request
+    if (profile.documentNumber) {
+      profile.documentType = 'DNI'; // Set the documentType to 'DNI' before sending the request
+    }
+    if (profile.documentNumber === null) delete profile.documentType; // Remove documentType if documentNumber is null
+    console.log('Form submitted', profile);
     this._profileService.patchUserProfile(profile).subscribe({
       next: (updatedProfile: any) => {
         console.log('Profile updated', updatedProfile);
