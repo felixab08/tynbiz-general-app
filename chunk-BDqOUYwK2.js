@@ -1,0 +1,2 @@
+import{Hn as ra,jn as oa,pn as hm,tt as Py}from"./chunk-BLpmJZAx.js";var n=class o{static ɵfac=function(e){return new(e||o)};static ɵcmp=hm({type:o,selectors:[[`tyn-your-creation`]],decls:3,vars:0,template:function(e,s){e&1&&(ra(0,`p`),Py(1,`yourCreation works!`),oa(),Py(2,`,
+`))},encapsulation:2,changeDetection:1})};export{n as default};
