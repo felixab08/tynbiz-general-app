@@ -1,4 +1,10 @@
-import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Cardcreations } from '@app/interfaces/card.interface';
 import { CommonModule } from '@angular/common';
 import { initCarousels } from 'flowbite';
@@ -8,7 +14,8 @@ import { ICreationContent, ItemCreation } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes/not-image.pipe';
 import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
-import { StoreService } from '@app/services';
+import { AlertService, StoreService } from '@app/services';
+import { User } from '@app/auth/interfaces/user.interface';
 @Component({
   selector: 'tyn-creation-card',
   imports: [
@@ -27,6 +34,16 @@ export class CreationCardComponent {
   _router = inject(Router);
   private _storeService = inject(StoreService);
   refreshToken: string | null = null;
+  _alertService = inject(AlertService);
+
+  public user: User | undefined;
+  user$ = this._storeService.user.asObservable();
+
+  constructor() {
+    this._storeService.user.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngAfterViewInit(): void {
     initCarousels(); // inicializa el carrusel de Flowbite
@@ -45,9 +62,19 @@ export class CreationCardComponent {
     this.isModalOpen.set(false);
   }
   createJitsi() {
-    // this._router.navigate([`/shop/jitsi/${this.listCreation().items[0].id}`]);
-    const url =
-      `${this.selectedcreations?.videoRoomUrl}` + `?code=${this.refreshToken}`;
-    window.open(url, '_blank');
+    if (!this.user) {
+      this._storeService.isLoginSubject.next(true);
+      this.isModalOpen.set(false);
+      this._alertService.getAlert(
+        'Alerta',
+        'Inicia sesión para poder acceder a la sala de video',
+        'warning',
+      );
+    } else {
+      const url =
+        `${this.selectedcreations?.videoRoomUrl}` +
+        `?code=${this.refreshToken}`;
+      window.open(url, '_blank');
+    }
   }
 }

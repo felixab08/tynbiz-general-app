@@ -6,7 +6,7 @@ import {
   AfterViewInit,
   OnDestroy,
   HostListener,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   Router,
@@ -42,7 +42,7 @@ import { CreateInteraction } from '../create-interaction/create-interaction';
   templateUrl: './side-menu.component.html',
 })
 export class SideMenuComponent implements AfterViewInit, OnDestroy {
-  public storeService = inject(StoreService);
+  storeService = inject(StoreService);
   _authService = inject(AuthService);
   _menuService = inject(MenuService);
   _alertService = inject(AlertService);
@@ -78,6 +78,11 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   openLoginModal() {
     if (!this.user) {
       this.storeService.isLoginSubject.next(true);
+      this._alertService.getAlert(
+        'Alerta',
+        'Inicia sesión para poder acceder a la sala',
+        'warning',
+      );
     } else {
       this.isOpen = true;
     }
