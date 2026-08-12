@@ -10,7 +10,9 @@ import {
 import { User } from '../interfaces/user.interface';
 import { StoreService } from '@app/services/store.service';
 import { Router } from '@angular/router';
-import { IRegisterReq } from '@app/interfaces';
+import { IErrorGeneralResp, IRegisterReq } from '@app/interfaces';
+import { AlertService } from '@app/services';
+import AccountComponent from './../../pages/account/account.component';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
@@ -21,7 +23,7 @@ export class AuthService {
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(localStorage.getItem('token'));
-
+  private _alertService = inject(AlertService);
   private http = inject(HttpClient);
   _router = inject(Router);
 
@@ -79,8 +81,13 @@ export class AuthService {
         map((data) => {
           if (data) {
             console.log('User found:', data);
-            return this.handleAuthSuccess(data.user, data.accessToken, data.refreshToken);
+            return this.handleAuthSuccess(
+              data.user,
+              data.accessToken,
+              data.refreshToken,
+            );
           } else {
+            console.log('error');
             throw new Error('User not found');
           }
         }),
@@ -93,12 +100,6 @@ export class AuthService {
       refreshToken: refreshToken,
     });
   }
-
-  //searhUserById(id: number): Observable<boolean> {
-  //  return this.http
-  //    .get<any>(`${baseUrl}/users/${id}`)
-  //    .pipe(catchError((error: any) => this.handleAuthError(error)));
-  // }
 
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
@@ -150,8 +151,15 @@ export class AuthService {
     return true;
   }
 
-  private handleAuthError(error: any) {
+  private handleAuthError(error: IErrorGeneralResp) {
     this.logout();
+    this._alertService.getAlert(
+      'Login',
+      error.error.detail || 'Error al iniciar sesión',
+      'warning',
+    );
+    console.log(error);
+
     return of(false);
   }
 
