@@ -5,10 +5,17 @@ import { CommonModule } from '@angular/common';
 import { SearchComponent } from '@app/components/search/search.component';
 import { LinkParamService, StoresService } from '@app/services';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { PaginationComponent } from '@app/components';
 
 @Component({
   selector: 'tyn-stores',
-  imports: [StoresCardComponent, FormsModule, CommonModule, SearchComponent],
+  imports: [
+    StoresCardComponent,
+    FormsModule,
+    CommonModule,
+    SearchComponent,
+    PaginationComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './stores.component.html',
 })
