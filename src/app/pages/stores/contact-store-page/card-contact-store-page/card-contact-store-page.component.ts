@@ -31,5 +31,12 @@ export class CardContactStorePageComponent {
     const url = `${videoRoomUrl}` + `?code=${this.refreshToken}`;
     window.open(url, '_blank');
   }
+
+  lookTimeRemaining(content: ContentContact) {
+    console.log(content);
+    if (content.appointmentDate === new Date().toISOString().split('T')[0]) {
+      console.log('The appointment date is today.');
+    }
+  }
 }
 

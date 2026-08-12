@@ -13,7 +13,7 @@ export interface ContentContact {
   customerUserId:     string;
   customerName:       string;
   customerEmail:      string;
-  appointmentDate:    Date;
+  appointmentDate:    string;
   startTime:          string;
   endTime:            string;
   status:             'PENDIENTE' | 'CONFIRMADA' | 'RECHAZADA';
