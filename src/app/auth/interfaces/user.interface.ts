@@ -41,8 +41,10 @@ export interface IUserStore {
   timezone:            string;
   createdAt:           Date;
   updatedAt:           Date;
-  category:          string;
-  plan:              string;
+  category:            string;
+  categoryDisplayName: string;
+  planName:            string;
+  planType:            string;
 }
 
 export interface BusinessSettings {

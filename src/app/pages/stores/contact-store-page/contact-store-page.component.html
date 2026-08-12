@@ -12,3 +12,11 @@
     }
   }
 </div>
+@if (contactResorce.hasValue()) {
+  <app-pagination
+    [pages]="contactResorce.value().totalPages"
+    [totalElements]="contactResorce.value().totalElements"
+    [currentPage]="_paginationService.currentPage()"
+    [currentSize]="_paginationService.currentSize()"
+  />
+}

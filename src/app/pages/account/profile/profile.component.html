@@ -1,4 +1,6 @@
-<div class="dark:bg-gray-700 dark:text-white">
+<div
+  class="dark:bg-gray-600 border rounded-lg pt-4 border-gray-300 dark:border-gray-500 dark:text-white"
+>
   <div class="rounded-lg lg:m-6 xl:w-2/3 xl:m-auto">
     <h1 class="text-2xl font-bold mb-6 text-center">Perfil</h1>
     @if (profile()) {
@@ -14,22 +16,22 @@
         <h2 class="font-bold">Teléfono:</h2>
         <p>{{ profile()?.phone }}</p>
       </div>
-      @if(profile()?.documentNumber) {
-      <div class="mb-6">
+      @if (profile()?.documentNumber) {
+        <div class="mb-6">
           <h2 class="font-bold">Número de documento:</h2>
           <p>{{ profile()?.documentNumber }}</p>
         </div>
       }
-      @if(profile()?.birthDate) {
-      <div class="mb-6">
+      @if (profile()?.birthDate) {
+        <div class="mb-6">
           <h2 class="font-bold">Fecha de nacimiento:</h2>
           <p>{{ profile()?.birthDate | date }}</p>
         </div>
       }
-      @if(profile()?.gender) {
-      <div class="mb-6">
+      @if (profile()?.gender) {
+        <div class="mb-6">
           <h2 class="font-bold">Género:</h2>
-          <p>{{ 'MALE' === profile()?.gender ? 'Masculino' : 'Femenino' }}</p>
+          <p>{{ "MALE" === profile()?.gender ? "Masculino" : "Femenino" }}</p>
         </div>
       }
 
@@ -47,7 +49,10 @@
                 for="documentNumber"
                 class="block mb-2 text-sm font-medium"
                 [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(myForm, 'documentNumber'),
+                  ' text-red-700': formUtils.isValiedField(
+                    myForm,
+                    'documentNumber'
+                  ),
                 }"
                 >DNI</label
               >
@@ -58,8 +63,12 @@
                 class="input-base"
                 [disabled]="true"
                 aria-label="disabled input"
+                (input)="changeInput($event.target.value, 'documentNumber')"
                 [ngClass]="{
-                  'input-error': formUtils.isValiedField(myForm, 'documentNumber'),
+                  'input-error': formUtils.isValiedField(
+                    myForm,
+                    'documentNumber'
+                  ),
                 }"
               />
               @if (formUtils.isValiedField(myForm, "documentNumber")) {
@@ -85,6 +94,7 @@
                 formControlName="phone"
                 class="input-base"
                 [placeholder]="user()?.phone"
+                (input)="changeInput($event.target.value, 'phone')"
                 [ngClass]="{
                   'input-error': formUtils.isValiedField(myForm, 'phone'),
                 }"
@@ -102,15 +112,17 @@
           <div class="mb-2">
             <h4 class="text-lg font-semibold mt-4">Foto</h4>
             <h4 class="text-sm font-normal mb-4">
-              Carga una foto a tu perfil de tu cuenta 350x350px, formato JPG o PNG, tamaño máximo 2MB.
+              Carga una foto a tu perfil de tu cuenta 350x350px, formato JPG o
+              PNG, tamaño máximo 2MB.
             </h4>
-            <div class="md:flex items-center gap-6 justify-between">
+            <div class="flex items-center gap-6 justify-between">
               <div
                 class="flex items-center justify-center w-20 h-20 rounded-full mb-6 object-cover"
               >
                 <img [src]="urlImage | notImage" class="rounded-full" alt="" />
               </div>
-              <div class="flex gap-3">
+              <div class="flex">
+                @if (lookingForAvatar()) {
                 <label class="button-primary">
                   Agregar foto
                   <input
@@ -120,21 +132,28 @@
                     (change)="changeAvatarFile($event)"
                   />
                 </label>
+              }
+                @if (!lookingForAvatar()) {
+                  <i class="fa-solid fa-pencil fa-lg cursor-pointer mr-2" (click)="lookingForAvatar.set(!lookingForAvatar())"></i>
+                }
               </div>
             </div>
           </div>
-
         </div>
-        <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
-          <button type="button" class="button-secondary me-3">Cancelar</button>
-          <button
-            data-modal-hide="default-modal"
-            type="submit"
-            class="button-primary"
-          >
-            Guardar
-          </button>
-        </div>
+        @if (lookingForBoton()) {
+          <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+            <button type="button" class="button-secondary me-3">
+              Cancelar
+            </button>
+            <button
+              data-modal-hide="default-modal"
+              type="submit"
+              class="button-primary"
+            >
+              Guardar
+            </button>
+          </div>
+        }
       </form>
     }
   </div>

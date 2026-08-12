@@ -22,7 +22,7 @@ export class FilterComponent {
   selectFilter = output<string>();
 
   currentPage = input<number>(1); // N° de paginas
-  currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
+  currentSize = input<number>(10); // Cantidad de Datos que desea que venga en lista
 
   placeholder = input<string>('Buscar');
   currentSearchTerm = input<string>('');
@@ -43,19 +43,19 @@ export class FilterComponent {
   inputParam =
     this._activateRoute.snapshot.queryParamMap.get('searchTerm') ?? '';
   searchTermLink = linkedSignal<string>(
-    () => this.inputParam ?? this.currentSearchTerm()
+    () => this.inputParam ?? this.currentSearchTerm(),
   );
 
   initialDateStartParam =
     this._activateRoute.snapshot.queryParamMap.get('dateInitialFilter') ?? '';
   initialDateStart = linkedSignal<string>(
-    () => this.initialDateStartParam ?? this.currentDateStartValue()
+    () => this.initialDateStartParam ?? this.currentDateStartValue(),
   );
 
   initialDateEndParam =
     this._activateRoute.snapshot.queryParamMap.get('dateEndFilter') ?? '';
   initialDateEnd = linkedSignal<string>(
-    () => this.initialDateEndParam ?? this.currentDateEndValue()
+    () => this.initialDateEndParam ?? this.currentDateEndValue(),
   );
 
   filterByStatus(status: string): void {
@@ -95,7 +95,7 @@ export class FilterComponent {
     }
     if (this.searchTermLink()) {
       queryParams.page = 1;
-      queryParams.size = 5;
+      queryParams.size = 10;
     }
     queryParams.searchTerm = this.searchTermLink();
     this._router.navigate([], {

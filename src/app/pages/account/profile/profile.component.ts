@@ -1,5 +1,11 @@
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -26,6 +32,8 @@ export class ProfileComponent {
   private storeService = inject(StoreService);
   urlImage = './assets/img/log-4.jpg';
   profile = signal<IProfile | null>(null);
+  lookingForBoton = signal<boolean>(false);
+  lookingForAvatar = signal<boolean>(false);
 
   ngOnInit() {
     this._profileService.getUserProfile().subscribe({
@@ -99,7 +107,7 @@ export class ProfileComponent {
       next: (updatedProfile: any) => {
         this.urlImage = updatedProfile.avatarUrl || avatarUrl;
         this.storeService.user.next(updatedProfile as User);
-
+        this.lookingForAvatar.set(false);
         console.log('User profile avatar updated', updatedProfile);
       },
       error: (error) => {
@@ -123,7 +131,7 @@ export class ProfileComponent {
       next: (updatedProfile: any) => {
         console.log('Profile updated', updatedProfile);
         this.storeService.user.next(updatedProfile as User);
-
+        this.lookingForBoton.set(false);
         this._alertService.getAlert(
           'Success',
           'Profile updated successfully',
@@ -135,5 +143,9 @@ export class ProfileComponent {
         console.error('Error updating profile', error);
       },
     });
+  }
+
+  changeInput(value: string, field: string) {
+    this.lookingForBoton.set(true);
   }
 }

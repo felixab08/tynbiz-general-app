@@ -6,10 +6,11 @@ import { IProfileAvatar, IRespProfileAvatar } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
 import { AlertService, ProfileService } from '@app/services';
 import { FormUtils } from '@app/utils/form.util';
+import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
   selector: 'tyn-info-store-page',
-  imports: [NotImagePipe, ReactiveFormsModule, CommonModule],
+  imports: [NotImagePipe, ReactiveFormsModule, CommonModule, ModalComponent],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './info-store-page.component.html',
 })
@@ -17,6 +18,7 @@ export default class InfoStorePageComponent {
   private _fb = inject(FormBuilder);
   urlImage = signal<string>('');
   userStore = signal<IUserStore | null>(null);
+  isOpen = false;
 
   _profileService = inject(ProfileService);
   _alertService = inject(AlertService);
@@ -70,7 +72,10 @@ export default class InfoStorePageComponent {
           'Perfil de tienda actualizado correctamente',
           'success',
         );
+        this.getUserStoreProfile(); // Refresh the profile after saving
+        this.isOpen = false; // Close the modal after saving
       },
+
       error: (error) => {
         console.error('Error updating user store profile', error);
         this._alertService.getAlert(
@@ -128,5 +133,8 @@ export default class InfoStorePageComponent {
         console.error('Error updating store logo', error);
       },
     });
+  }
+  closeModal() {
+    this.isOpen = false;
   }
 }

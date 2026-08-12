@@ -3,10 +3,11 @@ import { CardContactStorePageComponent } from './card-contact-store-page/card-co
 import { contactMock } from '@app/mock/contact.mock';
 import { ContactService, LinkParamService } from '@app/services';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { PaginationComponent } from '@app/components';
 
 @Component({
   selector: 'tyn-contact-store-page',
-  imports: [CardContactStorePageComponent],
+  imports: [CardContactStorePageComponent, PaginationComponent],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './contact-store-page.component.html',
 })
