@@ -48,3 +48,22 @@
   }
   </a>
 }
+<app-modal [isOpen]="isOpen" (closeModal)="closeModal()">
+  <img
+            src="./assets/svg/time-change.svg"
+            class="h-80 w-80 mx-auto"
+            alt="Tynbiz Logo"
+          />
+  <p>Faltan : {{ hoursForMeeting }}</p>
+      <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+      <button type="button" class="button-secondary me-3" (click)="isOpen = false">Cancelar</button>
+      <button
+        data-modal-hide="default-modal"
+        type="button"
+        class="button-primary"
+      >
+        Aceptar
+      </button>
+    </div>
+
+</app-modal>
