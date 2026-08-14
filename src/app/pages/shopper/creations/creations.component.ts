@@ -55,24 +55,4 @@ export default class CreationsComponent {
     this.categoryId = event;
     this.listCreation();
   }
-
-  // offertResorce = rxResource({
-  //   params: () => ({
-  //     page: this._paginationService.currentPage() - 1,
-  //     size: this._paginationService.currentSize(),
-  //     ubigeoId: this.ubigeoId,
-  //   }),
-  //   stream: ({ params }) => {
-  //     return (
-  //       this._createCreation.getCreationDiscovery(
-  //         {
-  //           page: params.page,
-  //           size: params.size,
-  //           ubigeoId: request.ubigeoId,
-  //         },
-  //         'ALL',
-  //       ) || {}
-  //     );
-  //   },
-  // });
 }
