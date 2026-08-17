@@ -11,8 +11,11 @@
 />
 <div class="mt-6">
   @if (creationResp && creationResp.content.length > 0) {
-    <div class="mt-6">
-      <tyn-creation-card [listCreation]="creationResp.content[0]" />
-    </div>
+    @for (item of creationResp.content; track item.categoryCode) {
+      <h1 class="text-xl font-bold my-3">Creaciones de {{ item.categoryName }}</h1>
+      <div>
+        <tyn-creation-card [listCreation]="item" />
+      </div>
+    }
   }
 </div>

@@ -11,58 +11,58 @@ export class LinkParamService {
   currentPage = toSignal(
     this._activatedRoute.queryParamMap.pipe(
       map((params) => (params.get('page') ? +params.get('page')! : 1)),
-      map((page) => (isNaN(page) ? 1 : page))
+      map((page) => (isNaN(page) ? 1 : page)),
     ),
     {
       initialValue: 1,
-    }
+    },
   );
 
   currentSize = toSignal(
     this._activatedRoute.queryParamMap.pipe(
-      map((params) => (params.get('size') ? +params.get('size')! : 5)),
-      map((size) => (isNaN(size) ? 5 : size))
+      map((params) => (params.get('size') ? +params.get('size')! : 10)),
+      map((size) => (isNaN(size) ? 10 : size)),
     ),
     {
-      initialValue: 5,
-    }
+      initialValue: 10,
+    },
   );
   currentStatus = toSignal(
     this._activatedRoute.queryParamMap.pipe(
-      map((params) => (params.get('status') ? params.get('status')! : 'All'))
+      map((params) => (params.get('status') ? params.get('status')! : 'All')),
     ),
     {
       initialValue: 'All',
-    }
+    },
   );
   currentSearchTerm = toSignal(
     this._activatedRoute.queryParamMap.pipe(
       map((params) =>
-        params.get('searchTerm') ? params.get('searchTerm')! : ''
-      )
+        params.get('searchTerm') ? params.get('searchTerm')! : '',
+      ),
     ),
     {
       initialValue: '',
-    }
+    },
   );
   currentDateInitialFilter = toSignal(
     this._activatedRoute.queryParamMap.pipe(
       map((params) =>
-        params.get('dateInitialFilter') ? params.get('dateInitialFilter')! : ''
-      )
+        params.get('dateInitialFilter') ? params.get('dateInitialFilter')! : '',
+      ),
     ),
     {
       initialValue: '',
-    }
+    },
   );
   currentDateEndFilter = toSignal(
     this._activatedRoute.queryParamMap.pipe(
       map((params) =>
-        params.get('dateEndFilter') ? params.get('dateEndFilter')! : ''
-      )
+        params.get('dateEndFilter') ? params.get('dateEndFilter')! : '',
+      ),
     ),
     {
       initialValue: '',
-    }
+    },
   );
 }

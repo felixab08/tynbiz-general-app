@@ -8,3 +8,11 @@
     <tyn-stores-card [listStores]="storeResorce.value() || []" (isFavorite)="isFavoriteChange($event)"></tyn-stores-card>
   }
 </div>
+@if (storeResorce.hasValue()) {
+  <app-pagination
+    [pages]="storeResorce.value().totalPages"
+    [totalElements]="storeResorce.value().totalElements"
+    [currentPage]="_paginationService.currentPage()"
+    [currentSize]="_paginationService.currentSize()"
+  />
+}

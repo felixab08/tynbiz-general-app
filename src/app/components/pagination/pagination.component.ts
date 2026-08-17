@@ -23,13 +23,13 @@ export class PaginationComponent {
   pages = input(0);
   totalElements = input(0);
   currentPage = input<number>(1); // N° de paginas
-  currentSize = input<number>(5); // Cantidad de Datos que desea que venga en lista
+  currentSize = input<number>(10); // Cantidad de Datos que desea que venga en lista
   currentStatus = input<string>('All'); // Estado actual
   currentSearchTerm = input<string>(''); // Busqueda por termino
   currentDateStartValue = input<string>(''); // Fecha inicial del filtro
   currentDateEndValue = input<string>(''); // Fecha final del filtro
 
-  itemsPage = signal(5);
+  itemsPage = signal(10);
 
   activePage = linkedSignal(this.currentPage);
   activeSize = linkedSignal(this.currentSize);
@@ -49,8 +49,8 @@ export class PaginationComponent {
     const active = this.activePage();
     const buttons: (number | string)[] = [];
 
-    if (pages <= 5) {
-      // Si hay 5 o menos páginas, mostrar todas
+    if (pages <= 10) {
+      // Si hay 10 o menos páginas, mostrar todas
       return Array.from({ length: pages }, (_, i) => i + 1);
     }
 
@@ -87,10 +87,12 @@ export class PaginationComponent {
 
   // TODO: mirar cuando se tiene mas datos
   getSizeList = computed(() => {
-    const sizes = [5, 10, 25, 50, 100];
+    const sizes = [10, 25, 50, 100];
     return [
-      5,
-      ...sizes.filter((size) => this.totalElements() * 2 >= size && size !== 5),
+      10,
+      ...sizes.filter(
+        (size) => this.totalElements() * 2 >= size && size !== 10,
+      ),
     ];
   });
 

@@ -5,7 +5,10 @@
   </p>
 </div></div>
 @if (offertResorce.hasValue() && offertResorce.value().content.length > 0) {
-  <div class="mt-6">
-    <tyn-creation-card [listCreation]="offertResorce.value().content[0]" />
-  </div>
-}
+    @for (item of offertResorce.value().content; track item.categoryCode) {
+      <h1 class="text-xl font-bold my-3">Ofertas de {{ item.categoryName }}</h1>
+      <div>
+        <tyn-creation-card [listCreation]="item" />
+      </div>
+    }
+  }

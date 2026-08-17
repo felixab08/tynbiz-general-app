@@ -6,16 +6,18 @@
       'bg-red-400': listContact().status === 'RECHAZADA',
     }"
     class="dark:text-white block max-w-sm p-6 border m-2 border-gray-300 rounded-lg shadow-sm"
+    (click)="lookTimeRemaining(listContact())"
   >
     <div class="flex gap-4 mb-3">
       <img class="w-10 h-10 rounded-full" [src]="null | notImage" alt="" />
       <div class="font-medium">
         <div class="mb-1.5">{{ listContact().customerName }}</div>
+        <div class="mb-1.5">Fecha: {{ listContact().appointmentDate }}</div>
         <div class="mb-1.5 text-sm text-black">
-          {{ listContact().startTime }}
+          Hora inicio: {{ listContact().startTime }}
         </div>
         <div class="mb-1.5 flex items-center">
-          <p class="font-normal text-black">{{ listContact().endTime }}</p>
+          <p class="font-normal text-black">Hora fin: {{ listContact().endTime }}</p>
           <span
             [ngClass]="{
               'bg-red-600': listContact().status === 'RECHAZADA',
@@ -46,3 +48,22 @@
   }
   </a>
 }
+<app-modal [isOpen]="isOpen" (closeModal)="closeModal()">
+  <img
+            src="./assets/svg/time-change.svg"
+            class="h-80 w-80 mx-auto"
+            alt="Tynbiz Logo"
+          />
+  <p>Faltan : {{ hoursForMeeting }}</p>
+      <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+      <button type="button" class="button-secondary me-3" (click)="isOpen = false">Cancelar</button>
+      <button
+        data-modal-hide="default-modal"
+        type="button"
+        class="button-primary"
+      >
+        Aceptar
+      </button>
+    </div>
+
+</app-modal>
