@@ -24,8 +24,8 @@ export class ContactService {
     const params: any = {
       page,
       size,
-      sort: sort || 'createdAt,desc',
     };
+    if (sort) params.sort = sort;
     if (startDate) params.startDate = startDate;
     if (endDate) params.endDate = endDate;
     if (searchTerm) params.searchTerm = searchTerm;
@@ -37,7 +37,7 @@ export class ContactService {
 
   patchangeStatusContact(
     idContact: number,
-    status: 'CONFIRMADA' | 'RECHAZADA',
+    status: 'CONFIRMADA' | 'RECHAZADA' | 'COMPLETADA' | 'FINALIZADA',
     reason?: string,
   ): Observable<any> {
     return this._http.patch<any>(

@@ -185,7 +185,7 @@
             >
               @if (creation.content && creation.content.store?.logoUrl) {
                 <img
-                  [src]="creation.content.store!.logoUrl! | notImage"
+                  [src]="creation.content.senderAvatarUrl | notImage"
                   alt="Store"
                   class="h-10 w-10 object-contain rounded-full"
                 />
@@ -195,7 +195,10 @@
             </div>
             <div class="text-sm">
               <div class="font-semibold text-heading dark:text-white">
-                {{ creation.content.hostName || creation.userEmail }}
+                {{ creation.content.senderName  }}
+               <span class="text-xs text-gray-500 dark:text-gray-300">
+                 {{ creation.content.senderEmail }}
+               </span>
               </div>
               <div class="text-xs text-gray-500 dark:text-gray-300">
                 {{ creation.message || 'Te ha invitado a una sala' }}

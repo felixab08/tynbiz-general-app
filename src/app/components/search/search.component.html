@@ -16,7 +16,7 @@
         (keyup.enter)="valueSearch.emit(txtSearch.value)"
         (keyup)="inputValue.set(txtSearch.value)"
         [value]="inputValue()"
-        class="block py-2.5 px-0 w-full mr-2 text-sm text-gray-900 bg-transparent  rounded-xl pl-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand shadow placeholder:text-body dark:placeholder:text-white"
+        class="block py-2.5 px-0 w-full mr-2 text-sm bg-transparent pl-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer text-heading rounded-base focus:ring-brand focus:border-brand shadow placeholder:text-body dark:placeholder:text-white"
         placeholder="Buscar... "
         autofocus="true"
       />
@@ -57,7 +57,7 @@
       >
         <div class="contain-content">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-            {{titleValue()}}
+            {{ titleValue() }}
           </h3>
         </div>
         <button

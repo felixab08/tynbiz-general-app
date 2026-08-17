@@ -16,7 +16,7 @@ export interface ContentContact {
   appointmentDate:    string;
   startTime:          string;
   endTime:            string;
-  status:             'PENDIENTE' | 'CONFIRMADA' | 'RECHAZADA';
+  status:             'PENDIENTE' | 'CONFIRMADA' | 'RECHAZADA' | 'COMPLETADA' | 'FINALIZADA';
   notes:              string;
   trackingToken:      string;
   confirmedAt:        string;
@@ -27,4 +27,5 @@ export interface ContentContact {
   videoRoomName:      string;
   videoRoomUrl:       string;
   videoRoomExpiresAt: string;
+  customerAvatarUrl: string;
 }
