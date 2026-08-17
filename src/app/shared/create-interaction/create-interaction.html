@@ -1,107 +1,233 @@
-<div class="p-2 md:p-5">
-  <h4 class="font-bold text-2xl text-center">Crear interacción en vivo</h4>
-  <p>Seleccione la fecha y hora para crear una interacción posterior</p>
-</div>
-<form
-  class="p-5 md:p-10"
-  autocomplete="off"
-  [formGroup]="myForm"
-  (ngSubmit)="onSave()"
->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="mb-3">
-      <p class="text-sm text-gray-500 dark:text-gray-400 font-bold">Detalle</p>
-      <span class="text-sm text-gray-500 dark:text-gray-400">
-        La privacidad de tu interacción
-      </span>
-    </div>
-    <div>
-      <label for="typelife" class="block mb-2 text-sm font-medium">Tipo</label>
-      <select id="typelife" class="input-base" formControlName="typelife">
-        <option value="" selected disabled>Seleccione</option>
-        <option value="MALE">Privado</option>
-        <option value="FEMALE">Publico</option>
-      </select>
-    </div>
+@if (selectedTab === 'select') {
 
-    <div>
-      <label
-        for="date"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Fecha</label
-      >
-      <input
-        type="date"
-        id="date"
-        formControlName="date"
-        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
-        [ngClass]="{
+<div class="p-2 md:p-5">
+  <img
+    src="./assets/img/createInteraction.png"
+    alt="Tynbiz"
+    class="mx-auto w-1/2 h-auto"
+  />
+  <h4 class="font-bold text-2xl pt-6">Unete a Tynbiz sala</h4>
+  <p class="pt-4">
+    Realiza tus compras de manera interactiva, podras unirte en tus compras
+    entre usuarios y usuarios con dueña(o)s de las tiendas.
+  </p>
+  <p class="pt-4">
+    Impulsa tus compras con Tynbiz sala, colaborando con amigos y familiares
+  </p>
+  <h4 class="font-bold text-xl pt-4">Elige y accede</h4>
+  <div class="flex gap-4 pt-4 w-full flex-col md:flex-row">
+    <button
+      class="button-primary w-full"
+      (click)="goToCreateLater()"
+    >
+      Crear interacción para mas tarde
+    </button>
+    <button
+      class="button-secondary m-0 w-full"
+      (click)="goToStartNow()"
+    >
+      Iniciar interacción ahora
+    </button>
+  </div>
+</div>
+
+} @if (selectedTab === 'selectCreateLater') {
+<div class="p-2 md:p-5">
+  <div>
+    <h4 class="font-bold text-2xl">Crear interacción en vivo</h4>
+    <p>Seleccione la fecha y hora para crear una interacción posterior</p>
+  </div>
+  <form
+    class="mt-4"
+    autocomplete="off"
+    [formGroup]="myForm"
+    (ngSubmit)="onSave()"
+  >
+    <div class="mb-3">
+      <h4 class="font-bold text-xl">Detalle</h4>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-5">
+      <div class="flex items-center">
+        <p>La privacidad de tu interacción</p>
+      </div>
+      <div>
+        <select id="typelife" class="input-base" formControlName="typelife">
+          <option value="" selected disabled>Seleccione</option>
+          <option value="MALE">Privado</option>
+          <option value="FEMALE">Publico</option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          for="date"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Fecha</label
+        >
+        <input
+          type="date"
+          id="date"
+          formControlName="date"
+          class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
+          [ngClass]="{
           ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
             formUtils.isValiedField(myForm, 'date')
         }"
-      />
-      @if(formUtils.isValiedField(myForm,'date')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium"
-          >{{ formUtils.getFieldError(myForm, "date") }}</span
-        >
-      </p>
-      }
-    </div>
-    <div>
-      <label
-        for="time"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Hora</label
-      >
-      <div class="relative">
-        <div
-          class="absolute inset-y-0 inset-e-0 top-0 flex items-center pe-3.5 pointer-events-none"
-        >
-          <svg
-            class="w-4 h-4 text-body"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
-        </div>
-        <input
-          type="time"
-          id="time"
-          formControlName="time"
-          class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body text-black dark:text-white bg-gray-200 dark:bg-gray-700"
-          min="08:00"
-          max="12:00"
-          value="12:00"
-          required
         />
+        @if(formUtils.isValiedField(myForm,'date')){
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium"
+            >{{ formUtils.getFieldError(myForm, "date") }}</span
+          >
+        </p>
+        }
       </div>
-      @if(formUtils.isValiedField(myForm,'time')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium"
-          >{{ formUtils.getFieldError(myForm, "time") }}</span
+      <div>
+        <label
+          for="time"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Hora</label
         >
-      </p>
-      }
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 inset-e-0 top-0 flex items-center pe-3.5 pointer-events-none"
+          >
+            <svg
+              class="w-4 h-4 text-body"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            type="time"
+            id="time"
+            formControlName="time"
+            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body text-black dark:text-white bg-gray-200 dark:bg-gray-700"
+            min="08:00"
+            max="12:00"
+            value="12:00"
+            required
+          />
+        </div>
+        @if(formUtils.isValiedField(myForm,'time')){
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium"
+            >{{ formUtils.getFieldError(myForm, "time") }}</span
+          >
+        </p>
+        }
+      </div>
     </div>
-    <div class="flex justify-center mt-5">
+    <div class="flex items-center justify-end rounded-b">
+      <button type="button" class="button-secondary me-3" (click)="selectedTab = 'select'">Cancelar</button>
       <button
+        data-modal-hide="default-modal"
         type="submit"
-        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark"
+        class="button-primary"
       >
-        Crear interacción
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>
+} @if (selectedTab === 'selectStartNow') {
+<div class="p-2 md:p-5">
+  <div class="flex-col flex gap-2 bg-gray-100 p-4 rounded-xl">
+    <div class="flex items-center">
+      <span
+        class="bg-green-500 w-6 h-6 text-white p-2 rounded-full mr-2 flex items-center justify-center"
+      >
+        <i class="fas fa-check"></i>
+      </span>
+      <div class="flex flex-col">
+        <p class="font-semibold">Creación</p>
+        <span class="text-sm text-gray-500"
+          >Para {{ interactionDate | date:'dd MMM yyyy, hh:mm a' }}</span
+        >
+      </div>
+    </div>
+
+    <div class="flex items-center bg-white p-2 rounded-md">
+      <span class="text-sm text-gray-700">Link de la sala</span>
+      <button class="ml-auto">
+        <i class="fa-solid fa-copy"></i>
       </button>
     </div>
   </div>
-</form>
+
+  <div class="flex flex-col mt-4 mb-4">
+    <h4 class="text-lg font-bold">Invitar</h4>
+    <span>Invita al usuario eligiendo cualquier alternativa</span>
+
+    <div class="mt-4">
+      <label
+        for="default-search"
+        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+        >Buscar</label
+      >
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none"
+        ></div>
+        <div class="flex">
+          <input
+            type="text"
+            id="floating_standard"
+            #txtSearch
+            class="block py-2.5 px-0 w-full mr-2 text-sm text-gray-900 bg-transparent rounded-xl pl-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand shadow placeholder:text-body dark:placeholder:text-white"
+            placeholder="Ingresa un nombre o correo electrónico"
+            autofocus="true"
+          />
+        </div>
+      </div>
+      <div class="relative z-0"></div>
+    </div>
+
+  </div>
+
+  <div class="mb-4 space-y-2">
+    <h1 class="text-md font-bold">Usuarios invitados</h1>
+    <div
+      class="flex items-center justify-between bg-white rounded-md shadow-sm p-2"
+    >
+      <div class="flex items-center gap-2">
+        <img src="" alt="" class="w-8 h-8 rounded-full" />
+        <div>
+          <p class="text-sm font-semibold">name</p>
+          <p class="text-xs text-gray-500">email</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button>
+          <i class="fa-solid fa-xmark text-gray-500"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end rounded-b">
+    <button type="button" class="button-secondary me-3">
+      Omitir invitación
+    </button>
+    <button
+      data-modal-hide="default-modal"
+      type="submit"
+      class="button-primary"
+    >
+      Enviar
+    </button>
+  </div>
+</div>
+}
