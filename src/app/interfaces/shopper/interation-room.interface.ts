@@ -1,3 +1,4 @@
+import { DataPaginationResponse } from "../general/services.interface";
 import { IProduct } from "./product-store.interface";
 
 export interface IIterationRoomReq {
@@ -21,4 +22,19 @@ export interface IIterarionRoomResp {
     secondsUntilLive:   string;
     invitations?:        any[];
     products?:           IProduct[];
+}
+
+
+export interface UserSearchResp extends DataPaginationResponse{
+  contentUser: contentUserRoom[];
+}
+export interface contentUserRoom {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  status: string;
+  createdAt: string;
+  avatarUrl: string;
 }

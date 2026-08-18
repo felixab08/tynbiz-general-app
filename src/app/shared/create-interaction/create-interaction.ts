@@ -15,11 +15,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlertService, InterationRoomService } from '@app/services';
-import { IIterationRoomReq } from '@app/interfaces';
+import { contentUserRoom, IIterationRoomReq } from '@app/interfaces';
+import { NotImagePipe } from '../../pipes/not-image.pipe';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'tyn-create-interaction',
-  imports: [ReactiveFormsModule, CommonModule, DatePipe],
+  imports: [ReactiveFormsModule, CommonModule, DatePipe, NotImagePipe],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './create-interaction.html',
 })
@@ -32,6 +34,8 @@ export class CreateInteraction implements OnChanges {
   selectedTab: string = 'select';
   currentDate = new Date();
   interactionDate = new Date();
+  listUsers = signal<contentUserRoom[] | null>(null);
+  lookingForUser = signal(false);
 
   myForm: FormGroup = this._fb.group({
     visibility: ['', [Validators.required, Validators.minLength(2)]],
@@ -39,6 +43,12 @@ export class CreateInteraction implements OnChanges {
     time: ['', [Validators.required, Validators.minLength(2)]],
   });
 
+  myFormEmail: FormGroup = this._fb.group({
+    email: [
+      '',
+      [Validators.required, Validators.pattern(this.formUtils.emailPattern)],
+    ],
+  });
   onSave() {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
@@ -47,9 +57,11 @@ export class CreateInteraction implements OnChanges {
 
     const { date, time } = this.myForm.getRawValue();
     this.interactionDate = this.buildInteractionDate(date, time);
-    let dataValue : IIterationRoomReq = {
+    let dataValue: IIterationRoomReq = {
       scheduledAt: date + 'T' + time,
-      visibility: this.myForm.controls['visibility'].value as 'PUBLICO' | 'PRIVADO',
+      visibility: this.myForm.controls['visibility'].value as
+        | 'PUBLICO'
+        | 'PRIVADO',
     };
     this.createInteraction(dataValue);
 
@@ -61,7 +73,7 @@ export class CreateInteraction implements OnChanges {
   }
 
   goToStartNow(): void {
-    let dataValue : IIterationRoomReq= {
+    let dataValue: IIterationRoomReq = {
       scheduledAt: new Date(
         new Date().getTime() - new Date().getTimezoneOffset() * 60000,
       )
@@ -70,7 +82,7 @@ export class CreateInteraction implements OnChanges {
       visibility: 'PUBLICO',
     };
     console.log(dataValue);
-    this.createInteraction(dataValue);
+    // this.createInteraction(dataValue);
     this.interactionDate = new Date();
     this.selectedTab = 'selectStartNow';
   }
@@ -103,6 +115,24 @@ export class CreateInteraction implements OnChanges {
       error: (error: any) => {
         this._alert.addAlert({
           title: 'Error al crear la interacción',
+          message: error.message,
+          type: 'error',
+        });
+      },
+    });
+  }
+
+  searhchUserByEmail(email: string): void {
+    this._interationSrv.getCategoryByStore(email).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this.listUsers.set(resp.contentUser);
+        this.lookingForUser.set(true);
+      },
+      error: (error: any) => {
+        this.lookingForUser.set(false);
+        this._alert.addAlert({
+          title: 'Error al buscar el usuario',
           message: error.message,
           type: 'error',
         });

@@ -172,21 +172,77 @@
     <span>Invita al usuario eligiendo cualquier alternativa</span>
   </div>
 
+  <form
+    class="mt-4"
+    autocomplete="off"
+    [formGroup]="myFormEmail"
+    (ngSubmit)="onSave()"
+  >
+    <div>
+      <label
+        for="email"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Correo</label
+      >
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="tynbiz@example.com"
+        (keydown.enter)="searhchUserByEmail(myFormEmail.controls['email'].value)"
+        class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
+        [ngClass]="{
+          ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+            formUtils.isValiedField(myFormEmail, 'email')
+        }"
+      />
+      @if(formUtils.isValiedField(myFormEmail,'email')){
+      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+        <span class="font-medium"
+          >{{ formUtils.getFieldError(myFormEmail, "email") }}</span
+        >
+      </p>
+      }
+    </div>
+  </form>
+  <!-- @if (this.lookingForUser()) { -->
+  <!--  -->
+  @for (user of this.listUsers(); track $index) {
+  <button
+    class="flex w-full items-center justify-between cursor-pointer gap-3 rounded-lg p-3 text-left transition hover:bg-gray-100 dark:hover:bg-neutral-700"
+  >
+    <div class="flex items-center gap-2">
+      <img
+        class="size-8 object-center object-cover relative rounded-full z-10"
+        [src]="user.avatarUrl | notImage"
+        [alt]="user.firstName + ' ' + user.lastName"
+      />
+      <div class="flex flex-col gap-1">
+        <div>{{ user.firstName }} {{ user.lastName }}</div>
+        <div class="text-xs text-gray-500 dark:text-gray-400">
+          {{ user.email }}
+        </div>
+      </div>
+    </div>
+  </button>
+  }
+  <!--  -->
+  <!-- } -->
   <div class="mb-4 space-y-2">
     <h1 class="text-md font-bold">Usuarios invitados</h1>
     <div
-      class="flex items-center justify-between bg-white rounded-md shadow-sm p-2"
+      class="flex items-center justify-between rounded-md shadow-sm p-2 bg-gray-200 dark:bg-gray-600"
     >
       <div class="flex items-center gap-2">
-        <img src="" alt="" class="w-8 h-8 rounded-full" />
+        <img src="https://pub-38a3154e64284206a8009283fab731a1.r2.dev/avatars/27/profile.png" alt="" class="w-8 h-8 rounded-full" />
         <div>
-          <p class="text-sm font-semibold">name</p>
-          <p class="text-xs text-gray-500">email</p>
+          <p class="text-sm font-semibold">Mat</p>
+          <p class="text-xs text-gray-500 dark:text-gray-200">Meneses Martinez</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
         <button>
-          <i class="fa-solid fa-xmark text-gray-500"></i>
+          <i class="fa-solid fa-xmark text-gray-500 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200"></i>
         </button>
       </div>
     </div>
