@@ -14,6 +14,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AlertService, InterationRoomService } from '@app/services';
+import { IIterationRoomReq } from '@app/interfaces';
 
 @Component({
   selector: 'tyn-create-interaction',
@@ -25,12 +27,14 @@ export class CreateInteraction implements OnChanges {
   @Input() isOpen = false;
   formUtils = FormUtils;
   private _fb = inject(FormBuilder);
+  private _interationSrv = inject(InterationRoomService);
+  private _alert = inject(AlertService);
   selectedTab: string = 'select';
   currentDate = new Date();
   interactionDate = new Date();
 
   myForm: FormGroup = this._fb.group({
-    typelife: ['', [Validators.required, Validators.minLength(2)]],
+    visibility: ['', [Validators.required, Validators.minLength(2)]],
     date: ['', [Validators.required, FormUtils.dateMinToday()]],
     time: ['', [Validators.required, Validators.minLength(2)]],
   });
@@ -43,6 +47,12 @@ export class CreateInteraction implements OnChanges {
 
     const { date, time } = this.myForm.getRawValue();
     this.interactionDate = this.buildInteractionDate(date, time);
+    let dataValue : IIterationRoomReq = {
+      scheduledAt: date + 'T' + time,
+      visibility: this.myForm.controls['visibility'].value as 'PUBLICO' | 'PRIVADO',
+    };
+    this.createInteraction(dataValue);
+
     this.selectedTab = 'selectStartNow';
   }
 
@@ -51,8 +61,17 @@ export class CreateInteraction implements OnChanges {
   }
 
   goToStartNow(): void {
-    this.currentDate = new Date();
-    this.interactionDate = this.currentDate;
+    let dataValue : IIterationRoomReq= {
+      scheduledAt: new Date(
+        new Date().getTime() - new Date().getTimezoneOffset() * 60000,
+      )
+        .toISOString()
+        .slice(0, 19),
+      visibility: 'PUBLICO',
+    };
+    console.log(dataValue);
+    this.createInteraction(dataValue);
+    this.interactionDate = new Date();
     this.selectedTab = 'selectStartNow';
   }
 
@@ -70,5 +89,24 @@ export class CreateInteraction implements OnChanges {
       this.interactionDate = this.currentDate;
       this.myForm.reset();
     }
+  }
+
+  createInteraction(dataValue: IIterationRoomReq): void {
+    this._interationSrv.postIterarionRoom(dataValue).subscribe({
+      next: (resp: any) => {
+        this._alert.addAlert({
+          title: 'Interacción creada correctamente',
+          message: 'La interacción ha sido creada correctamente',
+          type: 'success',
+        });
+      },
+      error: (error: any) => {
+        this._alert.addAlert({
+          title: 'Error al crear la interacción',
+          message: error.message,
+          type: 'error',
+        });
+      },
+    });
   }
 }

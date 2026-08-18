@@ -16,16 +16,10 @@
   </p>
   <h4 class="font-bold text-xl pt-4">Elige y accede</h4>
   <div class="flex gap-4 pt-4 w-full flex-col md:flex-row">
-    <button
-      class="button-primary w-full"
-      (click)="goToCreateLater()"
-    >
+    <button class="button-primary w-full" (click)="goToCreateLater()">
       Crear interacción para mas tarde
     </button>
-    <button
-      class="button-secondary m-0 w-full"
-      (click)="goToStartNow()"
-    >
+    <button class="button-secondary m-0 w-full" (click)="goToStartNow()">
       Iniciar interacción ahora
     </button>
   </div>
@@ -51,10 +45,10 @@
         <p>La privacidad de tu interacción</p>
       </div>
       <div>
-        <select id="typelife" class="input-base" formControlName="typelife">
+        <select id="visibility" class="input-base" formControlName="visibility">
           <option value="" selected disabled>Seleccione</option>
-          <option value="MALE">Privado</option>
-          <option value="FEMALE">Publico</option>
+          <option value="PRIVADO">Privado</option>
+          <option value="PUBLICO">Publico</option>
         </select>
       </div>
 
@@ -114,7 +108,7 @@
             type="time"
             id="time"
             formControlName="time"
-            class="block w-full p-2.5 bg-neutral-secondary-medium border border-gray-300 text-heading text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body text-black dark:text-white bg-gray-200 dark:bg-gray-700"
+            class="block w-full p-2.5 border border-gray-300 text-sm rounded focus:ring-brand focus:border-brand shadow-xs placeholder:text-body text-black dark:text-white bg-gray-200 dark:bg-gray-700"
             min="08:00"
             max="12:00"
             value="12:00"
@@ -131,7 +125,13 @@
       </div>
     </div>
     <div class="flex items-center justify-end rounded-b">
-      <button type="button" class="button-secondary me-3" (click)="selectedTab = 'select'">Cancelar</button>
+      <button
+        type="button"
+        class="button-secondary me-3"
+        (click)="selectedTab = 'select'"
+      >
+        Cancelar
+      </button>
       <button
         data-modal-hide="default-modal"
         type="submit"
@@ -144,7 +144,7 @@
 </div>
 } @if (selectedTab === 'selectStartNow') {
 <div class="p-2 md:p-5">
-  <div class="flex-col flex gap-2 bg-gray-100 p-4 rounded-xl">
+  <div class="flex-col flex gap-2 bg-gray-100 dark:bg-gray-600 p-4 rounded-xl">
     <div class="flex items-center">
       <span
         class="bg-green-500 w-6 h-6 text-white p-2 rounded-full mr-2 flex items-center justify-center"
@@ -153,14 +153,14 @@
       </span>
       <div class="flex flex-col">
         <p class="font-semibold">Creación</p>
-        <span class="text-sm text-gray-500"
+        <span class="text-sm text-gray-500 dark:text-white"
           >Para {{ interactionDate | date:'dd MMM yyyy, hh:mm a' }}</span
         >
       </div>
     </div>
 
-    <div class="flex items-center bg-white p-2 rounded-md">
-      <span class="text-sm text-gray-700">Link de la sala</span>
+    <div class="flex items-center bg-white dark:bg-gray-600 p-2 rounded-md">
+      <span class="text-sm text-gray-700 dark:text-white">Link de la sala</span>
       <button class="ml-auto">
         <i class="fa-solid fa-copy"></i>
       </button>
@@ -170,31 +170,6 @@
   <div class="flex flex-col mt-4 mb-4">
     <h4 class="text-lg font-bold">Invitar</h4>
     <span>Invita al usuario eligiendo cualquier alternativa</span>
-
-    <div class="mt-4">
-      <label
-        for="default-search"
-        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >Buscar</label
-      >
-      <div class="relative">
-        <div
-          class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none"
-        ></div>
-        <div class="flex">
-          <input
-            type="text"
-            id="floating_standard"
-            #txtSearch
-            class="block py-2.5 px-0 w-full mr-2 text-sm text-gray-900 bg-transparent rounded-xl pl-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer border-default-medium text-heading rounded-base focus:ring-brand focus:border-brand shadow placeholder:text-body dark:placeholder:text-white"
-            placeholder="Ingresa un nombre o correo electrónico"
-            autofocus="true"
-          />
-        </div>
-      </div>
-      <div class="relative z-0"></div>
-    </div>
-
   </div>
 
   <div class="mb-4 space-y-2">
