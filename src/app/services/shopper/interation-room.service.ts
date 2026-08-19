@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { IIterationRoomReq, UserSearchResp } from '@app/interfaces';
+import {
+  ContentNotificationRoomResp,
+  IIterationRoomReq,
+  PostNotificacionWSReq,
+  UserSearchResp,
+} from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -16,6 +21,15 @@ export class InterationRoomService {
   getCategoryByStore(email: string): Observable<UserSearchResp> {
     return this._http.get<UserSearchResp>(
       `${baseUrl}/public/users/search?query=${email}&page=0&size=100`,
+    );
+  }
+
+  postNotificacionWS(
+    notification: PostNotificacionWSReq,
+  ): Observable<ContentNotificationRoomResp> {
+    return this._http.post<ContentNotificationRoomResp>(
+      `${baseUrl}/notificacionWS/send`,
+      notification,
     );
   }
 }

@@ -38,3 +38,23 @@ export interface contentUserRoom {
   createdAt: string;
   avatarUrl: string;
 }
+
+
+export interface PostNotificacionWSReq {
+    userIds: Array<number>;
+    userEmail?: Array<string>;
+    title: string;
+    content?: any;
+    message: string;
+  }
+
+
+export interface ContentNotificationRoomResp{
+    notificationId: Array<number>,
+    title: string,
+    message: string,
+    isRead: boolean,
+    createdAt: string,
+    content: any
+}
+

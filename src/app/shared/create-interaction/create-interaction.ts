@@ -5,6 +5,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { FormUtils } from '@app/utils/form.util';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -15,9 +17,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlertService, InterationRoomService } from '@app/services';
-import { contentUserRoom, IIterationRoomReq } from '@app/interfaces';
-import { NotImagePipe } from '../../pipes/not-image.pipe';
+import {
+  contentUserRoom,
+  IErrorGeneralResp,
+  IIterarionRoomResp,
+  IIterationRoomReq,
+  PostNotificacionWSReq,
+} from '@app/interfaces';
 import { signal } from '@angular/core';
+import { NotImagePipe } from '@app/pipes';
 
 @Component({
   selector: 'tyn-create-interaction',
@@ -27,15 +35,16 @@ import { signal } from '@angular/core';
 })
 export class CreateInteraction implements OnChanges {
   @Input() isOpen = false;
+  @Output() closeModal = new EventEmitter<boolean>();
   formUtils = FormUtils;
   private _fb = inject(FormBuilder);
   private _interationSrv = inject(InterationRoomService);
   private _alert = inject(AlertService);
   selectedTab: string = 'select';
-  currentDate = new Date();
-  interactionDate = new Date();
   listUsers = signal<contentUserRoom[] | null>(null);
   lookingForUser = signal(false);
+  listSelecteUser = signal<contentUserRoom[] | null>(null);
+  respInteractionRoom: IIterarionRoomResp | null = null;
 
   myForm: FormGroup = this._fb.group({
     visibility: ['', [Validators.required, Validators.minLength(2)]],
@@ -56,7 +65,6 @@ export class CreateInteraction implements OnChanges {
     }
 
     const { date, time } = this.myForm.getRawValue();
-    this.interactionDate = this.buildInteractionDate(date, time);
     let dataValue: IIterationRoomReq = {
       scheduledAt: date + 'T' + time,
       visibility: this.myForm.controls['visibility'].value as
@@ -64,7 +72,6 @@ export class CreateInteraction implements OnChanges {
         | 'PRIVADO',
     };
     this.createInteraction(dataValue);
-
     this.selectedTab = 'selectStartNow';
   }
 
@@ -81,31 +88,21 @@ export class CreateInteraction implements OnChanges {
         .slice(0, 19),
       visibility: 'PUBLICO',
     };
-    console.log(dataValue);
-    // this.createInteraction(dataValue);
-    this.interactionDate = new Date();
+    this.createInteraction(dataValue);
     this.selectedTab = 'selectStartNow';
-  }
-
-  private buildInteractionDate(dateValue: string, timeValue: string): Date {
-    if (!dateValue || !timeValue) return new Date();
-
-    const parsedDate = new Date(`${dateValue}T${timeValue}`);
-    return Number.isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen']?.currentValue) {
       this.selectedTab = 'select';
-      this.currentDate = new Date();
-      this.interactionDate = this.currentDate;
       this.myForm.reset();
     }
   }
 
   createInteraction(dataValue: IIterationRoomReq): void {
     this._interationSrv.postIterarionRoom(dataValue).subscribe({
-      next: (resp: any) => {
+      next: (resp: IIterarionRoomResp) => {
+        this.respInteractionRoom = resp;
         this._alert.addAlert({
           title: 'Interacción creada correctamente',
           message: 'La interacción ha sido creada correctamente',
@@ -122,11 +119,16 @@ export class CreateInteraction implements OnChanges {
     });
   }
 
-  searhchUserByEmail(email: string): void {
+  searchUserByEmail(email: string): void {
+    if (!email) return;
     this._interationSrv.getCategoryByStore(email).subscribe({
       next: (resp: any) => {
         console.log(resp);
-        this.listUsers.set(resp.contentUser);
+        const users =
+          resp?.contentUser ||
+          resp?.content ||
+          (Array.isArray(resp) ? resp : []);
+        this.listUsers.set(users);
         this.lookingForUser.set(true);
       },
       error: (error: any) => {
@@ -138,5 +140,85 @@ export class CreateInteraction implements OnChanges {
         });
       },
     });
+  }
+
+  // Alias for backward compatibility
+  searhchUserByEmail(email: string): void {
+    this.searchUserByEmail(email);
+  }
+
+  selectionUser(user: contentUserRoom): void {
+    this.lookingForUser.set(false);
+    if (this.listSelecteUser()) {
+      if (this.listSelecteUser()?.some((u) => u.id === user.id)) {
+        this._alert.addAlert({
+          title: 'Usuario ya seleccionado',
+          message: 'El usuario ya ha sido seleccionado',
+          type: 'warning',
+        });
+        return;
+      }
+      this.listSelecteUser.set([...this.listSelecteUser()!, user]);
+    } else {
+      this.listSelecteUser.set([user]);
+    }
+    this.myFormEmail.reset();
+  }
+
+  removeUser(userId: number): void {
+    this.listSelecteUser.update((list) => list!.filter((u) => u.id !== userId));
+  }
+  sendDataFriends(): void {
+    console.log('sendDataFriends');
+    if (this.listSelecteUser()?.length == 0) {
+      this._alert.addAlert({
+        title: 'Error al crear la interacción',
+        message: 'No se seleccionaron usuarios',
+        type: 'error',
+      });
+      return;
+    }
+    let IdsUser: number[] = this.listSelecteUser()!.map((u) => u.id);
+    let notification: PostNotificacionWSReq = {
+      userIds: IdsUser,
+      title: 'Invitación a sala',
+      message: 'Has sido invitado a una sala en vivo.',
+      content: {
+        videoRoomName: this.respInteractionRoom?.videoRoomName,
+        videoRoomUrl: this.respInteractionRoom?.videoRoomUrl,
+      },
+    };
+
+    this._interationSrv.postNotificacionWS(notification).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this._alert.addAlert({
+          title: 'Invitación enviada correctamente',
+          message: 'La invitación ha sido enviada correctamente',
+          type: 'success',
+        });
+        this.listSelecteUser.set(null);
+      },
+      error: (error: IErrorGeneralResp) => {
+        this._alert.addAlert({
+          title: 'Error al enviar la invitación',
+          message: error.error.detail,
+          type: 'error',
+        });
+      },
+    });
+  }
+
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text);
+    this._alert.addAlert({
+      title: 'Link copiado correctamente',
+      message: 'El link ha sido copiado correctamente',
+      type: 'success',
+    });
+  }
+  closeModalIntera() {
+    this.isOpen = false;
+    this.closeModal.emit(false);
   }
 }
