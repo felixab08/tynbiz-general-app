@@ -72,7 +72,6 @@ export class CreateInteraction implements OnChanges {
         | 'PRIVADO',
     };
     this.createInteraction(dataValue);
-    this.selectedTab = 'selectStartNow';
   }
 
   goToCreateLater(): void {
@@ -89,7 +88,6 @@ export class CreateInteraction implements OnChanges {
       visibility: 'PUBLICO',
     };
     this.createInteraction(dataValue);
-    this.selectedTab = 'selectStartNow';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -108,6 +106,7 @@ export class CreateInteraction implements OnChanges {
           message: 'La interacción ha sido creada correctamente',
           type: 'success',
         });
+        this.selectedTab = 'selectStartNow';
       },
       error: (error: any) => {
         this._alert.addAlert({

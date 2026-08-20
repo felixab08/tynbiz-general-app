@@ -27,7 +27,7 @@ export default class ContactStorePageComponent {
         this._contactService.getContactByStore({
           page: params.page,
           size: params.size,
-          startDate: new Date().toISOString().split('T')[0],
+          startDate: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`,
         }) || {}
       );
     },

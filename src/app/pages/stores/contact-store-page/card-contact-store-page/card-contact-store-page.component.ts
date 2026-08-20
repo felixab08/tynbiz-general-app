@@ -60,7 +60,9 @@ export class CardContactStorePageComponent {
    */
 
   lookTimeRemaining(content: ContentContact) {
-    if (content.appointmentDate === new Date().toISOString().split('T')[0]) {
+    const hoy = new Date();
+    const fecha = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+    if (content.appointmentDate === fecha) {
       console.log('The appointment date is today.');
       this.isOpen = true;
       const now = new Date();
