@@ -6,7 +6,7 @@
     @if (profile()) {
       <div class="mb-6">
         <h2 class="font-bold">Nombre:</h2>
-        <p>{{ profile()?.firstName }} {{ profile()?.fullName }}</p>
+        <p>{{ profile()?.firstName }} {{ profile()?.lastName }}</p>
       </div>
       <div class="mb-6">
         <h2 class="font-bold">Correo electrónico:</h2>
@@ -44,70 +44,72 @@
         <div class="mb-6 card-static">
           <h1 class="text-xl font-bold mb-6">Información básica</h1>
           <div class="grid gap-6 mb-6 md:grid-cols-2">
+            @if (profile()!.documentNumber!.length === 0) {
             <div>
-              <label
-                for="documentNumber"
-                class="block mb-2 text-sm font-medium"
-                [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(
-                    myForm,
-                    'documentNumber'
-                  ),
-                }"
-                >DNI</label
-              >
-              <input
-                type="number"
-                id="documentNumber"
-                formControlName="documentNumber"
-                class="input-base"
-                [disabled]="true"
-                aria-label="disabled input"
-                (input)="changeInput($event.target.value, 'documentNumber')"
-                [ngClass]="{
-                  'input-error': formUtils.isValiedField(
-                    myForm,
-                    'documentNumber'
-                  ),
-                }"
-              />
-              @if (formUtils.isValiedField(myForm, "documentNumber")) {
-                <p class="mt-2 text-sm text-red-600">
-                  <span class="font-medium">{{
-                    formUtils.getFieldError(myForm, "documentNumber")
-                  }}</span>
-                </p>
-              }
+                <label
+                  for="documentNumber"
+                  class="block mb-2 text-sm font-medium"
+                  [ngClass]="{
+                    ' text-red-700': formUtils.isValiedField(
+                      myForm,
+                      'documentNumber'
+                    ),
+                  }"
+                  >DNI</label
+                >
+                <input
+                  type="number"
+                  id="documentNumber"
+                  formControlName="documentNumber"
+                  class="input-base"
+                  [disabled]="true"
+                  aria-label="disabled input"
+                  (input)="changeInput($event.target.value, 'documentNumber')"
+                  [ngClass]="{
+                    'input-error': formUtils.isValiedField(
+                      myForm,
+                      'documentNumber'
+                    ),
+                  }"
+                />
+                @if (formUtils.isValiedField(myForm, "documentNumber")) {
+                  <p class="mt-2 text-sm text-red-600">
+                    <span class="font-medium">{{
+                      formUtils.getFieldError(myForm, "documentNumber")
+                    }}</span>
+                  </p>
+                }
+              </div>
+            }
+              <div>
+                <label
+                  for="phone"
+                  class="block mb-2 text-sm font-medium"
+                  [ngClass]="{
+                    ' text-red-700': formUtils.isValiedField(myForm, 'phone'),
+                  }"
+                  >Teléfono</label
+                >
+                <input
+                  type="number"
+                  id="phone"
+                  formControlName="phone"
+                  class="input-base"
+                  [placeholder]="user()?.phone"
+                  (input)="changeInput($event.target.value, 'phone')"
+                  [ngClass]="{
+                    'input-error': formUtils.isValiedField(myForm, 'phone'),
+                  }"
+                />
+                @if (formUtils.isValiedField(myForm, "phone")) {
+                  <p class="mt-2 text-sm text-red-600">
+                    <span class="font-medium">{{
+                      formUtils.getFieldError(myForm, "phone")
+                    }}</span>
+                  </p>
+                }
+              </div>
             </div>
-            <div>
-              <label
-                for="phone"
-                class="block mb-2 text-sm font-medium"
-                [ngClass]="{
-                  ' text-red-700': formUtils.isValiedField(myForm, 'phone'),
-                }"
-                >Teléfono</label
-              >
-              <input
-                type="number"
-                id="phone"
-                formControlName="phone"
-                class="input-base"
-                [placeholder]="user()?.phone"
-                (input)="changeInput($event.target.value, 'phone')"
-                [ngClass]="{
-                  'input-error': formUtils.isValiedField(myForm, 'phone'),
-                }"
-              />
-              @if (formUtils.isValiedField(myForm, "phone")) {
-                <p class="mt-2 text-sm text-red-600">
-                  <span class="font-medium">{{
-                    formUtils.getFieldError(myForm, "phone")
-                  }}</span>
-                </p>
-              }
-            </div>
-          </div>
 
           <div class="mb-2">
             <h4 class="text-lg font-semibold mt-4">Foto</h4>
@@ -123,18 +125,21 @@
               </div>
               <div class="flex">
                 @if (lookingForAvatar()) {
-                <label class="button-primary">
-                  Agregar foto
-                  <input
-                    type="file"
-                    class="hidden"
-                    accept="image/*"
-                    (change)="changeAvatarFile($event)"
-                  />
-                </label>
-              }
+                  <label class="button-primary">
+                    Agregar foto
+                    <input
+                      type="file"
+                      class="hidden"
+                      accept="image/*"
+                      (change)="changeAvatarFile($event)"
+                    />
+                  </label>
+                }
                 @if (!lookingForAvatar()) {
-                  <i class="fa-solid fa-pencil fa-lg cursor-pointer mr-2" (click)="lookingForAvatar.set(!lookingForAvatar())"></i>
+                  <i
+                    class="fa-solid fa-pencil fa-lg cursor-pointer mr-2"
+                    (click)="lookingForAvatar.set(!lookingForAvatar())"
+                  ></i>
                 }
               </div>
             </div>

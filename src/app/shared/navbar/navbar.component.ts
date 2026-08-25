@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe],
+  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './navbar.component.html',
 })
@@ -101,6 +101,13 @@ export class NavbarComponent {
   }
 
   goToRoom(notification: INotificationResp) {
+    const videoUrl = notification.content?.videoRoomUrl;
+    if (videoUrl) {
+      window.open(videoUrl, '_blank');
+    }
+  }
+
+  changeStatusRoom(notification: INotificationResp) {
     if (notification.notificationId) {
       this._jitsiService
         .putMarkNotificationAsRead(notification.notificationId)
@@ -115,11 +122,6 @@ export class NavbarComponent {
           error: (err) =>
             console.error('Error al marcar notificación como leída:', err),
         });
-    }
-
-    const videoUrl = notification.content?.videoRoomUrl;
-    if (videoUrl) {
-      window.open(videoUrl, '_blank');
     }
   }
 

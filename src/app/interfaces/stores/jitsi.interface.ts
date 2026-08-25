@@ -45,9 +45,10 @@ export interface ContentNotification {
   isCurrentlyValid?:   boolean;
   publicationOption?:  string;
   videoRoomExpiresAt?: Date | string;
-  senderName?:  string;
-  senderEmail?:  string;
-  senderAvatarUrl?:  string;
+  senderName?:         string;
+  senderEmail?:        string;
+  senderAvatarUrl?:    string;
+  scheduledAt?:        string;
 }
 
 export interface ProductMessage {

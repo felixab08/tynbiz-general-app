@@ -164,7 +164,9 @@
       <span class="font-medium text-body dark:text-gray-100">30%</span>
     </div>
     <div class="text-sm">
-      <div class="font-semibold text-heading dark:text-gray-300">Acompañamientos activos</div>
+      <div class="font-semibold text-heading dark:text-gray-300">
+        Acompañamientos activos
+      </div>
       <div class="truncate text-body dark:text-gray-400">
         <span class="font-semibold">5.5M</span> interacciones Realizados
       </div>
@@ -172,50 +174,81 @@
   </div>
   <div class="pt-4">
     <div class="font-medium text-sm text-gray-700 dark:text-gray-200 mb-2">
-      {{ creations().length }} {{ creations().length === 1 ? 'nueva invitación' : 'nuevas invitaciones' }}
+      {{ creations().length }}
+      {{
+        creations().length === 1 ? "nueva invitación" : "nuevas invitaciones"
+      }}
     </div>
     @for (creation of creations(); track creation.notificationId) {
       <div
         class="p-4 mt-2 rounded-lg border border-primary dark:bg-gray-700 dark:border-primary shadow-sm"
       >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-2.5">
+        <div class="grid grid-cols-5 items-center justify-between">
+          <div class="flex items-center space-x-2.5 col-span-4">
             <div
               class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-primary-dark rounded-full text-white font-bold text-sm"
             >
-              @if (creation.content && creation.content.store?.logoUrl) {
+              @if (creation.content.senderAvatarUrl) {
                 <img
                   [src]="creation.content.senderAvatarUrl | notImage"
                   alt="Store"
                   class="h-10 w-10 object-contain rounded-full"
                 />
               } @else {
-                <span>{{ (creation.content.hostName || creation.userEmail || 'T')[0].toUpperCase() }}</span>
+                <span>{{
+                  (creation.content.hostName ||
+                    creation.userEmail ||
+                    "T")[0].toUpperCase()
+                }}</span>
               }
             </div>
             <div class="text-sm">
               <div class="font-semibold text-heading dark:text-white">
-                {{ creation.content.senderName  }}
-               <span class="text-xs text-gray-500 dark:text-gray-300">
-                 {{ creation.content.senderEmail }}
-               </span>
+                {{ creation.content.senderName }}
+                <span class="text-xs text-gray-500 dark:text-gray-300">
+                  {{ creation.content.senderEmail }}
+                </span>
               </div>
-              <div class="text-xs text-gray-500 dark:text-gray-300">
-                {{ creation.message || 'Te ha invitado a una sala' }}
-              </div>
+              @if (creation.content.type === "ROOM_SCHEDULED") {
+                <div class="text-xs text-gray-500 dark:text-gray-300">
+                  Has programado la sala
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-300">
+                  {{ creation.content.scheduledAt | date: "medium" }}
+                </div>
+              }
+              @if (creation.content.type === "ROOM_INVITATION") {
+                <div class="text-xs text-gray-500 dark:text-gray-300">
+                  {{ creation.message || "Te ha invitado a una sala" }}
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-300">
+                  {{ creation.content.scheduledAt | date: "medium" }}
+                </div>
+              }
             </div>
           </div>
-          <div>
+          <div class="col-span-1">
             <button
               type="button"
               (click)="goToRoom(creation)"
-              class="button-secondary w-full p-2 text-xs font-semibold cursor-pointer"
+              class="cursor-pointer"
             >
-              Ir a sala
+              <i class="fa-solid fa-share mr-2"></i>
+            </button>
+            <button
+              type="button"
+              (click)="changeStatusRoom(creation)"
+              class="cursor-pointer"
+            >
+              <i class="fa-solid fa-trash"></i>
             </button>
           </div>
         </div>
-        @if (creation.content && creation.content.products && creation.content.products.length > 0) {
+        @if (
+          creation.content &&
+          creation.content.products &&
+          creation.content.products.length > 0
+        ) {
           <div>
             <div
               class="flex items-center justify-between mt-3 bg-gray-100 dark:bg-gray-700 rounded-lg p-2"
@@ -237,7 +270,7 @@
                       [title]="item.name"
                     >
                       <img
-                        [src]="(item.imageUrl || item.mainImageUrl) | notImage"
+                        [src]="item.imageUrl || item.mainImageUrl | notImage"
                         [alt]="item.name || 'Producto'"
                         class="h-10 w-10 object-contain"
                       />
