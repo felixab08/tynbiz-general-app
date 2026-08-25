@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { isAutenticatedGuard } from '@app/auth/guards/is-autenticated.guard';
 
 export const shopperRoutes: Routes = [
   {
@@ -24,6 +25,7 @@ export const shopperRoutes: Routes = [
       {
         path: 'favorites',
         loadComponent: () => import('./favorites/favorites.component'),
+        canMatch: [isAutenticatedGuard],
       },
       {
         path: 'offer',
@@ -36,6 +38,7 @@ export const shopperRoutes: Routes = [
       {
         path: 'your-creation',
         loadComponent: () => import('./yourcreation/yourcreation'),
+        canMatch: [isAutenticatedGuard],
       },
       {
         path: 'register',

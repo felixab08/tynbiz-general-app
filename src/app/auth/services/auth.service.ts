@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { IErrorGeneralResp, IRegisterReq } from '@app/interfaces';
 import { AlertService } from '@app/services';
 import AccountComponent from './../../pages/account/account.component';
+import { MenuService } from './menu.service';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
@@ -24,12 +25,13 @@ export class AuthService {
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(localStorage.getItem('token'));
   private _alertService = inject(AlertService);
+  private _menuService = inject(MenuService);
   private http = inject(HttpClient);
   _router = inject(Router);
 
-  // checkStatusResource = rxResource({
-  //   loader: () => this.checkStatus(),
-  // });
+  checkStatusResource = rxResource({
+    stream: () => this.checkStatus(),
+  });
 
   authStatus = computed<AuthStatus>(() => {
     if (this._authStatus() === 'checking') return 'checking';
@@ -43,7 +45,9 @@ export class AuthService {
 
   user = computed(() => this._user());
   token = computed(this._token);
-
+  isAdmin = computed(() => {
+    return this._user()?.role.includes('admin') ?? false;
+  });
   constructor() {
     // Restaurar usuario y estado desde localStorage al inicializar
     this.initializeAuthState();
@@ -95,10 +99,23 @@ export class AuthService {
       );
   }
 
-  refreshTokenUser(refreshToken: string): Observable<IRefreshToken> {
-    return this.http.post<IRefreshToken>(`${baseUrl}/auth/refresh`, {
-      refreshToken: refreshToken,
-    });
+  refreshTokenUser(refreshToken: string): Observable<boolean | void> {
+    return this.http
+      .post<AuthResponse>(`${baseUrl}/auth/refresh`, {
+        refreshToken: refreshToken,
+      })
+      .pipe(
+        map((data) => {
+          if (data) {
+            console.log('User found:', data);
+            this.handleAuthSuccess(data.user, data.accessToken, refreshToken);
+          } else {
+            console.log('error');
+            throw new Error('User not found');
+          }
+        }),
+        catchError((error: any) => this.handleAuthError(error)),
+      );
   }
 
   checkStatus(): Observable<boolean> {
@@ -112,8 +129,7 @@ export class AuthService {
     }
 
     try {
-      const user = JSON.parse(userJson) as User;
-      this.handleAuthSuccess(user, token as string, refreshToken as string);
+      this.refreshTokenUser(refreshToken as string);
       return of(true);
     } catch (error) {
       console.error('Error al restaurar usuario:', error);
@@ -128,6 +144,8 @@ export class AuthService {
     this._authStatus.set('not-authenticated');
     localStorage.clear();
     this._router.navigate(['/shop/home']);
+    // TODO: se quería probar que se cambie el menu pero a lo que se esta probando no esta funcionando a menos que se refresque la paguina
+    this._menuService.redirectLinkForRole();
   }
 
   logoutAndReload() {
