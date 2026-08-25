@@ -190,6 +190,7 @@
         id="email"
         formControlName="email"
         placeholder="tynbiz@example.com"
+        (input)="searchSubject.next($any($event.target).value)"
         (keydown.enter)="$event.preventDefault(); searchUserByEmail(myFormEmail.controls['email'].value)"
         class="border text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
         [ngClass]="{
@@ -208,9 +209,11 @@
   </form>
   @if (lookingForUser()) {
   <!--  -->
-  @for (user of listUsers(); track $index) {
+    <div class="flex flex-col gap-2 mt-4 max-h-60 overflow-y-auto relative">
+
+@for (user of listUsers(); track $index) {
   <button
-    class="flex max-w-200 items-center justify-between cursor-pointer gap-3 rounded-lg p-3 text-left transition hover:bg-gray-100 dark:hover:bg-neutral-700 z-20 absolute bg-white dark:bg-gray-600"
+    class="flex max-w-200 items-center justify-between cursor-pointer gap-3 rounded-lg p-3 text-left transition hover:bg-gray-100 dark:hover:bg-neutral-700 z-20 bg-white dark:bg-gray-600"
     (click)="selectionUser(user)"
   >
     <div class="flex items-center gap-2">
@@ -228,6 +231,8 @@
     </div>
   </button>
   }
+    </div>
+
   <!--  -->
   }
 

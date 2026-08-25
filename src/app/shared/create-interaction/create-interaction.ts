@@ -26,6 +26,8 @@ import {
 } from '@app/interfaces';
 import { signal } from '@angular/core';
 import { NotImagePipe } from '@app/pipes';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'tyn-create-interaction',
@@ -45,6 +47,7 @@ export class CreateInteraction implements OnChanges {
   lookingForUser = signal(false);
   listSelecteUser = signal<contentUserRoom[] | null>(null);
   respInteractionRoom: IIterarionRoomResp | null = null;
+   searchSubject = new Subject<string>();
 
   myForm: FormGroup = this._fb.group({
     visibility: ['', [Validators.required, Validators.minLength(2)]],
@@ -90,6 +93,17 @@ export class CreateInteraction implements OnChanges {
     this.createInteraction(dataValue);
   }
 
+  ngOnInit(): void {
+    this.searchSubject
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged(),
+      )
+      .subscribe((email: string) => {
+        this.searchUserByEmail(email);
+      });
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen']?.currentValue) {
       this.selectedTab = 'select';
@@ -119,8 +133,14 @@ export class CreateInteraction implements OnChanges {
   }
 
   searchUserByEmail(email: string): void {
-    if (!email) return;
-    this._interationSrv.getCategoryByStore(email).subscribe({
+    const normalizedEmail = (email || '').trim();
+    if (!normalizedEmail) {
+      this.lookingForUser.set(false);
+      this.listUsers.set(null);
+      return;
+    }
+
+    this._interationSrv.getCategoryByStore(normalizedEmail).subscribe({
       next: (resp: any) => {
         console.log(resp);
         const users =
