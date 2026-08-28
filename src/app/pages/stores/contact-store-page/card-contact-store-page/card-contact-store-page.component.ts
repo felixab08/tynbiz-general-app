@@ -31,7 +31,6 @@ export class CardContactStorePageComponent {
   constructor() {
     this._storeService.refreshTokenSubject.subscribe((refreshToken) => {
       this.refreshToken = refreshToken;
-      console.log(this.refreshToken);
     });
   }
 

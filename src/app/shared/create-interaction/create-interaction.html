@@ -146,23 +146,32 @@
 <div class="p-2 md:p-5">
   @if(respInteractionRoom){
   <div class="flex-col flex gap-2 bg-gray-100 dark:bg-gray-600 p-4 rounded-xl">
-    <div class="flex items-center">
-      <span
-        class="bg-green-500 w-6 h-6 text-white p-2 rounded-full mr-2 flex items-center justify-center"
-      >
-        <i class="fas fa-check"></i>
-      </span>
-      <div class="flex flex-col">
-        <p class="font-semibold">Creación</p>
-        <span class="text-sm text-gray-500 dark:text-white"
-          >Para {{ respInteractionRoom.scheduledAt | date:'dd MMM yyyy, hh:mm a' }}</span
+    <div class="grid grid-cols-5">
+      <div class="col-span-4 flex flex-center">
+        <span
+          class="bg-green-500 w-6 h-6 text-white p-2 rounded-full mr-2 flex items-center justify-center"
         >
+          <i class="fas fa-check"></i>
+        </span>
+        <div class="flex flex-col">
+          <p class="font-semibold">Creación</p>
+          <span class="text-sm text-gray-500 dark:text-white"
+            >Para {{ respInteractionRoom.scheduledAt | date:'dd MMM yyyy, hh:mm
+            a' }}</span
+          >
+        </div>
       </div>
+      <button class="button-primary col-span-1" (click)="createJitsi(respInteractionRoom.videoRoomUrl)">Ir sala</button>
     </div>
 
     <div class="flex items-center bg-white dark:bg-gray-600 p-2 rounded-md">
-      <span class="text-sm text-gray-700 dark:text-white">Link de la sala : {{ respInteractionRoom.videoRoomUrl }}</span>
-      <button class="ml-auto cursor-pointer" (click)="copyToClipboard(respInteractionRoom.videoRoomUrl)">
+      <span class="text-sm text-gray-700 dark:text-white"
+        >Link de la sala : {{ respInteractionRoom.videoRoomUrl }}</span
+      >
+      <button
+        class="ml-auto cursor-pointer"
+        (click)="copyToClipboard(respInteractionRoom.videoRoomUrl)"
+      >
         <i class="fa-solid fa-copy fa-xl"></i>
       </button>
     </div>
@@ -209,29 +218,28 @@
   </form>
   @if (lookingForUser()) {
   <!--  -->
-    <div class="flex flex-col gap-2 mt-4 max-h-60 overflow-y-auto relative">
-
-@for (user of listUsers(); track $index) {
-  <button
-    class="flex max-w-200 items-center justify-between cursor-pointer gap-3 rounded-lg p-3 text-left transition hover:bg-gray-100 dark:hover:bg-neutral-700 z-20 bg-white dark:bg-gray-600"
-    (click)="selectionUser(user)"
-  >
-    <div class="flex items-center gap-2">
-      <img
-        class="size-8 object-center object-cover relative rounded-full"
-        [src]="user.avatarUrl | notImage"
-        [alt]="user.firstName + ' ' + user.lastName"
-      />
-      <div class="flex flex-col gap-1">
-        <div>{{ user.firstName }} {{ user.lastName }}</div>
-        <div class="text-xs text-gray-500 dark:text-gray-400">
-          {{ user.email }}
+  <div class="flex flex-col gap-2 mt-4 max-h-60 overflow-y-auto relative">
+    @for (user of listUsers(); track $index) {
+    <button
+      class="flex max-w-200 items-center justify-between cursor-pointer gap-3 rounded-lg p-3 text-left transition hover:bg-gray-100 dark:hover:bg-neutral-700 z-20 bg-white dark:bg-gray-600"
+      (click)="selectionUser(user)"
+    >
+      <div class="flex items-center gap-2">
+        <img
+          class="size-8 object-center object-cover relative rounded-full"
+          [src]="user.avatarUrl | notImage"
+          [alt]="user.firstName + ' ' + user.lastName"
+        />
+        <div class="flex flex-col gap-1">
+          <div>{{ user.firstName }} {{ user.lastName }}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">
+            {{ user.email }}
+          </div>
         </div>
       </div>
-    </div>
-  </button>
-  }
-    </div>
+    </button>
+    }
+  </div>
 
   <!--  -->
   }
@@ -244,12 +252,14 @@
     >
       <div class="flex items-center gap-2">
         <img
-        class="size-8 object-center object-cover relative rounded-full z-10"
-        [src]="user.avatarUrl | notImage"
-        [alt]="user.firstName + ' ' + user.lastName"
-      />
+          class="size-8 object-center object-cover relative rounded-full z-10"
+          [src]="user.avatarUrl | notImage"
+          [alt]="user.firstName + ' ' + user.lastName"
+        />
         <div>
-          <p class="text-sm font-semibold">{{ user.firstName }} {{ user.lastName }}</p>
+          <p class="text-sm font-semibold">
+            {{ user.firstName }} {{ user.lastName }}
+          </p>
           <p class="text-xs text-gray-500 dark:text-gray-200">
             {{ user.email }}
           </p>
@@ -257,7 +267,9 @@
       </div>
       <div class="flex items-center gap-2">
         <button (click)="removeUser(user.id)">
-          <i class="fa-solid fa-xmark text-gray-500 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200"></i>
+          <i
+            class="fa-solid fa-xmark text-gray-500 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200"
+          ></i>
         </button>
       </div>
     </div>
@@ -265,7 +277,11 @@
   </div>
 
   <div class="flex items-center justify-end rounded-b">
-    <button type="button" class="button-secondary me-3" (click)="closeModalIntera()">
+    <button
+      type="button"
+      class="button-secondary me-3"
+      (click)="closeModalIntera()"
+    >
       Omitir invitación
     </button>
     <button

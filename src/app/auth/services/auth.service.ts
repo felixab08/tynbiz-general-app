@@ -46,7 +46,7 @@ export class AuthService {
   user = computed(() => this._user());
   token = computed(this._token);
   isAdmin = computed(() => {
-    return this._user()?.role.includes('admin') ?? false;
+    return this._user()?.role.includes('ADMIN') ?? false;
   });
   constructor() {
     // Restaurar usuario y estado desde localStorage al inicializar

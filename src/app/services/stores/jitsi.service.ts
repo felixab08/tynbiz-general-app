@@ -58,8 +58,6 @@ export class JitsiService {
     // Obtener la raíz del host (removiendo /api/v1 si está presente)
     const rootUrl = baseUrl.replace(/\/api\/v1\/?$/, '');
     const wsUrl = `${rootUrl}/ws-notifications`;
-    console.log('WebSocket conectando a:', wsUrl);
-
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(wsUrl),
       connectHeaders: {
@@ -74,19 +72,12 @@ export class JitsiService {
     });
 
     this.stompClient.onConnect = (frame: Frame) => {
-      console.log('Connected successfully!');
-      if (frame.headers && frame.headers['user-name']) {
-        console.log('connected as: ' + frame.headers['user-name']);
-      }
-      console.log('Connected: ', frame);
-
       // Suscribirse a la cola privada de notificaciones
       this.stompClient?.subscribe(
         '/user/queue/notifications',
         (message: IMessage) => {
           try {
             const payload: INotificationResp = JSON.parse(message.body);
-            console.log('Received notification:', payload);
             this.notificationSubject.next(payload);
           } catch (error) {
             console.error('Error parsing notification message:', error);

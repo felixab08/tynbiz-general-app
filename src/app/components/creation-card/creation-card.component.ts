@@ -49,13 +49,10 @@ export class CreationCardComponent {
     initCarousels(); // inicializa el carrusel de Flowbite
     this._storeService.refreshTokenSubject.subscribe((refreshToken) => {
       this.refreshToken = refreshToken;
-      console.log(this.refreshToken);
     });
   }
   openModal(creations: ItemCreation) {
     this.selectedcreations = creations;
-    console.log(this.selectedcreations);
-
     this.isModalOpen.set(true);
   }
   closeModal() {

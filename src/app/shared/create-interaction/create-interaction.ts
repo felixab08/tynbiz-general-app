@@ -47,7 +47,7 @@ export class CreateInteraction implements OnChanges {
   lookingForUser = signal(false);
   listSelecteUser = signal<contentUserRoom[] | null>(null);
   respInteractionRoom: IIterarionRoomResp | null = null;
-   searchSubject = new Subject<string>();
+  searchSubject = new Subject<string>();
 
   myForm: FormGroup = this._fb.group({
     visibility: ['', [Validators.required, Validators.minLength(2)]],
@@ -95,10 +95,7 @@ export class CreateInteraction implements OnChanges {
 
   ngOnInit(): void {
     this.searchSubject
-      .pipe(
-        debounceTime(400),
-        distinctUntilChanged(),
-      )
+      .pipe(debounceTime(400), distinctUntilChanged())
       .subscribe((email: string) => {
         this.searchUserByEmail(email);
       });
@@ -239,5 +236,12 @@ export class CreateInteraction implements OnChanges {
   closeModalIntera() {
     this.isOpen = false;
     this.closeModal.emit(false);
+  }
+
+  createJitsi(videoRoomUrl: string) {
+    // TODO: falta mandar el code
+    // const url = `${videoRoomUrl}` + `?code=${this.refreshToken}`;
+    const url = `${videoRoomUrl}`;
+    window.open(url, '_blank');
   }
 }

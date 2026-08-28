@@ -48,7 +48,6 @@ export default class CreateCreationStorePage {
         this.showAlert.set(false);
       }
     });
-    console.log(this._createCreation.products());
   }
 
   goToProducts() {
@@ -121,6 +120,5 @@ export default class CreateCreationStorePage {
         console.error('Error al registrar la creación:', err);
       },
     });
-    console.log('Payload enviado:', payload);
   }
 }

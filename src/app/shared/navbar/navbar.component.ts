@@ -10,7 +10,6 @@ import { ModalComponent } from '../modal/modal.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { User } from '@app/auth/interfaces/user.interface';
-import { creationStoreMock } from '@app/mock/creationsStore.mock';
 import { NotImagePipe } from '@app/pipes';
 import { environment } from '@environments/environment';
 import { AlertService, JitsiService } from '@app/services';
@@ -56,10 +55,6 @@ export class NavbarComponent {
     // Suscribirse a las notificaciones en tiempo real
     this.notifySub = this._jitsiService.notification$.subscribe(
       (notification) => {
-        console.log(
-          'Nueva notificación recibida en NavbarComponent:',
-          notification,
-        );
         this._alertSrv.addAlert({
           title: notification.title || 'Nueva notificación',
           message: notification.message || '',
@@ -91,7 +86,6 @@ export class NavbarComponent {
   notificationSrv() {
     this._jitsiService.getNotificacionWS().subscribe({
       next: (notifications) => {
-        console.log('Notificaciones no leídas obtenidas:', notifications);
         this.creations.set(notifications || []);
       },
       error: (err) => {
