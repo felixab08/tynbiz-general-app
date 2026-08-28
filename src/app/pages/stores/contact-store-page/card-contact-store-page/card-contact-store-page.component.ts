@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   Component,
   input,
@@ -12,7 +12,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
   selector: 'tyn-card-contact-store-page',
-  imports: [CommonModule, NotImagePipe, ModalComponent],
+  imports: [CommonModule, NotImagePipe, ModalComponent, DatePipe],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './card-contact-store-page.component.html',
 })

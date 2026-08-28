@@ -33,11 +33,11 @@
         <div class="mb-1.5 font-bold">{{ listContact().customerName }}</div>
         <div class="grid grid-cols-2">
           <div class="mb-1.5">Fecha</div>
-          <div class="mb-1.5">:{{ listContact().appointmentDate }}</div>
+          <div class="mb-1.5">: {{ listContact().appointmentDate | date: 'shortDate'}}</div>
           <div class="mb-1.5 text-sm">Hora inicio</div>
-          <div class="mb-1.5 text-sm">:{{ listContact().startTime }}</div>
+          <div class="mb-1.5 text-sm">: {{ listContact().startTime }}</div>
           <p class="font-normal">Hora fin</p>
-          <p class="font-normal">:{{ listContact().endTime }}</p>
+          <p class="font-normal">: {{ listContact().endTime }}</p>
         </div>
       </div>
     </div>
