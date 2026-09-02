@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { OptionsRequest } from '@app/interfaces';
+import { IMyCreationsResp, OptionsRequest } from '@app/interfaces';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 const baseUrl = environment.baseUrl;
@@ -9,12 +9,15 @@ const baseUrl = environment.baseUrl;
 export class CreationsService {
   private _http = inject(HttpClient);
 
-  getYourCreations(options: OptionsRequest): Observable<any> {
+  getYourCreations(options: OptionsRequest): Observable<IMyCreationsResp> {
     const { page = 0, size = 20 } = options;
     const params: any = { page, size };
-    return this._http.get<any>(`${baseUrl}/interaction-rooms/my-rooms`, {
-      params,
-    });
+    return this._http.get<IMyCreationsResp>(
+      `${baseUrl}/interaction-rooms/my-rooms`,
+      {
+        params,
+      },
+    );
   }
 
   getMyInvitation(options: OptionsRequest): Observable<any> {
@@ -25,3 +28,4 @@ export class CreationsService {
     });
   }
 }
+

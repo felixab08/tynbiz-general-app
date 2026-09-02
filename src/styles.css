@@ -165,7 +165,7 @@
     before:mix-blend-multiply
 
     after:content-['']
-    after:absolute after:inset-0 after:pointer-events-none
+    after:inset-0 after:pointer-events-none
     after:blur-[100px] md:after:blur-[140px]
     after:bg-[linear-gradient(to_bottom,transparent_0%,rgba(200,201,232,0.2)_30%,rgba(255,255,255,0.9)_55%,rgba(139,143,208,0.8)_80%,#5e63b6_100%)]
     after:mix-blend-multiply

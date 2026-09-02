@@ -1,1 +1,75 @@
-<p>yourCreation works!</p>,
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-2 z-40">
+  @if(creationsResource.hasValue()) {
+  <!--  -->
+  @for (creation of creationsResource.value().content; track creation.id) {
+  <a
+    class="block card dark:bg-gray-800 dark:text-gray-200 dark:border-gray-900 dark:hover:bg-gray-700 hover:cursor-pointer"
+    data-modal-target="top-right-modal"
+    data-modal-toggle="top-right-modal"
+  >
+    <div
+      class="flex items-center justify-between mb-4 cursor-pointer group relative"
+    >
+      <div>
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+          <p
+            class="text-sm font-semibold text-gray-600 dark:text-gray-300 truncate"
+          >
+            <span
+              [ngClass]="{
+                  'font-bold  text-red-500': creation.roomStatus == 'LIVE',
+                  'font-bold': creation.roomStatus === 'SCHEDULED',
+                }"
+            >
+              {{ creation.roomStatus === 'SCHEDULED' ? 'Programada' : 'En vivo'
+              }}
+            </span>
+          </p>
+          @if ( creation.roomStatus == "LIVE" || creation.roomStatus ==
+          "SCHEDULED" ) {
+          <!-- TODO: Implement countdown timer -->
+          <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
+            0 dias
+          </p>
+          <p class="text-sm text-gray-600 dark:text-gray-300 truncate">0</p>
+          }
+        </div>
+      </div>
+      <div class="flex -space-x-4 rtl:space-x-reverse">
+        @if(creation.invitations.length > 0) {
+        <img
+          class="h-10 border-2 border-white rounded-full"
+          src="./assets/img/u5.png"
+          alt=""
+        />
+        <a
+          class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-primary border-2 border-white rounded-full hover:bg-gray-600"
+          >+{{ creation.invitations.length }}</a
+        >
+        }
+      </div>
+      <!-- Tooltip element -->
+      <span
+        class="absolute bottom-full mb-2 hidden group-hover:flex bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap"
+      >
+        Entrar a la creación
+        <!-- Tooltip Arrow -->
+        <span
+          class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800"
+        ></span>
+      </span>
+    </div>
+    <tyn-carousel-products-creation
+      [listProduct]="creation.products"
+    ></tyn-carousel-products-creation>
+    <div class="flex justify-center mt-4">
+      <button
+        class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded-md w-[70%]"
+        (click)="createJitsi(creation)"
+      >
+        Unirse a sala
+      </button>
+    </div>
+  </a>
+  } }
+</div>

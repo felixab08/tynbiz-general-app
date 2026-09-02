@@ -8,6 +8,7 @@ import { environment } from '@environments/environment.development';
 import { Observable, Subject } from 'rxjs';
 import { Client, Frame, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { StoreService } from '../store.service';
 
 const baseUrl = environment.baseUrl;
 
@@ -20,6 +21,14 @@ export class JitsiService {
   private notificationSubject = new Subject<INotificationResp>();
 
   public notification$ = this.notificationSubject.asObservable();
+  private _storeService = inject(StoreService);
+  refreshToken: string | null = null;
+
+  constructor() {
+    this._storeService.refreshTokenSubject.subscribe((refreshToken) => {
+      this.refreshToken = refreshToken;
+    });
+  }
 
   getJitsiStatus(idContenido: number): Observable<IJitsiResp> {
     return this._http.get<IJitsiResp>(`${baseUrl}/jitsi/token/${idContenido}`);
@@ -103,5 +112,8 @@ export class JitsiService {
       console.log('WebSocket desconectado.');
     }
   }
+  createJitsi(videoRoomUrl: any) {
+    const url = `${videoRoomUrl}` + `?code=${this.refreshToken}`;
+    window.open(url, '_blank');
+  }
 }
-

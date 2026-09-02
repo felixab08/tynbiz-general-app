@@ -15,6 +15,7 @@ export * from './general/profile.service';
 export * from './general/ubigeo.service';
 export * from './general/verification.service';
 export * from './shopper/catalog.service';
+export * from './shopper/creations.service';
 export * from './shopper/interation-room.service';
 export * from './stores/calendar.service';
 export * from './stores/category.service';

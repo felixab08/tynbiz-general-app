@@ -16,7 +16,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AlertService, InterationRoomService } from '@app/services';
+import {
+  AlertService,
+  InterationRoomService,
+  JitsiService,
+  StoreService,
+} from '@app/services';
 import {
   contentUserRoom,
   IErrorGeneralResp,
@@ -42,6 +47,10 @@ export class CreateInteraction implements OnChanges {
   private _fb = inject(FormBuilder);
   private _interationSrv = inject(InterationRoomService);
   private _alert = inject(AlertService);
+  private _jitsiSrv = inject(JitsiService);
+
+  refreshToken: string | null = null;
+
   selectedTab: string = 'select';
   listUsers = signal<contentUserRoom[] | null>(null);
   lookingForUser = signal(false);
@@ -239,9 +248,6 @@ export class CreateInteraction implements OnChanges {
   }
 
   createJitsi(videoRoomUrl: string) {
-    // TODO: falta mandar el code
-    // const url = `${videoRoomUrl}` + `?code=${this.refreshToken}`;
-    const url = `${videoRoomUrl}`;
-    window.open(url, '_blank');
+    this._jitsiSrv.createJitsi(videoRoomUrl);
   }
 }
