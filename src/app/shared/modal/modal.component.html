@@ -10,11 +10,18 @@
   <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm"></div>
 
   <!-- Contenido del modal -->
-  <div class="relative z-10 p-4 w-full  max-h-full" [ngClass]="{'max-w-2xl': type === 'short' , 'max-w-6xl': type === 'long'}">
+  <div
+    class="relative z-10 p-4 w-full max-h-full"
+    [ngClass]="{
+      'max-w-2xl': type === 'short',
+      'max-w-6xl': type === 'long',
+      'max-w-xl': type === 'min',
+    }"
+  >
     <div class="relative bg-white rounded-lg shadow-xl dark:bg-gray-700">
       <!-- Header -->
       <div
-        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200 dark:border-gray-600"
+        class="flex items-center justify-between p-2 md:p-3 border-b rounded-t border-gray-200 dark:border-gray-600"
       >
         <a class="flex items-center space-x-3 rtl:space-x-reverse">
           <img
@@ -51,7 +58,7 @@
       </div>
 
       <!-- Body -->
-      <div class="p-4 md:p-5 space-y-4">
+      <div class="p-2 md:p-3 space-y-2">
         <ng-content></ng-content>
       </div>
     </div>

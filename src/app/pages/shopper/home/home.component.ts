@@ -11,7 +11,7 @@ import { CardInfo } from '@app/interfaces/card.interface';
 export default class HomeComponent {
   cardInfo: CardInfo[] = [
     {
-      id: 1,
+      id: 2,
       title: 'Tiendas asociadas a tynbiz',
       titleTow: 'Cantidad +300',
       descriptionOne:
@@ -22,7 +22,7 @@ export default class HomeComponent {
       describeFooter: 'Tiendas virtuales asociados',
     },
     {
-      id: 2,
+      id: 3,
       title: 'Interactua con otros usuarios en tus compras',
       titleTow: 'Elige tus productos favoritos',
       descriptionOne:

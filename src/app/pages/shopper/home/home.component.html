@@ -1,11 +1,67 @@
-<div class="dark:text-white"><div>
-  <h2 class="font-bold text-2xl">Compra los productos con sala tynbiz</h2>
-  <p>
-    En la sala tynbiz interactua con amigos, familiares o con el vendedor
-    directamente para una compra mas decidida
-  </p>
-  <div class="my-2 w-full h-64 bg-neutral-500 md:max-w-7xl rounded-md"></div>
-</div></div>
+<div class="dark:text-white">
+  <div>
+    <h2 class="font-bold text-2xl">Compra los productos con sala tynbiz</h2>
+    <p>
+      En la sala tynbiz interactua con amigos, familiares o con el vendedor
+      directamente para una compra mas decidida
+    </p>
+    <div class="pt-5 dark:text-white">
+      <a
+        class="grid md:grid-cols-2 items-center bg-primary-50 border border-gray-200 rounded-md shadow-sm md:flex-row md:max-w-7xl mt-5"
+      >
+        <div class="flex flex-col justify-between p-4 leading-normal">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Compra los productos con sala tynbiz
+          </h5>
+          <p class="mb-3 font-normal text-gray-700 dark:text-white">
+            En la sala Tynbiz interactúa con amigos, familiares o con el
+            vendedor directamente para una compra mas decidida
+            <br />
+            <br />
+            conoce el producto, resuelve tus dudas y toma una decisión con mayor
+            confianza.
+          </p>
+            <div class="flex -space-x-2 rtl:space-x-reverse">
+              <img
+                class="w-10 h-10 border-2 border-buffer rounded-full"
+                src="./assets/img/perfil1.png"
+                alt=""
+              />
+              <img
+                class="w-10 h-10 border-2 border-buffer rounded-full"
+                src="./assets/img/perfil2.png"
+                alt=""
+              />
+              <img
+                class="w-10 h-10 border-2 border-buffer rounded-full"
+                src="./assets/img/perfil3.png"
+                alt=""
+              />
+              <img
+                class="w-10 h-10 border-2 border-buffer rounded-full"
+                src="./assets/img/perfil4.png"
+                alt=""
+              />
+              <img
+                class="w-10 h-10 border-2 border-buffer rounded-full"
+                src="./assets/img/perfil5.png"
+                alt=""
+              />
+            </div>
+        </div>
+        <div class="flex items-center justify-center bg-white h-full">
+          <img
+            class="object-cover w-full md:h-auto rounded-r-lg"
+            [src]="'./assets/img/home1.jpeg'"
+            alt="home1"
+          />
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
 <div class="mt-6">
   <tyn-info-card [listCard]="cardInfo" />
 </div>

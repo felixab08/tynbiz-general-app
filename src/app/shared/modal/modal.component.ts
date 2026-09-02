@@ -9,7 +9,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 })
 export class ModalComponent {
   @Input() isOpen = false;
-  @Input() type: 'short' | 'long' = 'short';
+  @Input() type: 'short' | 'long' | 'min' = 'short';
   @Output() closeModal = new EventEmitter<void>();
 
   onClose() {

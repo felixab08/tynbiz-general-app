@@ -109,6 +109,8 @@ export default class RegisterPage {
           'Se ha enviado un correo de verificación a su email.',
           'success',
         );
+        this.myForm.reset();
+        this._router.navigate(['/']);
       },
       error: (error: IErrorGeneralResp) => {
         this._alertService.getAlert(
