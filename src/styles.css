@@ -159,17 +159,17 @@
   }
   .side-init {
     @apply relative isolate min-h-screen overflow-hidden bg-[#faf8f2]
-    before:content-['']
-    before:absolute before:inset-0 before:pointer-events-none
-    before:bg-[linear-gradient(to_bottom,transparent_0%,rgba(200,201,232,0.15)_25%,rgba(255,255,255,0.95)_45%,rgba(139,143,208,0.8)_70%,#5e63b6_100%)]
-    before:mix-blend-multiply
+  before:content-['']
+  before:fixed before:inset-0 before:pointer-events-none
+  before:bg-[linear-gradient(to_bottom,transparent_0%,rgba(200,201,232,0.15)_25%,rgba(255,255,255,0.95)_45%,rgba(139,143,208,0.8)_70%,#5e63b6_100%)]
+  before:mix-blend-multiply
 
-    after:content-['']
-    after:inset-0 after:pointer-events-none
-    after:blur-[100px] md:after:blur-[140px]
-    after:bg-[linear-gradient(to_bottom,transparent_0%,rgba(200,201,232,0.2)_30%,rgba(255,255,255,0.9)_55%,rgba(139,143,208,0.8)_80%,#5e63b6_100%)]
-    after:mix-blend-multiply
-    dark:bg-[linear-gradient(to_bottom,#151512_0%,#1c2c3c_25%,#2a4a6f_55%,#476fa9_78%,#49628d_100%)];
+  after:content-['']
+  after:fixed after:inset-0 after:pointer-events-none
+  after:blur-[100px] md:after:blur-[140px]
+  after:bg-[linear-gradient(to_bottom,transparent_0%,rgba(200,201,232,0.2)_30%,rgba(255,255,255,0.9)_55%,rgba(139,143,208,0.8)_80%,#5e63b6_100%)]
+  after:mix-blend-multiply
+  dark:bg-[linear-gradient(to_bottom,#151512_0%,#1c2c3c_25%,#2a4a6f_55%,#476fa9_78%,#49628d_100%)];
   }
   .side-secondary {
     @apply bg-gray-100 dark:bg-gray-700 dark:text-white;
