@@ -22,7 +22,7 @@
     <!-- imagenes de productos extras right -->
     <ng-container *ngFor="let producto of listProduct().slice(0, 2)">
       <div class="mini-card-img xs">
-        <img class="" [src]="producto.imageUrl" alt="Producto" />
+        <img class="" [src]="producto.imageUrl || producto.mainImageUrl | notImage" alt="Producto" />
       </div>
     </ng-container>
     @if (listProduct().length > 2) {

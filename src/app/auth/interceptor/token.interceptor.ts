@@ -10,9 +10,8 @@ import { AuthService } from '../services/auth.service';
 
 export function isLoginInterceptor(
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) {
-  const _router = inject(Router);
   const _authService = inject(AuthService);
 
   return next(req).pipe(
@@ -24,6 +23,6 @@ export function isLoginInterceptor(
         console.warn('Sesión expirada, redirigiendo al home.');
       }
       return throwError(() => error);
-    })
+    }),
   );
 }

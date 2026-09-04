@@ -4,10 +4,16 @@ import {
   input,
   ChangeDetectionStrategy,
   inject,
+  effect,
 } from '@angular/core';
 import { ContentContact } from '@app/interfaces';
 import { NotImagePipe } from '@app/pipes';
-import { ContactService, StoreService } from '@app/services';
+import {
+  ContactService,
+  JitsiService,
+  StoreService,
+  TimeRemainingService,
+} from '@app/services';
 import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
@@ -18,25 +24,20 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 })
 export class CardContactStorePageComponent {
   listContact = input.required<ContentContact>();
-  private _storeService = inject(StoreService);
   _contactService = inject(ContactService);
-
-  refreshToken: string | null = null;
+  private _jitsiService = inject(JitsiService);
+  private _timeRemainingSrv = inject(TimeRemainingService);
+  interval: any;
   isOpen = false;
   hoursForMeeting = {
     status: 'WAITING',
-    message: 'Esperando a que la reunión comience...',
-    timeRemaining: 'La reunión aún no ha comenzado.',
+    message: 'Calculando...',
+    timeRemaining: 'Espere.',
   };
-  constructor() {
-    this._storeService.refreshTokenSubject.subscribe((refreshToken) => {
-      this.refreshToken = refreshToken;
-    });
-  }
 
   createJitsi(videoRoomUrl: string) {
-    const url = `${videoRoomUrl}` + `?code=${this.refreshToken}`;
-    window.open(url, '_blank');
+    console.log(videoRoomUrl);
+    this._jitsiService.createJitsi(videoRoomUrl);
     this._contactService
       .patchangeStatusContact(this.listContact().id, 'COMPLETADA')
       .subscribe({
@@ -50,7 +51,9 @@ export class CardContactStorePageComponent {
   }
   closeModal() {
     this.isOpen = false;
+    clearInterval(this.interval);
   }
+
   /**
    * se debe mostrar un modal cuando la fecha de la cita sea igual a la fecha actual y mostrar el tiempo restante para la reunión.
    * si la hora de la cita coincide con la hora actual, se debe mostrar un mensaje indicando que la reunión ya comenzó.
@@ -59,48 +62,21 @@ export class CardContactStorePageComponent {
    */
 
   lookTimeRemaining(content: ContentContact) {
-    const hoy = new Date();
-    const fecha = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
-    if (content.appointmentDate === fecha) {
-      console.log('The appointment date is today.');
-      this.isOpen = true;
-      const now = new Date();
-      const [hours, minutes] = content.startTime.split(':').map(Number);
-      const meetingDate = new Date();
-      meetingDate.setHours(hours, minutes, 0, 0);
-
-      const diffMs = meetingDate.getTime() - now.getTime();
-      if (diffMs < -1800000) {
-        this.hoursForMeeting.status = 'FINISHED';
-        this.hoursForMeeting.message = 'La reunión ya finalizó.';
-        this.hoursForMeeting.timeRemaining = 'La reunión ya finalizó.';
-        return;
+    this.interval = setInterval(() => {
+      this.hoursForMeeting = this._timeRemainingSrv.lookTimeRemaining(
+        content.appointmentDate,
+        content.startTime,
+      );
+      if (
+        this.hoursForMeeting.status === 'FINISHED' ||
+        this.hoursForMeeting.status === 'STARTED'
+      ) {
+        clearInterval(this.interval);
       }
-      if (diffMs < 0 && diffMs > -1800000) {
-        this.hoursForMeeting.status = 'STARTED';
-        this.hoursForMeeting.message = 'La reunión ya comenzó.';
-        this.hoursForMeeting.timeRemaining = 'La reunión ya comenzó.';
-        return;
-      }
-      const totalMinutes = Math.floor(Math.abs(diffMs) / 60000);
-      const hoursRemaining = Math.floor(totalMinutes / 60);
-      const minutesRemaining = totalMinutes % 60;
-      console.log(totalMinutes);
-
-      const resultated =
-        diffMs > 0
-          ? hoursRemaining > 0
-            ? `Faltan ${hoursRemaining} hora${hoursRemaining === 1 ? '' : 's'} y ${minutesRemaining} minuto${minutesRemaining === 1 ? '' : 's'} para la reunión.`
-            : `Faltan ${minutesRemaining} minuto${minutesRemaining === 1 ? '' : 's'} para la reunión.`
-          : hoursRemaining > 0
-            ? `La reunión ya comenzó hace ${hoursRemaining} hora${hoursRemaining === 1 ? '' : 's'} y ${minutesRemaining} minuto${minutesRemaining === 1 ? '' : 's'}.`
-            : `La reunión ya comenzó hace ${minutesRemaining} minuto${minutesRemaining === 1 ? '' : 's'}.`;
-
-      this.hoursForMeeting = {
-        status: 'WAITING',
-        message: 'Esperando a que la reunión comience...',
-        timeRemaining: resultated,
-      };
-    }
+    }, 1000);
+    this.isOpen = true;
+  }
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 }

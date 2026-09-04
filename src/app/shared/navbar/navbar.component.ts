@@ -95,10 +95,8 @@ export class NavbarComponent {
   }
 
   goToRoom(notification: INotificationResp) {
-    const videoUrl = notification.content?.videoRoomUrl;
-    if (videoUrl) {
-      window.open(videoUrl, '_blank');
-    }
+    this._jitsiService.createJitsi(notification.content.videoRoomUrl);
+
   }
 
   changeStatusRoom(notification: INotificationResp) {

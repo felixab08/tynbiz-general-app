@@ -25,13 +25,10 @@
               }}
             </span>
           </p>
-          @if ( creation.roomStatus == "LIVE" || creation.roomStatus ==
-          "SCHEDULED" ) {
-          <!-- TODO: Implement countdown timer -->
+          @if ( creation.roomStatus === "SCHEDULED" ) {
           <p class="text-sm text-gray-600 dark:text-gray-300 truncate">
-            0 dias
+            {{ creation.scheduledAt | date: 'dd/MM/yyyy HH:mm' }}
           </p>
-          <p class="text-sm text-gray-600 dark:text-gray-300 truncate">0</p>
           }
         </div>
       </div>
@@ -59,17 +56,73 @@
         ></span>
       </span>
     </div>
+    @if (creation.products.length > 0) {
     <tyn-carousel-products-creation
       [listProduct]="creation.products"
     ></tyn-carousel-products-creation>
-    <div class="flex justify-center mt-4">
-      <button
+    }
+    <div class="flex justify-center mt-4 gap-4">
+            <button
         class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded-md w-[70%]"
-        (click)="createJitsi(creation)"
+
+      >
+        Eliminar
+      </button>
+      <button
+        class="button-primary px-4 py-2 rounded-md w-[70%]"
+        (click)="lookTimeRemaining(creation)"
       >
         Unirse a sala
       </button>
+
     </div>
   </a>
   } }
 </div>
+
+<app-modal [isOpen]="isOpen" (closeModal)="closeModal()">
+  <h2
+    class="text-center font-bold"
+    [ngClass]="{
+      'text-green-700': hoursForMeeting.status === 'WAITING',
+      'text-blue-700': hoursForMeeting.status === 'STARTED',
+      'text-red-700': hoursForMeeting.status === 'FINISHED',
+    }"
+  >
+    {{ hoursForMeeting.message }}
+  </h2>
+  <img
+    src="./assets/svg/time-change.svg"
+    class="h-40 w-40 mx-auto"
+    alt="Tynbiz Logo"
+  />
+  <p>{{ hoursForMeeting.timeRemaining }}</p>
+  <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+    <button
+      type="button"
+      class="button-secondary me-3"
+      (click)="isOpen = false"
+    >
+      Cancelar
+    </button>
+    @if (hoursForMeeting.status === "STARTED") {
+      <button
+        type="button"
+        class="button-primary"
+        (click)="createJitsi(hoursForMeeting.videoRoomUrl)"
+      >
+        Acceder a atender
+      </button>
+    }
+    @if (hoursForMeeting.status === "WAITING") {
+      <button
+        data-modal-hide="default-modal"
+        type="button"
+        class="button-primary"
+        (click)="isOpen = false"
+      >
+        Aceptar
+      </button>
+    }
+  </div>
+</app-modal>

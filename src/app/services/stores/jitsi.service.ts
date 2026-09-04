@@ -22,11 +22,15 @@ export class JitsiService {
 
   public notification$ = this.notificationSubject.asObservable();
   private _storeService = inject(StoreService);
-  refreshToken: string | null = null;
+  private refreshToken: string | null = null;
+  private token: string | null = null;
 
   constructor() {
     this._storeService.refreshTokenSubject.subscribe((refreshToken) => {
       this.refreshToken = refreshToken;
+    });
+    this._storeService.tokenSubject.subscribe((token) => {
+      this.token = token;
     });
   }
 
@@ -52,9 +56,7 @@ export class JitsiService {
    * Basado en la implementación de SockJS y STOMP.js.
    */
   connectWebSocket(customToken?: string): void {
-    const token = customToken || localStorage.getItem('token');
-
-    if (!token) {
+    if (!this.token) {
       console.warn('WebSocket: No se encontró un token de autenticación.');
       return;
     }
@@ -70,7 +72,7 @@ export class JitsiService {
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(wsUrl),
       connectHeaders: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${this.token}`,
       },
       debug: (msg: string) => {
         console.debug('[STOMP]:', msg);
@@ -113,6 +115,14 @@ export class JitsiService {
     }
   }
   createJitsi(videoRoomUrl: any) {
+    console.log(videoRoomUrl);
+    // TODO: Implementar la lógica para abrir la sala de si no existe videoRoomUrl y el refreshToken
+    if (!videoRoomUrl || !this.refreshToken) {
+      console.error(
+        'No se puede abrir la sala de Jitsi. videoRoomUrl o refreshToken no están disponibles.',
+      );
+      return;
+    }
     const url = `${videoRoomUrl}` + `?code=${this.refreshToken}`;
     window.open(url, '_blank');
   }

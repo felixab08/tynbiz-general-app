@@ -51,6 +51,7 @@ export interface ProductCreation {
   name:               string;
   brand:              string;
   imageUrl:           string | string[];
+  mainImageUrl:       string;
   originalPrice:      number;
   offerPrice:         number;
   discountPercentage: number;

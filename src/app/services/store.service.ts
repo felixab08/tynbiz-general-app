@@ -28,4 +28,5 @@ export class StoreService {
   user = new BehaviorSubject<User | undefined>(undefined);
   isAlertSubject = new BehaviorSubject<boolean>(false);
   refreshTokenSubject = new BehaviorSubject<string | null>(null);
+  tokenSubject = new BehaviorSubject<string | null>(null);
 }

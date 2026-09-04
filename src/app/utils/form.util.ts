@@ -53,6 +53,8 @@ export class FormUtils {
           return `La fecha debe ser menor o igual a la fecha actual`;
         case 'dateMinToday':
           return `La fecha debe ser mayor o igual a la fecha actual`;
+        case 'minHours':
+          return `La hora debe ser mayor o igual a la hora actual`;
         case 'dateRangeCurrentDate':
           return `La fecha de inicio debe ser menor que la fecha de fin`;
         case 'edadMinima':
@@ -112,7 +114,7 @@ export class FormUtils {
   }
   /**
    * dateMinToday()
-   * Valida que la fecha seleccionada no sea menor a la fecha actual
+   * Valida que la fecha seleccionada no sea menor a la fecha actual pero debe incluir el dia de hoy
    * @returns
    */
 
@@ -121,8 +123,21 @@ export class FormUtils {
       if (!control.value) {
         return null;
       }
-      return new Date().setHours(0, 0, 0, 0) <=
-        new Date(control.value).setHours(0, 0, 0, 0)
+      const selectedDate =
+        typeof control.value === 'string' &&
+        /^\d{4}-\d{2}-\d{2}$/.test(control.value)
+          ? (() => {
+              const [year, month, day] = control.value.split('-').map(Number);
+              return new Date(year, month - 1, day);
+            })()
+          : new Date(control.value);
+
+      if (isNaN(selectedDate.getTime())) {
+        return { dateMinToday: true };
+      }
+
+      selectedDate.setHours(0, 0, 0, 0);
+      return new Date().setHours(0, 0, 0, 0) <= selectedDate.getTime()
         ? null
         : { dateMinToday: true };
     };
@@ -394,6 +409,33 @@ export class FormUtils {
       const regex = new RegExp(`^\\d{${cant}}$`);
       const isValid = regex.test(valueStr);
       return isValid ? null : { validateCantNumber: { cant, name } };
+    };
+  }
+
+  /**
+   * dateMinHours()
+   * Valida que la hora seleccionada no sea menor a la hora actual, debe incluir el minuto actual, pero no el segundo actual
+   * La hora viene en formato de 24 horas (HH:mm)
+   * @returns
+   */
+
+  static minHours(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(
+        control.value.toString(),
+      );
+      if (!match) {
+        return { minHours: true };
+      }
+
+      const selectedMinutes = Number(match[1]) * 60 + Number(match[2]);
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      return selectedMinutes >= currentMinutes ? null : { minHours: true };
     };
   }
 }

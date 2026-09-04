@@ -12,6 +12,7 @@ export * from './admin/suscription.service';
 export * from './admin/users.service';
 export * from './general/link-params.service';
 export * from './general/profile.service';
+export * from './general/timeRemaining.service';
 export * from './general/ubigeo.service';
 export * from './general/verification.service';
 export * from './shopper/catalog.service';

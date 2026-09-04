@@ -20,7 +20,6 @@ import {
   AlertService,
   InterationRoomService,
   JitsiService,
-  StoreService,
 } from '@app/services';
 import {
   contentUserRoom,
@@ -61,7 +60,7 @@ export class CreateInteraction implements OnChanges {
   myForm: FormGroup = this._fb.group({
     visibility: ['', [Validators.required, Validators.minLength(2)]],
     date: ['', [Validators.required, FormUtils.dateMinToday()]],
-    time: ['', [Validators.required, Validators.minLength(2)]],
+    time: ['', [Validators.required, FormUtils.minHours()]],
   });
 
   myFormEmail: FormGroup = this._fb.group({
@@ -83,6 +82,7 @@ export class CreateInteraction implements OnChanges {
         | 'PUBLICO'
         | 'PRIVADO',
     };
+
     this.createInteraction(dataValue);
   }
 
