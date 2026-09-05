@@ -14,8 +14,26 @@ export class StoresService {
     return this._http.get<IStoresResp>(`${baseUrl}/stores/${id}`);
   }
   getPublicStore(options: OptionsRequest): Observable<IPublicStore> {
-    const { page = 0, size = 20 } = options;
-    const params: any = { page, size };
+    const {
+      page = 0,
+      size = 10,
+      sort = '',
+      endDate = '',
+      startDate = '',
+      searchTerm = '',
+      status = '',
+    } = options;
+
+    // Construir params dinámicamente
+    const params: any = {
+      page,
+      size,
+      sort: sort || 'createdAt,desc',
+    };
+    if (startDate) params.startDate = startDate;
+    if (endDate) params.endDate = endDate;
+    if (searchTerm) params.searchTerm = searchTerm;
+    if (status && status !== 'All') params.status = status;
     return this._http.get<IPublicStore>(`${baseUrl}/public/stores`, { params });
   }
 

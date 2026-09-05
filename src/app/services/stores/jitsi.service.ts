@@ -57,12 +57,10 @@ export class JitsiService {
    */
   connectWebSocket(customToken?: string): void {
     if (!this.token) {
-      console.warn('WebSocket: No se encontró un token de autenticación.');
       return;
     }
 
     if (this.stompClient && this.stompClient.active) {
-      console.log('WebSocket: La conexión ya se encuentra activa.');
       return;
     }
 
@@ -111,12 +109,9 @@ export class JitsiService {
     if (this.stompClient) {
       this.stompClient.deactivate();
       this.stompClient = null;
-      console.log('WebSocket desconectado.');
     }
   }
   createJitsi(videoRoomUrl: any) {
-    console.log(videoRoomUrl);
-    // TODO: Implementar la lógica para abrir la sala de si no existe videoRoomUrl y el refreshToken
     if (!videoRoomUrl || !this.refreshToken) {
       console.error(
         'No se puede abrir la sala de Jitsi. videoRoomUrl o refreshToken no están disponibles.',

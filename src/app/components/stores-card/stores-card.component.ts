@@ -27,12 +27,10 @@ export class StoresCardComponent {
 
     this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
       this.isLogin = isLoggedIn;
-      console.log(this.isLogin);
     });
 
     this.storeService.user.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
     });
   }
 
