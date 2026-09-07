@@ -2,6 +2,7 @@ import { DatePipe, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import {
+  AlertService,
   CreationsService,
   JitsiService,
   TimeRemainingService,
@@ -17,7 +18,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 })
 export default class YourCreation {
   _CreationsSrv = inject(CreationsService);
-  _jitsiSrv = inject(JitsiService);
+  private _jitsiSrv = inject(JitsiService);
+  private _alertSrv = inject(AlertService);
   private _timeRemainingSrv = inject(TimeRemainingService);
   isOpen = false;
 
@@ -67,6 +69,25 @@ export default class YourCreation {
         clearInterval(this.interval);
       }
     }, 1000);
+  }
+  deleteCreation(id: any) {
+    this._CreationsSrv.deleteInteractionRoom(id).subscribe({
+      next: () => {
+        this._alertSrv.getAlert(
+          'Eliminado',
+          'La creación ha sido eliminada correctamente.',
+          'success',
+        );
+        this.creationsResource.reload();
+      },
+      error: (err) => {
+        this._alertSrv.getAlert(
+          'Error',
+          'Ocurrió un error al eliminar la creación.',
+          'error',
+        );
+      },
+    });
   }
 
   closeModal() {

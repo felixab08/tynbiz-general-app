@@ -23,6 +23,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { withDevtools } from '@tanstack/angular-query-experimental/devtools';
 import { environment } from '@environments/environment';
+import { confirmDeleteInterceptor } from './auth/interceptor/http-confirm-delete.interceptor';
 
 registerLocaleData(localEs, 'es', 'es-ES');
 
@@ -44,6 +45,7 @@ export const appConfig: ApplicationConfig = {
         // loggingInterceptor,
         isLoginInterceptor,
         authInterceptor,
+        confirmDeleteInterceptor,
       ]),
     ),
     provideTanStackQuery(

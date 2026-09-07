@@ -41,4 +41,8 @@ export class CreationsService {
       params,
     });
   }
+
+  deleteInteractionRoom(id: any): Observable<any> {
+    return this._http.delete<any>(`${baseUrl}/interaction-rooms/${id}`);
+  }
 }

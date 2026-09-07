@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { IConfirmDelete } from '@app/auth/interfaces/confirDelete.interface';
 import { User } from '@app/auth/interfaces/user.interface';
 import { BehaviorSubject } from 'rxjs';
 
@@ -23,6 +24,12 @@ export class StoreService {
   // We need share, react and store at each data change,
   // If we need update yours states, we need make a new request
   // to the service and all subscribers will react at this change.
+
+  responseModalConfirmSubject = new BehaviorSubject<IConfirmDelete>({
+    answered: false,
+    response: false,
+  });
+  responseModalConfirm$ = this.responseModalConfirmSubject.asObservable();
 
   isLoginSubject = new BehaviorSubject<boolean>(false);
   user = new BehaviorSubject<User | undefined>(undefined);
