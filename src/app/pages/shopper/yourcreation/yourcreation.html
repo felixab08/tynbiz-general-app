@@ -99,13 +99,15 @@
   />
   <p>{{ hoursForMeeting.timeRemaining }}</p>
   <div class="flex items-center justify-end py-4 md:py-5 rounded-b">
+    @if (hoursForMeeting.status !== "WAITING") {
     <button
       type="button"
       class="button-secondary me-3"
-      (click)="isOpen = false"
+      (click)="closeModal()"
     >
       Cancelar
     </button>
+  }
     @if (hoursForMeeting.status === "STARTED") {
       <button
         type="button"
@@ -120,7 +122,7 @@
         data-modal-hide="default-modal"
         type="button"
         class="button-primary"
-        (click)="isOpen = false"
+        (click)="closeModal()"
       >
         Aceptar
       </button>
