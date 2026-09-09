@@ -144,8 +144,6 @@ export class AuthService {
     this._authStatus.set('not-authenticated');
     localStorage.clear();
     this._router.navigate(['/shop/home']);
-    // TODO: se quería probar que se cambie el menu pero a lo que se esta probando no esta funcionando a menos que se refresque la paguina
-    this._menuService.redirectLinkForRole();
   }
 
   logoutAndReload() {

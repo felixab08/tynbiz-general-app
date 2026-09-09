@@ -174,10 +174,12 @@
   .side-secondary {
     @apply bg-gray-100 dark:bg-gray-700 dark:text-white;
   }
-}
-@media (min-width: 974px) and (max-width: 974px) and (min-height: 630px) and (max-height: 630px) {
-  aside#logo-sidebar {
-    overflow-y: scroll;
-    max-height: 500px;
+  .side-secondary aside#logo-sidebar {
+    height: 100%!important;
+  }
+  @media (min-width: 900px) and (max-width: 974px) and (min-height: 630px) and (max-height: 630px) {
+    aside#logo-sidebar {
+      @apply overflow-y-scroll max-h-125 pb-4;
+    }
   }
 }
