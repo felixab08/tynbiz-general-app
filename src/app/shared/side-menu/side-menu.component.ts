@@ -20,7 +20,7 @@ import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AlertComponent } from '@app/components/alert/alert.component';
 import { AlertService } from '@app/services/alert.service';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { MenuService } from '@app/auth/services/menu.service';
 import { ModalComponent } from '../modal/modal.component';
 import { CreateInteraction } from '../create-interaction/create-interaction';
@@ -33,8 +33,7 @@ import { CreateInteraction } from '../create-interaction/create-interaction';
     RouterLink,
     AlertComponent,
     RouterLinkActive,
-    AsyncPipe,
-    NgClass,
+    CommonModule,
     ModalComponent,
     CreateInteraction,
   ],

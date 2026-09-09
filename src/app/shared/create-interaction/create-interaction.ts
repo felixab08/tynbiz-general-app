@@ -57,11 +57,16 @@ export class CreateInteraction implements OnChanges {
   respInteractionRoom: IIterarionRoomResp | null = null;
   searchSubject = new Subject<string>();
 
-  myForm: FormGroup = this._fb.group({
-    visibility: ['', [Validators.required, Validators.minLength(2)]],
-    date: ['', [Validators.required, FormUtils.dateMinToday()]],
-    time: ['', [Validators.required, FormUtils.minHours()]],
-  });
+  myForm: FormGroup = this._fb.group(
+    {
+      visibility: ['', [Validators.required, Validators.minLength(2)]],
+      date: ['', [Validators.required, FormUtils.dateMinToday()]],
+      time: ['', [Validators.required]],
+    },
+    {
+      validators: [this.formUtils.todayPreciceValidate('date', 'time')],
+    },
+  );
 
   myFormEmail: FormGroup = this._fb.group({
     email: [

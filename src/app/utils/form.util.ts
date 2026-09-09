@@ -23,7 +23,8 @@ export class FormUtils {
 
   static getFieldError(form: FormGroup, fieldName: string): string | null {
     if (!form.controls[fieldName]) return null;
-    const errors = form.controls[fieldName].errors ?? {};
+    const errors =
+      form.controls[fieldName].errors ?? form.errors ?? {};
 
     for (const key of Object.keys(errors)) {
       switch (key) {
@@ -55,6 +56,8 @@ export class FormUtils {
           return `La fecha debe ser mayor o igual a la fecha actual`;
         case 'minHours':
           return `La hora debe ser mayor o igual a la hora actual`;
+        case 'todayPreciceValidate':
+          return `La fecha y hora deben ser mayores o iguales a la fecha y hora actuales`;
         case 'dateRangeCurrentDate':
           return `La fecha de inicio debe ser menor que la fecha de fin`;
         case 'edadMinima':
@@ -436,6 +439,71 @@ export class FormUtils {
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
       return selectedMinutes >= currentMinutes ? null : { minHours: true };
+    };
+  }
+ /**
+   * @alias todayPreciceValidate()
+   * Valida primero que el día sea mayor al de hoy, si es asi es retirna valido, si es hoy día entonces debe validar que la hora sea mayor a la actual
+   * Valida que la hora seleccionada no sea menor a la hora actual, debe incluir el minuto actual, pero no el segundo actual
+   * La hora viene en formato de 24 horas (HH:mm)
+   * @returns
+   */
+  static todayPreciceValidate(today: string, hourSelected: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const grupo = formGroup as FormGroup;
+      const hoy = grupo.get(today)?.value;
+      const hour = grupo.get(hourSelected)?.value;
+
+      if (!hoy || !hour) {
+        return null;
+      }
+
+      const dateParts = /^((?:\d{4})-(\d{2})-(\d{2}))$/.exec(hoy);
+      const displayDateParts = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(hoy);
+      const hourParts = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(hour);
+      if ((!dateParts && !displayDateParts) || !hourParts) {
+        return { todayPreciceValidate: true };
+      }
+
+      const year = dateParts
+        ? Number(dateParts[1].slice(0, 4))
+        : Number(displayDateParts![3]);
+      const month = dateParts
+        ? Number(dateParts[2]) - 1
+        : Number(displayDateParts![2]) - 1;
+      const day = dateParts
+        ? Number(dateParts[3])
+        : Number(displayDateParts![1]);
+      const selectedDate = new Date(year, month, day);
+      const now = new Date();
+
+      const isValidDate =
+        selectedDate.getFullYear() === year &&
+        selectedDate.getMonth() === month &&
+        selectedDate.getDate() === day;
+      if (!isValidDate) {
+        return { todayPreciceValidate: true };
+      }
+
+      const selectedDay = new Date(year, month, day).setHours(0, 0, 0, 0);
+      const currentDay = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+      ).getTime();
+
+      if (selectedDay > currentDay) {
+        return null;
+      }
+      if (selectedDay < currentDay) {
+        return { todayPreciceValidate: true };
+      }
+
+      const selectedMinutes = Number(hourParts[1]) * 60 + Number(hourParts[2]);
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      return selectedMinutes >= currentMinutes
+        ? null
+        : { todayPreciceValidate: true };
     };
   }
 }

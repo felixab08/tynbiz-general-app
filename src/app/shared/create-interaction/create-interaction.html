@@ -6,7 +6,9 @@
     alt="Tynbiz"
     class="mx-auto w-1/2 lg:w-1/2 h-auto xl:w-1/3"
   />
-  <h4 class="font-bold text-2xl pt-2 md:p-4 dark:text-gray-100">Unete a Tynbiz sala</h4>
+  <h4 class="font-bold text-2xl pt-2 md:p-4 dark:text-gray-100">
+    Unete a Tynbiz sala
+  </h4>
   <p class="pt-4 dark:text-gray-100">
     Realiza tus compras de manera interactiva, podras unirte en tus compras
     entre usuarios y usuarios con dueña(o)s de las tiendas.
@@ -115,10 +117,12 @@
             required
           />
         </div>
-        @if(formUtils.isValiedField(myForm,'time')){
+        @if(formUtils.isValiedField(myForm,'time') ||
+        (myForm.hasError('todayPreciceValidate') &&
+        (myForm.controls['date'].touched || myForm.controls['time'].touched))){
         <p class="mt-2 text-sm text-red-600 dark:text-red-500">
           <span class="font-medium"
-            >{{ formUtils.getFieldError(myForm, "time") }}</span
+            >{{ formUtils.getFieldError(myForm, 'time') }}</span
           >
         </p>
         }
@@ -136,6 +140,11 @@
         data-modal-hide="default-modal"
         type="submit"
         class="button-primary"
+        [disabled]="myForm.invalid"
+        [ngClass]="{
+        'cursor-not-allowed bg-blue-700/50 ': !myForm.valid,
+        'cursor-pointer': myForm.valid,
+      }"
       >
         Guardar
       </button>
@@ -162,8 +171,13 @@
         </div>
       </div>
       @if(respInteractionRoom.roomStatus === 'LIVE') {
-      <button class="button-primary col-span-1" (click)="createJitsi(respInteractionRoom.videoRoomUrl)">Ir sala</button>
-    }
+      <button
+        class="button-primary col-span-1"
+        (click)="createJitsi(respInteractionRoom.videoRoomUrl)"
+      >
+        Ir sala
+      </button>
+      }
     </div>
 
     <div class="flex items-center bg-white dark:bg-gray-600 p-2 rounded-md">
