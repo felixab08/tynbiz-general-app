@@ -7,12 +7,18 @@ import {
   JitsiService,
   TimeRemainingService,
 } from '@app/services';
-import { CarouselProductsCreation } from '@app/components';
+import { CarouselProductsCreation, TitleComponent } from '@app/components';
 import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
   selector: 'tyn-your-creation',
-  imports: [NgClass, CarouselProductsCreation, ModalComponent, DatePipe],
+  imports: [
+    NgClass,
+    CarouselProductsCreation,
+    ModalComponent,
+    DatePipe,
+    TitleComponent,
+  ],
   templateUrl: './yourcreation.html',
   changeDetection: ChangeDetectionStrategy.Eager,
 })

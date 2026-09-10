@@ -30,7 +30,7 @@ export class StoresCardComponent {
     });
 
     this.storeService.user.subscribe((user) => {
-      this.user = user;
+      if (user) this.user = user;
     });
   }
 

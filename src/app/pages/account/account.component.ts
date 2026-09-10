@@ -4,10 +4,16 @@ import { User } from '@app/auth/interfaces/user.interface';
 import { StoreService } from '@app/services';
 import { ProfileComponent } from './profile/profile.component';
 import { SecurityPrivacityComponent } from './security-privacity/security-privacity.component';
+import { TitleComponent } from '@app/components';
 
 @Component({
   selector: 'tyn-account',
-  imports: [ProfileComponent, SecurityPrivacityComponent, CommonModule],
+  imports: [
+    ProfileComponent,
+    SecurityPrivacityComponent,
+    CommonModule,
+    TitleComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './account.component.html',
 })

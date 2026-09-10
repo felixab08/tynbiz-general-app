@@ -7,12 +7,12 @@ import { LoginComponent } from '@app/shared/login/login.component';
 import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
-  selector: 'tyn-profile-store',
+  selector: 'tyn-profile-client',
   imports: [LoginComponent, ModalComponent, RouterLink],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './profile.component.html',
 })
-export default class ProfileStoreComponent {
+export default class ProfileClientComponent {
   public storeService = inject(StoreService);
   public isLogin: boolean = false;
   public user: User | undefined;
@@ -25,11 +25,11 @@ export default class ProfileStoreComponent {
       this.isLogin = isLoggedIn;
     });
     this.storeService.user.subscribe((user) => {
-      this.user = user;
+      if (user) this.user = user;
     });
   }
   openModal() {
-    this.storeService.isLoginSubject.next(true);
+    if (!this.user) this.storeService.isLoginSubject.next(true);
   }
   closeModal() {
     this.storeService.isLoginSubject.next(false);

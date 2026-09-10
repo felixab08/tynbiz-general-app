@@ -1,0 +1,12 @@
+<div class="dark:text-white">
+  <div class="inline-flex">
+    <i
+      class="fa-solid fa-arrow-left block! md:hidden! m-auto"
+      (click)="_location.back()"
+    ></i>
+    <h2 class="font-bold text-2xl">{{ title() }}</h2>
+  </div>
+  @if (subtitle()) {
+    <p>{{ subtitle() }}</p>
+  }
+</div>

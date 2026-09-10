@@ -1,9 +1,11 @@
-<div class="dark:text-white"><div class="dark:text-white">
-  <h2 class="font-bold text-2xl">Tus tiendas favoritas</h2>
-  <p>Estas son tus tiendas favoritas cuando realizas tus compras en Tynbiz</p>
-</div></div>
+<tyn-title
+  title="Tus tiendas favoritas"
+  subtitle="Estas son tus tiendas favoritas cuando realizas tus compras en Tynbiz"
+/>
 <div class="mt-6">
-  @if(storefavoritesResorce.hasValue()) {
-  <tyn-stores-card [listStores]="storefavoritesResorce.value() || []"></tyn-stores-card>
+  @if (storefavoritesResorce.hasValue()) {
+    <tyn-stores-card
+      [listStores]="storefavoritesResorce.value() || []"
+    ></tyn-stores-card>
   }
 </div>

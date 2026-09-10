@@ -14,12 +14,21 @@ import { NotImagePipe } from '@app/pipes';
 import { environment } from '@environments/environment';
 import { AlertService, JitsiService } from '@app/services';
 import { INotificationResp } from '@app/interfaces';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { CreateInteraction } from '../create-interaction/create-interaction';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, ModalComponent, LoginComponent, NotImagePipe, DatePipe],
+  imports: [
+    RouterLink,
+    ModalComponent,
+    LoginComponent,
+    NotImagePipe,
+    DatePipe,
+    CreateInteraction,
+    NgClass,
+  ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './navbar.component.html',
 })
@@ -28,11 +37,13 @@ export class NavbarComponent {
   public isLogin: boolean = false;
   _authService = inject(AuthService);
   _jitsiService = inject(JitsiService);
-  _alertSrv = inject(AlertService);
+  _alertService = inject(AlertService);
+
   public user: User | undefined;
   public creations = signal<INotificationResp[]>([]);
   environment = environment;
   private notifySub?: Subscription;
+  public isOpen: boolean = false;
 
   constructor() {
     let user = localStorage.getItem('user');
@@ -55,7 +66,7 @@ export class NavbarComponent {
     // Suscribirse a las notificaciones en tiempo real
     this.notifySub = this._jitsiService.notification$.subscribe(
       (notification) => {
-        this._alertSrv.addAlert({
+        this._alertService.addAlert({
           title: notification.title || 'Nueva notificación',
           message: notification.message || '',
           type: 'info',
@@ -77,7 +88,9 @@ export class NavbarComponent {
   closeModal() {
     this.storeService.isLoginSubject.next(false);
   }
-
+  closeModalCreation() {
+    this.isOpen = false;
+  }
   requestDemo() {
     const url = `${environment.REQUEST_DEMO_URL}`;
     window.open(url, '_blank');
@@ -96,7 +109,6 @@ export class NavbarComponent {
 
   goToRoom(notification: INotificationResp) {
     this._jitsiService.createJitsi(notification.content.videoRoomUrl);
-
   }
 
   changeStatusRoom(notification: INotificationResp) {
@@ -137,7 +149,18 @@ export class NavbarComponent {
         });
     }
   }
-
+  openLoginModal() {
+    if (!this.user) {
+      this.storeService.isLoginSubject.next(true);
+      this._alertService.getAlert(
+        'Alerta',
+        'Inicia sesión para poder acceder a la sala',
+        'warning',
+      );
+    } else {
+      this.isOpen = true;
+    }
+  }
   ngOnDestroy(): void {
     this.notifySub?.unsubscribe();
     this._jitsiService.disconnectWebSocket();
