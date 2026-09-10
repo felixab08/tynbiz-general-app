@@ -13,7 +13,7 @@ import { MenuService } from '@app/auth/services/menu.service';
 import { IErrorGeneralResp, IGeneralPDF } from '@app/interfaces';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AlertService, FileDocumentsService } from '@app/services';
-import { ConditionModal } from '@app/components';
+import { ConditionModal, TitleComponent } from '@app/components';
 
 @Component({
   selector: 'tyn-register-page',
@@ -23,6 +23,7 @@ import { ConditionModal } from '@app/components';
     RouterLink,
     PdfViewerModule,
     ConditionModal,
+    TitleComponent,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './register-page.html',

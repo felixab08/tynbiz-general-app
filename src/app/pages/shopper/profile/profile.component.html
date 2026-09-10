@@ -13,16 +13,16 @@
 <div>
   <p class="mb-4">Identificate, explora y realiza tu proxima compra</p>
   <button type="button" class="button-secondary w-full font-bold" (click)="openModal()">Identifícate</button>
-  <div class="flex justify-between py-2">
-    <p>Estas empezando a usar Tynbiz</p>
-    <p class="font-bold">Registrate</p>
+  <div class="flex justify-between py-4">
+    <p>Estas empezando a usar Tynbiz?</p>
+    <p class="font-bold text-primary" routerLink="/shop/register">Registrate</p>
   </div>
 </div>}
 <div>
   <div class="py-4">
     <p class="font-bold">Usa Tynbiz en tu Negocio</p>
   </div>
-  <button type="button" class="button-primary w-full font-bold">Solicitar Tynbiz</button>
+  <button type="button" class="button-primary w-full font-bold" (click)="requestDemo()">Solicitar Tynbiz</button>
 </div>
 @if (user) {
 <ul class="space-y-2 font-medium mt-8">

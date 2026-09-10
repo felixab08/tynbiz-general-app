@@ -6,7 +6,7 @@
     (ngSubmit)="onSave()"
   >
     <div class="mb-6 card-static dark:bg-gray-700 dark:text-white">
-      <h1 class="text-xl font-bold mb-6">Crear cuenta</h1>
+      <tyn-title title="Crear cuenta" />
       <!-- firstName -->
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
@@ -341,9 +341,7 @@
             value=""
             class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
           />
-          <label
-            for="checkbox-remember"
-            class="ms-2 text-sm font-medium"
+          <label for="checkbox-remember" class="ms-2 text-sm font-medium"
             >Acepto los terminos y condiciones
             <a
               (click)="isOpen = true; getFileDocumentsByClient()"

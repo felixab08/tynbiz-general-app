@@ -5,6 +5,7 @@ import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services';
 import { LoginComponent } from '@app/shared/login/login.component';
 import { ModalComponent } from '@app/shared/modal/modal.component';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'tyn-profile-client',
@@ -28,6 +29,11 @@ export default class ProfileClientComponent {
       if (user) this.user = user;
     });
   }
+  requestDemo() {
+    const url = `${environment.REQUEST_DEMO_URL}`;
+    window.open(url, '_blank');
+  }
+
   openModal() {
     if (!this.user) this.storeService.isLoginSubject.next(true);
   }
