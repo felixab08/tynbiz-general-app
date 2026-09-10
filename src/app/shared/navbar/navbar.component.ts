@@ -31,6 +31,9 @@ import { CreateInteraction } from '../create-interaction/create-interaction';
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './navbar.component.html',
+  host: {
+    class: 'w-full block',
+  },
 })
 export class NavbarComponent {
   public storeService = inject(StoreService);
