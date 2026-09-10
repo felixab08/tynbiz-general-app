@@ -5,11 +5,10 @@ import { creationMock } from '@app/mock/creations.mock';
 import { LinkParamService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { TitleComponent } from '@app/components';
 
 @Component({
   selector: 'tyn-offer',
-  imports: [CreationCardComponent, TitleComponent],
+  imports: [CreationCardComponent],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './offer.component.html',
 })

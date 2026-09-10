@@ -3,13 +3,11 @@ import { RouterLink } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services';
-import { LoginComponent } from '@app/shared/login/login.component';
-import { ModalComponent } from '@app/shared/modal/modal.component';
 import { environment } from '@environments/environment';
 
 @Component({
   selector: 'tyn-profile-client',
-  imports: [LoginComponent, ModalComponent, RouterLink],
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './profile.component.html',
 })

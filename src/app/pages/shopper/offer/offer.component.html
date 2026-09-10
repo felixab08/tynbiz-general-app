@@ -1,7 +1,9 @@
-<tyn-title
-  title="Ofertas"
-  subtitle="Todas las creaciones con productos en ofertas que es para ti"
-/>
+<div class="dark:text-white">
+  <div class="dark:text-white">
+    <h2 class="font-bold text-2xl">Ofertas</h2>
+    <p>Todas las creaciones con productos en ofertas que es para ti</p>
+  </div>
+</div>
 @if (offertResorce.hasValue() && offertResorce.value().content.length > 0) {
   @for (item of offertResorce.value().content; track item.categoryCode) {
     <h1 class="text-xl font-bold my-3 dark:text-white">Ofertas de {{ item.categoryName }}</h1>
