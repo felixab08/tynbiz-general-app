@@ -11,14 +11,14 @@
 
   <!-- Contenido del modal -->
   <div
-    class="relative z-10 p-4 w-full max-h-full"
+    class="relative z-10 sm:p-4 w-full md:h-[80%] h-full"
     [ngClass]="{
       'max-w-2xl': type === 'short',
       'max-w-6xl': type === 'long',
       'max-w-xl': type === 'min',
     }"
   >
-    <div class="relative bg-white rounded-lg shadow-xl dark:bg-gray-700">
+    <div class="relative bg-white rounded-lg shadow-xl dark:bg-gray-700 h-full">
       <!-- Header -->
       <div
         class="flex items-center justify-between p-2 md:p-3 border-b rounded-t border-gray-200 dark:border-gray-600"
