@@ -1,5 +1,5 @@
 @if (selectedTab === 'select') {
-
+<!-- inicio del primer vista -->
 <div class="p-2">
   <img
     src="./assets/img/createInteraction.png"
@@ -28,6 +28,7 @@
 </div>
 
 } @if (selectedTab === 'selectCreateLater') {
+  <!-- inicio de la segunda vista -->
 <div class="p-2 md:p-5">
   <div>
     <h4 class="font-bold text-2xl">Crear interacción en vivo</h4>
@@ -128,7 +129,7 @@
         }
       </div>
     </div>
-    <div class="flex items-center justify-end rounded-b">
+    <div class="flex gap-4 pt-4 w-full flex-col md:flex-row">
       <button
         type="button"
         class="button-secondary me-3"
@@ -151,20 +152,22 @@
     </div>
   </form>
 </div>
-} @if (selectedTab === 'selectStartNow') {
+}
+<!-- inicio de la tercera vista -->
+@if (selectedTab === 'selectStartNow') {
 <div class="p-2 md:p-5">
   @if(respInteractionRoom){
-  <div class="flex-col flex gap-2 bg-gray-100 dark:bg-gray-600 p-4 rounded-xl">
+  <div class="flex-col flex gap-2 bg-gray-100 dark:bg-gray-600 p-1 md:p-4 rounded-xl">
     <div class="grid grid-cols-5">
       <div class="col-span-4 flex flex-center">
         <span
-          class="bg-green-500 w-6 h-6 text-white p-2 rounded-full mr-2 flex items-center justify-center"
+          class="bg-green-500 size-3  md:size-6 text-white p-2 rounded-full mr-2 flex items-center justify-center"
         >
           <i class="fas fa-check"></i>
         </span>
         <div class="flex flex-col">
-          <p class="font-semibold">Creación</p>
-          <span class="text-sm text-gray-500 dark:text-white"
+          <p class="font-semibold text-2xs sm:text-xs">Creación</p>
+          <span class="text-2xs sm:text-sm text-gray-500 dark:text-white"
             >Para {{ respInteractionRoom.scheduledAt | date:'dd MMM yyyy, hh:mm
             a' }}</span
           >
@@ -172,7 +175,7 @@
       </div>
       @if(respInteractionRoom.roomStatus === 'LIVE') {
       <button
-        class="button-primary col-span-1"
+        class="button-primary col-span-1 text-2xs sm:text-xs"
         (click)="createJitsi(respInteractionRoom.videoRoomUrl)"
       >
         Ir sala
@@ -181,14 +184,14 @@
     </div>
 
     <div class="flex items-center bg-white dark:bg-gray-600 p-2 rounded-md">
-      <span class="text-sm text-gray-700 dark:text-white"
+      <span class="text-2xs sm:text-xs text-gray-700 dark:text-white"
         >Link de la sala : {{ respInteractionRoom.videoRoomUrl }}</span
       >
       <button
         class="ml-auto cursor-pointer"
         (click)="copyToClipboard(respInteractionRoom.videoRoomUrl)"
       >
-        <i class="fa-solid fa-copy fa-xl text-primary"></i>
+        <i class="fa-solid fa-copy fa-xs md:fa-xl text-primary"></i>
       </button>
     </div>
   </div>
@@ -260,7 +263,7 @@
   <!--  -->
   }
 
-  <div class="mb-4 space-y-2 mt-5">
+  <div class="mb-0 md:mb-4 space-y-2 mt-5">
     <h1 class="text-md font-bold">Usuarios invitados</h1>
     @for (user of listSelecteUser(); track $index) {
     <div
@@ -292,10 +295,10 @@
     }
   </div>
 
-  <div class="flex items-center justify-end rounded-b">
+  <div class="flex gap-4 pt-4 w-full flex-col md:flex-row">
     <button
       type="button"
-      class="button-secondary me-3"
+      class="button-secondary w-full"
       (click)="closeModalIntera()"
     >
       Omitir invitación
@@ -303,7 +306,7 @@
     <button
       data-modal-hide="default-modal"
       type="submit"
-      class="button-primary"
+      class="button-primary w-full"
       (click)="sendDataFriends()"
     >
       Enviar
