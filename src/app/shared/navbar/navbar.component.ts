@@ -37,7 +37,6 @@ import { CreateInteraction } from '../create-interaction/create-interaction';
 })
 export class NavbarComponent {
   public storeService = inject(StoreService);
-  public isLogin: boolean = false;
   _authService = inject(AuthService);
   _jitsiService = inject(JitsiService);
   _alertService = inject(AlertService);
@@ -51,10 +50,6 @@ export class NavbarComponent {
   constructor() {
     let user = localStorage.getItem('user');
     if (user) this.storeService.user.next(JSON.parse(user));
-
-    this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
-      this.isLogin = isLoggedIn;
-    });
 
     this.storeService.user.subscribe((user) => {
       this.user = user;
@@ -83,14 +78,13 @@ export class NavbarComponent {
       },
     );
   }
-
   openModal() {
-    this.storeService.isLoginSubject.next(true);
+    if (!this.user) this.storeService.isLoginSubject.next(true);
   }
-
   closeModal() {
     this.storeService.isLoginSubject.next(false);
   }
+
   closeModalCreation() {
     this.isOpen = false;
   }

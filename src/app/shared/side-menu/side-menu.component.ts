@@ -25,6 +25,7 @@ import { MenuService } from '@app/auth/services/menu.service';
 import { ModalComponent } from '../modal/modal.component';
 import { CreateInteraction } from '../create-interaction/create-interaction';
 import { initDrawers } from 'flowbite';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-side-menu',
@@ -37,6 +38,7 @@ import { initDrawers } from 'flowbite';
     CommonModule,
     ModalComponent,
     CreateInteraction,
+    LoginComponent,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './side-menu.component.html',
@@ -50,6 +52,11 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   menuItemsAll: any[] = [];
   routerState = '/shop/home';
   user$ = this.storeService.user.asObservable();
+  public isLogin: boolean = false;
+
+  get isProfilePage(): boolean {
+    return this._router.url.includes('/shop/profile');
+  }
 
   @ViewChild('drawerToggle')
   drawerToggle!: ElementRef<HTMLButtonElement>;
@@ -72,6 +79,9 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
       } else {
         this.menuItemsAll = this._menuService.createMenuForRole();
       }
+    });
+    this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
+      this.isLogin = isLoggedIn;
     });
   }
 
@@ -96,7 +106,11 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (target && target.hasAttribute && target.hasAttribute('drawer-backdrop')) {
+    if (
+      target &&
+      target.hasAttribute &&
+      target.hasAttribute('drawer-backdrop')
+    ) {
       setTimeout(() => {
         const backdrops = document.querySelectorAll('[drawer-backdrop]');
         backdrops.forEach((el) => el.remove());
@@ -143,5 +157,13 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   }
   closeModal() {
     this.isOpen = false;
+  }
+
+  openModalModal() {
+    this.storeService.isLoginSubject.next(true);
+  }
+
+  closeModalModal() {
+    this.storeService.isLoginSubject.next(false);
   }
 }
