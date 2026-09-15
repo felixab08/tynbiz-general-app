@@ -113,7 +113,7 @@
 
     @if (user) {
       @if (user.role === "STORE_OWNER") {
-        <div class="flex sm:justify-end justify-start mt-10 md:mt-2">
+        <div class="flex sm:justify-end justify-start mt-4 md:mt-2">
           <div>
             <p class="text-sm text-gray-500 dark:text-gray-300">
               Atensión al cliente activa
@@ -275,7 +275,7 @@
       <div class="flex items-center justify-end">
         <button
           type="button"
-          class="flex text-sm bg-gray-800 dark:bg-gray-700 rounded-full cursor-pointer md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 transition-colors mt-10 md:mt-2 mx-2"
+          class="flex text-sm bg-gray-800 dark:bg-gray-700 rounded-full cursor-pointer md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 transition-colors mt-4 md:mt-2 mx-2"
           [ngClass]="{ 'md:block hidden': user.role === 'CLIENT' }"
           id="user-menu-button"
           aria-expanded="false"
