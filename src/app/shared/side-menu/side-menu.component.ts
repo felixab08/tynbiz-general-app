@@ -24,6 +24,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { MenuService } from '@app/auth/services/menu.service';
 import { ModalComponent } from '../modal/modal.component';
 import { CreateInteraction } from '../create-interaction/create-interaction';
+import { initDrawers } from 'flowbite';
 
 @Component({
   selector: 'app-side-menu',
@@ -50,10 +51,10 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   routerState = '/shop/home';
   user$ = this.storeService.user.asObservable();
 
-  @ViewChild('drawerToggle', { static: true })
+  @ViewChild('drawerToggle')
   drawerToggle!: ElementRef<HTMLButtonElement>;
 
-  @ViewChild('logoSidebar', { static: true })
+  @ViewChild('logoSidebar')
   logoSidebar!: ElementRef<HTMLElement>;
 
   public isOpen: boolean = false;
@@ -92,8 +93,21 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
     this.isScrolled = window.scrollY > 0;
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (target && target.hasAttribute && target.hasAttribute('drawer-backdrop')) {
+      setTimeout(() => {
+        const backdrops = document.querySelectorAll('[drawer-backdrop]');
+        backdrops.forEach((el) => el.remove());
+      }, 0);
+    }
+  }
+
   ngAfterViewInit(): void {
     try {
+      initDrawers();
+
       const sidebarEl = this.logoSidebar?.nativeElement;
       const toggleBtn = this.drawerToggle?.nativeElement;
       if (!sidebarEl || !toggleBtn) return;
@@ -121,6 +135,8 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     try {
       this._observer?.disconnect();
+      const backdrops = document.querySelectorAll('[drawer-backdrop]');
+      backdrops.forEach((el) => el.remove());
     } catch (e) {
       // ignore
     }
