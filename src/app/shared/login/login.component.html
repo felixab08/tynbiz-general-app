@@ -1,6 +1,10 @@
 <div class="p-2 md:p-5">
-  <h4 class="font-bold text-2xl text-center dark:text-gray-100">Iniciar sesión</h4>
-  <p class="text-sm dark:text-gray-100">
+  <h4
+    class="font-bold text-3xl mb-5 sm:mb-2 sm:text-2xl sm:text-center text-left mt-30 sm:mt-0 dark:text-gray-100"
+  >
+    Iniciar sesión
+  </h4>
+  <p class="text-xl dark:text-gray-100">
     Ingresa a Tynbiz y interactua con amigos, familiares o con el vendedor
     directamente en tus compras
   </p>
@@ -14,7 +18,7 @@
       <label
         for="user"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Correo</label
+        >Correo electronico</label
       >
       <input
         type="text"
@@ -23,15 +27,15 @@
         class="border text-sm rounded dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
         [ngClass]="{
           ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-            formUtils.isValiedField(myForm, 'user')
+            formUtils.isValiedField(myForm, 'user'),
         }"
       />
-      @if(formUtils.isValiedField(myForm,'user')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "user")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "user")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "user")
+          }}</span>
+        </p>
       }
     </div>
     <div>
@@ -48,7 +52,7 @@
           class="border text-sm rounded dark:bg-gray-700 block w-full p-2.5 focus:border-primary-800"
           [ngClass]="{
             ' border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
-              formUtils.isValiedField(myForm, 'password')
+              formUtils.isValiedField(myForm, 'password'),
           }"
         />
         <button
@@ -68,67 +72,68 @@
             stroke-linejoin="round"
           >
             @if (!lookIconIsPassword()) {
-            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-            <path
-              d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
-            ></path>
-            <path
-              d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
-            ></path>
-            <line x1="2" x2="22" y1="2" y2="22"></line>
-            } @if (lookIconIsPassword()) {
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+              <path
+                d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+              ></path>
+              <path
+                d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+              ></path>
+              <line x1="2" x2="22" y1="2" y2="22"></line>
+            }
+            @if (lookIconIsPassword()) {
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
             }
           </svg>
         </button>
       </div>
-      @if(formUtils.isValiedField(myForm,'password')){
-      <p class="mt-2 text-sm text-red-600 dark:text-red-500">
-        <span class="font-medium">{{
-          formUtils.getFieldError(myForm, "password")
-        }}</span>
-      </p>
+      @if (formUtils.isValiedField(myForm, "password")) {
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+          <span class="font-medium">{{
+            formUtils.getFieldError(myForm, "password")
+          }}</span>
+        </p>
       }
     </div>
-    <div class="flex justify-between mt-3">
-      <a class="text-sm text-primary hover:underline"
-        >Olvidaste tu contraseña?</a
-      >
-    </div>
-    <button
-      type="submit"
-      class="button-primary w-full mt-5"
-    >
+
+    <button type="submit" class="button-primary w-full mt-5">
       Iniciar sesión
     </button>
-    <div class="text-sm font-medium text-gray-500 dark:text-gray-300 pt-1">
-      No estas registrado?
-      <a class="text-primary hover:underline"
-      (click)="closeModal()"
-      routerLink="/shop/register"
+    <a
+      class="text-sm text-primary hover:underline justify-center sm:justify-start my-4 flex"
+      >¿Olvidaste tu contraseña?</a
+    >
+    <div class="text-sm font-medium text-gray-500 dark:text-gray-300 pt-1 justify-center sm:justify-start my-4 flex">
+      ¿No estas registrado?
+      <a
+        class="text-primary hover:underline"
+        (click)="closeModal()"
+        routerLink="/shop/register"
         >Crear cuenta</a
       >
     </div>
   </form>
 </div>
 @if (this.hasError()) {
-<div
-  class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400"
-  role="alert"
->
-  <svg
-    class="shrink-0 inline w-4 h-4 me-3"
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 20 20"
+  <div
+    class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400"
+    role="alert"
   >
-    <path
-      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
-    />
-  </svg>
-  <span class="sr-only">Info</span>
-  <div><span class="font-bold">Error</span> Introducir datos correctamente</div>
-</div>
+    <svg
+      class="shrink-0 inline w-4 h-4 me-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+      />
+    </svg>
+    <span class="sr-only">Info</span>
+    <div>
+      <span class="font-bold">Error</span> Introducir datos correctamente
+    </div>
+  </div>
 }
