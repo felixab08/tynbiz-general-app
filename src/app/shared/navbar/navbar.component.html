@@ -1,7 +1,7 @@
 <nav class="w-full">
   <div
     class="w-full sm:mx-auto sm:gap-2 md:gap-6 sm:flex sm:flex-wrap sm:items-center sm:justify-between justify-end md:justify-end"
-    [ngClass]="{'flex' : user?.role === 'STORE_OWNER'}"
+    [ngClass]="{ flex: user?.role === 'STORE_OWNER' }"
   >
     @if (!user) {
       <!-- Versión para pantallas grandes (MD en adelante) -->
@@ -24,7 +24,7 @@
         <a class="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src="./assets/svg/ImagotipoTynbizBlanco.svg"
-            class="h-4 sm:h-7"
+            class="h-7"
             alt="Tynbiz Logo"
           />
         </a>
@@ -32,7 +32,7 @@
         <div>
           <button
             type="button"
-            class="w-full flex justify-evenly text-white text-2xs bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl sm:text-sm px-3 md:px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
+            class="w-full flex justify-evenly text-white text-xs bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl sm:text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
             (click)="openLoginModal()"
           >
             <svg
@@ -139,13 +139,13 @@
         </div>
       }
       @if (user.role === "CLIENT") {
-      <div class="flex flex-wrap md:gap-6 justify-between">
+        <div class="flex flex-wrap md:gap-6 justify-between">
           <a
             class="flex items-center space-x-3 rtl:space-x-reverse sm:mr-14 md:hidden"
           >
             <img
               src="./assets/svg/ImagotipoTynbizBlanco.svg"
-              class="h-4 sm:h-7"
+              class="h-7"
               alt="Tynbiz Logo"
             />
           </a>
@@ -163,7 +163,7 @@
               <button
                 id="dropdownNotificationButton"
                 data-dropdown-toggle="dropdownNotification"
-                class="bg-gray-200 cursor-pointer rounded-full p-2 h-8 w-8 flex items-center justify-center relative"
+                class="bg-gray-200 cursor-pointer rounded-full p-2 size-8 flex items-center justify-center relative mr-2 border-gray-400 border"
               >
                 <div class="relative">
                   <svg
@@ -193,7 +193,7 @@
             <div class="flex-wrap justify-end! block md:hidden">
               <button
                 type="button"
-                class="w-full flex justify-evenly text-white text-2xs bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl sm:text-sm px-3 md:px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
+                class="w-full flex justify-evenly text-white text-xs bg-primary hover:text-primary border-2 border-primary hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-primary-light font-medium rounded-3xl sm:text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-pointer"
                 (click)="openLoginModal()"
               >
                 <svg
@@ -266,12 +266,12 @@
                     </g>
                   </g>
                 </svg>
-                Tu sala
+                <span>Tu sala</span>
               </button>
             </div>
           </div>
         </div>
-        }
+      }
       <div class="flex items-center justify-end">
         <button
           type="button"
