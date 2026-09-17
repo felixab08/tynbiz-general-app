@@ -23,7 +23,6 @@ import { CreateInteraction } from '../create-interaction/create-interaction';
   imports: [
     RouterLink,
     ModalComponent,
-    LoginComponent,
     NotImagePipe,
     DatePipe,
     CreateInteraction,
