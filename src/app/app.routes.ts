@@ -12,6 +12,7 @@ export const routes: Routes = [
   {
     path: 'account',
     loadComponent: () => import('./pages/account/account.component'),
+    canMatch: [isAutenticatedGuard],
   },
   {
     path: 'confirmation',

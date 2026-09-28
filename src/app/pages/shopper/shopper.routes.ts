@@ -35,7 +35,6 @@ export const shopperRoutes: Routes = [
       {
         path: 'profile',
         loadComponent: () => import('./profile/profile.component'),
-        canMatch: [isAutenticatedGuard],
       },
       {
         path: 'your-creation',
