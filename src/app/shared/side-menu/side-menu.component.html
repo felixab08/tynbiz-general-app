@@ -22,7 +22,7 @@
     >
       <a
         class="flex items-center justify-center ps-2.5 mb-5"
-        [routerLink]="routerState"
+        (click)="_menuService.redirectLinkForRole()"
       >
         <img
           src="./assets/svg/ImagotipoTynbizBlanco.svg"
@@ -253,7 +253,7 @@
     >
       <a
         class="flex items-center justify-center ps-2.5 mb-5"
-        [routerLink]="routerState"
+        (click)="_menuService.redirectLinkForRole()"
       >
         <img
           src="./assets/svg/ImagotipoTynbizBlanco.svg"

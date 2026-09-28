@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -57,8 +63,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.closeModal();
-            const route = this._menuService.redirectLinkForRole();
-            this._router.navigate([route]);
+            this._menuService.redirectLinkForRole();
             setTimeout(() => {
               location.reload();
             }, 500);

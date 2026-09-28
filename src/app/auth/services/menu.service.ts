@@ -40,19 +40,22 @@ export class MenuService {
   }
 
   redirectLinkForRole() {
-    debugger;
     if (!this.user) {
-      return '/shop/home';
+      this._router.navigate(['/shop/home']);
     }
     switch (this.user?.role) {
       case 'ADMIN':
-        return '/admin/dashboard';
+        this._router.navigate(['/admin/dashboard']);
+        break;
       case 'STORE_OWNER':
-        return '/stores/init-store';
+        this._router.navigate(['/stores/init-store']);
+        break;
       case 'CLIENT':
-        return '/shop/home';
+        this._router.navigate(['/shop/home']);
+        break;
       default:
-        return '/shop/home';
+        this._router.navigate(['/shop/home']);
+        break;
     }
   }
 }

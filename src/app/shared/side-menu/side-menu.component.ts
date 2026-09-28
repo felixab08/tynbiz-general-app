@@ -50,7 +50,6 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   _alertService = inject(AlertService);
   _router = inject(Router);
   menuItemsAll: any[] = [];
-  routerState = '/shop/home';
   user$ = this.storeService.user.asObservable();
   public isLogin: boolean = false;
 
@@ -75,7 +74,6 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
       this.user = user;
       if (this.user) {
         this.menuItemsAll = this._menuService.createMenuForRole();
-        this.routerState = this._menuService.redirectLinkForRole();
       } else {
         this.menuItemsAll = this._menuService.createMenuForRole();
       }
