@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { isAdminGuard } from './auth/guards/is-admin.guard';
 import { isAutenticatedGuard } from './auth/guards/is-autenticated.guard';
+import { isOwnerGuard } from './auth/guards/is-owner.guard';
 
 export const routes: Routes = [
   {
@@ -27,7 +28,7 @@ export const routes: Routes = [
     path: 'stores',
     loadChildren: () =>
       import('./pages/stores/stores.routes').then((m) => m.storesRoutes),
-    canMatch: [isAutenticatedGuard],
+    canMatch: [isAutenticatedGuard, isOwnerGuard],
   },
   {
     path: 'auth/verify-email',

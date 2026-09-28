@@ -48,6 +48,12 @@ export class AuthService {
   isAdmin = computed(() => {
     return this._user()?.role.includes('ADMIN') ?? false;
   });
+  isOwner = computed(() => {
+    return this._user()?.role.includes('STORE_OWNER') ?? false;
+  });
+  isClient = computed(() => {
+    return this.typeCliente() ?? false;
+  });
   constructor() {
     // Restaurar usuario y estado desde localStorage al inicializar
     this.initializeAuthState();
@@ -181,5 +187,13 @@ export class AuthService {
 
   postRegisterBuyerUser(register: IRegisterReq) {
     return this.http.post(`${baseUrl}/auth/register-buyer`, register);
+  }
+
+  private typeCliente(): boolean {
+    if (this._user()?.role.includes('CLIENT') || !this._user()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

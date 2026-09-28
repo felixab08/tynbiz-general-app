@@ -21,6 +21,7 @@ export class MenuService {
       this.user = user;
     });
   }
+
   createMenuForRole() {
     if (!this.user) {
       // this._router.navigate(['/shop/home']);
@@ -39,6 +40,7 @@ export class MenuService {
   }
 
   redirectLinkForRole() {
+    debugger;
     if (!this.user) {
       return '/shop/home';
     }
