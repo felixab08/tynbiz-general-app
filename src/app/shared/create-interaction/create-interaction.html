@@ -157,7 +157,7 @@
 @if (selectedTab === 'selectStartNow') {
 <div class="p-2 md:p-5">
   @if(respInteractionRoom){
-  <div class="flex-col flex gap-2 bg-gray-100 dark:bg-gray-600 p-1 md:p-4 rounded-xl">
+  <div class="flex-col flex gap-2 dark:bg-gray-600 md:p-4 rounded-xl">
     <div class="grid grid-cols-5">
       <div class="col-span-4 flex flex-center">
         <span
@@ -166,8 +166,8 @@
           <i class="fas fa-check"></i>
         </span>
         <div class="flex flex-col">
-          <p class="font-semibold text-2xs sm:text-xs">Creación</p>
-          <span class="text-2xs sm:text-sm text-gray-500 dark:text-white"
+          <p class="font-semibold sm:text-xs">Creación</p>
+          <span class="sm:text-sm text-gray-500 dark:text-white"
             >Para {{ respInteractionRoom.scheduledAt | date:'dd MMM yyyy, hh:mm
             a' }}</span
           >
@@ -183,8 +183,8 @@
       }
     </div>
 
-    <div class="flex items-center bg-white dark:bg-gray-600 p-2 rounded-md">
-      <span class="text-2xs sm:text-xs text-gray-700 dark:text-white"
+    <div class="flex items-center dark:bg-gray-600 p-2 rounded-md">
+      <span class="sm:text-xs text-gray-700 dark:text-white"
         >Link de la sala : {{ respInteractionRoom.videoRoomUrl }}</span
       >
       <button
