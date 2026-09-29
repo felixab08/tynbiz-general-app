@@ -45,7 +45,7 @@ export class MenuService {
     }
     switch (this.user?.role) {
       case 'ADMIN':
-        this._router.navigate(['/admin/dashboard']);
+        this._router.navigate(['/admin/panel']);
         break;
       case 'STORE_OWNER':
         this._router.navigate(['/stores/init-store']);

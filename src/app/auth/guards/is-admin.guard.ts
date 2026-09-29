@@ -10,5 +10,7 @@ export const isAdminGuard: CanMatchFn = async (
 ) => {
   const authService = inject(AuthService);
   await firstValueFrom(authService.checkStatus());
+  console.log('authService');
+  console.log(authService.isAdmin());
   return authService.isAdmin();
 };

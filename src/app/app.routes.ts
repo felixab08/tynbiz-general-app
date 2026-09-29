@@ -23,13 +23,13 @@ export const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./pages/admin/admin.routes').then((m) => m.userRoutes),
-    canMatch: [isAutenticatedGuard, isAdminGuard],
+    canMatch: [isAutenticatedGuard],
   },
   {
     path: 'stores',
     loadChildren: () =>
       import('./pages/stores/stores.routes').then((m) => m.storesRoutes),
-    canMatch: [isAutenticatedGuard, isOwnerGuard],
+    canMatch: [isAutenticatedGuard],
   },
   {
     path: 'auth/verify-email',
