@@ -86,7 +86,7 @@
   } }
 </div>
 
-<app-modal [isOpen]="isOpen" (closeModal)="closeModal()">
+<app-modal [isOpen]="isOpen" (closeModal)="closeModal()" [type]="'small'">
   <h2
     class="text-center font-bold"
     [ngClass]="{

@@ -13,6 +13,7 @@
   <div
     class="relative z-10 sm:p-4 w-full md:h-auto h-full"
     [ngClass]="{
+      'max-w-100': type === 'small',
       'max-w-2xl': type === 'short',
       'max-w-6xl': type === 'long',
       'max-w-xl': type === 'min',
