@@ -158,7 +158,7 @@
     @apply text-sm font-normal  text-black;
   }
   .side-init {
-    @apply relative isolate min-h-screen overflow-hidden bg-[#faf8f2]
+    @apply relative z-1 isolate min-h-screen overflow-hidden bg-[#faf8f2]
   before:content-['']
   before:fixed before:inset-0 before:pointer-events-none
   before:bg-[linear-gradient(to_bottom,transparent_0%,rgba(200,201,232,0.15)_25%,rgba(255,255,255,0.95)_45%,rgba(139,143,208,0.8)_70%,#5e63b6_100%)]

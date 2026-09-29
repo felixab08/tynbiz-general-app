@@ -2,7 +2,7 @@
   [class.side-secondary]="['STORE_OWNER', 'ADMIN'].includes(userRole)"
   [class.side-init]="!['STORE_OWNER', 'ADMIN'].includes(userRole)"
 >
-  <app-side-menu />
+  <app-side-menu class="z-2 relative" />
 </div>
 <app-modal [isOpen]="isOpen" (closeModal)="closeDialog()">
   <h3 class="text-lg font-bold text-center">Eliminar!</h3>
