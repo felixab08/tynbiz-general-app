@@ -1,10 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  menuAdminMock,
-  menuItemsClienteMock,
-  menuItemsMock,
-} from '@app/auth/data/menu.data';
+import { menuAdmin, menuOwner, menuClient } from '@app/auth/data/menu.data';
 import { StoreService } from '@app/services';
 import { User } from '../interfaces/user.interface';
 
@@ -25,17 +21,17 @@ export class MenuService {
   createMenuForRole() {
     if (!this.user) {
       // this._router.navigate(['/shop/home']);
-      return menuItemsMock.splice(0, 4);
+      return menuClient.splice(0, 4);
     }
     switch (this.user?.role) {
       case 'ADMIN':
-        return menuAdminMock;
+        return menuAdmin;
       case 'STORE_OWNER':
-        return menuItemsClienteMock;
+        return menuOwner;
       case 'CLIENT':
-        return menuItemsMock;
+        return menuClient;
       default:
-        return menuItemsMock.splice(0, 4);
+        return menuClient.splice(0, 4);
     }
   }
 

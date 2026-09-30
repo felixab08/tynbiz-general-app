@@ -41,4 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Agents files
 .agent.md
+AGENTS.md
+.agents/*
+skills-lock.json

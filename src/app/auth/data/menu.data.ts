@@ -1,4 +1,4 @@
-export const menuItemsMock = [
+export const menuClient = [
   {
     id: '11asybvccas',
     name: 'Inicio',
@@ -39,7 +39,7 @@ export const menuItemsMock = [
   },
 ];
 
-export const menuItemsClienteMock = [
+export const menuOwner = [
   {
     id: '21asybvas',
     name: 'Inicio',
@@ -83,7 +83,7 @@ export const menuItemsClienteMock = [
     route: '/stores/subscriptions',
   },
 ];
-export const menuAdminMock: any = [
+export const menuAdmin: any = [
   {
     id: '35asbacasvas',
     name: 'Panel',

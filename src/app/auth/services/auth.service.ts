@@ -12,7 +12,6 @@ import { StoreService } from '@app/services/store.service';
 import { Router } from '@angular/router';
 import { IErrorGeneralResp, IRegisterReq } from '@app/interfaces';
 import { AlertService } from '@app/services';
-import AccountComponent from './../../pages/account/account.component';
 import { MenuService } from './menu.service';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';

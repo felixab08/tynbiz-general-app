@@ -1,5 +1,5 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { menuAdminMock } from '@app/auth/data/menu.data';
+import { menuAdmin } from '@app/auth/data/menu.data';
 
 @Component({
   selector: 'tyn-user-detail-privilege-page',
@@ -8,7 +8,7 @@ import { menuAdminMock } from '@app/auth/data/menu.data';
   templateUrl: './user-detail-privilege-page.component.html',
 })
 export class UserDetailPrivilegePageComponent {
-  menuAdmin = menuAdminMock.map((item: any) => ({ ...item, checked: false }));
+  menuAdmin = menuAdmin.map((item: any) => ({ ...item, checked: false }));
   specialPrivileges = [
     {
       id: 1,
