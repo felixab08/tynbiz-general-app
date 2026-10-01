@@ -117,7 +117,7 @@
     @apply relative overflow-x-auto sm:rounded-lg px-4 lg:px-10 py-12 md:m-4 mt-4 md:mt-1;
   }
   .body-primary {
-    @apply relative overflow-x-auto md:shadow-md sm:rounded-lg px-4 lg:px-10 py-12 md:m-4;
+    @apply relative overflow-x-auto md:shadow-md sm:rounded-lg px-4 lg:px-10 py-12 md:m-4 bg-white dark:bg-gray-800 dark:text-white;
   }
 
   .body-secondary {
@@ -172,7 +172,7 @@
   dark:bg-[linear-gradient(to_bottom,#151512_0%,#1c2c3c_25%,#2a4a6f_55%,#476fa9_78%,#49628d_100%)];
   }
   .side-secondary {
-    @apply bg-gray-100 dark:bg-gray-700 dark:text-white;
+    @apply bg-gray-200 dark:bg-gray-700 dark:text-white h-screen;
   }
   .side-secondary aside#logo-sidebar {
     height: 100%!important;

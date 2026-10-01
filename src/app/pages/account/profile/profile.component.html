@@ -44,7 +44,7 @@
         <div class="mb-6 card-static">
           <h1 class="text-xl font-bold mb-6">Información básica</h1>
           <div class="grid gap-6 mb-6 md:grid-cols-2">
-            @if (profile()!.documentNumber!.length === 0) {
+            @if (profile()?.documentNumber?.length === 0) {
             <div>
                 <label
                   for="documentNumber"
