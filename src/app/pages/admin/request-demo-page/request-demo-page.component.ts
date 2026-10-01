@@ -1,5 +1,9 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
-import { resquestDemoListMock } from '../../../mock/resquet-demo-list.mock';
+import {
+  Component,
+  inject,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -23,7 +27,6 @@ export default class RequestDemoPageComponent {
   _linkService = inject(LinkParamService);
   _router = inject(Router);
 
-  resquestList = resquestDemoListMock;
   isState = 'All';
   isModalOpen = signal(false);
   selectedSolicDemo: RequestDemoContent | null = null;

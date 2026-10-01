@@ -5,7 +5,6 @@ import {
   signal,
 } from '@angular/core';
 import { CardContactStorePageComponent } from './card-contact-store-page/card-contact-store-page.component';
-import { contactMock } from '@app/mock/contact.mock';
 import { ContactService, LinkParamService } from '@app/services';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FilterComponent, PaginationComponent } from '@app/components';
@@ -24,7 +23,6 @@ export default class ContactStorePageComponent {
   _contactService = inject(ContactService);
   _paginationService = inject(LinkParamService);
 
-  listContact = contactMock;
   // Filtros
   filterMenu = signal({
     searchShow: true,

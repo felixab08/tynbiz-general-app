@@ -1,6 +1,5 @@
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ProductDetailCardComponent } from '@app/components/product-detail-card/product-detail-card.component';
-import { productMock } from '@app/mock/product.mock';
 import { LinkParamService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
 import { ProductsStoreService } from '@app/services/stores/products-store.service';

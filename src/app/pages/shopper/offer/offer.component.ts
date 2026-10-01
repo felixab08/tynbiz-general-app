@@ -1,7 +1,5 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CreationCardComponent } from '@app/components/creation-card/creation-card.component';
-import { Cardcreations } from '@app/interfaces/card.interface';
-import { creationMock } from '@app/mock/creations.mock';
 import { LinkParamService } from '@app/services';
 import { CreateCreation } from '@app/services/stores/create-creation.service';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -16,10 +14,7 @@ export default class OfferComponent {
   _createCreation = inject(CreateCreation);
   _paginationService = inject(LinkParamService);
   _linkService = inject(LinkParamService);
-  cardOffer: Cardcreations[] = creationMock;
-  constructor() {
-    this.cardOffer = creationMock.filter((item) => item.offer === true);
-  }
+
   offertResorce = rxResource({
     params: () => ({
       page: this._paginationService.currentPage() - 1,

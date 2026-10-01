@@ -58,3 +58,7 @@ rol: `STORE_OWNER`
 Usuario: admin@tynby.com
 contraseña: Admin123!
 rol: `ADMIN`
+
+## 4. Redirección defectuoso
+Error 1: Se esta viendo que cuando al loguearse con usuario  `ADMIN` la redirección se va a `/shop/home` y no a `/admin/panel` como debe ser
+Error 2: Se esta viendo que cuando al loguearse con usuario  `STORE_OWNER` la redirección se va a `/shop/home` y no a `/stores/init-store` como debe ser
