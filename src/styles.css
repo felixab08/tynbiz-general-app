@@ -172,7 +172,7 @@
   dark:bg-[linear-gradient(to_bottom,#151512_0%,#1c2c3c_25%,#2a4a6f_55%,#476fa9_78%,#49628d_100%)];
   }
   .side-secondary {
-    @apply bg-gray-200 dark:bg-gray-700 dark:text-white h-screen;
+    @apply bg-gray-200 dark:bg-gray-700 dark:text-white h-full;
   }
   .side-secondary aside#logo-sidebar {
     height: 100%!important;
