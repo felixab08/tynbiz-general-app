@@ -1,4 +1,14 @@
 
+/**
+ * Roles Emitidos por el backend.
+ *
+ * Tipar el rol como unión (en vez de `string`) convierte los errores de rol en
+ * errores de compilación en lugar de comparaciones silenciosamente falsas.
+ * `SUPER-ADMIN` está contemplado desde la V2: hoy debe comportarse igual que
+ * `ADMIN` en toda la capa de presentación.
+ */
+export type UserRole = 'ADMIN' | 'SUPER-ADMIN' | 'STORE_OWNER' | 'CLIENT';
+
 export interface User {
   id:            number;
   email:         string;
@@ -6,7 +16,7 @@ export interface User {
   lastName:      string;
   fullName:      string;
   phone:         string;
-  role:          string;
+  role:          UserRole;
   status:        string;
   storeId?:      number;
   emailVerified: boolean;

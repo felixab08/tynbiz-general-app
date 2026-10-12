@@ -1,14 +1,16 @@
 import {
-  Component,
-  inject,
-  ViewChild,
-  ElementRef,
-  OnInit,
-  AfterViewInit,
-  OnDestroy,
-  HostListener,
   ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  HostListener,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
 } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
   Router,
   RouterLink,
@@ -16,7 +18,7 @@ import {
   RouterLinkActive,
   NavigationEnd,
 } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
+import { filter } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services/store.service';
@@ -45,8 +47,14 @@ import { LoginComponent } from '../login/login.component';
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './side-menu.component.html',
+  host: {
+    // `relative` + `z-2` crea un contexto de apilamiento: sin él, el backdrop
+    // en `<body>` volvería a tapar el menú lateral. Declararlo aquí evita que un
+    // cambio en `app.component.html` reintroduzca el bug a ciegas.
+    class: 'z-2 relative',
+  },
 })
-export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SideMenuComponent implements OnInit {
   /** Breakpoint `sm` de Tailwind (640px). Debe coincidir con el
    *  `sm:translate-x-0` de los `<aside>`: por debajo el menú es un drawer,
    *  por encima es fijo y no se oculta. */
@@ -61,9 +69,10 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   user$ = this.storeService.user.asObservable();
   public isLogin: boolean = false;
 
-  /** true en viewports menores a `sm`, donde el `<aside>` se comporta como drawer. */
-  public isMobile: boolean =
-    window.innerWidth < SideMenuComponent.MOBILE_BREAKPOINT;
+  /** true en viewports menores a `sm` (640px): ahí el `<aside>` es un drawer. */
+  readonly isMobile = signal(
+    window.innerWidth < SideMenuComponent.MOBILE_BREAKPOINT,
+  );
 
   /** Estado del drawer del menú lateral.
    *
@@ -91,16 +100,42 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public user: User | undefined;
 
-  private _routerSub?: Subscription;
+  private readonly _destroyRef = inject(DestroyRef);
+
+  /** Proyección a signal del usuario, para que el template sea reactivo. */
+  readonly userSignal = toSignal(this.storeService.user, {
+    initialValue: undefined,
+  });
+
+  /**
+   * Menú del rol actual. Se lee de `MenuService.menuItems`, que ya distingue:
+   * anónimo → `menuClient` sin Favoritos/Tu creación · CLIENT → `menuClient`
+   * completo · STORE_OWNER → `menuOwner` · ADMIN/SUPER-ADMIN → `menuAdmin`.
+   */
+  readonly menuItems = this._menuService.menuItems;
+
+  /** ¿Este rol opera desde una consola (admin o tienda)? */
+  readonly isConsoleRole = computed(() => {
+    const role = this.userSignal()?.role;
+    return (
+      role === 'ADMIN' || role === 'SUPER-ADMIN' || role === 'STORE_OWNER'
+    );
+  });
+
+  /** Anónimo o `CLIENT`: en móvil navega con `nav#bottom-navigation`. */
+  readonly usesBottomNav = computed(() => !this.isConsoleRole());
 
   constructor() {
-    this.storeService.user.subscribe((user) => {
-      this.user = user;
-      this.menuItemsAll = this._menuService.createMenuForRole();
-    });
-    this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
-      this.isLogin = isLoggedIn;
-    });
+    this.storeService.user
+      .pipe(takeUntilDestroyed())
+      .subscribe((user) => {
+        this.user = user;
+      });
+    this.storeService.isLoginSubject
+      .pipe(takeUntilDestroyed())
+      .subscribe((isLoggedIn) => {
+        this.isLogin = isLoggedIn;
+      });
   }
 
   get isProfilePage(): boolean {
@@ -125,16 +160,6 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isScrolled = window.scrollY > 0;
   }
 
-  ngOnInit(): void {
-    // Al navegar se cierra el menú: en móvil el drawer se quedaba abierto
-    // encima de la página y tapaba el contenido.
-    this._routerSub = this._router.events
-      .pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      )
-      .subscribe(() => this.closeSidebar());
-  }
-
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
@@ -152,13 +177,19 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Al pasar a escritorio el `<aside>` siempre está visible: el drawer se cierra.
+   * `isMobile` se deriva de un signal, así que este listener solo sincroniza.
+   */
   @HostListener('window:resize')
   onWindowResize(): void {
     const isMobile = window.innerWidth < SideMenuComponent.MOBILE_BREAKPOINT;
-    if (isMobile === this.isMobile) return;
-    this.isMobile = isMobile;
+    if (isMobile === this.isMobile()) return;
+    this.isMobile.set(isMobile);
     // Al pasar a escritorio el `<aside>` siempre está visible: el drawer se cierra.
-    this.closeSidebar();
+    if (!isMobile) {
+      this.closeSidebar();
+    }
   }
 
   @HostListener('document:keydown.escape')
@@ -166,18 +197,28 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     this.closeSidebar();
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    // Al navegar se cierra el menú: en móvil el drawer se quedaba abierto
+    // encima de la página y tapaba el contenido.
+    this._router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(this._destroyRef),
+      )
+      .subscribe(() => this.closeSidebar());
+
+    /**
+     * Los submenús (`data-collapse-toggle`) siguen usando Flowbite.
+     * `initDrawers()` ya no se usa: el drawer del menú lo maneja Angular.
+     *
+     * `initCollapses()` enlaza por selector, así que basta con que el markup
+     * esté en el DOM; no requiere esperar al view init.
+     */
     try {
-      // Los submenús (`data-collapse-toggle`) siguen usando Flowbite.
-      // `initDrawers()` ya no se usa: el drawer del menú lo maneja Angular.
       initCollapses();
     } catch (e) {
       console.warn('SideMenu: could not init collapses', e);
     }
-  }
-
-  ngOnDestroy(): void {
-    this._routerSub?.unsubscribe();
   }
 
   closeModal() {

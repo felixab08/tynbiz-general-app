@@ -23,13 +23,19 @@ export const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./pages/admin/admin.routes').then((m) => m.userRoutes),
-    canMatch: [isAutenticatedGuard],
+    /**
+     * Antes solo exigía `isAutenticatedGuard`, así que **cualquier** usuario
+     * autenticado (incluso un `CLIENT`) podía entrar a la consola de
+     * administración. `isAdminGuard` estaba escrito pero nunca aplicado.
+     */
+    canMatch: [isAutenticatedGuard, isAdminGuard],
   },
   {
     path: 'stores',
     loadChildren: () =>
       import('./pages/stores/stores.routes').then((m) => m.storesRoutes),
-    canMatch: [isAutenticatedGuard],
+    /** Ídem: la consola de tienda es solo para `STORE_OWNER`. */
+    canMatch: [isAutenticatedGuard, isOwnerGuard],
   },
   {
     path: 'auth/verify-email',

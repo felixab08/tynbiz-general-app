@@ -1,14 +1,11 @@
 import { inject } from '@angular/core';
-import type { CanMatchFn, Route, UrlSegment } from '@angular/router';
-import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import type { CanMatchFn } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const isOwnerGuard: CanMatchFn = async (
-  route: Route,
-  segments: UrlSegment[],
-) => {
-  const authService = inject(AuthService);
-  await firstValueFrom(authService.checkStatus());
-  return authService.isOwner();
-};
+/**
+ * Protege las rutas del dueño de tienda (`/stores/**`).
+ * `/stores` ya exige `isAutenticatedGuard`; este acota el rol.
+ *
+ * Predicado puro: no muta estado ni navega.
+ */
+export const isOwnerGuard: CanMatchFn = () => inject(AuthService).isOwner();

@@ -180,17 +180,26 @@ Prioridad: **P0** = crítico para operar · **P1** = importante · **P2** = dese
 
 ### 7.1 Autenticación y sesión
 
-| ID        | Requisito                                                                                                                                                                                                           | Prioridad | Estado                                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------- |
-| RF-AUT-01 | Login con email + contraseña (`POST /auth/login`), devuelve access + refresh token + user.                                                                                                                          | P0        | Hecho                                                                                                             |
-| RF-AUT-02 | Persistir `token`, `refreshToken`, `user` en `localStorage`.                                                                                                                                                        | P0        | Hecho                                                                                                             |
-| RF-AUT-03 | Refresh de sesión (`POST /auth/refresh`) disparado por guard; logout ante `401` no-login (limpia storage, navega a shop, reload a 500 ms).                                                                          | P0        | Hecho                                                                                                             |
-| RF-AUT-04 | Registro de comprador (`POST /auth/register-buyer`) con DNI, teléfono, fecha de nacimiento (≥18), género, contraseña segura (mayúscula, minúscula, dígito, especial, ≥8) y aceptación de términos/privacidad (PDF). | P0        | Hecho                                                                                                             |
-| RF-AUT-05 | Verificación de email por token (`/auth/verify-email?token=`) con auto-login posterior.                                                                                                                             | P0        | Hecho                                                                                                             |
-| RF-AUT-06 | Cambio de contraseña (perfil, pestaña Seguridad).                                                                                                                                                                   | P1        | **[HUECO]** `onSave()` sin API                                                                                    |
-| RF-AUT-07 | Verificación de cuenta por código de 6 dígitos.                                                                                                                                                                     | P2        | **[HUECO]** `onSave()` sin API                                                                                    |
-| RF-AUT-08 | Aplicar `isAdminGuard` a `/admin` y `isOwnerGuard` a `/stores`.                                                                                                                                                     | **P0**    | **[HUECO] BUG** — ambos guards existen pero **nunca se aplican**; `/admin` y `/stores` sólo exigen autenticación. |
-| RF-AUT-09 | Incluir `SUPER-ADMIN` de forma consistente en `MenuService`/`AuthService.isAdmin()`.                                                                                                                                | P1        | **[HUECO]** el sidebar lo contempla, el servicio no                                                               |
+**Modelo de persistencia:** en `localStorage` vive **únicamente** `refreshToken`. El `token` de acceso y el `user` son efímeros (signals + `StoreService`), de modo que un XSS con acceso a `localStorage` no expone el token de acceso. La sesión se restaura en el arranque (`provideAppInitializer`) canjeando el `refreshToken` por un `accessToken` nuevo contra `/auth/refresh`; los guards no hacen red.
+
+| ID | Requisito | Prioridad | Estado |
+|---|---|---|---|
+| RF-AUT-01 | Login con email + contraseña (`POST /auth/login`), devuelve access + refresh token + user. | P0 | Hecho |
+| RF-AUT-02 | **Persistir solo `refreshToken`** en `localStorage`; `token` y `user` únicamente en memoria. Las claves `token`/`user` del esquema anterior se purgan en el arranque. | P0 | Hecho |
+| RF-AUT-03 | **Restauración de sesión al recargar**: `bootstrapSession()` canjea el `refreshToken` por un `accessToken` antes de que arranque el router. Si falla, la app arranca como anónimo sin romperse. | P0 | Hecho |
+| RF-AUT-04 | **Los guards no hacen red**: leen signals (`isAuthenticated`, `isAdmin`, `isOwner`, `isClient`). El round-trip por navegación y los refreshes concurrentes con token rotativo quedan eliminados. | P0 | Hecho |
+| RF-AUT-05 | **Un 401 intenta un único refresh y reintenta la petición.** Solo si el refresh o el reintento fallan se cierra sesión. Se acabaron los bucles de `location.reload()` y el cierre de sesión espurio por fallos de endpoints opcionales. | P0 | Hecho |
+| RF-AUT-06 | **Credenciales incorrectas no expulsan al usuario**: el 401 de `/auth/login` avisa y marca el formulario, sin `logout()`. El callback `error:` del componente debe ser alcanzable. | P0 | Hecho |
+| RF-AUT-07 | **Sin `location.reload()`** tras login, verificación de email ni logout. | P0 | Hecho |
+| RF-AUT-08 | **`logout()` borra solo `refreshToken`**, nunca `localStorage.clear()`: no debe perder borradores de creación (`creation_creation`) ni citas del calendario. | P0 | Hecho |
+| RF-AUT-09 | **`logout()` limpia también `StoreService`** (`user`, `tokenSubject`, `refreshTokenSubject`, `isLoginSubject`) para que `MenuService` no conserve al usuario tras cerrar sesión. | P0 | Hecho |
+| RF-AUT-10 | **`AuthService` no se re-provee en componentes.** `LoginComponent` creaba una segunda instancia, lo que dejaba `_token()` en `null` en la instancia raíz: sin cabecera `Authorization`, `isAdmin()` siempre `false` y 401 que terminaban en logout + reload. | **P0** | Hecho |
+| RF-AUT-11 | Registro de comprador (`POST /auth/register-buyer`) con DNI, teléfono, fecha de nacimiento (≥18), género, contraseña segura (mayúscula, minúscula, dígito, especial, ≥8) y aceptación de términos/privacidad (PDF). | P0 | Hecho |
+| RF-AUT-12 | Verificación de email por token (`/auth/verify-email?token=`) con auto-login posterior y navegación por rol. | P0 | Hecho |
+| RF-AUT-13 | Cambio de contraseña (perfil, pestaña Seguridad). | P1 | **[HUECO]** `onSave()` sin API |
+| RF-AUT-14 | Verificación de cuenta por código de 6 dígitos. | P2 | **[HUECO]** `onSave()` sin API |
+| RF-AUT-15 | `User.role` tipado como unión `UserRole` y comparado con igualdad estricta en **todas** las capas (servicio, `MenuService` y plantillas), de modo que un rol inválido sea un error de compilación. | P1 | Hecho |
+| RF-AUT-16 | `isClient` no debe devolver `true` para el anónimo; el caso anónimo se expone aparte (`isAnonymous`). | P1 | Hecho |
 
 ### 7.2 Marketplace / comprador
 
@@ -354,26 +363,30 @@ Entidades clave extraídas de `src/app/interfaces/**`. **Los payloads del backen
 
 ### 9.1 Roles
 
-| Rol           | Descripción                           | Destino post-login   |
-| ------------- | ------------------------------------- | -------------------- |
-| `CLIENT`      | Comprador / creador social            | `/shop/home`         |
-| `STORE_OWNER` | Dueño de tienda                       | `/stores/init-store` |
-| `ADMIN`       | Administrador                         | `/admin/panel`       |
-| `SUPER-ADMIN` | Administrador superior (sólo sidebar) | `/admin/panel`       |
-| _(ninguno)_   | Anónimo                               | `/shop/home`         |
+`User.role` está tipado como la unión `UserRole` y **todas** las capas comparan con igualdad estricta, de modo que un rol desconocido es un error de compilación y no una comparación silenciosamente falsa.
+
+| Rol           | Descripción                    | Menú lateral               | Móvil                   | Destino post-login   |
+| ------------- | ------------------------------ | -------------------------- | ----------------------- | -------------------- |
+| `CLIENT`      | Comprador / creador social     | `menuClient` (6 ítems)     | `nav#bottom-navigation` | `/shop/home`         |
+| `STORE_OWNER` | Dueño de tienda                | `menuOwner` (7 ítems)      | hamburguesa + drawer    | `/stores/init-store` |
+| `ADMIN`       | Administrador                  | `menuAdmin`                | hamburguesa + drawer    | `/admin/panel`       |
+| `SUPER-ADMIN` | Administrador superior (V2)    | `menuAdmin`                | hamburguesa + drawer    | `/admin/panel`       |
+| _(ninguno)_   | Anónimo                        | `menuClient` **recortado** (4 ítems, sin *Favoritos* ni *Tu creación*) | `nav#bottom-navigation` | `/shop/home` |
+
+> El menú del anónimo se construye con `filter`, nunca con `splice` sobre el array compartido `menuClient`: `splice` mutaba el original y dejaba el menú vacío a partir de la segunda llamada.
 
 ### 9.2 Reglas de autorización
 
 | ID    | Regla                                                                                              | Estado          |
 | ----- | -------------------------------------------------------------------------------------------------- | --------------- |
 | RA-01 | Las rutas `/account`, `/admin`, `/stores`, `/shop/favorites`, `/shop/your-creation` exigen sesión. | Hecho           |
-| RA-02 | `/admin` exige rol ADMIN.                                                                          | **[HUECO] P0**  |
-| RA-03 | `/stores` exige rol STORE_OWNER.                                                                   | **[HUECO] P0**  |
-| RA-04 | El menú lateral y los CTAs se ocultan por rol (`MenuService.createMenuForRole`).                   | Hecho (sólo UI) |
+| RA-02 | `/admin` exige rol `ADMIN` o `SUPER-ADMIN` (`isAdminGuard` aplicado).                                | Hecho           |
+| RA-03 | `/stores` exige rol `STORE_OWNER` (`isOwnerGuard` aplicado).                                         | Hecho           |
+| RA-04 | El menú lateral y los CTAs se ocultan por rol (`MenuService.menuItems`, un `computed`).             | Hecho (sólo UI) |
 | RA-05 | Los permisos por usuario (matriz de la consola admin) se persisten y se aplican en backend/UI.     | **[HUECO]**     |
 | RA-06 | El backend es la fuente de verdad de autorización (el cliente no debe ser la única barrera).       | Backend         |
 
-> **Nota de seguridad (P0):** la autorización real debe residir en el backend. La ausencia de `isAdminGuard`/`isOwnerGuard` es un defecto de UX/seguridad de cliente que debe corregirse, pero no sustituye la validación del servidor.
+> **Nota de seguridad:** la autorización real debe residir en el backend. Los guards de rol se aplican ya en cliente, pero no sustituyen la validación del servidor.
 
 ---
 
@@ -386,9 +399,9 @@ Entidades clave extraídas de `src/app/interfaces/**`. **Los payloads del backen
 | RNF-03 | Tests                  | `npm test` no es una puerta válida (spec scaffold roto, sin `karma.conf.js`, Chrome no-headless).                                                                                                                                                                 | Brecha                            |
 | RNF-04 | CI                     | Push a `main` → build de producción → despliegue a GitHub Pages (`gh-pages`) con Node 24.19.0. Sin staging, sin preview, sin puerta de calidad.                                                                                                                   | Parcial                           |
 | RNF-05 | Entornos               | Variables de URL **hardcodeadas** en `src/environments/*.ts`; ambos archivos apuntan a producción. Sin carga por variables de entorno.                                                                                                                            | Brecha                            |
-| RNF-06 | Seguridad              | Interceptores en orden: (1) `isLoginInterceptor` (401 → logout+reload), (2) `authInterceptor` (Bearer, exento R2), (3) `confirmDeleteInterceptor` (todo DELETE pide confirmación).                                                                                | Cumple                            |
+| RNF-06 | Seguridad              | Interceptores en orden: (1) `isLoginInterceptor` (401 → **un** refresh + reintento; logout solo si también falla, sin `reload`), (2) `authInterceptor` (Bearer, exento R2), (3) `confirmDeleteInterceptor` (todo DELETE pide confirmación). | Cumple                            |
 | RNF-07 | Responsive             | Navegación adaptada por rol y viewport (ver RF-NAV-01/02/03).                                                                                                                                        | Cumple                            |
-| RNF-08 | Accesibilidad          | Sidebar de consola con `MutationObserver` que ajusta el foco de enlaces; foco visible en botones.                                                                                                                                                                 | Parcial                           |
+| RNF-08 | Accesibilidad          | Drawer gestionado por Angular: `aria-expanded` en el botón, `aria-hidden` en el `<aside>` en móvil, `Escape` cierra y devuelve el foco al botón. Landmark `<nav id="bottom-navigation">` con `aria-label`.                                  | Cumple                            |
 | RNF-09 | Rendimiento            | TanStack Query en productos (`staleTime` 5 min + prefetch); `outputHashing: all`. Presupuesto de estilos 8 kB/componente.                                                                                                                                         | Parcial (1 de N servicios)        |
 | RNF-10 | Estado global          | `StoreService` como store manual (`BehaviorSubject`/`EventEmitter`) + signals en `AuthService`/`AlertService`. Preferencia: extender `StoreService`.                                                                                                              | Cumple                            |
 | RNF-11 | Idiomas                | Interfaz y validaciones **en español**; payloads del backend en español (no traducir). Variables/archivos de dominio mayoritariamente en inglés.                                                                                                                  | Cumple                            |
@@ -528,13 +541,13 @@ Objetivo: sustituir los datos mock por métricas reales y añadir tracking.
 
 | #   | Ítem                                                                                                                                                        | Ref.      |
 | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| 1   | Aplicar `isAdminGuard` a `/admin` y `isOwnerGuard` a `/stores`.                                                                                             | RF-AUT-08 |
-| 2   | **Arreglar WebSocket**: publicar el token en `StoreService.tokenSubject` (o leerlo de `AuthService`) para que la campana de notificaciones funcione.        | RF-PLT-04 |
+| 1   | ~~Aplicar `isAdminGuard` a `/admin` y `isOwnerGuard` a `/stores`.~~ **Resuelto.**                                                                            | RF-AUT-15 |
+| 2   | ~~**Arreglar WebSocket**: publicar el token en `StoreService.tokenSubject`.~~ **Resuelto**: `establishSession()` empuja `tokenSubject` y `refreshTokenSubject` en el camino de login. | RF-PLT-04 |
 | 3   | **Importar siempre `@environments/environment`** en los 10 archivos que hoy importan `environment.development` (producción envía el archivo de desarrollo). | RNF-05    |
 | 4   | Corregir `notImage` pipe (lógica comentada; no hace fallback de imagen).                                                                                    | —         |
 | 5   | Corregir `ProductoService` (`getPersona` mal nombrado; `POST /products{id}` con slash faltante y verbo incorrecto).                                         | —         |
 | 6   | Mover `ContactService` de `@Service()` a `@Injectable({providedIn:'root'})`.                                                                                | —         |
-| 7   | Quitar `providers: [AuthService]` del componente de login (crea una instancia paralela de autenticación).                                                   | —         |
+| 7   | ~~Quitar `providers: [AuthService]` del componente de login (creaba una segunda instancia de autenticación).~~ **Resuelto.** | RF-AUT-10 |
 | 8   | Corregir `GET /products?wordpress=connected` sin `baseUrl`.                                                                                                 | —         |
 
 ### P1 — Cerrar la funcionalidad parcial y conectar datos reales

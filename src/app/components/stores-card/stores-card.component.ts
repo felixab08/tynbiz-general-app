@@ -22,9 +22,6 @@ export class StoresCardComponent {
   isFavorite = output<{ storeId: number; isFavorite: boolean }>();
 
   constructor() {
-    let user = localStorage.getItem('user');
-    if (user) this.storeService.user.next(JSON.parse(user));
-
     this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
       this.isLogin = isLoggedIn;
     });

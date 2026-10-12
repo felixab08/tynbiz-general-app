@@ -1,9 +1,12 @@
 import {
+  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   inject,
   signal,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { initDropdowns } from 'flowbite';
 import { RouterLink } from '@angular/router';
 import { StoreService } from '@app/services/store.service';
 import { ModalComponent } from '../modal/modal.component';
@@ -46,9 +49,33 @@ export class NavbarComponent {
   private notifySub?: Subscription;
   public isOpen: boolean = false;
 
+  /**
+   * Usuario actual, como signal.
+   *
+   * Antes se leía `localStorage.getItem('user')` aquí y en otros tres
+   * componentes. Con el nuevo modelo de sesión `localStorage` **solo** guarda
+   * el `refreshToken`, así que esas lecturas devolvían `null` y obligaban a
+   * mantener el token de acceso persistido.
+   */
+  readonly currentUser = toSignal(this.storeService.user, {
+    initialValue: undefined,
+  });
+
   constructor() {
-    let user = localStorage.getItem('user');
-    if (user) this.storeService.user.next(JSON.parse(user));
+    /**
+     * Los dropdowns de Flowbite (`user-dropdown`, `dropdownNotification`) viven
+     * dentro de un `@if`, así que su markup **nace después** del
+     * `initFlowbite()` de `AppComponent.ngOnInit`. Antes, el único momento en
+     * que quedaban inicializados era tras un `location.reload()`.
+     *
+     * `afterRenderEffect` corre cuando el DOM ya está actualizado, que es
+     * exactamente cuando hay que enlazar los dropdowns nuevos.
+     */
+    afterRenderEffect(() => {
+      if (this.currentUser()) {
+        initDropdowns();
+      }
+    });
 
     this.storeService.user.subscribe((user) => {
       this.user = user;

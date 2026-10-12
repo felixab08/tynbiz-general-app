@@ -1,4 +1,7 @@
-export const menuClient = [
+import { MenuItem } from '@app/auth/interfaces/menu.interface';
+
+/** Menú completo del comprador (`CLIENT`). */
+export const menuClient: MenuItem[] = [
   {
     id: '11asybvccas',
     name: 'Inicio',
@@ -28,18 +31,38 @@ export const menuClient = [
     name: 'Favoritos',
     icon: 'fa-solid fa-heart-circle-plus',
     route: '/shop/favorites',
-    role: 'moderator',
   },
   {
     id: '15esy1212bvas',
     name: 'Tu creación',
-    icon: 'fa-solid fa-boxes-packing', //
+    icon: 'fa-solid fa-boxes-packing',
     route: '/shop/your-creation',
-    role: 'moderator',
   },
 ];
 
-export const menuOwner = [
+/**
+ * Rutas del menú `menuClient` que exigen sesión iniciada. El visitante sin
+ * sesión no las ve en el menú lateral.
+ */
+export const CLIENT_GUEST_HIDDEN_ROUTES = [
+  '/shop/favorites',
+  '/shop/your-creation',
+] as const;
+
+/**
+ * Menú del **visitante anónimo**: `menuClient` sin "Favoritos" ni "Tu
+ * creación".
+ *
+ * Se construye con `filter` y NO con `splice`: `splice` mutaba el array
+ * compartido `menuClient`, así que a partir de la segunda llamada el menú del
+ * visitante quedaba vacío para todos los usuarios. Además devuelve una copia,
+ * de modo que el llamador nunca puede modificar el array de origen.
+ */
+export const menuClientGuest: MenuItem[] = menuClient.filter(
+  (item) => !CLIENT_GUEST_HIDDEN_ROUTES.some((route) => route === item.route),
+);
+
+export const menuOwner: MenuItem[] = [
   {
     id: '21asybvas',
     name: 'Inicio',
@@ -83,7 +106,8 @@ export const menuOwner = [
     route: '/stores/subscriptions',
   },
 ];
-export const menuAdmin: any = [
+
+export const menuAdmin: MenuItem[] = [
   {
     id: '35asbacasvas',
     name: 'Panel',

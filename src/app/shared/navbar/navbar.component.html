@@ -1,4 +1,4 @@
-<nav class="w-full">
+﻿<nav class="w-full">
   <div
     class="w-full sm:mx-auto sm:gap-2 md:gap-6 sm:flex sm:flex-wrap sm:items-center sm:justify-between justify-end md:justify-end"
     [ngClass]="{ flex: user?.role === 'STORE_OWNER' }"
@@ -313,7 +313,7 @@
               </li>
               <li>
                 <a
-                  (click)="_authService.logoutAndReload()"
+                  (click)="_authService.logout()"
                   class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white hover:cursor-pointer"
                   >Cerrar sesión</a
                 >

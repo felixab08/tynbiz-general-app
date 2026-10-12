@@ -9,10 +9,11 @@ import {
 import { initFlowbite } from 'flowbite';
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { StoreService } from './services';
-import { User } from './auth/interfaces/user.interface';
+import { UserRole } from './auth/interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { IConfirmDelete } from './auth/interfaces/confirDelete.interface';
 import { ModalComponent } from './shared/modal/modal.component';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ import { ModalComponent } from './shared/modal/modal.component';
 export class AppComponent implements OnInit {
   title = 'tynbiz-general-app';
   storeService = inject(StoreService);
-  public userRole = 'VISIT';
+  public userRole: UserRole | 'VISIT' = 'VISIT';
+  private readonly _authService = inject(AuthService);
   public _storeService = inject(StoreService);
   isOpen: boolean = false;
   isModalConfirm: boolean = true;
@@ -44,8 +46,20 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     initFlowbite();
     this.storeService.user.subscribe((user) => {
-      if (user) this.userRole = user!.role;
+      if (user) this.userRole = user.role;
     });
+  }
+
+  /**
+   * Layout de consola (`gray`) para roles operativos y layout de marca
+   * (`.side-init`, degradado índigo) para el resto.
+   *
+   * Antes se decidía con `['STORE_OWNER','ADMIN'].includes(userRole)` en el
+   * template, lo que excluía a `SUPER-ADMIN`. Ahora se deriva de `AuthService`,
+   * que conoce la unión de roles.
+   */
+  get isConsoleLayout(): boolean {
+    return this._authService.isConsoleRole();
   }
 
   onDialogClick(event: Event) {

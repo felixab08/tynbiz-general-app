@@ -1,8 +1,13 @@
 <div
-  [class.side-secondary]="['STORE_OWNER', 'ADMIN'].includes(userRole)"
-  [class.side-init]="!['STORE_OWNER', 'ADMIN'].includes(userRole)"
+  [class.side-secondary]="isConsoleLayout"
+  [class.side-init]="!isConsoleLayout"
 >
-  <app-side-menu class="z-2 relative" />
+  <!--
+    `class="z-2 relative"` se declara ahora en el `host` de `side-menu.component.ts`:
+    ese `z-2` crea el contexto de apilamiento que mantiene el backdrop del drawer
+    por debajo del `<aside>`. Verificar que siga declarado ahí antes de tocarlo.
+  -->
+  <app-side-menu />
 </div>
 <app-modal [isOpen]="isOpen" (closeModal)="closeDialog()">
   <h3 class="text-lg font-bold text-center">Eliminar!</h3>

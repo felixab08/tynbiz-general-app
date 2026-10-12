@@ -1,10 +1,10 @@
-<!--
+﻿<!--
   Backdrop del menú lateral en móvil. Se renderiza dentro de esta plantilla (y
   no en `<body>` como hacía el Drawer de Flowbite) para que comparta contexto de
   apilamiento con los `<aside>`: aquí `z-30` queda por debajo del `z-40` del
   menú y no intercepta los clics de sus enlaces.
 -->
-@if (isMobile && isSidebarOpen) {
+@if (isMobile() && isSidebarOpen) {
   <div
     class="fixed inset-0 z-30 bg-dark-backdrop/70"
     (click)="closeSidebar()"
@@ -12,7 +12,7 @@
   ></div>
 }
 
-@if (this.user?.role === "CLIENT" || !(user$ | async)) {
+@if (usesBottomNav()) {
   @if (!isProfilePage) {
     <header
       class="fixed top-0 left-0 right-0 z-20 sm:ml-64 items-center justify-between h-14.75 px-4 py-2 transition-colors mt-3"
@@ -34,7 +34,7 @@
     #logoSidebar
     class="fixed top-0 left-0 z-40 w-64 transition-transform block sm:translate-x-0"
     [class.-translate-x-full]="!isSidebarOpen"
-    [attr.aria-hidden]="isMobile && !isSidebarOpen ? 'true' : null"
+    [attr.aria-hidden]="isMobile() && !isSidebarOpen ? 'true' : null"
     aria-label="Sidebar"
   >
     <div
@@ -51,7 +51,7 @@
         />
       </a>
       <ul class="space-y-2 font-medium">
-        @for (menu of menuItemsAll; track menu.id) {
+        @for (menu of menuItems(); track menu.id) {
           @if (menu.route.length >= 2) {
             <li>
               <a
@@ -106,10 +106,7 @@
                       [routerLink]="item.route"
                       routerLinkActive
                       #rlaChild="routerLinkActive"
-                      [routerLinkActiveOptions]="{
-                        exact: true,
-                        queryParams: 'ignored',
-                      }"
+                      [routerLinkActiveOptions]="{ exact: true }"
                       class="flex items-center p-2 rounded transition-colors"
                       [ngClass]="{
                         'bg-primary text-white font-bold': rlaChild.isActive,
@@ -221,10 +218,7 @@
     </div>
   </aside>
 }
-@if (
-  this.user?.role === "ADMIN" ||
-  this.user?.role === "STORE_OWNER"
-) {
+@if (isConsoleRole()) {
   @if (!isProfilePage) {
     <header
       class="sticky top-0 left-0 right-0 z-20 sm:ml-64 items-center justify-between h-14.75 px-4 py-2 transition-colors bg-white dark:bg-gray-700 border-b border-gray-300 dark:border-gray-600 shadow-sm'"
@@ -268,7 +262,7 @@
     #logoSidebar
     class="fixed top-0 left-0 z-40 w-64 transition-transform block sm:translate-x-0"
     [class.-translate-x-full]="!isSidebarOpen"
-    [attr.aria-hidden]="isMobile && !isSidebarOpen ? 'true' : null"
+    [attr.aria-hidden]="isMobile() && !isSidebarOpen ? 'true' : null"
     aria-label="Sidebar"
   >
     <div
@@ -285,14 +279,14 @@
         />
       </a>
       <ul class="space-y-2 font-medium">
-        @for (menu of menuItemsAll; track menu.id) {
+        @for (menu of menuItems(); track menu.id) {
           @if (menu.route.length >= 2) {
             <li>
               <a
                 [routerLink]="menu.route"
                 routerLinkActive
                 #rla="routerLinkActive"
-                [routerLinkActiveOptions]="{ exact: true, queryParams: 'ignored' }"
+                [routerLinkActiveOptions]="{ exact: true }"
                 class="flex items-center p-2 rounded transition-colors"
                 [ngClass]="{
                   'bg-primary text-white font-bold': rla.isActive,
@@ -340,7 +334,7 @@
                       [routerLink]="item.route"
                       routerLinkActive
                       #rlaChild="routerLinkActive"
-                      [routerLinkActiveOptions]="{ exact: true, queryParams: 'ignored' }"
+                      [routerLinkActiveOptions]="{ exact: true }"
                       class="flex items-center p-2 rounded transition-colors"
                       [ngClass]="{
                         'bg-primary text-white font-bold': rlaChild.isActive,
@@ -357,7 +351,7 @@
           }
         }
       </ul>
-      @if (this.user?.role?.includes("STORE_OWNER")) {
+      @if (this.user?.role === "STORE_OWNER") {
         <div
           id="dropdown-cta"
           class="p-4 mt-6 rounded flex justify-between bg-gray-100 dark:bg-gray-700 dark:border-gray-600 transition-colors border border-gray-200"
@@ -403,10 +397,7 @@
   Ambas ramas son excluyentes, por eso aquí `isSidebarOpen` siempre es false y
   el nav puede llevar `z-50` fijo. Enlaces: Inicio, Para ti, Ofertas, Tiendas
   y Perfil. -->
-@if (
-  this.user?.role !== "STORE_OWNER" &&
-  this.user?.role !== "ADMIN"
-) {
+@if (usesBottomNav()) {
   <nav
     id="bottom-navigation"
     aria-label="Navegación principal"
@@ -487,9 +478,20 @@
   </nav>
 }
 
-<div class="p-0 sm:ml-64 pb-16 sm:pb-0 mt-10 sm:mt-4">
-  <router-outlet />
-</div>
+<!--
+  El menú lateral solo aplica a roles de consola (ADMIN, SUPER-ADMIN,
+  STORE_OWNER). Anónimo y CLIENT navegan en escritorio con este aside y en móvil
+  con `nav#bottom-navigation`.
+-->
+@if (isConsoleRole()) {
+  <div class="p-0 sm:ml-64 pb-16 sm:pb-3 mt-10 sm:mt-4">
+    <router-outlet />
+  </div>
+} @else {
+  <div class="p-0 sm:ml-64 pb-16 sm:pb-3 mt-10 sm:mt-4">
+    <router-outlet />
+  </div>
+}
 @if (_alertService.isAlert()) {
   <tyn-alert [alertMenu]="_alertService.alertMenu()"> </tyn-alert>
 }

@@ -18,8 +18,6 @@ export default class ProfileClientComponent {
   _authService = inject(AuthService);
 
   constructor() {
-    let user = localStorage.getItem('user');
-    if (user) this.storeService.user.next(JSON.parse(user));
     this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
       this.isLogin = isLoggedIn;
     });

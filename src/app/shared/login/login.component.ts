@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   inject,
@@ -17,13 +18,18 @@ import { StoreService } from '@app/services/store.service';
 import { FormUtils } from '@app/utils/form.util';
 import { Router, RouterLink } from '@angular/router';
 import { MenuService } from '@app/auth/services/menu.service';
-import { IErrorGeneralResp } from '@app/interfaces';
+import { IErrorResp } from '@app/interfaces';
 import { AlertService } from '@app/services';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
-  providers: [AuthService],
+  // Sin `providers: [AuthService]`: re-proveer el servicio creaba una segunda
+  // instancia. El login escribía en los signals de esa instancia mientras los
+  // guards y el `authInterceptor` leían la de root (con `_token() === null`), lo
+  // que provocaba: `isAdmin()` siempre false, peticiones sin cabecera
+  // `Authorization` y 401 que terminaban en logout + `location.reload()`.
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './login.component.html',
 })
@@ -63,10 +69,17 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.closeModal();
+            // Navegación por rol sin `location.reload()`: la redirección a
+            // /admin/panel o /stores/init-store ya no se pierde por el reload.
             this._menuService.redirectLinkForRole();
-            setTimeout(() => {
-              location.reload();
-            }, 500);
+            /**
+             * El menú de usuario de `navbar.component.html` vive dentro de un
+             * `@if`, así que el markup del dropdown **nace después** del
+             * `initFlowbite()` de `AppComponent.ngOnInit`. Sin recargar, los
+             * dropdowns salían sin inicializar y el clic no desplegaba nada.
+             * Se re-inicializan aquí, ya con la sesión establecida.
+             */
+            initFlowbite();
           } else {
             this.hasError.set(true);
             setTimeout(() => {
@@ -74,12 +87,14 @@ export class LoginComponent implements OnInit {
             }, 2000);
           }
         },
-        error: (error: IErrorGeneralResp) => {
-          this._alertService.getAlert(
-            'Error!!!',
-            error.error.detail || 'Error al iniciar sesión',
-            'error',
-          );
+        // `handleLoginError` vuelve a propagar el error (antes devolvía
+        // `of(false)` y este bloque era código muerto), así que aquí se puede
+        // marcar el formulario con `loginFailed`.
+        error: (error: HttpErrorResponse) => {
+          const detail = (error.error as IErrorResp | null | undefined)?.detail;
+          if (detail) {
+            this._alertService.getAlert('Error!!!', detail, 'error');
+          }
           this.myForm.setErrors({ loginFailed: true });
           this.hasError.set(true);
           setTimeout(() => {

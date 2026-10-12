@@ -1,195 +1,235 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { catchError, map, Observable, of, tap } from 'rxjs';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import {
-  AuthResponse,
-  IRefreshToken,
-} from '../interfaces/auth-response.interface';
+  catchError,
+  finalize,
+  firstValueFrom,
+  map,
+  Observable,
+  of,
+  throwError,
+} from 'rxjs';
+import { AuthResponse } from '../interfaces/auth-response.interface';
 import { User } from '../interfaces/user.interface';
 import { StoreService } from '@app/services/store.service';
-import { Router } from '@angular/router';
-import { IErrorGeneralResp, IRegisterReq } from '@app/interfaces';
+import { IRegisterReq, IErrorResp } from '@app/interfaces';
 import { AlertService } from '@app/services';
-import { MenuService } from './menu.service';
 
-type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
 
+export type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
+
+/**
+ * Estado de sesión.
+ *
+ * **Persistencia:** en `localStorage` vive **únicamente** `refreshToken`. El
+ * `token` de acceso y el `user` son efímeros y se guardan solo en memoria
+ * (signals + `StoreService`), de modo que un XSS con acceso a `localStorage`
+ * no expone el token de acceso.
+ *
+ * **Restauración:** al arrancar (`bootstrapSession()`, conectado con
+ * `provideAppInitializer`) se llama a `POST /auth/refresh` con el
+ * `refreshToken` almacenado. Si responde, se reconstruyen token y user en
+ * memoria; si falla, se sigue como anónimo sin romper el arranque.
+ *
+ * Como el bootstrap bloquea el arranque de la aplicación, **los guards no
+ * hacen red**: leen signals.
+ */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public storeService = inject(StoreService);
-  private _authStatus = signal<AuthStatus>('checking');
-  private _user = signal<User | null>(null);
-  private _token = signal<string | null>(localStorage.getItem('token'));
-  private _alertService = inject(AlertService);
-  private _menuService = inject(MenuService);
-  private http = inject(HttpClient);
-  _router = inject(Router);
+  /** Única clave persistente de la sesión. */
+  static readonly REFRESH_TOKEN_KEY = 'refreshToken';
 
-  checkStatusResource = rxResource({
-    stream: () => this.checkStatus(),
+  /**
+   * Claves de la sesión del esquema anterior (token + user en localStorage).
+   * Se eliminan en el arranque: mantener el token de acceso persistido
+   * contradice el modelo de seguridad de este servicio.
+   */
+  private static readonly LEGACY_SESSION_KEYS = ['token', 'user'];
+
+  private readonly storeService = inject(StoreService);
+  private readonly _alertService = inject(AlertService);
+  private readonly http = inject(HttpClient);
+  private readonly _router = inject(Router);
+
+  private readonly _user = signal<User | null>(null);
+  private readonly _token = signal<string | null>(null);
+  private readonly _status = signal<AuthStatus>('checking');
+  private readonly _refreshing = signal(false);
+
+  readonly user = this._user.asReadonly();
+  readonly token = this._token.asReadonly();
+  readonly authStatus = this._status.asReadonly();
+  readonly isRefreshing = this._refreshing.asReadonly();
+
+  readonly isAuthenticated = computed(
+    () => this._user() !== null && this._token() !== null,
+  );
+
+  /** Sin sesión. Se expone aparte para no mezclarlo con `isClient`. */
+  readonly isAnonymous = computed(() => this._user() === null);
+
+  readonly isAdmin = computed(() => {
+    const role = this._user()?.role;
+    return role === 'ADMIN' || role === 'SUPER-ADMIN';
   });
 
-  authStatus = computed<AuthStatus>(() => {
-    if (this._authStatus() === 'checking') return 'checking';
-    if (this._user() && this._token()) return 'authenticated';
-    return 'not-authenticated';
-  });
+  readonly isOwner = computed(() => this._user()?.role === 'STORE_OWNER');
 
-  user = computed(() => this._user());
-  token = computed(this._token);
+  readonly isClient = computed(() => this._user()?.role === 'CLIENT');
 
-  isAdmin = computed(() => {
-    return this._user()?.role.includes('ADMIN') ?? false;
-  });
-  isOwner = computed(() => {
-    return this._user()?.role.includes('STORE_OWNER') ?? false;
-  });
-  isClient = computed(() => {
-    return this.typeCliente() ?? false;
-  });
-  constructor() {
-    // Restaurar usuario y estado desde localStorage al inicializar
-    this.initializeAuthState();
-  }
+  /** Roles que operan la plataforma desde una consola (admin o tienda). */
+  readonly isConsoleRole = computed(
+    () => this.isAdmin() || this.isOwner(),
+  );
 
-  private initializeAuthState() {
-    const storedToken = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
-    const storedRefreshToken = localStorage.getItem('refreshToken');
-
-    if (storedToken && storedUser) {
-      try {
-        const user = JSON.parse(storedUser) as User;
-        this._user.set(user);
-        this._token.set(storedToken);
-        this._authStatus.set('authenticated');
-        this.storeService.user.next(user);
-        this.storeService.refreshTokenSubject.next(storedRefreshToken);
-      } catch (error) {
-        console.error('Error restaurando usuario del localStorage:', error);
-        this.logout();
-      }
-    } else {
-      this._authStatus.set('not-authenticated');
-    }
-  }
-
-  login(username: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<boolean> {
     return this.http
-      .post<AuthResponse>(`${baseUrl}/auth/login`, {
-        email: username,
-        password: password,
-      })
+      .post<AuthResponse>(`${baseUrl}/auth/login`, { email, password })
       .pipe(
-        map((data) => {
-          if (data) {
-            console.log('User found:', data);
-            return this.handleAuthSuccess(
-              data.user,
-              data.accessToken,
-              data.refreshToken,
-            );
-          } else {
-            console.log('error');
-            throw new Error('User not found');
-          }
-        }),
-        catchError((error: any) => this.handleAuthError(error)),
+        map((data) =>
+          this.establishSession(data.user, data.accessToken, data.refreshToken),
+        ),
+        // Un 401 aquí son credenciales incorrectas: NO se cierra sesión.
+        catchError((error: HttpErrorResponse) => this.handleLoginError(error)),
       );
   }
 
-  refreshTokenUser(refreshToken: string): Observable<boolean | void> {
+  postRegisterBuyerUser(register: IRegisterReq): Observable<unknown> {
+    return this.http.post(`${baseUrl}/auth/register-buyer`, register);
+  }
+
+  /**
+   * Arranque de la sesión. Lo invoca `provideAppInitializer` en `app.config.ts`
+   * antes de que el router resuelva la navegación inicial.
+   *
+   * @returns `true` si la sesión quedó establecida.
+   */
+  async bootstrapSession(): Promise<boolean> {
+    this.purgeLegacySessionKeys();
+
+    const refreshToken = this.readRefreshToken();
+    if (!refreshToken) {
+      this._status.set('not-authenticated');
+      return false;
+    }
+
+    const token = await firstValueFrom(this.refreshSession());
+    return token !== null;
+  }
+
+  /**
+   * Canjea el `refreshToken` por un `accessToken` nuevo y reconstruye la
+   * sesión en memoria. Deduplica llamadas concurrentes (dos navegaciones
+   * rápidas no deben disparar dos refreshes con el mismo token).
+   *
+   * @returns el `accessToken` nuevo, o `null` si no se pudo recuperar.
+   */
+  refreshSession(): Observable<string | null> {
+    const refreshToken = this.readRefreshToken();
+
+    if (!refreshToken || this._refreshing()) {
+      return of(null);
+    }
+
+    this._refreshing.set(true);
+
     return this.http
-      .post<AuthResponse>(`${baseUrl}/auth/refresh`, {
-        refreshToken: refreshToken,
-      })
+      .post<AuthResponse>(`${baseUrl}/auth/refresh`, { refreshToken })
       .pipe(
         map((data) => {
-          if (data) {
-            console.log('User found:', data);
-            this.handleAuthSuccess(data.user, data.accessToken, refreshToken);
-          } else {
-            console.log('error');
-            throw new Error('User not found');
-          }
+          // El backend puede rotar el refreshToken; si lo devuelve, se persiste.
+          const rotated = data.refreshToken ?? refreshToken;
+          this.establishSession(data.user, data.accessToken, rotated);
+          return data.accessToken;
         }),
-        catchError((error: any) => this.handleAuthError(error)),
+        catchError((error: HttpErrorResponse) => {
+          // El refresh falló: la sesión no es recuperable.
+          console.warn('[auth] refresh rechazado:', error.status);
+          this.clearSession();
+          return of(null);
+        }),
+        finalize(() => this._refreshing.set(false)),
       );
   }
 
-  checkStatus(): Observable<boolean> {
-    const token = localStorage.getItem('token');
-    const userJson = localStorage.getItem('user');
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    if (!token || !userJson) {
-      this.logout();
-      return of(false);
-    }
-
-    try {
-      this.refreshTokenUser(refreshToken as string);
-      return of(true);
-    } catch (error) {
-      console.error('Error al restaurar usuario:', error);
-      this.logout();
-      return of(false);
-    }
+  /**
+   * ¿Hay con qué reintentar una petición que devolvió 401? Evita el bucle
+   * cuando el propio refresh es lo que falló.
+   */
+  canRefresh(): boolean {
+    return !this._refreshing() && this.readRefreshToken() !== null;
   }
 
-  logout() {
-    this._user.set(null);
-    this._token.set(null);
-    this._authStatus.set('not-authenticated');
-    localStorage.clear();
-    this._router.navigate(['/shop/home']);
-  }
-
-  logoutAndReload() {
-    this.logout();
-    setTimeout(() => {
-      location.reload();
-    }, 500);
-  }
-
-  public handleAuthSuccess(user: User, token: string, refreshToken: string) {
+  /**
+   * Establece la sesión en memoria y persiste **solo** el `refreshToken`.
+   * Espeja en `StoreService` porque `JitsiService` (WebSocket) y varios
+   * componentes leen de ahí.
+   */
+  establishSession(user: User, accessToken: string, refreshToken: string): true {
     this._user.set(user);
+    this._token.set(accessToken);
+    this._status.set('authenticated');
 
-    this.storeService.user.next(this._user() as User);
-    this._authStatus.set('authenticated');
-    this._token.set(token);
+    localStorage.setItem(AuthService.REFRESH_TOKEN_KEY, refreshToken);
 
-    localStorage.setItem('user', JSON.stringify(this._user() as User));
-    localStorage.setItem('token', token);
-    localStorage.setItem('refreshToken', refreshToken);
+    this.storeService.user.next(user);
+    this.storeService.tokenSubject.next(accessToken);
+    this.storeService.refreshTokenSubject.next(refreshToken);
 
     return true;
   }
 
-  private handleAuthError(error: IErrorGeneralResp) {
-    this.logout();
+  /**
+   * Limpia el estado de sesión **sin navegar**. Seguro de llamar desde guards
+   * y desde el interceptor: usar `logout()` ahí provoke navegaciones
+   * compitiendo con la que el router ya está resolviendo.
+   */
+  clearSession(): void {
+    this._user.set(null);
+    this._token.set(null);
+    this._status.set('not-authenticated');
+
+    localStorage.removeItem(AuthService.REFRESH_TOKEN_KEY);
+
+    this.storeService.user.next(undefined);
+    this.storeService.tokenSubject.next(null);
+    this.storeService.refreshTokenSubject.next(null);
+    this.storeService.isLoginSubject.next(false);
+  }
+
+  /** Limpia y redirige. Para uso del componente de login y del interceptor. */
+  logout(): void {
+    this.clearSession();
+    void this._router.navigate(['/shop/home']);
+  }
+
+  /**
+   * Credenciales incorrectas: se avisa al usuario y se propaga el error para
+   * que el consumidor decida (marcar el formulario, etc.). **No** se cierra
+   * sesión: un password mal escrito no es una sesión expirada.
+   */
+  private handleLoginError(error: HttpErrorResponse): Observable<never> {
+    const detail = (error.error as IErrorResp | null | undefined)?.detail;
     this._alertService.getAlert(
       'Login',
-      error.error.detail || 'Error al iniciar sesión',
+      detail || 'Error al iniciar sesión',
       'warning',
     );
-    console.log(error);
-
-    return of(false);
+    return throwError(() => error);
   }
 
-  postRegisterBuyerUser(register: IRegisterReq) {
-    return this.http.post(`${baseUrl}/auth/register-buyer`, register);
+  private readRefreshToken(): string | null {
+    const value = localStorage.getItem(AuthService.REFRESH_TOKEN_KEY);
+    return value ? value : null;
   }
 
-  private typeCliente(): boolean {
-    if (this._user()?.role.includes('CLIENT') || !this._user()) {
-      return true;
-    } else {
-      return false;
+  /** Elimina las claves del esquema anterior (token/user persistidos). */
+  private purgeLegacySessionKeys(): void {
+    for (const key of AuthService.LEGACY_SESSION_KEYS) {
+      localStorage.removeItem(key);
     }
   }
 }

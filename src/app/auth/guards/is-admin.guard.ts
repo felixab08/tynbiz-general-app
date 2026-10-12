@@ -1,16 +1,13 @@
 import { inject } from '@angular/core';
-import type { CanMatchFn, Route, UrlSegment } from '@angular/router';
-import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import type { CanMatchFn } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const isAdminGuard: CanMatchFn = async (
-  route: Route,
-  segments: UrlSegment[],
-) => {
-  const authService = inject(AuthService);
-  await firstValueFrom(authService.checkStatus());
-  console.log('authService');
-  console.log(authService.isAdmin());
-  return authService.isAdmin();
-};
+/**
+ * Protege las rutas de administración. Acepta `ADMIN` y `SUPER-ADMIN`
+ * (igualdad estricta sobre la unión `UserRole`, no `includes()`).
+ *
+ * Predicado puro: no muta estado ni navega. Devuelve `true`/`false` y deja que
+ * el router redirija, en lugar de devolver un `UrlTree` desde `canMatch` (esa
+ * combinación encadenaba `NavigationCancelingError`).
+ */
+export const isAdminGuard: CanMatchFn = () => inject(AuthService).isAdmin();

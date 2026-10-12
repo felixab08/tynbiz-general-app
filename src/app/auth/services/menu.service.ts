@@ -1,57 +1,72 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { menuAdmin, menuOwner, menuClient } from '@app/auth/data/menu.data';
+import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  menuAdmin,
+  menuClient,
+  menuClientGuest,
+  menuOwner,
+} from '@app/auth/data/menu.data';
+import { MenuItem } from '@app/auth/interfaces/menu.interface';
+import { UserRole } from '@app/auth/interfaces/user.interface';
 import { StoreService } from '@app/services';
-import { User } from '../interfaces/user.interface';
+
+/** Ruta de inicio de cada rol. El anónimo entra como comprador. */
+export const HOME_LINK_BY_ROLE: Record<UserRole, string> = {
+  ADMIN: '/admin/panel',
+  'SUPER-ADMIN': '/admin/panel',
+  STORE_OWNER: '/stores/init-store',
+  CLIENT: '/shop/home',
+};
+
+export const DEFAULT_HOME_LINK = '/shop/home';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MenuService {
-  private _router = inject(Router);
-  private _storeService = inject(StoreService);
-  private user: User | undefined;
+  private readonly _router = inject(Router);
+  private readonly _storeService = inject(StoreService);
 
-  constructor() {
-    this._storeService.user.subscribe((user) => {
-      this.user = user;
-    });
-  }
+  /**
+   * El usuario vive en `StoreService`; se proyecta a signal con `toSignal`
+   * para que el menú derive de forma reactiva. Antes se cacheaba en un campo
+   * con una suscripción que nunca se cancelaba, lo que dejaba el menú y la
+   * redirección desincronizados tras un logout.
+   */
+  private readonly user = toSignal(this._storeService.user, {
+    initialValue: undefined,
+  });
 
-  createMenuForRole() {
-    if (!this.user) {
-      // this._router.navigate(['/shop/home']);
-      return menuClient.splice(0, 4);
+  /** Menú del rol actual. `computed` para que el template lo lea reactivamente. */
+  readonly menuItems = computed<MenuItem[]>(() => {
+    const role = this.user()?.role;
+
+    if (!role) {
+      return menuClientGuest;
     }
-    switch (this.user?.role) {
+
+    switch (role) {
       case 'ADMIN':
+      case 'SUPER-ADMIN':
         return menuAdmin;
       case 'STORE_OWNER':
         return menuOwner;
       case 'CLIENT':
         return menuClient;
       default:
-        return menuClient.splice(0, 4);
+        return menuClientGuest;
     }
+  });
+
+  /** Ruta a la que debe ir este usuario: la de su rol, o el home si es anónimo. */
+  homeLinkForRole(): string {
+    const role = this.user()?.role;
+    return role ? (HOME_LINK_BY_ROLE[role] ?? DEFAULT_HOME_LINK) : DEFAULT_HOME_LINK;
   }
 
-  redirectLinkForRole() {
-    if (!this.user) {
-      this._router.navigate(['/shop/home']);
-    }
-    switch (this.user?.role) {
-      case 'ADMIN':
-        this._router.navigate(['/admin/panel']);
-        break;
-      case 'STORE_OWNER':
-        this._router.navigate(['/stores/init-store']);
-        break;
-      case 'CLIENT':
-        this._router.navigate(['/shop/home']);
-        break;
-      default:
-        this._router.navigate(['/shop/home']);
-        break;
-    }
+  /** Navega a la home del rol. No recarga la SPA. */
+  redirectLinkForRole(): void {
+    void this._router.navigateByUrl(this.homeLinkForRole());
   }
 }

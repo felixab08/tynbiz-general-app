@@ -1,14 +1,13 @@
 import { inject } from '@angular/core';
-import type { CanMatchFn, Route, UrlSegment } from '@angular/router';
-import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import type { CanMatchFn } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const isClientGuard: CanMatchFn = async (
-  route: Route,
-  segments: UrlSegment[],
-) => {
-  const authService = inject(AuthService);
-  await firstValueFrom(authService.checkStatus());
-  return authService.isClient();
-};
+/**
+ * Protege las rutas exclusivas de `CLIENT` (`favorites`, `your-creation`).
+ *
+ * `isClient()` ya no devuelve `true` para el anónimo: ese caso se expone
+ * aparte como `isAnonymous`. Sin sesión, este guard rechaza.
+ *
+ * Predicado puro: no muta estado ni navega.
+ */
+export const isClientGuard: CanMatchFn = () => inject(AuthService).isClient();

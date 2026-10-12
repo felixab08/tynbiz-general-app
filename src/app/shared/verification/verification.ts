@@ -2,6 +2,7 @@ import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/cor
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/auth/interfaces/user.interface';
 import { AuthService } from '@app/auth/services/auth.service';
+import { MenuService } from '@app/auth/services/menu.service';
 import { VerificationService } from '@app/services/general/verification.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class Verification {
   readonly token = signal<string | null>(null);
   private readonly _verificationSrv = inject(VerificationService);
   private _authService = inject(AuthService);
+  private _menuService = inject(MenuService);
   user = signal<User | null>(null);
 
   constructor() {
@@ -33,14 +35,14 @@ export class Verification {
         next: (response: any) => {
           console.log('Verification successful:', response);
           this.user.set(response.user);
-          this._authService.handleAuthSuccess(
+          // Sin `location.reload()`: `establishSession` actualiza los signals y
+          // `StoreService`, así que la navegación por rol basta.
+          this._authService.establishSession(
             response.user,
             response.accessToken,
             response.refreshToken,
           );
-          setTimeout(() => {
-            location.reload();
-          }, 500);
+          this._menuService.redirectLinkForRole();
         },
         error: (error) => {
           console.error('Verification failed:', error);
