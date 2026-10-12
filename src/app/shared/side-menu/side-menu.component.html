@@ -1,10 +1,28 @@
+<!--
+  Backdrop del menú lateral en móvil. Se renderiza dentro de esta plantilla (y
+  no en `<body>` como hacía el Drawer de Flowbite) para que comparta contexto de
+  apilamiento con los `<aside>`: aquí `z-30` queda por debajo del `z-40` del
+  menú y no intercepta los clics de sus enlaces.
+-->
+@if (isMobile && isSidebarOpen) {
+  <div
+    class="fixed inset-0 z-30 bg-dark-backdrop/70"
+    (click)="closeSidebar()"
+    aria-hidden="true"
+  ></div>
+}
+
 @if (this.user?.role === "CLIENT" || !(user$ | async)) {
   @if (!isProfilePage) {
     <header
       class="fixed top-0 left-0 right-0 z-20 sm:ml-64 items-center justify-between h-14.75 px-4 py-2 transition-colors mt-3"
     >
-      <div class="flex items-center justify-between w-full h-full miax-w-7xl">
-        <div class="flex"></div>
+      <div class="flex items-center justify-end w-full h-full miax-w-7xl">
+        <!--
+          Sin botón hamburguesa a propósito: en pantallas pequeñas los roles
+          CLIENT y anónimo navegan con `nav#bottom-navigation`. El drawer lateral
+          queda reservado para STORE_OWNER y ADMIN (rama de consola).
+        -->
         <div class="w-full sm:w-auto flex items-center justify-between">
           <app-navbar />
         </div>
@@ -14,7 +32,9 @@
   <aside
     id="logo-sidebar"
     #logoSidebar
-    class="fixed top-0 left-0 w-64 transition-transform -translate-x-full sm:translate-x-0 block"
+    class="fixed top-0 left-0 z-40 w-64 transition-transform block sm:translate-x-0"
+    [class.-translate-x-full]="!isSidebarOpen"
+    [attr.aria-hidden]="isMobile && !isSidebarOpen ? 'true' : null"
     aria-label="Sidebar"
   >
     <div
@@ -211,15 +231,17 @@
     >
       <div class="flex items-center justify-between w-full h-full miax-w-7xl">
         <div class="flex">
+          <!-- button hamburger -->
           <button
-            data-drawer-target="logo-sidebar"
-            data-drawer-toggle="logo-sidebar"
+            type="button"
+            (click)="toggleSidebar()"
+            id="drawer-toggle"
+            class="flex sm:hidden items-center text-sm text-gray-700 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
+            [attr.aria-expanded]="isSidebarOpen"
             aria-controls="logo-sidebar"
             #drawerToggle
-            type="button"
-            class="block md:hidden items-center text-sm text-gray-700 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
           >
-            <span class="sr-only">Open sidebar</span>
+            <span class="sr-only">Abrir menu lateral</span>
             <svg
               class="w-6 h-6"
               aria-hidden="true"
@@ -244,7 +266,9 @@
   <aside
     id="logo-sidebar"
     #logoSidebar
-    class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 block"
+    class="fixed top-0 left-0 z-40 w-64 transition-transform block sm:translate-x-0"
+    [class.-translate-x-full]="!isSidebarOpen"
+    [attr.aria-hidden]="isMobile && !isSidebarOpen ? 'true' : null"
     aria-label="Sidebar"
   >
     <div
@@ -373,12 +397,20 @@
   </aside>
 }
 
+<!-- Navegación principal en pantallas pequeñas (`sm:hidden`). Es el sustituto
+  del drawer para CLIENT y anónimo, que por construcción nunca abren el menú
+  lateral (el botón hamburguesa solo existe en la rama STORE_OWNER/ADMIN).
+  Ambas ramas son excluyentes, por eso aquí `isSidebarOpen` siempre es false y
+  el nav puede llevar `z-50` fijo. Enlaces: Inicio, Para ti, Ofertas, Tiendas
+  y Perfil. -->
 @if (
   this.user?.role !== "STORE_OWNER" &&
   this.user?.role !== "ADMIN"
 ) {
   <nav
-    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-00 border-t border-gray-300 dark:border-gray-600 sm:hidden transition-colors"
+    id="bottom-navigation"
+    aria-label="Navegación principal"
+    class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white dark:bg-gray-800 border-t border-gray-300 dark:border-gray-600 sm:hidden transition-colors"
   >
     <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
       <a

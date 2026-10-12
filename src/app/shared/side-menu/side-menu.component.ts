@@ -3,6 +3,7 @@ import {
   inject,
   ViewChild,
   ElementRef,
+  OnInit,
   AfterViewInit,
   OnDestroy,
   HostListener,
@@ -13,7 +14,9 @@ import {
   RouterLink,
   RouterOutlet,
   RouterLinkActive,
+  NavigationEnd,
 } from '@angular/router';
+import { Subscription, filter } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services/store.service';
@@ -24,7 +27,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { MenuService } from '@app/auth/services/menu.service';
 import { ModalComponent } from '../modal/modal.component';
 import { CreateInteraction } from '../create-interaction/create-interaction';
-import { initDrawers } from 'flowbite';
+import { initCollapses } from 'flowbite';
 import { LoginComponent } from '../login/login.component';
 
 @Component({
@@ -43,7 +46,12 @@ import { LoginComponent } from '../login/login.component';
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './side-menu.component.html',
 })
-export class SideMenuComponent implements AfterViewInit, OnDestroy {
+export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
+  /** Breakpoint `sm` de Tailwind (640px). Debe coincidir con el
+   *  `sm:translate-x-0` de los `<aside>`: por debajo el menú es un drawer,
+   *  por encima es fijo y no se oculta. */
+  private static readonly MOBILE_BREAKPOINT = 640;
+
   storeService = inject(StoreService);
   _authService = inject(AuthService);
   _menuService = inject(MenuService);
@@ -53,34 +61,50 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
   user$ = this.storeService.user.asObservable();
   public isLogin: boolean = false;
 
-  get isProfilePage(): boolean {
-    return this._router.url.includes('/shop/profile');
-  }
+  /** true en viewports menores a `sm`, donde el `<aside>` se comporta como drawer. */
+  public isMobile: boolean =
+    window.innerWidth < SideMenuComponent.MOBILE_BREAKPOINT;
 
-  @ViewChild('drawerToggle')
-  drawerToggle!: ElementRef<HTMLButtonElement>;
-
-  @ViewChild('logoSidebar')
-  logoSidebar!: ElementRef<HTMLElement>;
+  /** Estado del drawer del menú lateral.
+   *
+   * Solo aplica a STORE_OWNER y ADMIN, que son los únicos roles con botón
+   * hamburguesa. CLIENT y anónimo navegan en móvil con `nav#bottom-navigation`.
+   *
+   * Lo controla Angular en lugar del `Drawer` de Flowbite. Ese componente
+   * inyectaba el backdrop como hijo de `<body>` con la clase fija
+   * `bg-dark-backdrop/70 fixed inset-0 z-30`. Como `.side-init`
+   * (`isolation: isolate` + `z-1`) y `app-side-menu` (`relative` + `z-2`)
+   * crean contextos de apilamiento propios, el `<aside>` (`z-40`) nunca podía
+   * competir con ese `z-30` de nivel raíz: quedaba por debajo del backdrop y
+   * sus enlaces no recibían los clics. Al renderizar el backdrop dentro de esta
+   * plantilla ambos comparten contexto, y `z-30` < `z-40` resuelve correcto. */
+  public isSidebarOpen: boolean = false;
 
   public isOpen: boolean = false;
   public isScrolled: boolean = false;
 
-  private _observer!: MutationObserver;
+  @ViewChild('drawerToggle')
+  drawerToggle?: ElementRef<HTMLButtonElement>;
+
+  @ViewChild('logoSidebar')
+  logoSidebar?: ElementRef<HTMLElement>;
 
   public user: User | undefined;
+
+  private _routerSub?: Subscription;
+
   constructor() {
     this.storeService.user.subscribe((user) => {
       this.user = user;
-      if (this.user) {
-        this.menuItemsAll = this._menuService.createMenuForRole();
-      } else {
-        this.menuItemsAll = this._menuService.createMenuForRole();
-      }
+      this.menuItemsAll = this._menuService.createMenuForRole();
     });
     this.storeService.isLoginSubject.subscribe((isLoggedIn) => {
       this.isLogin = isLoggedIn;
     });
+  }
+
+  get isProfilePage(): boolean {
+    return this._router.url.includes('/shop/profile');
   }
 
   openLoginModal() {
@@ -101,58 +125,61 @@ export class SideMenuComponent implements AfterViewInit, OnDestroy {
     this.isScrolled = window.scrollY > 0;
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    if (
-      target &&
-      target.hasAttribute &&
-      target.hasAttribute('drawer-backdrop')
-    ) {
-      setTimeout(() => {
-        const backdrops = document.querySelectorAll('[drawer-backdrop]');
-        backdrops.forEach((el) => el.remove());
-      }, 0);
+  ngOnInit(): void {
+    // Al navegar se cierra el menú: en móvil el drawer se quedaba abierto
+    // encima de la página y tapaba el contenido.
+    this._routerSub = this._router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      )
+      .subscribe(() => this.closeSidebar());
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  closeSidebar(): void {
+    if (!this.isSidebarOpen) return;
+    this.isSidebarOpen = false;
+
+    // Si el foco estaba dentro del menú, vuelve al botón que lo abrió para que
+    // no quede en un enlace invisible tras el `-translate-x-full`.
+    const sidebarEl = this.logoSidebar?.nativeElement;
+    const active = document.activeElement as HTMLElement | null;
+    if (sidebarEl && active && sidebarEl.contains(active)) {
+      this.drawerToggle?.nativeElement.focus();
     }
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    const isMobile = window.innerWidth < SideMenuComponent.MOBILE_BREAKPOINT;
+    if (isMobile === this.isMobile) return;
+    this.isMobile = isMobile;
+    // Al pasar a escritorio el `<aside>` siempre está visible: el drawer se cierra.
+    this.closeSidebar();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    this.closeSidebar();
   }
 
   ngAfterViewInit(): void {
     try {
-      initDrawers();
-
-      const sidebarEl = this.logoSidebar?.nativeElement;
-      const toggleBtn = this.drawerToggle?.nativeElement;
-      if (!sidebarEl || !toggleBtn) return;
-
-      this._observer = new MutationObserver(() => {
-        const hiddenByAria = sidebarEl.getAttribute('aria-hidden') === 'true';
-        const hiddenByClass = sidebarEl.classList.contains('-translate-x-full');
-        const hidden = hiddenByAria || hiddenByClass;
-        const active = document.activeElement as HTMLElement | null;
-
-        if (hidden && active && sidebarEl.contains(active)) {
-          toggleBtn.focus();
-        }
-      });
-
-      this._observer.observe(sidebarEl, {
-        attributes: true,
-        attributeFilter: ['class', 'aria-hidden'],
-      });
+      // Los submenús (`data-collapse-toggle`) siguen usando Flowbite.
+      // `initDrawers()` ya no se usa: el drawer del menú lo maneja Angular.
+      initCollapses();
     } catch (e) {
-      console.warn('SideMenu: could not attach MutationObserver', e);
+      console.warn('SideMenu: could not init collapses', e);
     }
   }
 
   ngOnDestroy(): void {
-    try {
-      this._observer?.disconnect();
-      const backdrops = document.querySelectorAll('[drawer-backdrop]');
-      backdrops.forEach((el) => el.remove());
-    } catch (e) {
-      // ignore
-    }
+    this._routerSub?.unsubscribe();
   }
+
   closeModal() {
     this.isOpen = false;
   }

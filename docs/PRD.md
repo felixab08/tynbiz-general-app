@@ -268,6 +268,23 @@ Prioridad: **P0** = crítico para operar · **P1** = importante · **P2** = dese
 | RF-PLT-06 | Confirmación global antes de todo `DELETE` (modal compartido), con opt-out por `?noConfirm`.                                                                                      | P0        | Hecho                                                                                                                         |
 | RF-PLT-07 | Navegación de listas por query params de URL (página, tamaño, búsqueda, estado, fechas) — enlaces compartibles y refresco preserva filtros.                                       | P0        | Hecho                                                                                                                         |
 
+### 7.7 Navegación y shell por rol (`side-menu`)
+
+La navegación principal cambia según **rol** y **viewport**. El punto de corte es el breakpoint `sm` de Tailwind (640 px) y debe coincidir entre el CSS y la lógica del componente.
+
+| ID | Requisito | Prioridad | Estado |
+|---|---|---|---|
+| RF-NAV-01 | **Botón hamburguesa sólo para `STORE_OWNER` y `ADMIN`.** Es el único disparador del drawer lateral. En móvil no se renderiza para `CLIENT` ni para el usuario anónimo. | P0 | Hecho |
+| RF-NAV-02 | **`nav#bottom-navigation` para `CLIENT` y anónimo en móvil.** Barra fija inferior (`sm:hidden`) con 5 destinos: Inicio, Para ti, Ofertas, Tiendas y Perfil. Lleva `aria-label="Navegación principal"`. Es el sustituto del drawer para esos roles. | P0 | Hecho |
+| RF-NAV-03 | **El drawer lateral sólo aplica en `sm` y por debajo** (`< 640 px`). Por encima del breakpoint el `<aside>` es fijo y visible (`sm:translate-x-0`), sin backdrop y sin botón hamburguesa. | P0 | Hecho |
+| RF-NAV-04 | Las ramas son **excluyentes por construcción**: o hay hamburguesa + drawer (`STORE_OWNER`/`ADMIN`), o hay `nav#bottom-navigation` (resto de roles). Ningún rol ve ambos a la vez en móvil. | P0 | Hecho |
+| RF-NAV-05 | El drawer se cierra al navegar (`NavigationEnd`), con `Escape`, al tocar el backdrop y al pasar a escritorio; el foco vuelve al botón hamburguesa. | P0 | Hecho |
+| RF-NAV-06 | El backdrop del drawer se renderiza **dentro del template de `side-menu`**, no inyectado en `<body>`, para que comparta contexto de apilamiento con el `<aside>` (`z-30` < `z-40`) y no intercepte los clics del menú. | P0 | Hecho |
+| RF-NAV-07 | En escritorio el menú lateral se muestra para todos los roles (comprador, tienda y admin). | P0 | Hecho |
+| RF-NAV-08 | Unificar el rol `SUPER-ADMIN`: hoy no coincide con ninguna rama de `<aside>` (`role === 'ADMIN' \|\| role === 'STORE_OWNER'`), por lo que un superadmin **no ve sidebar ni hamburguesa** y sí recibe `nav#bottom-navigation`. | P1 | **[HUECO]** ver RF-AUT-09 |
+
+> **Contrato de `z-index` del shell** (previene la regresión del backdrop): dentro del contexto de apilamiento de `app-side-menu`, `backdrop z-30` < `aside z-40` < `modal z-800` < `alert z-999`. El `header` va en `z-20` y la barra inferior en `z-50`, ambos por debajo del backdrop mientras el drawer esté abierto.
+
 ---
 
 ## 8. Modelo de datos (entidades principales)
@@ -370,7 +387,7 @@ Entidades clave extraídas de `src/app/interfaces/**`. **Los payloads del backen
 | RNF-04 | CI                     | Push a `main` → build de producción → despliegue a GitHub Pages (`gh-pages`) con Node 24.19.0. Sin staging, sin preview, sin puerta de calidad.                                                                                                                   | Parcial                           |
 | RNF-05 | Entornos               | Variables de URL **hardcodeadas** en `src/environments/*.ts`; ambos archivos apuntan a producción. Sin carga por variables de entorno.                                                                                                                            | Brecha                            |
 | RNF-06 | Seguridad              | Interceptores en orden: (1) `isLoginInterceptor` (401 → logout+reload), (2) `authInterceptor` (Bearer, exento R2), (3) `confirmDeleteInterceptor` (todo DELETE pide confirmación).                                                                                | Cumple                            |
-| RNF-07 | Responsive             | Sidebar de escritorio + barra inferior en móvil (Inicio / Para ti / Ofertas / Tiendas / Perfil).                                                                                                                                                                  | Cumple                            |
+| RNF-07 | Responsive             | Navegación adaptada por rol y viewport (ver RF-NAV-01/02/03).                                                                                                                                        | Cumple                            |
 | RNF-08 | Accesibilidad          | Sidebar de consola con `MutationObserver` que ajusta el foco de enlaces; foco visible en botones.                                                                                                                                                                 | Parcial                           |
 | RNF-09 | Rendimiento            | TanStack Query en productos (`staleTime` 5 min + prefetch); `outputHashing: all`. Presupuesto de estilos 8 kB/componente.                                                                                                                                         | Parcial (1 de N servicios)        |
 | RNF-10 | Estado global          | `StoreService` como store manual (`BehaviorSubject`/`EventEmitter`) + signals en `AuthService`/`AlertService`. Preferencia: extender `StoreService`.                                                                                                              | Cumple                            |
@@ -428,7 +445,15 @@ Marca índigo/violeta ("morado") sobre base **crema** (`#faf8f2`) para la superf
 
 `alert` · `pagination` · `filter` · `search` (keyword + categoría + cascada ubigeo) · `title` · `stores-card` · `product-detail-card` · `creation-card` · `carousel-products-creation` · `chart-grafic` · `simple-card` · `info-card` · `condition-modal` · `pdfupload` · `warning-modal` · `success-modal` · `change-password` · `verific-account` · `create-user-form` · `jitsi`.
 
-Shell de la app: `side-menu` (3 ramas por rol + barra inferior móvil + modales globales) y `navbar` (campana de notificaciones, menú de usuario).
+Shell de la app: `side-menu` (3 ramas por rol + `nav#bottom-navigation` para móvil + drawer con backdrop propio + modales globales) y `navbar` (campana de notificaciones, menú de usuario).
+
+**Navegación por rol y viewport** (ver RF-NAV-01…08):
+
+| Contexto | Navegación lateral | Navegación móvil |
+|---|---|---|
+| `STORE_OWNER` / `ADMIN` | `<aside id="logo-sidebar">` fijo en escritorio, drawer en `< 640px` | Botón hamburguesa + drawer con backdrop |
+| `CLIENT` / anónimo | `<aside id="logo-sidebar">` fijo en escritorio | `nav#bottom-navigation` (barra inferior fija, `sm:hidden`) |
+| `SUPER-ADMIN` | **[HUECO]** sin sidebar (no matchea ninguna rama) | `nav#bottom-navigation` (heredado por defecto) |
 
 ### 12.5 Patrones de interacción
 
