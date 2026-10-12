@@ -35,12 +35,12 @@
         </ul>
       </div>
 
-      <div *ngIf="selectedTab === 'selectProfile'">
+      @if (selectedTab === 'selectProfile') {
         <tyn-profile [user]="user"></tyn-profile>
-      </div>
-      <div *ngIf="selectedTab === 'selectPrivacity'">
+      }
+      @if (selectedTab === 'selectPrivacity') {
         <tyn-security-privacity />
-      </div>
+      }
     </div>
   </div>
 </div>
