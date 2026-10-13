@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   ElementRef,
   HostListener,
   inject,
@@ -29,7 +30,6 @@ import { CommonModule, NgClass } from '@angular/common';
 import { MenuService } from '@app/auth/services/menu.service';
 import { ModalComponent } from '../modal/modal.component';
 import { CreateInteraction } from '../create-interaction/create-interaction';
-import { initCollapses } from 'flowbite';
 import { LoginComponent } from '../login/login.component';
 
 @Component({
@@ -125,6 +125,37 @@ export class SideMenuComponent implements OnInit {
   /** Anónimo o `CLIENT`: en móvil navega con `nav#bottom-navigation`. */
   readonly usesBottomNav = computed(() => !this.isConsoleRole());
 
+  /**
+   * Id del submenú expandido, o `null` si todos están cerrados.
+   *
+   * El estado vive en Angular, no en Flowbite. `initCollapses()` recorre el
+   * DOM una sola vez looking for `[data-collapse-toggle]`, así que fallaba en
+   * dos casos:
+   *
+   * 1. Se llamaba en `ngOnInit`, antes de que existiera el markup (los bloques
+   *    `@if` se evalúan después).
+   * 2. Tras un login **sin** `location.reload()` el rol cambia, se crea una rama
+   *    `@if` nueva con triggers vírgenes que nadie volvía a enlazar.
+   *
+   * Con signals no hay acoplamiento al ciclo de renderizado.
+   */
+  readonly expandedMenuId = signal<string | null>(null);
+
+  toggleSubmenu(menuId: string): void {
+    this.expandedMenuId.update((current) =>
+      current === menuId ? null : menuId,
+    );
+  }
+
+  isSubmenuExpanded(menuId: string): boolean {
+    return this.expandedMenuId() === menuId;
+  }
+
+  /** Colapsa todos los submenús (al cambiar de rol o al navegar). */
+  collapseAllSubmenus(): void {
+    this.expandedMenuId.set(null);
+  }
+
   constructor() {
     this.storeService.user
       .pipe(takeUntilDestroyed())
@@ -205,20 +236,17 @@ export class SideMenuComponent implements OnInit {
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         takeUntilDestroyed(this._destroyRef),
       )
-      .subscribe(() => this.closeSidebar());
+      .subscribe(() => {
+        this.closeSidebar();
+        // Un submenú abierto deja de tener sentido al cambiar de sección.
+        this.collapseAllSubmenus();
+      });
 
-    /**
-     * Los submenús (`data-collapse-toggle`) siguen usando Flowbite.
-     * `initDrawers()` ya no se usa: el drawer del menú lo maneja Angular.
-     *
-     * `initCollapses()` enlaza por selector, así que basta con que el markup
-     * esté en el DOM; no requiere esperar al view init.
-     */
-    try {
-      initCollapses();
-    } catch (e) {
-      console.warn('SideMenu: could not init collapses', e);
-    }
+    // Al cambiar de rol el menú se reconstruye: no dejamos un id huérfano expandido.
+    effect(() => {
+      this.menuItems();
+      this.collapseAllSubmenus();
+    });
   }
 
   closeModal() {

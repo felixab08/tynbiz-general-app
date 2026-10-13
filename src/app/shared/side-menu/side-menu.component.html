@@ -58,7 +58,7 @@
                 [routerLink]="menu.route"
                 routerLinkActive
                 #rla="routerLinkActive"
-                [routerLinkActiveOptions]="{ exact: true }"
+                [routerLinkActiveOptions]="{ exact: false }"
                 class="flex items-center p-2 rounded transition-colors"
                 [ngClass]="{
                   'bg-primary text-white font-bold': rla.isActive,
@@ -76,7 +76,8 @@
                 type="button"
                 class="flex items-center w-full p-2 text-base text-black dark:text-gray-300 transition duration-75 rounded group hover:bg-secondary hover:text-primary-dark"
                 [attr.aria-controls]="menu.id"
-                [attr.data-collapse-toggle]="menu.id"
+                [attr.aria-expanded]="isSubmenuExpanded(menu.id)"
+                (click)="toggleSubmenu(menu.id)"
               >
                 <i [class]="menu.icon"></i>
                 <span
@@ -84,7 +85,8 @@
                   >{{ menu.name }}</span
                 >
                 <svg
-                  class="w-3 h-3"
+                  class="w-3 h-3 transition-transform"
+                  [class.rotate-180]="isSubmenuExpanded(menu.id)"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -99,14 +101,18 @@
                   />
                 </svg>
               </button>
-              <ul [id]="menu.id" class="hidden py-2 space-y-2">
+              <ul
+                [id]="menu.id"
+                class="py-2 space-y-2"
+                [class.hidden]="!isSubmenuExpanded(menu.id)"
+              >
                 @for (item of menu.children; track item.name) {
                   <li>
                     <a
                       [routerLink]="item.route"
                       routerLinkActive
                       #rlaChild="routerLinkActive"
-                      [routerLinkActiveOptions]="{ exact: true }"
+                      [routerLinkActiveOptions]="{ exact: false }"
                       class="flex items-center p-2 rounded transition-colors"
                       [ngClass]="{
                         'bg-primary text-white font-bold': rlaChild.isActive,
@@ -286,7 +292,7 @@
                 [routerLink]="menu.route"
                 routerLinkActive
                 #rla="routerLinkActive"
-                [routerLinkActiveOptions]="{ exact: true }"
+                [routerLinkActiveOptions]="{ exact: false }"
                 class="flex items-center p-2 rounded transition-colors"
                 [ngClass]="{
                   'bg-primary text-white font-bold': rla.isActive,
@@ -304,7 +310,8 @@
                 type="button"
                 class="flex items-center w-full p-2 text-base text-black dark:text-gray-300 transition duration-75 rounded group hover:bg-secondary hover:text-primary-dark"
                 [attr.aria-controls]="menu.id"
-                [attr.data-collapse-toggle]="menu.id"
+                [attr.aria-expanded]="isSubmenuExpanded(menu.id)"
+                (click)="toggleSubmenu(menu.id)"
               >
                 <i [class]="menu.icon"></i>
                 <span
@@ -312,7 +319,8 @@
                   >{{ menu.name }}</span
                 >
                 <svg
-                  class="w-3 h-3"
+                  class="w-3 h-3 transition-transform"
+                  [class.rotate-180]="isSubmenuExpanded(menu.id)"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -327,14 +335,18 @@
                   />
                 </svg>
               </button>
-              <ul [id]="menu.id" class="hidden py-2 space-y-2">
+              <ul
+                [id]="menu.id"
+                class="py-2 space-y-2"
+                [class.hidden]="!isSubmenuExpanded(menu.id)"
+              >
                 @for (item of menu.children; track item.name) {
                   <li>
                     <a
                       [routerLink]="item.route"
                       routerLinkActive
                       #rlaChild="routerLinkActive"
-                      [routerLinkActiveOptions]="{ exact: true }"
+                      [routerLinkActiveOptions]="{ exact: false }"
                       class="flex items-center p-2 rounded transition-colors"
                       [ngClass]="{
                         'bg-primary text-white font-bold': rlaChild.isActive,
