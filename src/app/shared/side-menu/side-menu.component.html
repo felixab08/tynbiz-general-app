@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   Backdrop del menú lateral en móvil. Se renderiza dentro de esta plantilla (y
   no en `<body>` como hacía el Drawer de Flowbite) para que comparta contexto de
   apilamiento con los `<aside>`: aquí `z-30` queda por debajo del `z-40` del
@@ -41,8 +41,8 @@
       class="h-full px-3 py-4 overflow-y-auto rounded bg-white dark:bg-gray-800 transition-colors mt-3 mx-3"
     >
       <a
-        class="flex items-center justify-start mb-5"
-        (click)="_menuService.redirectLinkForRole()"
+        class="flex items-center justify-start mb-5 cursor-pointer"
+        (click)="onLogoClick()"
       >
         <img
           src="./assets/svg/ImagotipoTynbizBlanco.svg"
@@ -51,11 +51,13 @@
         />
       </a>
       <ul class="space-y-2 font-medium">
+        <!-- menu principal -->
         @for (menu of menuItems(); track menu.id) {
           @if (menu.route.length >= 2) {
             <li>
               <a
                 [routerLink]="menu.route"
+                (click)="collapseAllSubmenus()"
                 routerLinkActive
                 #rla="routerLinkActive"
                 [routerLinkActiveOptions]="{ exact: false }"
@@ -106,6 +108,7 @@
                 class="py-2 space-y-2"
                 [class.hidden]="!isSubmenuExpanded(menu.id)"
               >
+                <!-- sub menu -->
                 @for (item of menu.children; track item.name) {
                   <li>
                     <a
@@ -275,8 +278,8 @@
       class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800 transition-colors"
     >
       <a
-        class="flex items-center justify-start mb-5"
-        (click)="_menuService.redirectLinkForRole()"
+        class="flex items-center justify-start mb-5 cursor-pointer"
+        (click)="onLogoClick()"
       >
         <img
           src="./assets/svg/ImagotipoTynbizBlanco.svg"
@@ -290,6 +293,7 @@
             <li>
               <a
                 [routerLink]="menu.route"
+                (click)="collapseAllSubmenus()"
                 routerLinkActive
                 #rla="routerLinkActive"
                 [routerLinkActiveOptions]="{ exact: false }"

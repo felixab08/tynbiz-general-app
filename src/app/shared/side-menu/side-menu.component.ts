@@ -24,6 +24,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '@app/auth/services/auth.service';
 import { StoreService } from '@app/services/store.service';
 import { User } from '@app/auth/interfaces/user.interface';
+import { MenuItem } from '@app/auth/interfaces/menu.interface';
 import { AlertComponent } from '@app/components/alert/alert.component';
 import { AlertService } from '@app/services/alert.service';
 import { CommonModule, NgClass } from '@angular/common';
@@ -151,9 +152,54 @@ export class SideMenuComponent implements OnInit {
     return this.expandedMenuId() === menuId;
   }
 
-  /** Colapsa todos los submenús (al cambiar de rol o al navegar). */
+  /** Colapsa todos los submenús (al cambiar de rol o al seleccionar otro menú principal). */
   collapseAllSubmenus(): void {
     this.expandedMenuId.set(null);
+  }
+
+  onLogoClick(): void {
+    this.collapseAllSubmenus();
+    this._menuService.redirectLinkForRole();
+  }
+
+  private isRouteMatching(currentUrl: string, targetRoute: string): boolean {
+    if (!targetRoute) return false;
+    const cleanUrl = currentUrl.split('?')[0].split('#')[0].replace(/\/+$/, '');
+    const cleanTarget = targetRoute.split('?')[0].split('#')[0].replace(/\/+$/, '');
+    return cleanUrl === cleanTarget || cleanUrl.startsWith(cleanTarget + '/');
+  }
+
+  private findMenuByChildRoute(url: string): MenuItem | undefined {
+    return this.menuItems().find((m) =>
+      m.children?.some((child) => this.isRouteMatching(url, child.route)),
+    );
+  }
+
+  /**
+   * Sincroniza el submenú abierto según la navegación:
+   * - Si la ruta pertenece al submenú actual, lo mantiene abierto.
+   * - Si la ruta pertenece a otro submenú, expande el nuevo submenú.
+   * - Si la ruta pertenece a un menú principal directo, colapsa el submenú.
+   */
+  private updateSubmenuOnNavigation(url: string): void {
+    const currentExpandedId = this.expandedMenuId();
+
+    if (currentExpandedId) {
+      const currentMenu = this.menuItems().find((m) => m.id === currentExpandedId);
+      const isChildActive = currentMenu?.children?.some((child) =>
+        this.isRouteMatching(url, child.route),
+      );
+
+      if (!isChildActive) {
+        const matchingMenu = this.findMenuByChildRoute(url);
+        this.expandedMenuId.set(matchingMenu ? matchingMenu.id : null);
+      }
+    } else {
+      const matchingMenu = this.findMenuByChildRoute(url);
+      if (matchingMenu) {
+        this.expandedMenuId.set(matchingMenu.id);
+      }
+    }
   }
 
   constructor() {
@@ -229,23 +275,27 @@ export class SideMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Al navegar se cierra el menú: en móvil el drawer se quedaba abierto
-    // encima de la página y tapaba el contenido.
+    this.updateSubmenuOnNavigation(this._router.url);
+
+    // Al navegar se cierra el drawer en móvil, pero el submenú solo se colapsa
+    // si salimos de su sección hacia otra opción del menú principal.
     this._router.events
       .pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
         takeUntilDestroyed(this._destroyRef),
       )
-      .subscribe(() => {
+      .subscribe((event) => {
         this.closeSidebar();
-        // Un submenú abierto deja de tener sentido al cambiar de sección.
-        this.collapseAllSubmenus();
+        this.updateSubmenuOnNavigation(event.urlAfterRedirects || event.url);
       });
 
-    // Al cambiar de rol el menú se reconstruye: no dejamos un id huérfano expandido.
+    // Al cambiar de rol el menú se reconstruye: si el submenú actual ya no existe, lo colapsamos.
     effect(() => {
-      this.menuItems();
-      this.collapseAllSubmenus();
+      const items = this.menuItems();
+      const currentId = this.expandedMenuId();
+      if (currentId && !items.some((m) => m.id === currentId)) {
+        this.collapseAllSubmenus();
+      }
     });
   }
 
