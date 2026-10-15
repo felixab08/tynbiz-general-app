@@ -1,9 +1,7 @@
   <div class="mb-6">
     <h1 class="text-2xl font-semibold">Información de tienda</h1>
   </div>
-<div
-  class="p-4 md:p-8 bg-white dark:bg-gray-600 rounded-lg relative shadow-lg border border-gray-300 overflow-x-auto max-w-2xl"
->
+
   @if (userStore()) {
     <div class="mb-6">
       <h2 class="font-bold">Nombre empresa:</h2>
@@ -71,7 +69,6 @@
       <!--Fin Logo upload -->
     </div>
   }
-</div>
 
 <app-modal [isOpen]="isOpen" (closeModal)="closeModal()">
   <form

@@ -1,61 +1,55 @@
-<div
-  class="flex flex-col min-h-screen p-4 shadow-md m-4 rounded-lg dark:bg-gray-700 dark:border-gray-700"
->
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
-      Gestión de políticas
-    </h1>
-  </div>
-  <p>
-    Las políticas se crearán para la plataforma principal y para todas las
-    tiendas virtuales. Estas políticas respaldarán a los usuarios que usan la
-    plataforma tynbiz y a las tiendas
-  </p>
-  <div class="mb-4">
-    <ul class="tab" role="tablist">
-      <li class="md:me-2" role="documents">
-        <button
-          (click)="selectedTab = 'Políticas de privacidad'"
-          [ngClass]="
-            selectedTab === 'Políticas de privacidad'
-              ? 'tab-active'
-              : 'tab-inactive'
-          "
-          type="button"
-          role="tab"
-        >
-          Políticas de privacidad
-        </button>
-      </li>
-      <li class="md:me-2" role="documents">
-        <button
-          (click)="selectedTab = 'Términos de servicio'"
-          [ngClass]="
-            selectedTab === 'Términos de servicio'
-              ? 'tab-active'
-              : 'tab-inactive'
-          "
-          type="button"
-          role="tab"
-        >
-          Términos de servicio
-        </button>
-      </li>
-    </ul>
-  </div>
-
-  @if (selectedTab === "Términos de servicio") {
-    <tyn-pdfupload
-      [titlePolitic]="'Términos de servicio'"
-      [filesResp]="filesResp()"
-      [typeDoc]="'TERMS_OF_SERVICE'"
-    />
-  }
-  @if (selectedTab === "Políticas de privacidad") {
-    <tyn-pdfupload
-      [titlePolitic]="'Políticas de privacidad'"
-      [filesResp]="filesResp()"
-      [typeDoc]="'PRIVACY_POLICY'"
-    />
-  }
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+    Gestión de políticas
+  </h1>
 </div>
+<p>
+  Las políticas se crearán para la plataforma principal y para todas las tiendas
+  virtuales. Estas políticas respaldarán a los usuarios que usan la plataforma
+  tynbiz y a las tiendas
+</p>
+<div class="mb-4">
+  <ul class="tab" role="tablist">
+    <li class="md:me-2" role="documents">
+      <button
+        (click)="selectedTab = 'Políticas de privacidad'"
+        [ngClass]="
+          selectedTab === 'Políticas de privacidad'
+            ? 'tab-active'
+            : 'tab-inactive'
+        "
+        type="button"
+        role="tab"
+      >
+        Políticas de privacidad
+      </button>
+    </li>
+    <li class="md:me-2" role="documents">
+      <button
+        (click)="selectedTab = 'Términos de servicio'"
+        [ngClass]="
+          selectedTab === 'Términos de servicio' ? 'tab-active' : 'tab-inactive'
+        "
+        type="button"
+        role="tab"
+      >
+        Términos de servicio
+      </button>
+    </li>
+  </ul>
+</div>
+
+@if (selectedTab === "Términos de servicio") {
+  <tyn-pdfupload
+    [titlePolitic]="'Términos de servicio'"
+    [filesResp]="filesResp()"
+    [typeDoc]="'TERMS_OF_SERVICE'"
+  />
+}
+@if (selectedTab === "Políticas de privacidad") {
+  <tyn-pdfupload
+    [titlePolitic]="'Políticas de privacidad'"
+    [filesResp]="filesResp()"
+    [typeDoc]="'PRIVACY_POLICY'"
+  />
+}

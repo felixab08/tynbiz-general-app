@@ -5,7 +5,8 @@ import { RouterOutlet } from '@angular/router';
   selector: 'tyz-admin',
   imports: [RouterOutlet],
   changeDetection: ChangeDetectionStrategy.Eager,
-  template:
-    '<div class="body-primary"> <div class="body-secondary"> <router-outlet /> </div> </div>',
+  template: `<div class="body-primary">
+    <div class="body-secondary"><router-outlet /></div>
+  </div>`,
 })
 export default class AdminComponent {}
