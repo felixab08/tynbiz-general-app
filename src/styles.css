@@ -117,7 +117,7 @@
     @apply relative overflow-x-auto sm:rounded-lg px-4 lg:px-10 py-12 md:m-4 mt-4 md:mt-1;
   }
   .body-primary {
-    @apply relative overflow-x-auto md:shadow-md sm:rounded-lg px-4 lg:px-10 py-12 bg-white dark:bg-gray-800 dark:text-white mx-0 sm:mx-2 md:mx-5 lg:mx-20 xl:mx-40 2xl:mx-60 ;
+    @apply relative overflow-x-auto md:shadow-md sm:rounded-lg px-4 lg:px-10 py-12 bg-white dark:bg-gray-800 dark:text-white mx-0 sm:mx-2 md:mx-5 lg:mx-20 xl:mx-40 2xl:mx-50 ;
   }
 
   .body-secondary {
