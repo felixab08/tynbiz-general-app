@@ -130,7 +130,7 @@ export class SideMenuComponent implements OnInit {
    * Id del submenú expandido, o `null` si todos están cerrados.
    *
    * El estado vive en Angular, no en Flowbite. `initCollapses()` recorre el
-   * DOM una sola vez looking for `[data-collapse-toggle]`, así que fallaba en
+   * DOM una sola vez buscando `[data-collapse-toggle]`, así que fallaba en
    * dos casos:
    *
    * 1. Se llamaba en `ngOnInit`, antes de que existiera el markup (los bloques
@@ -156,6 +156,23 @@ export class SideMenuComponent implements OnInit {
   collapseAllSubmenus(): void {
     this.expandedMenuId.set(null);
   }
+
+  /**
+   * Al cambiar de rol el menú se reconstruye: si el submenú abierto ya no
+   * existe en la nueva lista, lo colapsamos para no dejar un id huérfano.
+   *
+   * Va como inicializador de campo, no en `ngOnInit`: `effect()` exige un
+   * contexto de inyección y en un hook del ciclo de vida lanza NG0203
+   * ("effect() can only be used within an injection context"). El build no lo
+   * detecta porque solo comprueba tipos y templates.
+   */
+  private readonly collapseOrphanedSubmenu = effect(() => {
+    const items = this.menuItems();
+    const currentId = this.expandedMenuId();
+    if (currentId && !items.some((m) => m.id === currentId)) {
+      this.collapseAllSubmenus();
+    }
+  });
 
   onLogoClick(): void {
     this.collapseAllSubmenus();
@@ -288,15 +305,6 @@ export class SideMenuComponent implements OnInit {
         this.closeSidebar();
         this.updateSubmenuOnNavigation(event.urlAfterRedirects || event.url);
       });
-
-    // Al cambiar de rol el menú se reconstruye: si el submenú actual ya no existe, lo colapsamos.
-    effect(() => {
-      const items = this.menuItems();
-      const currentId = this.expandedMenuId();
-      if (currentId && !items.some((m) => m.id === currentId)) {
-        this.collapseAllSubmenus();
-      }
-    });
   }
 
   closeModal() {
