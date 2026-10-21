@@ -28,6 +28,7 @@ export class PaginationComponent {
   currentSearchTerm = input<string>(''); // Busqueda por termino
   currentDateStartValue = input<string>(''); // Fecha inicial del filtro
   currentDateEndValue = input<string>(''); // Fecha final del filtro
+  pageSizeOptions = input<number[]>([10, 25, 50, 100]); // Opciones de tamaño de página
 
   itemsPage = signal(10);
 
@@ -87,7 +88,7 @@ export class PaginationComponent {
 
   // TODO: mirar cuando se tiene mas datos
   getSizeList = computed(() => {
-    const sizes = [10, 25, 50, 100];
+    const sizes = this.pageSizeOptions();
     return [
       10,
       ...sizes.filter(
